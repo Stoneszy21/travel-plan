@@ -56,7 +56,11 @@ window.TRIP_GUIDES = {
       day: '11/13',
       options: [
         { mode: '自驾', time: '约 3 小时', cost: '油费 $25 上下（车另算）', detail: 'I-95 北上 → FL-91 Turnpike，全程高速。19:30 出发约 22:30–23:00 到。夜里车少，服务区也少，出发前加满油。' },
-        { mode: 'Brightline 火车', time: '约 3 小时', cost: '$40–90/人（提前买更便宜）', detail: '劳德代尔堡站在市中心（NW 2nd Ave），奥兰多站在 MCO 机场 C 航站楼，到市区还要再打车 25 分钟。⚠️ 今晚 18:35 落地赶不上末班车，这条只适合白天走。' },
+        { mode: 'Brightline 火车', time: '约 3 小时', cost: '$40–90/人（提前买更便宜）', detail: '劳德代尔堡站在市中心（NW 2nd Ave），奥兰多站在 MCO 机场 C 航站楼，到市区还要再打车 25 分钟。⚠️ 今晚 18:35 落地赶不上末班车，这条只适合白天走。',
+          spots: [
+            { label: '起点 · Brightline 劳德代尔堡站', lat: 26.1224, lng: -80.1440, zoom: 15.6, note: '从 FLL 机场打车 12 分钟约 $18；从 17th St 的酒店 8 分钟约 $10。车站入口在 NW 2nd Ave，候车厅在 2 楼，建议提前 15 分钟到。行李可以带上车，车上有行李架。' },
+            { label: '终点 · 奥兰多站（MCO C 航站楼）', lat: 28.4219, lng: -81.3077, zoom: 15.6, note: '出站直接进 MCO 机场 C 航站楼。最后一公里：到市区酒店打车 25 分钟约 $35–45，或坐 Lynx 111 路约 45 分钟 $2（班次 30 分钟一班）。这段最容易低估时间。' }
+          ] },
         { mode: '打车 / Uber', time: '约 3 小时', cost: '$250–320', detail: '价格高且不可控，两个人不如租车。回程如果自驾不方便，可以只买单程。' }
       ],
       tip: '结论：在 FLL 直接租车，奥兰多几天、KSC、回劳德代尔堡全用得上，比打车划算得多。'
@@ -69,7 +73,10 @@ window.TRIP_GUIDES = {
       options: [
         { mode: '打车 / Uber', time: '15–20 分钟', cost: '$15–22 单程', detail: '上下车点：Winter Park 在 Park Ave 与 Morse Blvd 路口最好停；市区在 Lake Eola 东侧 Rosalind Ave 路边。' },
         { mode: '自驾', time: '15–20 分钟', cost: '停车 $5–10', detail: 'Park Ave 有路边咪表位，周末中午比较满；市区图书馆有公共车库。' },
-        { mode: '公交 LYNX', time: '40–60 分钟', cost: '$2', detail: '班次 30 分钟一班，等车时间比车程长，这趟不建议。' }
+        { mode: '公交 LYNX', time: '40–60 分钟', cost: '$2', detail: '班次 30 分钟一班，等车时间比车程长，这趟不建议。',
+          spots: [
+            { label: '换乘点 · Lynx Central Station', lat: 28.5413, lng: -81.3868, zoom: 15.6, note: '市区几乎所有线路都从这个枢纽发车。去 Winter Park 坐 102 路；最后一公里从 Park Ave 下车后步行约 5 分钟到 Rollins College 正门。' }
+          ] },
       ],
       tip: '这一天点都在十几公里内，打车最省事；自驾也行但找车位会花时间。'
     },
@@ -112,7 +119,10 @@ window.TRIP_GUIDES = {
       to: { lat: 26.1018, lng: -80.1252, label: 'Holiday Inn Express' },
       day: '11/17',
       options: [
-        { mode: '自驾', time: '约 3 小时 15 分', cost: '油费约 $28', detail: 'FL-528 转 I-95 南下，中途在 Fort Pierce 服务区休息；17:00 后进入 Broward 段会堵，多留 30 分钟。' }
+        { mode: '自驾', time: '约 3 小时 15 分', cost: '油费约 $28', detail: 'FL-528 转 I-95 南下，中途在 Fort Pierce 服务区休息；17:00 后进入 Broward 段会堵，多留 30 分钟。',
+          spots: [
+            { label: '中途休息 · Fort Pierce 服务区', lat: 27.4250, lng: -80.3770, zoom: 14.5, note: 'I-95 南向约 130 公里处，有加油站、快餐和厕所。开到这里差不多 1 小时 40 分，正好换人开。' }
+          ] },
       ],
       tip: '15:30 出园，算上晚高峰，18:45 前后到酒店。'
     },

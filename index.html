@@ -250,6 +250,24 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .ov-title { font-size: 14.5px; font-weight: 650; margin-top: 4px; line-height: 1.35; }
 .ov-sum { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
 /* ---------- 分类汇总 ---------- */
+.snap {
+  position: relative; width: 100%; height: 148px; border-radius: 10px; overflow: hidden;
+  background: #e9e6e0; margin: 2px 0 10px; border: 1px solid var(--line-2);
+}
+.snap-sm { height: 112px; margin: 6px 0 6px; }
+@media (prefers-color-scheme: dark) {
+  .snap { background: #14171c; }
+  .snap img { filter: invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.7); }
+}
+.snap-cap {
+  position: absolute; left: 5px; bottom: 4px; font-size: 9.5px; color: #444;
+  background: rgba(255,255,255,.82); border-radius: 3px; padding: 0 4px; pointer-events: none;
+}
+@media (prefers-color-scheme: dark) { .snap-cap { color: #ddd; background: rgba(0,0,0,.55); } }
+.spot { margin-top: 8px; }
+.spot-label { font-size: 11.5px; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+.spot-note { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 4px; }
+
 .gd-head { display: flex; gap: 11px; align-items: center; margin-bottom: 7px; }
 .gd-hw { min-width: 0; flex: 1; }
 .gd-ico {
@@ -1642,12 +1660,13 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     if (routeCache[key]) return routeCache[key];
     try {
       const url = 'https://router.project-osrm.org/route/v1/driving/' +
-        a.lng + ',' + a.lat + ';' + b.lng + ',' + b.lat + '?overview=false&alternatives=false';
+        a.lng + ',' + a.lat + ';' + b.lng + ',' + b.lat + '?overview=full&geometries=geojson&alternatives=false';
       const res = await fetch(url);
       if (!res.ok) return null;
       const j = await res.json();
       if (j.code !== 'Ok' || !j.routes || !j.routes.length) return null;
-      const r = { km: j.routes[0].distance / 1000, min: Math.round(j.routes[0].duration / 60) };
+      const rt = j.routes[0];
+      const r = { km: rt.distance / 1000, min: Math.round(rt.duration / 60), geo: rt.geometry && rt.geometry.coordinates };
       routeCache[key] = r;
       return r;
     } catch (e) { return null; }
@@ -1667,6 +1686,16 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
       });
       if (!pending.length) return;
       driveRoute(g.from, g.to).then(r => {
+        if (r && r.geo && g._snap) {
+          drawStaticMap(g._snap, g._mid, g._zoom, {
+            geo: r.geo,
+            markers: [
+              { lat: g.from.lat, lng: g.from.lng, color: '#0f766e' },
+              { lat: g.to.lat, lng: g.to.lng, color: '#c2410c' }
+            ],
+            cap: (g.from.label || '') + ' → ' + (g.to.label || '') + '（实际路线）'
+          });
+        }
         pending.forEach(cell => {
           cell.textContent = r
             ? '实际路线 ' + fmtKm(r.km)
@@ -1674,6 +1703,103 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
         });
       });
     });
+  }
+
+
+  /* ---------- 静态地图快照（不可拖拽，只用于说明） ---------- */
+  const TILE_SRC = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+  function fitZoomBox(a, b, w, h, pad) {
+    let z = 16;
+    for (; z > 3; z -= 0.25) {
+      const p1 = mProj(a.lat, a.lng, z), p2 = mProj(b.lat, b.lng, z);
+      if (Math.abs(p2.x - p1.x) < w - pad && Math.abs(p2.y - p1.y) < h - pad) break;
+    }
+    return z;
+  }
+
+  function drawStaticMap(box, center, zoom, opts) {
+    const o = opts || {};
+    const w = box.clientWidth || 340;
+    const h = box.clientHeight || 140;
+    if (!w || !h) return;
+
+    while (box.firstChild) box.removeChild(box.firstChild);
+
+    const c = mProj(center.lat, center.lng, zoom);
+    const ox = c.x - w / 2, oy = c.y - h / 2;
+    const tz = Math.max(1, Math.min(19, Math.round(zoom)));
+    const scale = Math.pow(2, zoom - tz);
+    const tilePx = 256 * scale;
+    const n = Math.pow(2, tz);
+    const x0 = Math.floor(ox / tilePx) - 1, x1 = Math.floor((ox + w) / tilePx) + 1;
+    const y0 = Math.floor(oy / tilePx) - 1, y1 = Math.floor((oy + h) / tilePx) + 1;
+
+    for (let tx = x0; tx <= x1; tx++) {
+      for (let ty = y0; ty <= y1; ty++) {
+        if (ty < 0 || ty >= n) continue;
+        const wx = ((tx % n) + n) % n;
+        const img = document.createElement('img');
+        img.alt = '';
+        img.src = TILE_SRC.replace('{z}', tz).replace('{x}', wx).replace('{y}', ty);
+        img.style.cssText = 'position:absolute;pointer-events:none;' +
+          'left:' + Math.round(tx * tilePx - ox) + 'px;top:' + Math.round(ty * tilePx - oy) + 'px;' +
+          'width:' + Math.round(tilePx) + 'px;height:' + Math.round(tilePx) + 'px;';
+        box.appendChild(img);
+      }
+    }
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    svg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none';
+
+    const toXY = p => {
+      const q = mProj(p.lat, p.lng, zoom);
+      return { x: q.x - ox, y: q.y - oy };
+    };
+
+    // 路线
+    if (o.geo && o.geo.length > 1) {
+      const pl = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+      pl.setAttribute('points', o.geo.map(pt => {
+        const q = mProj(pt[1], pt[0], zoom);
+        return (q.x - ox).toFixed(1) + ',' + (q.y - oy).toFixed(1);
+      }).join(' '));
+      pl.setAttribute('fill', 'none');
+      pl.setAttribute('stroke', '#0f766e');
+      pl.setAttribute('stroke-width', '3');
+      pl.setAttribute('stroke-linecap', 'round');
+      pl.setAttribute('opacity', '0.9');
+      svg.appendChild(pl);
+    } else if (o.from && o.to) {
+      const a = toXY(o.from), b = toXY(o.to);
+      const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      ln.setAttribute('x1', a.x); ln.setAttribute('y1', a.y);
+      ln.setAttribute('x2', b.x); ln.setAttribute('y2', b.y);
+      ln.setAttribute('stroke', '#0f766e');
+      ln.setAttribute('stroke-width', '2.5');
+      ln.setAttribute('stroke-dasharray', '6 5');
+      ln.setAttribute('opacity', '0.85');
+      svg.appendChild(ln);
+    }
+
+    // 点
+    (o.markers || []).forEach(m => {
+      const p = toXY(m);
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', p.x); circle.setAttribute('cy', p.y);
+      circle.setAttribute('r', m.big ? 6 : 5);
+      circle.setAttribute('fill', m.color || '#0f766e');
+      circle.setAttribute('stroke', '#fff');
+      circle.setAttribute('stroke-width', '2');
+      svg.appendChild(circle);
+    });
+    box.appendChild(svg);
+
+    const cap = document.createElement('div');
+    cap.className = 'snap-cap';
+    cap.textContent = (o.cap || '') + ' © OpenStreetMap';
+    box.appendChild(cap);
   }
 
   function renderGuides() {
@@ -1719,6 +1845,26 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
         const h = el('div', 'gd-h', esc(g.title || ''));
         if (g.day) h.appendChild(el('span', 'gd-day', esc(g.day)));
         card.appendChild(h);
+
+        // 路线快照
+        if (g.from && g.to) {
+          const snap = el('div', 'snap');
+          card.appendChild(snap);
+          const mid = { lat: (g.from.lat + g.to.lat) / 2, lng: (g.from.lng + g.to.lng) / 2 };
+          const z = fitZoomBox(g.from, g.to, snap.clientWidth || 340, snap.clientHeight || 140, 56);
+          drawStaticMap(snap, mid, z, {
+            from: g.from, to: g.to,
+            markers: [
+              { lat: g.from.lat, lng: g.from.lng, color: '#0f766e' },
+              { lat: g.to.lat, lng: g.to.lng, color: '#c2410c' }
+            ],
+            cap: (g.from.label || '起点') + ' → ' + (g.to.label || '终点') + '（虚线为示意）'
+          });
+          g._snap = snap;
+          g._mid = mid;
+          g._zoom = z;
+        }
+
         (g.options || []).forEach((o, oi) => {
           const opt = el('div', 'gd-opt');
           const oh = el('div', 'gd-opt-h');
@@ -1733,6 +1879,21 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
             opt.appendChild(dcell);
           }
           if (o.detail) opt.appendChild(el('div', 'detail', esc(o.detail)));
+
+          // 换乘 / 最后一公里的局部图
+          (o.spots || []).forEach(sp => {
+            const wrap = el('div', 'spot');
+            wrap.appendChild(el('div', 'spot-label', esc(sp.label || '')));
+            const smap = el('div', 'snap snap-sm');
+            wrap.appendChild(smap);
+            if (sp.note) wrap.appendChild(el('div', 'spot-note', esc(sp.note)));
+            opt.appendChild(wrap);
+            drawStaticMap(smap, { lat: sp.lat, lng: sp.lng }, sp.zoom || 15.5, {
+              markers: [{ lat: sp.lat, lng: sp.lng, big: true }],
+              cap: '换乘 / 到站位置'
+            });
+          });
+
           card.appendChild(opt);
         });
         if (g.tip) card.appendChild(el('div', 'gd-tip', esc(g.tip)));
