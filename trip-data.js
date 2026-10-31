@@ -37,14 +37,14 @@ window.TRIP = {
     /* ------------------------------------------------------------------ */
     {
       date: '2026-11-13',
-      title: '上海 → 底特律 → 劳德代尔堡 → 奥兰多',
+      title: '上海 → 底特律 → 劳德代尔堡（当晚两个选择）',
       area: '长途飞行',
       base: { lat: 28.5383, lng: -81.3792 },
-      note: '全天在路上，落地后还要开 3 小时车，尽量在飞机上睡。',
+      note: '落地 18:40 已是疲劳极限，两条路：A 硬开 3 小时今晚到奥兰多（23:00 入住，第二天能睡到自然醒）；B 今晚就住机场附近，明早 9 点出发。B 更稳，代价是第二天上午变成车程。',
       items: [
         {
-          time: '待办', name: '订奥兰多酒店（11/13–11/17 四晚）', type: 'other',
-          note: '⚠️ 还没订，尽快订。选市中心或 Winter Park 附近，前两天活动都在这两处；自驾的话要带停车位。订好把右边这个勾打上。'
+          time: '待办', name: '订奥兰多酒店（11/14–11/17）', type: 'other',
+          note: '⚠️ 还没订，尽快订。走 A 方案就从 11/13 开始订，走 B 方案从 11/14 开始。选市中心或 Winter Park 附近，前两天活动都在这两处；自驾要带停车位。订好把右边这个勾打上。'
         },
         {
           time: '07:30', name: '上海浦东 T1 · 达美柜台', type: 'transport',
@@ -64,22 +64,45 @@ window.TRIP = {
         {
           time: '15:35', name: 'DTW → 劳德代尔堡 FLL', type: 'transport',
           lat: 26.0742, lng: -80.1506, stay: 170, transit: '约 2 小时 50 分',
-          note: '时刻待核对（按 4 小时中转推算）。FLL 落地后往 Rental Car 走。'
+          note: '时刻待核对（按 4 小时中转推算）。'
         },
         {
           time: '18:40', name: 'FLL 取租车', type: 'transport',
           lat: 26.0742, lng: -80.1506, stay: 45, transit: '到达层跟随 Rental Car 指示牌',
-          note: '建议就在机场租车：奥兰多、大涌谷之外的肯尼迪航天中心、回劳德代尔堡都用得上，比打车划算。'
+          note: '建议就在机场租车：奥兰多、肯尼迪航天中心、回劳德代尔堡都用得上。'
+        },
+        {
+          time: '', name: '方案 A · 当晚直接开到奥兰多（23:00 入住）', type: 'divider',
+          note: ''
         },
         {
           time: '19:30', name: '开车去奥兰多', type: 'transport',
           lat: 28.5383, lng: -81.3792, stay: 200, transit: 'I-95 北上转 Florida Turnpike，约 3 小时',
-          note: '也可以坐 Brightline 火车（劳德代尔堡站→奥兰多机场站约 3 小时），但今晚末班车赶不上。'
+          note: '两个人换着开更安全。夜路车少，但服务区也少，出发前加满油。'
         },
         {
           time: '23:00', name: '奥兰多酒店 check-in', type: 'stay',
           lat: 28.5383, lng: -81.3792, stay: 30, transit: '自驾',
-          note: '酒店待定。选市中心或 Winter Park 附近，第二天活动都在这两处。'
+          note: '到了直接睡。选市中心或 Winter Park 附近。'
+        },
+        {
+          time: '', name: '方案 B · 今晚住机场附近，明早再北上（更稳）', type: 'divider',
+          note: ''
+        },
+        {
+          time: '20:00', name: '机场附近酒店 check-in', type: 'stay',
+          lat: 26.1018, lng: -80.1252, stay: 40, transit: '开车 10 分钟',
+          note: '可以直接订 17th Street 那家 Holiday Inn Express（就是后面 WAF 住的那家，离机场 2 英里），熟门熟路。'
+        },
+        {
+          time: '20:45', name: '17th Street 晚餐', type: 'food',
+          lat: 26.1030, lng: -80.1240, stay: 80, transit: '步行 5 分钟',
+          note: '运河边随便找一家，吃完就睡。'
+        },
+        {
+          time: '22:00', name: '休息', type: 'stay',
+          lat: 26.1018, lng: -80.1252, stay: 30, transit: '步行',
+          note: '明早 9:00 出发，还有时间吃个正经早餐。'
         }
       ]
     },
@@ -87,11 +110,15 @@ window.TRIP = {
     /* ------------------------------------------------------------------ */
     {
       date: '2026-11-14',
-      title: 'Winter Park · 奥兰多市区',
+      title: 'Winter Park · 奥兰多市区（上午/下午各二选一）',
       area: 'Winter Park / 市区',
       base: { lat: 28.5423, lng: -81.3785 },
-      note: '上午都在 Winter Park。下午两条线二选一：A 留在市区，B 打车去 Lakeland 看赖特。',
+      note: '上午看昨晚走的是哪条：已在奥兰多就去 Winter Park；昨晚住机场的话上午是车程，Winter Park 这半天就没了。下午在「市区线」和「赖特线」里挑一条。',
       items: [
+        {
+          time: '', name: '上午 · 已在奥兰多（昨晚走 D1 方案 A）', type: 'divider',
+          note: ''
+        },
         {
           time: '09:00', name: '出发去 Winter Park', type: 'transport',
           lat: 28.5916, lng: -81.3485, stay: 25, transit: '打车 20 分钟',
@@ -113,13 +140,27 @@ window.TRIP = {
           note: 'The Ravenous Pig 或 Prato，周末要等位。'
         },
         {
-          time: '', name: '方案 A · 留在奥兰多市区', type: 'divider',
+          time: '', name: '上午 · 昨晚住机场（D1 方案 B）', type: 'divider',
+          note: ''
+        },
+        {
+          time: '09:00', name: '出发北上奥兰多', type: 'transport',
+          lat: 28.5383, lng: -81.3792, stay: 195, transit: 'I-95 转 Turnpike，约 3 小时',
+          note: '睡到 7:30 再走，酒店吃完早餐出发。中途在服务区停一次。'
+        },
+        {
+          time: '12:15', name: '到奥兰多，午餐', type: 'food',
+          lat: 28.5383, lng: -81.3792, stay: 60, transit: '直接开到市区',
+          note: '吃完刚好接下午的线。Winter Park 那半天只能放弃，下次再来。'
+        },
+        {
+          time: '', name: '下午 · 市区线（图书馆 + Lake Eola）', type: 'divider',
           note: ''
         },
         {
           time: '13:40', name: '打车去市中心', type: 'transport',
           lat: 28.5423, lng: -81.3785, stay: 25, transit: '打车 20 分钟',
-          note: ''
+          note: '已经在市区的话这段可以省掉，直接走过去。'
         },
         {
           time: '14:10', name: '奥兰多公共图书馆', type: 'sight',
@@ -142,18 +183,18 @@ window.TRIP = {
           note: ''
         },
         {
-          time: '', name: '方案 B · 去赖特校园（Lakeland，单程 1 小时）', type: 'divider',
+          time: '', name: '下午 · 赖特线（Lakeland，单程 1 小时）', type: 'divider',
           note: ''
         },
         {
           time: '13:40', name: '出发去 Lakeland', type: 'transport',
           lat: 28.0306, lng: -81.9479, stay: 60, transit: '打车单程约 1 小时（I-4 向西）',
-          note: '打车往返约 $120–150；也可以租一天车。回程容易叫不到车，提前和司机约好。'
+          note: '打车往返约 $120–150；回程容易叫不到车，提前和司机约好时间。'
         },
         {
           time: '14:45', name: 'Florida Southern College', type: 'sight',
           lat: 28.0306, lng: -81.9479, stay: 105, transit: '步行到游客中心',
-          note: '赖特在单一校园里建成 12 栋建筑，美国最大规模的赖特建筑群。游客中心有导览（约 1 小时），建议参加，不然看不出门道。'
+          note: '赖特在单一校园里建成 12 栋建筑，美国最大规模的赖特建筑群。游客中心有导览（约 1 小时），建议参加。'
         },
         {
           time: '16:30', name: '校园自由逛', type: 'sight',
