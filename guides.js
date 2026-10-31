@@ -257,6 +257,7 @@ window.TRIP_GUIDES = {
   sights: [
     {
       name: 'Rollins College',
+      photos: ['img/sights/rollins-1.jpg', 'img/sights/rollins-2.jpg', 'img/sights/rollins-3.jpg'],
       icon: '🎓',
       day: 'D2 · 11/14',
       hours: '校园全天开放；Cornell Fine Arts Museum 周四–周日，免费',
@@ -269,6 +270,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Orlando Public Library',
+      photos: ['img/sights/library-1.jpg', 'img/sights/library-2.jpg', 'img/sights/library-3.jpg'],
       icon: '📚',
       day: 'D2 · 11/14',
       hours: '约 10:00–18:00（各日不同，以官网为准）',
@@ -277,6 +279,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Lake Eola Park',
+      photos: ['img/sights/eola-1.jpg', 'img/sights/eola-2.jpg', 'img/sights/eola-3.jpg'],
       icon: '🦢',
       day: 'D2 · 11/14',
       hours: '公园全天；天鹅船约 10:00–19:00',
@@ -285,6 +288,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Florida Southern College（赖特校园）',
+      photos: ['img/sights/fsc-1.jpg', 'img/sights/fsc-2.jpg', 'img/sights/fsc-3.jpg'],
       icon: '🏛',
       day: 'D2 · 11/14（方案 B）',
       hours: '游客中心 9:30–16:30（每天）',
@@ -298,6 +302,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Blue Spring State Park',
+      photos: ['img/sights/bluespring-1.jpg', 'img/sights/bluespring-2.jpg', 'img/sights/bluespring-3.jpg'],
       icon: '🐋',
       day: 'D3 · 11/15',
       hours: '8:00 开门，至日落',
@@ -311,6 +316,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: '迪士尼 Animal Kingdom',
+      photos: ['img/sights/animal-1.jpg', 'img/sights/animal-2.jpg', 'img/sights/animal-3.jpg'],
       icon: '🦁',
       day: 'D4 · 11/16',
       hours: '约 8:00–19:00（每天不同，以官方 App 为准）',
@@ -325,6 +331,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: '肯尼迪航天中心',
+      photos: ['img/sights/ksc-1.jpg', 'img/sights/ksc-2.jpg', 'img/sights/ksc-3.jpg'],
       icon: '🚀',
       day: 'D5 · 11/17',
       hours: '9:00–17:00',
@@ -340,6 +347,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Bonnet House Museum & Gardens',
+      photos: ['img/sights/bonnet-1.jpg', 'img/sights/bonnet-2.jpg', 'img/sights/bonnet-3.jpg'],
       icon: '🏡',
       day: 'D8 · 11/20',
       hours: '周二–周日 11:00–16:00（16:00 最后入场，园区 17:00 关）；周一闭馆',
@@ -349,6 +357,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'NSU Art Museum',
+      photos: ['img/sights/nsu-1.jpg', 'img/sights/nsu-2.jpg', 'img/sights/nsu-3.jpg'],
       icon: '🖼',
       day: 'D7 · 11/19',
       hours: '周三–周日开放，周四延时至 20:00（以官网为准）',
@@ -357,6 +366,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Vizcaya Museum & Gardens',
+      photos: ['img/sights/vizcaya-1.jpg', 'img/sights/vizcaya-2.jpg', 'img/sights/vizcaya-3.jpg'],
       icon: '🏰',
       day: 'D9 · 11/21（方案 B）',
       hours: '9:30–16:30，周二闭馆',

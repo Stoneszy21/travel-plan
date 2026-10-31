@@ -5,3 +5,6 @@ tools/astro-out.json
 *.log
 _shots/
 .chromeprof*/
+
+# 图片检查用的联络表
+_contact.png

@@ -272,6 +272,11 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .spot-note { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 4px; }
 
 .gd-head { display: flex; gap: 11px; align-items: center; margin-bottom: 7px; }
+.gd-ico-img { width: 46px; height: 46px; flex: none; border-radius: 12px; object-fit: cover; border: 1px solid var(--line-2); }
+.ph-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 2px 0 11px; }
+.ph-strip img { width: 100%; height: 96px; object-fit: cover; border-radius: 9px; display: block; background: var(--card-2); cursor: pointer; }
+.ph-strip img:active { opacity: .85; }
+.sh-img { width: 100%; border-radius: 12px; display: block; margin: 8px 0 10px; }
 .gd-hw { min-width: 0; flex: 1; }
 .gd-ico {
   width: 42px; height: 42px; flex: none; border-radius: 12px;
@@ -1948,13 +1953,36 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     GUIDES.sights.forEach(s => {
       const card = el('div', 'gd-card');
       const head = el('div', 'gd-head');
-      head.appendChild(el('div', 'gd-ico', esc(s.icon || '📍')));
+      if (s.photos && s.photos.length) {
+        const th = document.createElement('img');
+        th.className = 'gd-ico-img';
+        th.src = s.photos[0];
+        th.alt = '';
+        th.onerror = function () { this.style.display = 'none'; };
+        head.appendChild(th);
+      } else {
+        head.appendChild(el('div', 'gd-ico', esc(s.icon || '📍')));
+      }
       const hw = el('div', 'gd-hw');
       const h = el('div', 'gd-h', esc(s.name || ''));
       if (s.day) h.appendChild(el('span', 'gd-day', esc(s.day)));
       hw.appendChild(h);
       head.appendChild(hw);
       card.appendChild(head);
+
+      if (s.photos && s.photos.length) {
+        const strip = el('div', 'ph-strip');
+        s.photos.forEach(src => {
+          const im = document.createElement('img');
+          im.src = src;
+          im.alt = '';
+          im.loading = 'lazy';
+          im.onerror = function () { this.style.visibility = 'hidden'; };
+          im.addEventListener('click', () => openImage(src, s.name));
+          strip.appendChild(im);
+        });
+        card.appendChild(strip);
+      }
 
       if (s.hours) {
         const r = el('div', 'gd-row');
@@ -2257,6 +2285,21 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
       });
     }
 
+    sheet.classList.add('show');
+    backdrop.classList.add('show');
+    sheet.scrollTop = 0;
+  }
+
+  function openImage(src, caption) {
+    sheet.innerHTML =
+      '<div class="grab"></div>' +
+      '<div class="sh-kicker">照片</div>' +
+      '<img class="sh-img" src="' + src + '" alt="">' +
+      (caption ? '<div class="sh-note">' + esc(caption) + '</div>' : '') +
+      '<div class="sh-coord">照片来自 Wikimedia Commons（自由版权）</div>' +
+      '<div class="sh-actions"><button class="btn wide" id="shClose">关闭</button></div>';
+    const b = $('#shClose');
+    if (b) b.addEventListener('click', closeSheet);
     sheet.classList.add('show');
     backdrop.classList.add('show');
     sheet.scrollTop = 0;
