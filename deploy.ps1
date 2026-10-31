@@ -35,8 +35,9 @@ $msg = if ($Message -and $Message.Count) { $Message -join ' ' } else { "更新�
 
 Write-Host ''
 Write-Host "  提交：$msg" -ForegroundColor Cyan
-& git add -A
-& git -c core.autocrlf=false commit -m $msg 2>&1 | Out-Null
+# 用 cmd 包一层：git 把进度写到 stderr，PowerShell 会把它当成错误刷屏
+& cmd /c "git add -A 2>&1" | Out-Null
+& cmd /c "git -c core.autocrlf=false commit -m ""$msg"" 2>&1" | Out-Null
 if ($LASTEXITCODE -ne 0) {
     Write-Host '  没有新的改动要提交。' -ForegroundColor Yellow
 }
@@ -54,10 +55,11 @@ $env:GIT_TERMINAL_PROMPT = '0'
 
 Write-Host ''
 Write-Host '  推送到 GitHub...' -ForegroundColor Cyan
-$pushOut = & git push origin main 2>&1 | Out-String
+$pushOut = & cmd /c "git push origin main 2>&1" | Out-String
+$pushOk = ($LASTEXITCODE -eq 0)
 Write-Host $pushOut
 
-if ($LASTEXITCODE -eq 0) {
+if ($pushOk) {
     Write-Host ''
     Write-Host '  推送成功，约 1 分钟后生效：' -ForegroundColor Green
     Write-Host '  https://stoneszy21.github.io/travel-plan/' -ForegroundColor Green
