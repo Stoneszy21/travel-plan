@@ -291,7 +291,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   background: rgba(255,255,255,.82); border-radius: 3px; padding: 0 4px; pointer-events: none;
 }
 @media (prefers-color-scheme: dark) { .snap-cap { color: #ddd; background: rgba(0,0,0,.55); } }
-.fd-row { display: grid; grid-template-columns: 26px 1fr; gap: 9px; align-items: start; padding: 8px 0; border-bottom: 1px dashed var(--line-2); }
+.fd-row { display: grid; grid-template-columns: 26px 1fr 46px; gap: 9px; align-items: start; padding: 8px 0; border-bottom: 1px dashed var(--line-2); }
+.fd-thumb { width: 46px; height: 46px; border-radius: 9px; object-fit: cover; display: block; background: var(--card-2); cursor: pointer; }
 .fd-row:last-child { border-bottom: 0; }
 .fd-slot { width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff; margin-top: 1px; }
 .fd-slot.s-b { background: #d97706; }
@@ -2233,7 +2234,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     if (guideTab === 'food') {
       const list = GUIDES.food || [];
       if (!list.length) { box.appendChild(el('div', 'ml-hint', '还没有美食信息')); return; }
-      box.appendChild(el('div', 'gd-tip', '想吃什么随时告诉我。如果那家不在当天的路线附近，我们再一起把当天的行程挪一挪——不是不能改，是要提前算一下路上时间。'));
+      box.appendChild(el('div', 'gd-tip', '下面每餐的小图是「菜系示意」——餐厅本身网上没有实拍，图代表这顿吃哪一类。想吃什么随时告诉我。如果那家不在当天的路线附近，我们再一起把当天的行程挪一挪——不是不能改，是要提前算一下路上时间。'));
       list.forEach(d => {
         const card = el('div', 'gd-card');
         const head = el('div', 'gd-head');
@@ -2258,6 +2259,19 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
           body.appendChild(line1);
           if (m.note) body.appendChild(el('div', 'fd-note2', esc(m.note)));
           row.appendChild(body);
+
+          const dk = m.img && GUIDES.dishes && GUIDES.dishes[m.img];
+          if (dk) {
+            const th = document.createElement('img');
+            th.className = 'fd-thumb';
+            th.src = dk.t;
+            th.alt = '';
+            th.loading = 'lazy';
+            th.decoding = 'async';
+            th.onerror = function () { this.style.visibility = 'hidden'; };
+            th.addEventListener('click', ev => { ev.stopPropagation(); openImage(dk.f, m.name); });
+            row.appendChild(th);
+          }
           card.appendChild(row);
         });
         box.appendChild(card);

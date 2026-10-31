@@ -221,105 +221,123 @@ window.TRIP_GUIDES = {
   ],
 
   /* ------------------------------- 美食 -------------------------------- */
+  dishes: {
+    asian: { t: 'img/food/asian-t.jpg', m: 'img/food/asian-m.jpg', f: 'img/food/asian.jpg' },
+    barbecue: { t: 'img/food/barbecue-t.jpg', m: 'img/food/barbecue-m.jpg', f: 'img/food/barbecue.jpg' },
+    breakfast: { t: 'img/food/breakfast-t.jpg', m: 'img/food/breakfast-m.jpg', f: 'img/food/breakfast.jpg' },
+    brunch: { t: 'img/food/brunch-t.jpg', m: 'img/food/brunch-m.jpg', f: 'img/food/brunch.jpg' },
+    burger: { t: 'img/food/burger-t.jpg', m: 'img/food/burger-m.jpg', f: 'img/food/burger.jpg' },
+    crab: { t: 'img/food/crab-t.jpg', m: 'img/food/crab-m.jpg', f: 'img/food/crab.jpg' },
+    cuban: { t: 'img/food/cuban-t.jpg', m: 'img/food/cuban-m.jpg', f: 'img/food/cuban.jpg' },
+    diner: { t: 'img/food/diner-t.jpg', m: 'img/food/diner-m.jpg', f: 'img/food/diner.jpg' },
+    icecream: { t: 'img/food/icecream-t.jpg', m: 'img/food/icecream-m.jpg', f: 'img/food/icecream.jpg' },
+    italian: { t: 'img/food/italian-t.jpg', m: 'img/food/italian-m.jpg', f: 'img/food/italian.jpg' },
+    oyster: { t: 'img/food/oyster-t.jpg', m: 'img/food/oyster-m.jpg', f: 'img/food/oyster.jpg' },
+    sandwich: { t: 'img/food/sandwich-t.jpg', m: 'img/food/sandwich-m.jpg', f: 'img/food/sandwich.jpg' },
+    seafood: { t: 'img/food/seafood-t.jpg', m: 'img/food/seafood-m.jpg', f: 'img/food/seafood.jpg' },
+    steak: { t: 'img/food/steak-t.jpg', m: 'img/food/steak-m.jpg', f: 'img/food/steak.jpg' },
+    taco: { t: 'img/food/taco-t.jpg', m: 'img/food/taco-m.jpg', f: 'img/food/taco.jpg' }
+  },
+
   food: [
     {
       day: 'D1 · 11/13', area: '上海 → 底特律 → 劳德代尔堡 → 奥兰多',
       note: '全天在交通工具上，别对吃有期待，能吃饱就行。',
       meals: [
-        { slot: '早餐', name: '浦东 T1 安检后', cuisine: '机场简餐', price: '¥50–80', note: '不值当专门找，星巴克或包子铺解决；重点是别为吃饭耽误登机。' },
-        { slot: '午餐', name: '机上第一顿正餐', cuisine: '飞机餐', price: '含在机票', note: '13.5 小时两顿正餐，中间只有零食；建议自带一点坚果。' },
-        { slot: '晚餐', name: '底特律 McNamara · Concourse A 美食广场', cuisine: '美式快餐', price: '$15–25', note: '中转 4 小时够吃一顿，别走出安检区。Coney Island 热狗是底特律本地特色。' },
-        { slot: '夜宵', name: 'Wawa 便利店 / 酒店附近', cuisine: '便利店三明治', price: '$8–15', note: '23:00 到奥兰多，这个点只剩便利店和 24 小时快餐。' }
+        { slot: '早餐', name: '浦东 T1 安检后', img: 'sandwich', cuisine: '机场简餐', price: '¥50–80', note: '不值当专门找，星巴克或包子铺解决；重点是别为吃饭耽误登机。' },
+        { slot: '午餐', name: '机上第一顿正餐', img: 'sandwich', cuisine: '飞机餐', price: '含在机票', note: '13.5 小时两顿正餐，中间只有零食；建议自带一点坚果。' },
+        { slot: '晚餐', name: '底特律 McNamara · Concourse A 美食广场', img: 'burger', cuisine: '美式快餐', price: '$15–25', note: '中转 4 小时够吃一顿，别走出安检区。Coney Island 热狗是底特律本地特色。' },
+        { slot: '夜宵', name: 'Wawa 便利店 / 酒店附近', img: 'sandwich', cuisine: '便利店三明治', price: '$8–15', note: '23:00 到奥兰多，这个点只剩便利店和 24 小时快餐。' }
       ]
     },
     {
       day: 'D2 · 11/14', area: 'Winter Park / 奥兰多市区',
       note: '这一天的餐厅都在步行范围内，按路线顺序吃就行。',
       meals: [
-        { slot: '早餐', name: 'Briarpatch Restaurant', cuisine: 'Brunch', price: '$15–25', note: 'Park Ave 上的老牌 brunch，8:00 开门。9 点后周末要排 40 分钟，住在附近就早点去。' },
-        { slot: '午餐', name: 'The Ravenous Pig', cuisine: '新美式 / 精酿', price: '$25–40', note: 'Winter Park 本地名店，猪肉类和自家精酿是招牌。不想等位可换隔壁 Prato（意式，$20–35）。' },
-        { slot: '晚餐', name: 'Hawkers Asian Street Fare', cuisine: '亚洲街头小吃', price: '$15–25', note: '在 Thornton Park，离 Lake Eola 步行 10 分钟。人多但翻台快，适合两个人点一桌子。' },
-        { slot: '夜宵', name: 'Gringos Locos', cuisine: '墨西哥卷', price: '$8–15', note: '市中心，开到凌晨 3 点。想吃冰淇淋的话 Kelly’s Homemade 在 Winter Park，20:00 就关。' }
+        { slot: '早餐', name: 'Briarpatch Restaurant', img: 'brunch', cuisine: 'Brunch', price: '$15–25', note: 'Park Ave 上的老牌 brunch，8:00 开门。9 点后周末要排 40 分钟，住在附近就早点去。' },
+        { slot: '午餐', name: 'The Ravenous Pig', img: 'barbecue', cuisine: '新美式 / 精酿', price: '$25–40', note: 'Winter Park 本地名店，猪肉类和自家精酿是招牌。不想等位可换隔壁 Prato（意式，$20–35）。' },
+        { slot: '晚餐', name: 'Hawkers Asian Street Fare', img: 'asian', cuisine: '亚洲街头小吃', price: '$15–25', note: '在 Thornton Park，离 Lake Eola 步行 10 分钟。人多但翻台快，适合两个人点一桌子。' },
+        { slot: '夜宵', name: 'Gringos Locos', img: 'taco', cuisine: '墨西哥卷', price: '$8–15', note: '市中心，开到凌晨 3 点。想吃冰淇淋的话 Kelly’s Homemade 在 Winter Park，20:00 就关。' }
       ]
     },
     {
       day: 'D3 · 11/15', area: 'Blue Spring → 奥兰多',
       note: 'Blue Spring 周边是小镇，选择不多，午餐别指望米其林。',
       meals: [
-        { slot: '早餐', name: '路上解决（Wawa / Dunkin）', cuisine: '快餐', price: '$6–12', note: '7:30 出发，酒店的早餐吧还没开全，路上买杯咖啡和贝果。' },
-        { slot: '午餐', name: 'The Willow Tree Cafe', cuisine: '德国菜', price: '$15–25', note: '在 Sanford，回程顺路 20 分钟。猪肘和啤酒是招牌，分量大。想吃清爽点就去 DeLand 的 Cress（$25–35）。' },
-        { slot: '晚餐', name: 'The Polite Pig', cuisine: '烧烤', price: '$20–30', note: 'Disney Springs，全天营业，不用订位。下午玩完回市区顺路。' },
-        { slot: '夜宵', name: 'Maxine’s on Shine', cuisine: '酒吧小食', price: '$15–25', note: '市区小馆，有现场音乐；不想出门就便利店。' }
+        { slot: '早餐', name: '路上解决（Wawa / Dunkin）', img: 'breakfast', cuisine: '快餐', price: '$6–12', note: '7:30 出发，酒店的早餐吧还没开全，路上买杯咖啡和贝果。' },
+        { slot: '午餐', name: 'The Willow Tree Cafe', img: 'barbecue', cuisine: '德国菜', price: '$15–25', note: '在 Sanford，回程顺路 20 分钟。猪肘和啤酒是招牌，分量大。想吃清爽点就去 DeLand 的 Cress（$25–35）。' },
+        { slot: '晚餐', name: 'The Polite Pig', img: 'barbecue', cuisine: '烧烤', price: '$20–30', note: 'Disney Springs，全天营业，不用订位。下午玩完回市区顺路。' },
+        { slot: '夜宵', name: 'Maxine’s on Shine', img: 'diner', cuisine: '酒吧小食', price: '$15–25', note: '市区小馆，有现场音乐；不想出门就便利店。' }
       ]
     },
     {
       day: 'D4 · 11/16', area: '迪士尼 Animal Kingdom',
       note: '园内餐饮一般但省时间，重点是把时间留给项目。',
       meals: [
-        { slot: '早餐', name: '酒店 / 园区入口 Creature Comforts', cuisine: '咖啡 + 烘焙', price: '$8–15', note: '7:40 出发，园区门口的咖啡店开门早，拿个可颂边走边吃。' },
-        { slot: '午餐', name: 'Satu’li Canteen', cuisine: 'Pandora 碗装', price: '$15–20', note: '全园评价最好的一家，芝士汉堡包和咖喱碗都不错。11:30 前去不排队。' },
-        { slot: '晚餐', name: 'Tiffins（园内）或 Disney Springs', cuisine: '正餐', price: '$40+ / $20–30', note: '想舒服吃就出园开 15 分钟到 Disney Springs，选择多、不用订位。' },
-        { slot: '夜宵', name: '回酒店路上（Chick-fil-A / Wawa）', cuisine: '快餐', price: '$10–15', note: '闭园 19:00，回到市区还早，路上顺手买。' }
+        { slot: '早餐', name: '酒店 / 园区入口 Creature Comforts', img: 'brunch', cuisine: '咖啡 + 烘焙', price: '$8–15', note: '7:40 出发，园区门口的咖啡店开门早，拿个可颂边走边吃。' },
+        { slot: '午餐', name: 'Satu’li Canteen', img: 'asian', cuisine: 'Pandora 碗装', price: '$15–20', note: '全园评价最好的一家，芝士汉堡包和咖喱碗都不错。11:30 前去不排队。' },
+        { slot: '晚餐', name: 'Tiffins（园内）或 Disney Springs', img: 'steak', cuisine: '正餐', price: '$40+ / $20–30', note: '想舒服吃就出园开 15 分钟到 Disney Springs，选择多、不用订位。' },
+        { slot: '夜宵', name: '回酒店路上（Chick-fil-A / Wawa）', img: 'burger', cuisine: '快餐', price: '$10–15', note: '闭园 19:00，回到市区还早，路上顺手买。' }
       ]
     },
     {
       day: 'D5 · 11/17', area: '肯尼迪航天中心 → 劳德代尔堡',
       note: '中午只能在航天中心解决，晚上到运河边吃好的。',
       meals: [
-        { slot: '早餐', name: '酒店早餐（7:00）', cuisine: '酒店自助', price: '含房费', note: '走之前吃饱，园区里吃饭排队。' },
-        { slot: '午餐', name: 'KSC · Orbit Cafe', cuisine: '园区简餐', price: '$15–20', note: '园区内唯一像样的选择，汉堡和沙拉。12:30 去人会少一点。' },
-        { slot: '晚餐', name: 'Boatyard', cuisine: '海鲜 / 牛排', price: '$30–45', note: '17th Street 运河边，离酒店步行 8 分钟。21:00 后厨房收得差不多，别太晚。' },
-        { slot: '夜宵', name: 'Kilwins 冰淇淋', cuisine: '甜品', price: '$6–10', note: '21:00 关门，想吃早点去。' }
+        { slot: '早餐', name: '酒店早餐（7:00）', img: 'breakfast', cuisine: '酒店自助', price: '含房费', note: '走之前吃饱，园区里吃饭排队。' },
+        { slot: '午餐', name: 'KSC · Orbit Cafe', img: 'burger', cuisine: '园区简餐', price: '$15–20', note: '园区内唯一像样的选择，汉堡和沙拉。12:30 去人会少一点。' },
+        { slot: '晚餐', name: 'Boatyard', img: 'seafood', cuisine: '海鲜 / 牛排', price: '$30–45', note: '17th Street 运河边，离酒店步行 8 分钟。21:00 后厨房收得差不多，别太晚。' },
+        { slot: '夜宵', name: 'Kilwins 冰淇淋', img: 'icecream', cuisine: '甜品', price: '$6–10', note: '21:00 关门，想吃早点去。' }
       ]
     },
     {
       day: 'D6 · 11/18', area: 'WAF Day 1 · Fort Lauderdale',
       note: '两场汇报中间只有 3 小时，午餐一定要离会场近。',
       meals: [
-        { slot: '早餐', name: 'Java & Jam', cuisine: 'Brunch', price: '$15–25', note: 'Las Olas 上，7:00 开门。8:00 去海滩前吃正好。' },
-        { slot: '午餐', name: 'Southport Raw Bar', cuisine: '生蚝 / 海鲜', price: '$20–30', note: '离会场开车 10 分钟，本地人常去。赶时间就在会场吃简餐。' },
-        { slot: '晚餐', name: 'Louie Bossi’s', cuisine: '意式', price: '$30–50', note: 'Las Olas 上很火的一家，WAF 期间一定要订位，提前一天打电话。' },
-        { slot: '夜宵', name: 'Kilwins', cuisine: '冰淇淋', price: '$6–10', note: 'Las Olas 街上，饭后顺路。' }
+        { slot: '早餐', name: 'Java & Jam', img: 'brunch', cuisine: 'Brunch', price: '$15–25', note: 'Las Olas 上，7:00 开门。8:00 去海滩前吃正好。' },
+        { slot: '午餐', name: 'Southport Raw Bar', img: 'oyster', cuisine: '生蚝 / 海鲜', price: '$20–30', note: '离会场开车 10 分钟，本地人常去。赶时间就在会场吃简餐。' },
+        { slot: '晚餐', name: 'Louie Bossi’s', img: 'italian', cuisine: '意式', price: '$30–50', note: 'Las Olas 上很火的一家，WAF 期间一定要订位，提前一天打电话。' },
+        { slot: '夜宵', name: 'Kilwins', img: 'icecream', cuisine: '冰淇淋', price: '$6–10', note: 'Las Olas 街上，饭后顺路。' }
       ]
     },
     {
       day: 'D7 · 11/19', area: 'WAF Day 2 · Fort Lauderdale',
       note: '两场汇报中间空 2 小时，别跑远。',
       meals: [
-        { slot: '早餐', name: 'The Alchemist Cafe', cuisine: '咖啡 / 轻食', price: '$12–20', note: 'Wilton Manors，开车 10 分钟；不想跑就在酒店吃。' },
-        { slot: '午餐', name: '会场简餐 / 附近快餐', cuisine: '简餐', price: '$15–25', note: '11:00 讲完、15:20 还要讲，中间别折腾。' },
-        { slot: '晚餐', name: 'Casa D’Angelo', cuisine: '意式正餐', price: '$45–70', note: '本地公认最好的意餐之一，要订位。汇报结束犒劳自己一顿。' },
-        { slot: '夜宵', name: 'Riverside Hotel 酒吧', cuisine: '酒 + 小食', price: '$15–25', note: 'Las Olas 西端的老酒店，气氛好，坐着聊会儿。' }
+        { slot: '早餐', name: 'The Alchemist Cafe', img: 'brunch', cuisine: '咖啡 / 轻食', price: '$12–20', note: 'Wilton Manors，开车 10 分钟；不想跑就在酒店吃。' },
+        { slot: '午餐', name: '会场简餐 / 附近快餐', img: 'sandwich', cuisine: '简餐', price: '$15–25', note: '11:00 讲完、15:20 还要讲，中间别折腾。' },
+        { slot: '晚餐', name: 'Casa D’Angelo', img: 'italian', cuisine: '意式正餐', price: '$45–70', note: '本地公认最好的意餐之一，要订位。汇报结束犒劳自己一顿。' },
+        { slot: '夜宵', name: 'Riverside Hotel 酒吧', img: 'diner', cuisine: '酒 + 小食', price: '$15–25', note: 'Las Olas 西端的老酒店，气氛好，坐着聊会儿。' }
       ]
     },
     {
       day: 'D8 · 11/20', area: 'WAF Day 3 · Gala',
       note: '晚上是 Gala 晚宴，白天吃轻一点。',
       meals: [
-        { slot: '早餐', name: 'First Watch', cuisine: 'Brunch', price: '$15–20', note: '连锁但稳定，7:00 开门，不用订位。' },
-        { slot: '午餐', name: 'Coconuts', cuisine: '海鲜', price: '$25–40', note: '海边，看船看水。11:30 到能占到露台位。' },
-        { slot: '晚餐', name: 'Gala Dinner（会场）', cuisine: '晚宴', price: '含在票里', note: '19:00 开始，之前 17:00 有酒会，别空着肚子喝酒。' },
-        { slot: '夜宵', name: '会后：Riverside Hotel / Kilwins', cuisine: '酒 / 甜品', price: '$6–25', note: '22:30 散场，Las Olas 还有几家开门。' }
+        { slot: '早餐', name: 'First Watch', img: 'brunch', cuisine: 'Brunch', price: '$15–20', note: '连锁但稳定，7:00 开门，不用订位。' },
+        { slot: '午餐', name: 'Coconuts', img: 'seafood', cuisine: '海鲜', price: '$25–40', note: '海边，看船看水。11:30 到能占到露台位。' },
+        { slot: '晚餐', name: 'Gala Dinner（会场）', img: 'steak', cuisine: '晚宴', price: '含在票里', note: '19:00 开始，之前 17:00 有酒会，别空着肚子喝酒。' },
+        { slot: '夜宵', name: '会后：Riverside Hotel / Kilwins', img: 'icecream', cuisine: '酒 / 甜品', price: '$6–25', note: '22:30 散场，Las Olas 还有几家开门。' }
       ]
     },
     {
       day: 'D9 · 11/21', area: '自由日（两条线）',
       note: 'A 线在劳德代尔堡，B 线在迈阿密，按选的线看对应那几行。',
       meals: [
-        { slot: '早餐', name: 'A：O-B House ／ B：Zak the Baker', cuisine: 'Brunch ／ 烘焙', price: '$15–25 / $10–20', note: 'A 在市区，B 在 Wynwood——迈阿密最出名的面包店，8:00 去排队短。' },
-        { slot: '午餐', name: 'A：Coconuts ／ B：Coyo Taco', cuisine: '海鲜 ／ 墨西哥', price: '$25–40 / $15–25', note: 'B 线在 Wynwood 看涂鸦，Coyo Taco 就在旁边。' },
-        { slot: '晚餐', name: 'A：Louie Bossi’s ／ B：Joe’s Stone Crab', cuisine: '意式 ／ 海鲜老店', price: '$30–50 / $50–80', note: 'Joe’s 1913 年开的，10 月正好蟹季开始；不接受订位，17:00 前到。' },
-        { slot: '夜宵', name: 'A：Kilwins ／ B：Big Pink', cuisine: '甜品 ／ 美式 diner', price: '$6–10 / $20–30', note: 'Big Pink 开到凌晨，South Beach 回程顺路。' }
+        { slot: '早餐', name: 'A：O-B House ／ B：Zak the Baker', img: 'brunch', cuisine: 'Brunch ／ 烘焙', price: '$15–25 / $10–20', note: 'A 在市区，B 在 Wynwood——迈阿密最出名的面包店，8:00 去排队短。' },
+        { slot: '午餐', name: 'A：Coconuts ／ B：Coyo Taco', img: 'seafood', cuisine: '海鲜 ／ 墨西哥', price: '$25–40 / $15–25', note: 'B 线在 Wynwood 看涂鸦，Coyo Taco 就在旁边。' },
+        { slot: '晚餐', name: 'A：Louie Bossi’s ／ B：Joe’s Stone Crab', img: 'italian', cuisine: '意式 ／ 海鲜老店', price: '$30–50 / $50–80', note: 'Joe’s 1913 年开的，10 月正好蟹季开始；不接受订位，17:00 前到。' },
+        { slot: '夜宵', name: 'A：Kilwins ／ B：Big Pink', img: 'icecream', cuisine: '甜品 ／ 美式 diner', price: '$6–10 / $20–30', note: 'Big Pink 开到凌晨，South Beach 回程顺路。' }
       ]
     },
     {
       day: 'D10 · 11/22', area: '返程',
       note: '机场和机上，没什么可选的。',
       meals: [
-        { slot: '早餐', name: '酒店打包 / FLL 安检后', cuisine: '简餐', price: '$10–15', note: '6:00 退房，酒店早餐多半没开，让前台打包咖啡。' },
-        { slot: '午餐', name: '机上', cuisine: '飞机餐', price: '含在机票', note: '飞底特律约 3 小时，有一顿轻食。' },
-        { slot: '晚餐', name: '底特律转机 / 第二程机上', cuisine: '快餐 / 飞机餐', price: '$15–25', note: '中转时间够就在 McNamara 吃；不够就在第二程机上吃。' },
-        { slot: '夜宵', name: '上海落地后', cuisine: '待定', price: '—', note: '落地是次日，回家路上随便吃点。' }
+        { slot: '早餐', name: '酒店打包 / FLL 安检后', img: 'sandwich', cuisine: '简餐', price: '$10–15', note: '6:00 退房，酒店早餐多半没开，让前台打包咖啡。' },
+        { slot: '午餐', name: '机上', img: 'sandwich', cuisine: '飞机餐', price: '含在机票', note: '飞底特律约 3 小时，有一顿轻食。' },
+        { slot: '晚餐', name: '底特律转机 / 第二程机上', img: 'burger', cuisine: '快餐 / 飞机餐', price: '$15–25', note: '中转时间够就在 McNamara 吃；不够就在第二程机上吃。' },
+        { slot: '夜宵', name: '上海落地后', img: 'sandwich', cuisine: '待定', price: '—', note: '落地是次日，回家路上随便吃点。' }
       ]
     }
   ],

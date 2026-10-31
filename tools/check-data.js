@@ -44,6 +44,22 @@ console.log('交通 ' + (G.ground || []).length + ' 条');
 });
 console.log('美食 ' + (G.food || []).length + ' 天，共 ' + (G.food || []).reduce((n, d) => n + d.meals.length, 0) + ' 餐');
 
+// 3.5) 美食配图：dishes 里每个 key 的三档图都得在；每餐引用的 img 必须存在
+let dishCount = 0;
+Object.keys(G.dishes || {}).forEach(k => {
+  const d = G.dishes[k];
+  [d.t, d.m, d.f].forEach(p => {
+    dishCount++;
+    if (!fs.existsSync(path.join(APP, p))) fail('菜品图缺失：' + p);
+  });
+});
+(G.food || []).forEach(day => {
+  (day.meals || []).forEach(m => {
+    if (m.img && !(G.dishes || {})[m.img]) fail(day.day + ' 引用了不存在的菜品图：' + m.img);
+  });
+});
+console.log('菜品图 ' + Object.keys(G.dishes || {}).length + ' 种，' + dishCount + ' 个文件');
+
 // 4) 酒店：入住早于离店
 (G.hotels || []).forEach(h => {
   if (h.checkIn && h.checkOut && h.checkIn >= h.checkOut) fail(h.name + ' 日期反了');
