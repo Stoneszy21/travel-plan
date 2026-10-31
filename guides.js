@@ -673,11 +673,6 @@ window.TRIP_GUIDES = {
       icon: '🪑',
       ord: 'D3-02',
       name: 'Renninger\'s Mt. Dora 跳蚤市场 + 古董中心',
-      photos: [
-        { t: 'img/sights/renningers-1-t.jpg', m: 'img/sights/renningers-1-m.jpg', f: 'img/sights/renningers-1.jpg' },
-        { t: 'img/sights/renningers-2-t.jpg', m: 'img/sights/renningers-2-m.jpg', f: 'img/sights/renningers-2.jpg' },
-        { t: 'img/sights/renningers-3-t.jpg', m: 'img/sights/renningers-3-m.jpg', f: 'img/sights/renningers-3.jpg' }
-      ],
       day: 'D3 · 11/15（周日）',
       hours: '周末开放，跳蚤市场上午人多；具体时段以官网为准',
       booking: '免费进场，带现金',
@@ -692,6 +687,11 @@ window.TRIP_GUIDES = {
       icon: '🏘',
       ord: 'D3-03',
       name: 'Mount Dora 老城',
+      photos: [
+        { t: 'img/sights/dora-1-t.jpg', m: 'img/sights/dora-1-m.jpg', f: 'img/sights/dora-1.jpg' },
+        { t: 'img/sights/dora-2-t.jpg', m: 'img/sights/dora-2-m.jpg', f: 'img/sights/dora-2.jpg' },
+        { t: 'img/sights/dora-3-t.jpg', m: 'img/sights/dora-3-m.jpg', f: 'img/sights/dora-3.jpg' }
+      ],
       day: 'D3 · 11/15',
       hours: '店铺大多 10:00–17:00，周日部分不开',
       plan: ['Donnelly St 主街逛古董店和书店', '走到湖滨看 Mount Dora 灯塔（1 Lighthouse Cir）', '找家咖啡馆坐一会儿'],
