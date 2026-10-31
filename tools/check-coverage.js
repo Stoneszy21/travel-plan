@@ -26,6 +26,7 @@ const ALIAS = [
   [/farmers.*market|农贸市集/i, "Winter Park Farmers' Market"],
   [/morse|蒂芙尼/i, 'Morse Museum of American Art'],
   [/park avenue/i, 'Park Avenue'],
+  [/rifle paper/i, 'Rifle Paper Co 创始店'],
   [/casa feliz/i, 'Casa Feliz Historic Home'],
   [/kraft azalea/i, 'Kraft Azalea Garden'],
   [/history center/i, 'Orange County Regional History Center'],

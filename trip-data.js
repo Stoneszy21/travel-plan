@@ -136,14 +136,19 @@ window.TRIP = {
           note: '全美最重要的装饰艺术收藏之一，Louis Comfort Tiffany 的玻璃、灯饰、礼拜堂。门票几美元，馆不大但密度极高。⚠️ 周二–周六开，周日下午才开，别排错日子。'
         },
         {
-          time: '11:35', name: 'Park Avenue 逛街', type: 'shop',
-          lat: 28.5975, lng: -81.351, stay: 45, transit: '出馆就是 Park Ave',
-          note: 'Park Ave 在 Morse Blvd 到 Fairbanks Ave 之间这段最好逛：书店、买手店、老式药妆店。11 月中已经有圣诞橱窗。'
+          time: '11:32', name: 'Park Avenue 扫街', type: 'shop',
+          lat: 28.5975, lng: -81.351, stay: 48, transit: '出馆就是 Park Ave',
+          note: '从 Morse Blvd 往南沿 Park Ave 走。这一段集中了书店（Borders 旧址改成的小书店）、买手店、老式药妆店和咖啡馆，橱窗 11 月中已经换圣诞主题。慢慢走，看到喜欢的就进去，不用赶。'
         },
         {
-          time: '12:30', name: 'Park Ave 午餐', type: 'food',
-          lat: 28.5962, lng: -81.3513, stay: 70, transit: '步行 3 分钟',
-          note: 'Briarpatch（252 N Park Ave）是老牌 brunch，但 12 点半去要等位；备选 Prato（124 N Park Ave）意式，或 The Ravenous Pig（565 W Fairbanks Ave）新美式。'
+          time: '12:20', name: 'Rifle Paper Co 探店', type: 'shop',
+          lat: 28.5951, lng: -81.3507, stay: 25, transit: 'Park Ave 南段，Morse Blvd 往南两个路口',
+          note: '这家插画文具品牌的创始店就在 Winter Park，全世界只有这一家旗舰店。纸品、笔记本、手机壳、日历，都是自家插画，价格不便宜但很适合带回国送人。⚠️ 门牌号以地图为准，搜 "Rifle Paper Co Winter Park"。'
+        },
+        {
+          time: '12:50', name: '午餐 Prato', type: 'food',
+          lat: 28.5962, lng: -81.3513, stay: 58, transit: '步行 4 分钟回 124 N Park Ave',
+          note: '手工意面和柴火披萨，Park Ave 上最稳的一家。12 点半后要等位，这个点进去刚好错峰；想换口味就去 The Ravenous Pig（565 W Fairbanks Ave）新美式。'
         },
         {
           time: '13:50', name: 'Scenic Boat Tour 运河游船', type: 'sight',
