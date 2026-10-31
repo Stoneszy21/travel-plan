@@ -420,12 +420,12 @@ window.TRIP_GUIDES = {
   sights: [
     {
       ord: 'D2-02',
-      name: 'Rollins College',
       photos: [
         { t: 'img/sights/rollins-1-t.jpg', m: 'img/sights/rollins-1-m.jpg', f: 'img/sights/rollins-1.jpg' },
         { t: 'img/sights/rollins-2-t.jpg', m: 'img/sights/rollins-2-m.jpg', f: 'img/sights/rollins-2.jpg' },
         { t: 'img/sights/rollins-3-t.jpg', m: 'img/sights/rollins-3-m.jpg', f: 'img/sights/rollins-3.jpg' }
       ],
+      name: 'Rollins College',
       icon: '🎓',
       day: 'D2 · 11/14',
       hours: '校园全天开放；Cornell Fine Arts Museum 周四–周日，免费',
@@ -438,12 +438,12 @@ window.TRIP_GUIDES = {
     },
     {
       ord: 'D2-08',
-      name: 'Orlando Public Library',
       photos: [
         { t: 'img/sights/library-1-t.jpg', m: 'img/sights/library-1-m.jpg', f: 'img/sights/library-1.jpg' },
         { t: 'img/sights/library-2-t.jpg', m: 'img/sights/library-2-m.jpg', f: 'img/sights/library-2.jpg' },
         { t: 'img/sights/library-3-t.jpg', m: 'img/sights/library-3-m.jpg', f: 'img/sights/library-3.jpg' }
       ],
+      name: 'Orlando Public Library',
       icon: '📚',
       day: 'D2 · 11/14',
       hours: '约 10:00–18:00（各日不同，以官网为准）',
@@ -452,12 +452,12 @@ window.TRIP_GUIDES = {
     },
     {
       ord: 'D2-10',
-      name: 'Lake Eola Park',
       photos: [
         { t: 'img/sights/eola-1-t.jpg', m: 'img/sights/eola-1-m.jpg', f: 'img/sights/eola-1.jpg' },
         { t: 'img/sights/eola-2-t.jpg', m: 'img/sights/eola-2-m.jpg', f: 'img/sights/eola-2.jpg' },
         { t: 'img/sights/eola-3-t.jpg', m: 'img/sights/eola-3-m.jpg', f: 'img/sights/eola-3.jpg' }
       ],
+      name: 'Lake Eola Park',
       icon: '🦢',
       day: 'D2 · 11/14',
       hours: '公园全天；天鹅船约 10:00–19:00',
@@ -466,12 +466,12 @@ window.TRIP_GUIDES = {
     },
     {
       ord: 'D2-12',
-      name: 'Florida Southern College（赖特校园）',
       photos: [
         { t: 'img/sights/fsc-1-t.jpg', m: 'img/sights/fsc-1-m.jpg', f: 'img/sights/fsc-1.jpg' },
         { t: 'img/sights/fsc-2-t.jpg', m: 'img/sights/fsc-2-m.jpg', f: 'img/sights/fsc-2.jpg' },
         { t: 'img/sights/fsc-3-t.jpg', m: 'img/sights/fsc-3-m.jpg', f: 'img/sights/fsc-3.jpg' }
       ],
+      name: 'Florida Southern College（赖特校园）',
       icon: '🏛',
       day: 'D2 · 11/14（方案 B）',
       hours: '游客中心 9:30–16:30（每天）',
@@ -485,12 +485,12 @@ window.TRIP_GUIDES = {
     },
     {
       ord: 'D3-01',
-      name: 'Blue Spring State Park',
       photos: [
         { t: 'img/sights/bluespring-1-t.jpg', m: 'img/sights/bluespring-1-m.jpg', f: 'img/sights/bluespring-1.jpg' },
         { t: 'img/sights/bluespring-2-t.jpg', m: 'img/sights/bluespring-2-m.jpg', f: 'img/sights/bluespring-2.jpg' },
         { t: 'img/sights/bluespring-3-t.jpg', m: 'img/sights/bluespring-3-m.jpg', f: 'img/sights/bluespring-3.jpg' }
       ],
+      name: 'Blue Spring State Park',
       icon: '🐋',
       day: 'D3 · 11/15',
       hours: '8:00 开门，至日落',
@@ -504,12 +504,12 @@ window.TRIP_GUIDES = {
     },
     {
       ord: 'D4-01',
-      name: '迪士尼 Animal Kingdom',
       photos: [
         { t: 'img/sights/animal-1-t.jpg', m: 'img/sights/animal-1-m.jpg', f: 'img/sights/animal-1.jpg' },
         { t: 'img/sights/animal-2-t.jpg', m: 'img/sights/animal-2-m.jpg', f: 'img/sights/animal-2.jpg' },
         { t: 'img/sights/animal-3-t.jpg', m: 'img/sights/animal-3-m.jpg', f: 'img/sights/animal-3.jpg' }
       ],
+      name: '迪士尼 Animal Kingdom',
       icon: '🦁',
       day: 'D4 · 11/16',
       hours: '约 8:00–19:00（每天不同，以官方 App 为准）',
@@ -524,12 +524,12 @@ window.TRIP_GUIDES = {
     },
     {
       ord: 'D5-01',
-      name: '肯尼迪航天中心',
       photos: [
         { t: 'img/sights/ksc-1-t.jpg', m: 'img/sights/ksc-1-m.jpg', f: 'img/sights/ksc-1.jpg' },
         { t: 'img/sights/ksc-2-t.jpg', m: 'img/sights/ksc-2-m.jpg', f: 'img/sights/ksc-2.jpg' },
         { t: 'img/sights/ksc-3-t.jpg', m: 'img/sights/ksc-3-m.jpg', f: 'img/sights/ksc-3.jpg' }
       ],
+      name: '肯尼迪航天中心',
       icon: '🚀',
       day: 'D5 · 11/17',
       hours: '9:00–17:00',
@@ -547,12 +547,12 @@ window.TRIP_GUIDES = {
     },
     {
       ord: 'D8-01',
-      name: 'Bonnet House Museum & Gardens',
       photos: [
         { t: 'img/sights/bonnet-1-t.jpg', m: 'img/sights/bonnet-1-m.jpg', f: 'img/sights/bonnet-1.jpg' },
         { t: 'img/sights/bonnet-2-t.jpg', m: 'img/sights/bonnet-2-m.jpg', f: 'img/sights/bonnet-2.jpg' },
         { t: 'img/sights/bonnet-3-t.jpg', m: 'img/sights/bonnet-3-m.jpg', f: 'img/sights/bonnet-3.jpg' }
       ],
+      name: 'Bonnet House Museum & Gardens',
       icon: '🏡',
       day: 'D8 · 11/20',
       hours: '周二–周日 11:00–16:00（16:00 最后入场，园区 17:00 关）；周一闭馆',
@@ -562,12 +562,12 @@ window.TRIP_GUIDES = {
     },
     {
       ord: 'D7-01',
-      name: 'NSU Art Museum',
       photos: [
         { t: 'img/sights/nsu-1-t.jpg', m: 'img/sights/nsu-1-m.jpg', f: 'img/sights/nsu-1.jpg' },
         { t: 'img/sights/nsu-2-t.jpg', m: 'img/sights/nsu-2-m.jpg', f: 'img/sights/nsu-2.jpg' },
         { t: 'img/sights/nsu-3-t.jpg', m: 'img/sights/nsu-3-m.jpg', f: 'img/sights/nsu-3.jpg' }
       ],
+      name: 'NSU Art Museum',
       icon: '🖼',
       day: 'D7 · 11/19',
       hours: '周三–周日开放，周四延时至 20:00（以官网为准）',
@@ -576,12 +576,12 @@ window.TRIP_GUIDES = {
     },
     {
       ord: 'D9-03',
-      name: 'Vizcaya Museum & Gardens',
       photos: [
         { t: 'img/sights/vizcaya-1-t.jpg', m: 'img/sights/vizcaya-1-m.jpg', f: 'img/sights/vizcaya-1.jpg' },
         { t: 'img/sights/vizcaya-2-t.jpg', m: 'img/sights/vizcaya-2-m.jpg', f: 'img/sights/vizcaya-2.jpg' },
         { t: 'img/sights/vizcaya-3-t.jpg', m: 'img/sights/vizcaya-3-m.jpg', f: 'img/sights/vizcaya-3.jpg' }
       ],
+      name: 'Vizcaya Museum & Gardens',
       icon: '🏰',
       day: 'D9 · 11/21（方案 B）',
       hours: '9:30–16:30，周二闭馆',
@@ -593,12 +593,12 @@ window.TRIP_GUIDES = {
     {
       icon: '🧺',
       ord: 'D2-01',
-      name: 'Winter Park Farmers\' Market',
       photos: [
         { t: 'img/sights/market-1-t.jpg', m: 'img/sights/market-1-m.jpg', f: 'img/sights/market-1.jpg' },
         { t: 'img/sights/market-2-t.jpg', m: 'img/sights/market-2-m.jpg', f: 'img/sights/market-2.jpg' },
         { t: 'img/sights/market-3-t.jpg', m: 'img/sights/market-3-m.jpg', f: 'img/sights/market-3.jpg' }
       ],
+      name: 'Winter Park Farmers\' Market',
       day: 'D2 · 11/14（周六限定）',
       hours: '每周六 8:00–13:00',
       booking: '不用预约，带现金更好砍价',
@@ -612,12 +612,12 @@ window.TRIP_GUIDES = {
     {
       icon: '🪟',
       ord: 'D2-03',
-      name: 'Morse Museum of American Art',
       photos: [
         { t: 'img/sights/morse-1-t.jpg', m: 'img/sights/morse-1-m.jpg', f: 'img/sights/morse-1.jpg' },
         { t: 'img/sights/morse-2-t.jpg', m: 'img/sights/morse-2-m.jpg', f: 'img/sights/morse-2.jpg' },
         { t: 'img/sights/morse-3-t.jpg', m: 'img/sights/morse-3-m.jpg', f: 'img/sights/morse-3.jpg' }
       ],
+      name: 'Morse Museum of American Art',
       day: 'D2 · 11/14',
       hours: '周二–周六 9:30–16:00；周日 13:00–16:00；周一闭馆',
       booking: '门票几美元，周五傍晚常有免费时段（以官网为准）',
@@ -631,12 +631,12 @@ window.TRIP_GUIDES = {
     {
       icon: '⛵',
       ord: 'D2-05',
-      name: 'Winter Park Scenic Boat Tour',
       photos: [
-        { t: 'img/sights/boat-3-t.jpg', m: 'img/sights/boat-3-m.jpg', f: 'img/sights/boat-3.jpg' },
         { t: 'img/sights/boat-1-t.jpg', m: 'img/sights/boat-1-m.jpg', f: 'img/sights/boat-1.jpg' },
-        { t: 'img/sights/boat-2-t.jpg', m: 'img/sights/boat-2-m.jpg', f: 'img/sights/boat-2.jpg' }
+        { t: 'img/sights/boat-2-t.jpg', m: 'img/sights/boat-2-m.jpg', f: 'img/sights/boat-2.jpg' },
+        { t: 'img/sights/boat-3-t.jpg', m: 'img/sights/boat-3-m.jpg', f: 'img/sights/boat-3.jpg' }
       ],
+      name: 'Winter Park Scenic Boat Tour',
       day: 'D2 · 11/14',
       hours: '10:00–16:00 整点发船（天气不好会停）',
       booking: '现场买票，$20 上下，旺季提前 15 分钟排队',
@@ -645,12 +645,12 @@ window.TRIP_GUIDES = {
     {
       icon: '🏡',
       ord: 'D2-06',
-      name: 'Casa Feliz Historic Home',
       photos: [
         { t: 'img/sights/casa-1-t.jpg', m: 'img/sights/casa-1-m.jpg', f: 'img/sights/casa-1.jpg' },
         { t: 'img/sights/casa-2-t.jpg', m: 'img/sights/casa-2-m.jpg', f: 'img/sights/casa-2.jpg' },
         { t: 'img/sights/casa-3-t.jpg', m: 'img/sights/casa-3-m.jpg', f: 'img/sights/casa-3.jpg' }
       ],
+      name: 'Casa Feliz Historic Home',
       day: 'D2 · 11/14（和 Kraft Azalea 二选一）',
       hours: '开放时段有限，去之前查官网',
       plan: ['656 N Park Ave', '1933 年的西班牙农庄式宅子', '院子比室内更好看'],
@@ -659,12 +659,12 @@ window.TRIP_GUIDES = {
     {
       icon: '🌳',
       ord: 'D2-07',
-      name: 'Kraft Azalea Garden',
       photos: [
         { t: 'img/sights/kraft-1-t.jpg', m: 'img/sights/kraft-1-m.jpg', f: 'img/sights/kraft-1.jpg' },
         { t: 'img/sights/kraft-2-t.jpg', m: 'img/sights/kraft-2-m.jpg', f: 'img/sights/kraft-2.jpg' },
         { t: 'img/sights/kraft-3-t.jpg', m: 'img/sights/kraft-3-m.jpg', f: 'img/sights/kraft-3.jpg' }
       ],
+      name: 'Kraft Azalea Garden',
       day: 'D2 · 11/14（和 Casa Feliz 二选一）',
       hours: '日出到日落，免费',
       plan: ['1365 Alabama Dr', '湖边小花园，一圈 10 分钟', '傍晚光线最好，适合坐着发呆']
@@ -672,6 +672,11 @@ window.TRIP_GUIDES = {
     {
       icon: '🪑',
       ord: 'D3-02',
+      photos: [
+        { t: 'img/sights/renningers-1-t.jpg', m: 'img/sights/renningers-1-m.jpg', f: 'img/sights/renningers-1.jpg' },
+        { t: 'img/sights/renningers-2-t.jpg', m: 'img/sights/renningers-2-m.jpg', f: 'img/sights/renningers-2.jpg' },
+        { t: 'img/sights/renningers-3-t.jpg', m: 'img/sights/renningers-3-m.jpg', f: 'img/sights/renningers-3.jpg' }
+      ],
       name: 'Renninger\'s Mt. Dora 跳蚤市场 + 古董中心',
       day: 'D3 · 11/15（周日）',
       hours: '周末开放，跳蚤市场上午人多；具体时段以官网为准',
@@ -686,12 +691,12 @@ window.TRIP_GUIDES = {
     {
       icon: '🏘',
       ord: 'D3-03',
-      name: 'Mount Dora 老城',
       photos: [
         { t: 'img/sights/dora-1-t.jpg', m: 'img/sights/dora-1-m.jpg', f: 'img/sights/dora-1.jpg' },
         { t: 'img/sights/dora-2-t.jpg', m: 'img/sights/dora-2-m.jpg', f: 'img/sights/dora-2.jpg' },
         { t: 'img/sights/dora-3-t.jpg', m: 'img/sights/dora-3-m.jpg', f: 'img/sights/dora-3.jpg' }
       ],
+      name: 'Mount Dora 老城',
       day: 'D3 · 11/15',
       hours: '店铺大多 10:00–17:00，周日部分不开',
       plan: ['Donnelly St 主街逛古董店和书店', '走到湖滨看 Mount Dora 灯塔（1 Lighthouse Cir）', '找家咖啡馆坐一会儿'],
@@ -709,6 +714,11 @@ window.TRIP_GUIDES = {
     {
       icon: '🚉',
       ord: 'D2-11',
+      photos: [
+        { t: 'img/sights/church-1-t.jpg', m: 'img/sights/church-1-m.jpg', f: 'img/sights/church-1.jpg' },
+        { t: 'img/sights/church-2-t.jpg', m: 'img/sights/church-2-m.jpg', f: 'img/sights/church-2.jpg' },
+        { t: 'img/sights/church-3-t.jpg', m: 'img/sights/church-3-m.jpg', f: 'img/sights/church-3.jpg' }
+      ],
       name: 'Church Street Station',
       day: 'D2 · 11/14',
       hours: '街区全天，店铺和酒吧傍晚才热闹',
@@ -717,12 +727,12 @@ window.TRIP_GUIDES = {
     {
       icon: '🐕',
       ord: 'D3-04',
-      name: 'Lake Baldwin 狗公园',
       photos: [
         { t: 'img/sights/dogpark-1-t.jpg', m: 'img/sights/dogpark-1-m.jpg', f: 'img/sights/dogpark-1.jpg' },
         { t: 'img/sights/dogpark-2-t.jpg', m: 'img/sights/dogpark-2-m.jpg', f: 'img/sights/dogpark-2.jpg' },
         { t: 'img/sights/dogpark-3-t.jpg', m: 'img/sights/dogpark-3-m.jpg', f: 'img/sights/dogpark-3.jpg' }
       ],
+      name: 'Lake Baldwin 狗公园',
       day: 'D3 · 11/15（可选）',
       hours: '日出到日落，免费',
       plan: ['2070 Lake Baldwin Ln', '湖滨大草坪，无绳区', '周末下午常有狗主人聚会'],
@@ -733,12 +743,12 @@ window.TRIP_GUIDES = {
     {
       icon: '🛍',
       ord: 'D2-04',
-      name: 'Park Avenue',
       photos: [
         { t: 'img/sights/park-1-t.jpg', m: 'img/sights/park-1-m.jpg', f: 'img/sights/park-1.jpg' },
         { t: 'img/sights/park-2-t.jpg', m: 'img/sights/park-2-m.jpg', f: 'img/sights/park-2.jpg' },
         { t: 'img/sights/park-3-t.jpg', m: 'img/sights/park-3-m.jpg', f: 'img/sights/park-3.jpg' }
       ],
+      name: 'Park Avenue',
       day: 'D2 · 11/14',
       hours: '店铺大多 10:00–18:00，周日部分休息',
       plan: [
@@ -764,11 +774,11 @@ window.TRIP_GUIDES = {
     {
       icon: '🌊',
       ord: 'D7-02',
-      name: 'Fort Lauderdale Riverwalk',
       photos: [
         { t: 'img/sights/riverwalk-1-t.jpg', m: 'img/sights/riverwalk-1-m.jpg', f: 'img/sights/riverwalk-1.jpg' },
         { t: 'img/sights/riverwalk-2-t.jpg', m: 'img/sights/riverwalk-2-m.jpg', f: 'img/sights/riverwalk-2.jpg' }
       ],
+      name: 'Fort Lauderdale Riverwalk',
       day: 'D7 · 11/19',
       hours: '全天开放，免费',
       plan: ['沿 New River 从 Broward Center 走到 Riverwalk 公园', '一路有雕塑、码头和露天剧场', '傍晚看游艇亮灯'],
@@ -777,12 +787,12 @@ window.TRIP_GUIDES = {
     {
       icon: '🏖',
       ord: 'D9-01',
-      name: 'Fort Lauderdale Beach（含 Las Olas）',
       photos: [
+        { t: 'img/sights/beach-1-t.jpg', m: 'img/sights/beach-1-m.jpg', f: 'img/sights/beach-1.jpg' },
         { t: 'img/sights/beach-2-t.jpg', m: 'img/sights/beach-2-m.jpg', f: 'img/sights/beach-2.jpg' },
-        { t: 'img/sights/beach-3-t.jpg', m: 'img/sights/beach-3-m.jpg', f: 'img/sights/beach-3.jpg' },
-        { t: 'img/sights/beach-1-t.jpg', m: 'img/sights/beach-1-m.jpg', f: 'img/sights/beach-1.jpg' }
+        { t: 'img/sights/beach-3-t.jpg', m: 'img/sights/beach-3-m.jpg', f: 'img/sights/beach-3.jpg' }
       ],
+      name: 'Fort Lauderdale Beach（含 Las Olas）',
       day: 'D9 · 11/21（方案 A）',
       hours: '全天；救生员值守约 9:00–17:00',
       plan: ['A1A 沿海大道旁的沙滩', 'Las Olas Blvd 东端就是海滩入口', '往北走人少，往南走商铺多'],
@@ -791,12 +801,12 @@ window.TRIP_GUIDES = {
     {
       icon: '🚤',
       ord: 'D9-02',
-      name: 'Water Taxi（运河水上巴士）',
       photos: [
         { t: 'img/sights/watertaxi-1-t.jpg', m: 'img/sights/watertaxi-1-m.jpg', f: 'img/sights/watertaxi-1.jpg' },
         { t: 'img/sights/watertaxi-2-t.jpg', m: 'img/sights/watertaxi-2-m.jpg', f: 'img/sights/watertaxi-2.jpg' },
         { t: 'img/sights/watertaxi-3-t.jpg', m: 'img/sights/watertaxi-3-m.jpg', f: 'img/sights/watertaxi-3.jpg' }
       ],
+      name: 'Water Taxi（运河水上巴士）',
       day: 'D9 · 11/21（方案 A）',
       hours: '约 10:00–22:00，30–45 分钟一班',
       booking: '一日票约 $35，可随时上下船',
@@ -806,6 +816,11 @@ window.TRIP_GUIDES = {
     {
       icon: '🎨',
       ord: 'D9-04',
+      photos: [
+        { t: 'img/sights/wynwood-1-t.jpg', m: 'img/sights/wynwood-1-m.jpg', f: 'img/sights/wynwood-1.jpg' },
+        { t: 'img/sights/wynwood-2-t.jpg', m: 'img/sights/wynwood-2-m.jpg', f: 'img/sights/wynwood-2.jpg' },
+        { t: 'img/sights/wynwood-3-t.jpg', m: 'img/sights/wynwood-3-m.jpg', f: 'img/sights/wynwood-3.jpg' }
+      ],
       name: 'Wynwood Walls',
       day: 'D9 · 11/21（方案 B）',
       hours: '约 10:30–18:00（周一常闭）',
