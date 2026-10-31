@@ -7,7 +7,7 @@
  *      OSM 瓦片是 no-cache，不缓存的话每次看地图都要重新验证几十张。
  *      只缓存「用户实际看过的」瓦片，不做预下载（符合 OSM 的 tile usage policy）。
  */
-const CACHE = 'trip-v7';
+const CACHE = 'trip-v8';
 const TILE_CACHE = 'tiles-v1';
 const TILE_MAX = 500;
 
@@ -82,8 +82,10 @@ self.addEventListener('fetch', e => {
   if (url.origin !== location.origin) return;
 
   // ---- 应用文件：网络优先，失败回落缓存 ----
+  // cache: 'no-store' 是关键：GitHub Pages 给 max-age=600，
+  // 不加这个的话 fetch 会吃到浏览器 HTTP 缓存，部署后最多 10 分钟还是旧文件。
   e.respondWith(
-    fetch(req)
+    fetch(req, { cache: 'no-store' })
       .then(res => {
         if (res && res.status === 200 && res.type === 'basic') {
           const copy = res.clone();

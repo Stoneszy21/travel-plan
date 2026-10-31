@@ -670,7 +670,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
+  const BUILD = '2026-10-31 00:00';   // 部署时由 deploy.ps1 自动改写
+const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
   /* =====================================================================
@@ -2305,6 +2306,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
         box.appendChild(card);
       });
       box.appendChild(el('div', 'foot', '营业时间和是否还开着，出发前用 Google 地图再看一眼；标了「要订位」的，提前一天打电话。'));
+      box.appendChild(el('div', 'foot', '版本 ' + BUILD));
       return;
     }
 
