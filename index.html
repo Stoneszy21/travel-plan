@@ -339,6 +339,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .gd-dates { font-size: 11.5px; color: var(--muted); margin-top: 3px; font-variant-numeric: tabular-nums; }
 .gd-dist { font-size: 11.5px; color: var(--muted-2); margin-top: 3px; font-variant-numeric: tabular-nums; }
 
+.gd-daysep { font-size: 11.5px; font-weight: 800; letter-spacing: .06em; color: var(--muted-2); margin: 16px 2px 7px; text-transform: none; }
+.gd-daysep:first-child { margin-top: 2px; }
 .gd-card {
   background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
   box-shadow: var(--shadow); padding: 13px 14px; margin-bottom: 11px;
@@ -2307,7 +2309,19 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     }
 
     if (!GUIDES.sights || !GUIDES.sights.length) { box.appendChild(el('div', 'ml-hint', '还没有景点信息')); return; }
-    GUIDES.sights.forEach(s => {
+    const sorted = GUIDES.sights.slice().sort((a, b) => {
+      const ka = a.ord || 'Z', kb = b.ord || 'Z';
+      return ka < kb ? -1 : ka > kb ? 1 : 0;
+    });
+    let lastDayKey = '';
+    sorted.forEach(s => {
+      const dayKey = (s.ord || '').split('-')[0];
+      if (dayKey && dayKey !== lastDayKey) {
+        lastDayKey = dayKey;
+        const head0 = sorted.filter(x => (x.ord || '').split('-')[0] === dayKey)[0];
+        const label = (head0 && head0.day) ? head0.day.replace(/（.*）/, '') : dayKey;
+        box.appendChild(el('div', 'gd-daysep', label));
+      }
       const card = el('div', 'gd-card');
       const head = el('div', 'gd-head');
       if (s.photos && s.photos.length) {

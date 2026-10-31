@@ -70,7 +70,7 @@ window.TRIP = {
 | 复制当天行程成文字，直接发微信 | ✅ |
 | 真地图（OSM 底图，可拖拽/双指缩放）、按天连线、切单日看顺序、跳 Google 地图导航 | ✅ |
 | 「天气」页：每天气温/降雨/天气现象（16 天内是预报，更远用去年同期）+ 日出日落/黄金/蓝调/月升月落/月相 | ✅ |
-| 要点页：洲际交通 / 当地交通 / 景点（20 个） / 美食 / 酒店 | ✅ |
+| 要点页：洲际交通 / 当地交通 / 景点（26 个，按天分组、按行程顺序） / 美食 / 酒店 | ✅ |
 | 美食：只保留「真的好吃/有特色」和「有景观/上档次」的推荐，带景观标记；每餐配菜系示意图 | ✅ |
 | 交通距离：自驾/打车取 OSRM 实际路线，步行/公交为直线距离 | ✅ |
 | 交通路线地图快照（滚动到才加载，避免瓦片限流）；**点快照打开全屏可缩放地图** | ✅ |
@@ -101,6 +101,7 @@ window.TRIP = {
 ```powershell
 node tools/check-static.js             # 语法 / id / class 一致性
 node tools/check-data.js               # 数据完整性（图片存在、坐标齐全、餐次不缺、日期连续）
+node tools/check-coverage.js           # 行程目的地是否都有景点卡片
 node tools/check-astro.js              # 跑 App 自己的天文算法 + 不变式检查
 python tools/check-sun-noaa.py         # 与 NOAA 公式交叉验证日出日落
 python tools/check-moon-schlyter.py    # 与 Schlyter 模型交叉验证月升月落

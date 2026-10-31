@@ -418,6 +418,7 @@ window.TRIP_GUIDES = {
   /* ------------------------------- 景点 -------------------------------- */
   sights: [
     {
+      ord: 'D2-02',
       name: 'Rollins College',
       photos: [
         { t: 'img/sights/rollins-1-t.jpg', m: 'img/sights/rollins-1-m.jpg', f: 'img/sights/rollins-1.jpg' },
@@ -435,6 +436,7 @@ window.TRIP_GUIDES = {
       note: '校园在 Winter Park 中心，出去就是 Park Ave，动线很顺。'
     },
     {
+      ord: 'D2-08',
       name: 'Orlando Public Library',
       photos: [
         { t: 'img/sights/library-1-t.jpg', m: 'img/sights/library-1-m.jpg', f: 'img/sights/library-1.jpg' },
@@ -448,6 +450,7 @@ window.TRIP_GUIDES = {
       note: '离 Lake Eola 步行 8 分钟，两个点连着逛。'
     },
     {
+      ord: 'D2-10',
       name: 'Lake Eola Park',
       photos: [
         { t: 'img/sights/eola-1-t.jpg', m: 'img/sights/eola-1-m.jpg', f: 'img/sights/eola-1.jpg' },
@@ -461,6 +464,7 @@ window.TRIP_GUIDES = {
       note: '周日下午有露天市集，人多但热闹。'
     },
     {
+      ord: 'D2-12',
       name: 'Florida Southern College（赖特校园）',
       photos: [
         { t: 'img/sights/fsc-1-t.jpg', m: 'img/sights/fsc-1-m.jpg', f: 'img/sights/fsc-1.jpg' },
@@ -479,6 +483,7 @@ window.TRIP_GUIDES = {
       note: '全美最大规模的单一校区赖特建筑群，13 栋。不进导览的话很多室内看不到。'
     },
     {
+      ord: 'D3-01',
       name: 'Blue Spring State Park',
       photos: [
         { t: 'img/sights/bluespring-1-t.jpg', m: 'img/sights/bluespring-1-m.jpg', f: 'img/sights/bluespring-1.jpg' },
@@ -497,6 +502,7 @@ window.TRIP_GUIDES = {
       note: '11/15 起是海牛季：泉眼水道禁船，但河段照样能看到。清晨水温高、海牛最活跃。'
     },
     {
+      ord: 'D4-01',
       name: '迪士尼 Animal Kingdom',
       photos: [
         { t: 'img/sights/animal-1-t.jpg', m: 'img/sights/animal-1-m.jpg', f: 'img/sights/animal-1.jpg' },
@@ -516,6 +522,7 @@ window.TRIP_GUIDES = {
       note: '园区很大，穿好走的鞋；水杯可以带，园内有直饮水。'
     },
     {
+      ord: 'D5-01',
       name: '肯尼迪航天中心',
       photos: [
         { t: 'img/sights/ksc-1-t.jpg', m: 'img/sights/ksc-1-m.jpg', f: 'img/sights/ksc-1.jpg' },
@@ -536,6 +543,7 @@ window.TRIP_GUIDES = {
       note: '唯一需要守时的是巴士导览；Astronaut Encounter / IMAX 每天场次不同，进门先看时刻牌。'
     },
     {
+      ord: 'D8-01',
       name: 'Bonnet House Museum & Gardens',
       photos: [
         { t: 'img/sights/bonnet-1-t.jpg', m: 'img/sights/bonnet-1-m.jpg', f: 'img/sights/bonnet-1.jpg' },
@@ -550,6 +558,7 @@ window.TRIP_GUIDES = {
       note: '1920 年建的庄园，家具和画作都保留原样。就在海滩边上，逛完可以顺路去 A1A。'
     },
     {
+      ord: 'D7-01',
       name: 'NSU Art Museum',
       photos: [
         { t: 'img/sights/nsu-1-t.jpg', m: 'img/sights/nsu-1-m.jpg', f: 'img/sights/nsu-1.jpg' },
@@ -563,6 +572,7 @@ window.TRIP_GUIDES = {
       note: '离 Riverwalk 步行 3 分钟，两个点连着走。'
     },
     {
+      ord: 'D9-03',
       name: 'Vizcaya Museum & Gardens',
       photos: [
         { t: 'img/sights/vizcaya-1-t.jpg', m: 'img/sights/vizcaya-1-m.jpg', f: 'img/sights/vizcaya-1.jpg' },
@@ -579,6 +589,7 @@ window.TRIP_GUIDES = {
     ,
     {
       icon: '🧺',
+      ord: 'D2-01',
       name: 'Winter Park Farmers\' Market',
       day: 'D2 · 11/14（周六限定）',
       hours: '每周六 8:00–13:00',
@@ -592,6 +603,7 @@ window.TRIP_GUIDES = {
     },
     {
       icon: '🪟',
+      ord: 'D2-03',
       name: 'Morse Museum of American Art',
       day: 'D2 · 11/14',
       hours: '周二–周六 9:30–16:00；周日 13:00–16:00；周一闭馆',
@@ -605,6 +617,7 @@ window.TRIP_GUIDES = {
     },
     {
       icon: '⛵',
+      ord: 'D2-05',
       name: 'Winter Park Scenic Boat Tour',
       day: 'D2 · 11/14',
       hours: '10:00–16:00 整点发船（天气不好会停）',
@@ -613,6 +626,7 @@ window.TRIP_GUIDES = {
     },
     {
       icon: '🏡',
+      ord: 'D2-06',
       name: 'Casa Feliz Historic Home',
       day: 'D2 · 11/14（和 Kraft Azalea 二选一）',
       hours: '开放时段有限，去之前查官网',
@@ -621,6 +635,7 @@ window.TRIP_GUIDES = {
     },
     {
       icon: '🌳',
+      ord: 'D2-07',
       name: 'Kraft Azalea Garden',
       day: 'D2 · 11/14（和 Casa Feliz 二选一）',
       hours: '日出到日落，免费',
@@ -628,6 +643,7 @@ window.TRIP_GUIDES = {
     },
     {
       icon: '🪑',
+      ord: 'D3-02',
       name: 'Renninger\'s Mt. Dora 跳蚤市场 + 古董中心',
       day: 'D3 · 11/15（周日）',
       hours: '周末开放，跳蚤市场上午人多；具体时段以官网为准',
@@ -641,6 +657,7 @@ window.TRIP_GUIDES = {
     },
     {
       icon: '🏘',
+      ord: 'D3-03',
       name: 'Mount Dora 老城',
       day: 'D3 · 11/15',
       hours: '店铺大多 10:00–17:00，周日部分不开',
@@ -649,6 +666,7 @@ window.TRIP_GUIDES = {
     },
     {
       icon: '🏛',
+      ord: 'D2-09',
       name: 'Orange County Regional History Center',
       day: 'D2 · 11/14（市区线顺路）',
       hours: '约 10:00–17:00，周日 12:00 开（以官网为准）',
@@ -657,6 +675,7 @@ window.TRIP_GUIDES = {
     },
     {
       icon: '🚉',
+      ord: 'D2-11',
       name: 'Church Street Station',
       day: 'D2 · 11/14',
       hours: '街区全天，店铺和酒吧傍晚才热闹',
@@ -664,11 +683,70 @@ window.TRIP_GUIDES = {
     },
     {
       icon: '🐕',
+      ord: 'D3-04',
       name: 'Lake Baldwin 狗公园',
       day: 'D3 · 11/15（可选）',
       hours: '日出到日落，免费',
       plan: ['2070 Lake Baldwin Ln', '湖滨大草坪，无绳区', '周末下午常有狗主人聚会'],
       note: '没狗也能在旁边步道走，看热闹。不感兴趣就跳过。'
+    }
+
+    ,
+    {
+      icon: '🛍',
+      ord: 'D2-04',
+      name: 'Park Avenue',
+      day: 'D2 · 11/14',
+      hours: '店铺大多 10:00–18:00，周日部分休息',
+      plan: ['Morse Blvd 到 Fairbanks Ave 之间这段最好逛', '书店和买手店集中在东侧', '路边有长椅和喷泉，累了坐会儿'],
+      note: 'Winter Park 的主街。11 月中已经有圣诞橱窗。周六上午人最多，下午反而更好逛。'
+    },
+    {
+      icon: '🌊',
+      ord: 'D7-02',
+      name: 'Fort Lauderdale Riverwalk',
+      day: 'D7 · 11/19',
+      hours: '全天开放，免费',
+      plan: ['沿 New River 从 Broward Center 走到 Riverwalk 公园', '一路有雕塑、码头和露天剧场', '傍晚看游艇亮灯'],
+      note: 'NSU 美术馆就在河边，看完出来走 20 分钟正好。'
+    },
+    {
+      icon: '🏖',
+      ord: 'D9-01',
+      name: 'Fort Lauderdale Beach（含 Las Olas）',
+      day: 'D9 · 11/21（方案 A）',
+      hours: '全天；救生员值守约 9:00–17:00',
+      plan: ['A1A 沿海大道旁的沙滩', 'Las Olas Blvd 东端就是海滩入口', '往北走人少，往南走商铺多'],
+      note: '11 月水温约 25°C，能下水。沙滩椅和伞可现场租。'
+    },
+    {
+      icon: '🚤',
+      ord: 'D9-02',
+      name: 'Water Taxi（运河水上巴士）',
+      day: 'D9 · 11/21（方案 A）',
+      hours: '约 10:00–22:00，30–45 分钟一班',
+      booking: '一日票约 $35，可随时上下船',
+      plan: ['在 Las Olas 或 17th St 码头登船', '沿 New River 看豪宅和游艇', '可在 Beach 或 Downtown 下船继续逛'],
+      note: '当交通工具用也行，比固定观光船自由。'
+    },
+    {
+      icon: '🎨',
+      ord: 'D9-04',
+      name: 'Wynwood Walls',
+      day: 'D9 · 11/21（方案 B）',
+      hours: '约 10:30–18:00（周一常闭）',
+      booking: '门票约 $15，现场买',
+      plan: ['先看 Walls 主区，40 多幅大型壁画', '外围街区的免费涂鸦也值得走一圈', 'Zak the Baker 和 Coyo Taco 都在步行范围'],
+      note: '迈阿密最出片的地方。上午光线好、人也少。'
+    },
+    {
+      icon: '🌴',
+      ord: 'D9-05',
+      name: 'South Beach / Ocean Drive',
+      day: 'D9 · 11/21（方案 B）',
+      hours: '全天',
+      plan: ['Ocean Drive 的 Art Deco 建筑群', 'Lummus Park 海滩', '走到南端 South Pointe 看码头'],
+      note: '晚上酒吧街很吵；Joe’s Stone Crab 就在南边不远。'
     }
 
   ]
