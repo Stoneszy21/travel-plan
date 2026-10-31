@@ -71,7 +71,7 @@ window.TRIP = {
 | 真地图（OSM 底图，可拖拽/双指缩放）、按天连线、切单日看顺序、跳 Google 地图导航 | ✅ |
 | 「天气」页：每天气温/降雨/天气现象（16 天内是预报，更远用去年同期）+ 日出日落/黄金/蓝调/月升月落/月相 | ✅ |
 | 要点页：洲际交通 / 当地交通 / 景点 / 美食 / 酒店 | ✅ |
-| 美食：每天早/午/晚/夜宵四餐推荐（餐厅、菜系、价位、是否需订位、离开路线远不远） | ✅ |
+| 美食：每天早/午/晚/夜宵四餐推荐（餐厅、菜系、价位、是否需订位），每餐配菜系示意图 | ✅ |
 | 交通距离：自驾/打车取 OSRM 实际路线，步行/公交为直线距离 | ✅ |
 | 交通路线地图快照（滚动到才加载，避免瓦片限流）；**点快照打开全屏可缩放地图** | ✅ |
 | 景点实景照片：每个景点 3 张，**三级尺寸**（缩略图 120px / 中图 360px 懒加载 / 原图点开才加载） | ✅ |
@@ -112,7 +112,7 @@ python tools/make-thumbs.py             # 重新生成照片缩略图与中图  
 
 ## 图片来源
 
-景点照片来自 [Wikimedia Commons](https://commons.wikimedia.org/)（CC BY / CC BY-SA / 公有领域），已下载并压缩到 img/sights/，逐张授权信息记录在 img/sights/credits.json。抓取脚本见 	ools/fetch-photos.py（可按需重跑或替换）。
+景点照片与菜品示意照来自 [Wikimedia Commons](https://commons.wikimedia.org/)（CC BY / CC BY-SA / 公有领域），已下载并压缩到 img/sights/，逐张授权信息记录在 img/sights/credits.json。抓取脚本见 	ools/fetch-photos.py（可按需重跑或替换）。
 
 ## 文件
 
