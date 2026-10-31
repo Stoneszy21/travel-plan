@@ -1,0 +1,7 @@
+# 自检脚本生成的中间产物
+tools/astro-out.json
+
+# 日志与临时文件
+*.log
+_shots/
+.chromeprof*/

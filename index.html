@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>行程</title>
+<meta name="theme-color" content="#f4f4f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="行程">
+<meta name="format-detection" content="telephone=no">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+:root {
+  --bg: #f4f4f2;
+  --card: #ffffff;
+  --card-2: #fafaf8;
+  --line: #e5e4df;
+  --line-2: #efeee9;
+  --text: #17181b;
+  --muted: #71727a;
+  --muted-2: #9b9ca3;
+  --accent: #0f766e;
+  --accent-weak: #e7f3f1;
+  --sun: #d98300;
+  --moon: #4f5fd0;
+  --danger: #c2410c;
+  --shadow: 0 1px 2px rgba(20, 20, 25, .05), 0 10px 30px -18px rgba(20, 20, 25, .35);
+  --r: 14px;
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --card: #171a20;
+    --card-2: #1b1f26;
+    --line: #272b33;
+    --line-2: #22262d;
+    --text: #e9eaee;
+    --muted: #9aa0ab;
+    --muted-2: #767c88;
+    --accent: #4fd1c5;
+    --accent-weak: #14312f;
+    --sun: #f0b429;
+    --moon: #9aa8ff;
+    --danger: #fb923c;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .5);
+  }
+}
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+  padding-bottom: calc(28px + var(--sab));
+}
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+a { color: var(--accent); text-decoration: none; }
+h1, h2, h3, p, ol, ul { margin: 0; }
+
+/* ---------- 顶栏 ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  padding: calc(var(--sat) + 10px) 16px 8px;
+  background: var(--bg);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid var(--line-2);
+}
+.topbar-inner { display: flex; align-items: flex-start; gap: 10px; max-width: 720px; margin: 0 auto; }
+.tb-text { flex: 1; min-width: 0; }
+.tb-title { font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
+.tb-sub { font-size: 12.5px; color: var(--muted); margin-top: 1px; }
+.tb-today {
+  flex: none; font-size: 13px; font-weight: 600; color: var(--accent);
+  border: 1px solid var(--line);
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  background: var(--accent-weak);
+  border-radius: 999px; padding: 6px 12px; margin-top: 2px;
+}
+.segmented {
+  display: flex; gap: 4px; max-width: 720px; margin: 8px auto 0;
+  background: var(--line-2); border-radius: 11px; padding: 3px;
+}
+.segmented button {
+  flex: 1; text-align: center; font-size: 13.5px; font-weight: 600;
+  color: var(--muted); padding: 7px 0; border-radius: 8.5px;
+}
+.segmented button[aria-selected="true"] {
+  background: var(--card); color: var(--text); box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+}
+
+main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
+.view[hidden] { display: none; }
+
+/* ---------- 行程概览卡 ---------- */
+.tripcard {
+  background: var(--card);
+  background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 12%, var(--card)), var(--card) 62%);
+  border: 1px solid var(--line); border-radius: var(--r);
+  padding: 13px 14px; margin-bottom: 14px; box-shadow: var(--shadow);
+}
+.tc-title { font-size: 15px; font-weight: 700; }
+.tc-meta { display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.tc-count { margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--accent); }
+
+/* ---------- 日期条 ---------- */
+.daystrip {
+  position: sticky; top: var(--topbar-h, 96px); z-index: 20;
+  display: flex; gap: 6px; overflow-x: auto; padding: 6px 0 8px;
+  margin: 0 -14px 6px; padding-left: 14px; padding-right: 14px;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  background: linear-gradient(var(--bg) 72%, transparent);
+}
+.daystrip::-webkit-scrollbar { display: none; }
+.chip {
+  flex: none; font-size: 12.5px; font-weight: 650; color: var(--muted);
+  border: 1px solid var(--line); background: var(--card);
+  padding: 6px 10px; border-radius: 999px; line-height: 1.25;
+}
+.chip b { font-weight: 800; color: var(--text); margin-right: 3px; }
+.chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip.active b { color: #fff; }
+
+/* ---------- 每天 ---------- */
+.day {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
+  box-shadow: var(--shadow); margin-bottom: 14px; overflow: hidden;
+  scroll-margin-top: calc(var(--topbar-h, 96px) + 44px);
+}
+.day.today { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+.day-head { padding: 12px 14px 10px; border-bottom: 1px solid var(--line-2); }
+.dh-row1 { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); }
+.dh-dnum {
+  font-weight: 800; font-size: 11.5px; letter-spacing: .04em;
+  background: var(--accent-weak); color: var(--accent);
+  border-radius: 6px; padding: 2px 6px;
+}
+.dh-today { font-size: 11px; font-weight: 700; color: #fff; background: var(--accent); border-radius: 6px; padding: 2px 6px; }
+.dh-spacer { flex: 1; }
+.dh-copy {
+  font-size: 12px; font-weight: 650; color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent);
+  border-radius: 8px; padding: 4px 9px; background: var(--card);
+}
+.dh-title { font-size: 16.5px; font-weight: 700; margin-top: 6px; letter-spacing: -.01em; }
+.dh-note { font-size: 12.5px; color: var(--muted); margin-top: 5px; }
+.dh-astro { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11.5px; font-weight: 600; color: var(--muted);
+  background: var(--card-2); border: 1px solid var(--line-2);
+  border-radius: 7px; padding: 3px 7px; font-variant-numeric: tabular-nums;
+}
+.pill.sun { color: var(--sun); }
+.pill.moon { color: var(--moon); }
+.pill i { font-style: normal; font-size: 11px; }
+
+/* ---------- 时间轴 ---------- */
+.tl { list-style: none; padding: 12px 14px 4px; }
+.it {
+  display: grid; grid-template-columns: 42px 14px 1fr; gap: 0 9px;
+  position: relative; padding-bottom: 16px;
+}
+.it-time { font-size: 13px; font-weight: 650; color: var(--text); text-align: right; padding-top: 1px; font-variant-numeric: tabular-nums; }
+.it-rail { position: relative; display: flex; justify-content: center; }
+.it-rail::before { content: ""; position: absolute; top: 13px; bottom: -16px; width: 2px; background: var(--line-2); }
+.it:last-child .it-rail::before { display: none; }
+.it-dot {
+  width: 11px; height: 11px; border-radius: 50%; margin-top: 4px; flex: none;
+  background: var(--accent); box-shadow: 0 0 0 3px var(--card);
+  border: 2px solid var(--card);
+}
+.it[data-type="transport"] .it-dot { background: #3b82f6; }
+.it[data-type="food"] .it-dot { background: #ea580c; }
+.it[data-type="stay"] .it-dot { background: #7c3aed; }
+.it[data-type="shop"] .it-dot { background: #db2777; }
+.it[data-type="sight"] .it-dot { background: var(--accent); }
+.it[data-type="other"] .it-dot { background: var(--muted-2); }
+.it-body { min-width: 0; padding-bottom: 2px; padding-right: 30px; }
+.it-transit { font-size: 11.5px; color: var(--muted-2); margin-bottom: 1px; }
+.it-name { font-size: 15.5px; font-weight: 650; line-height: 1.35; letter-spacing: -.005em; }
+.it-meta { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+.it-tag {
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  background: var(--card-2); border: 1px solid var(--line-2);
+  border-radius: 5px; padding: 1.5px 5px;
+}
+.it-note { font-size: 12.5px; color: var(--muted); margin-top: 5px; }
+.it.open .it-note { display: block; }
+.it-check {
+  position: absolute; right: -2px; top: 0; width: 30px; height: 30px;
+  border-radius: 50%; display: grid; place-items: center;
+  color: var(--muted-2); font-size: 13px; border: 1px solid var(--line);
+  background: var(--card); opacity: .9;
+}
+.it.done .it-check { background: var(--accent); border-color: var(--accent); color: #fff; }
+.it.done .it-name { color: var(--muted-2); text-decoration: line-through; text-decoration-thickness: 1.5px; }
+.it.done .it-dot { opacity: .45; }
+.dh-progress { font-weight: 650; }
+
+/* ---------- 地图 ---------- */
+.mapwrap { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 10px 10px 12px; }
+.mapchips { display: flex; gap: 6px; overflow-x: auto; padding: 2px 2px 8px; scrollbar-width: none; }
+.mapchips::-webkit-scrollbar { display: none; }
+.mchip { flex: none; font-size: 12px; font-weight: 650; border-radius: 999px; padding: 4px 9px; border: 1px solid var(--line); color: var(--text); background: var(--card); display: inline-flex; align-items: center; gap: 5px; }
+.mchip .dot { width: 7px; height: 7px; border-radius: 50%; }
+.mchip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+svg.map { display: block; width: 100%; height: auto; border-radius: 10px; background: var(--card-2); touch-action: manipulation; }
+svg.map text { font-size: 9px; font-weight: 800; fill: #fff; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+svg.map text.mapempty { font-size: 12px; font-weight: 600; fill: var(--muted-2); }
+svg.map .mk { cursor: pointer; }
+svg.map .mk circle.ring { fill: none; stroke: #fff; stroke-width: 1.6; }
+.mapfoot { display: flex; flex-direction: column; gap: 3px; margin-top: 8px; font-size: 11.5px; color: var(--muted-2); }
+.mapfoot a { font-weight: 650; }
+
+/* ---------- 天文 ---------- */
+.skyday { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); margin-bottom: 12px; overflow: hidden; }
+.skyhead { padding: 11px 14px 9px; border-bottom: 1px solid var(--line-2); }
+.skyhead .sh-line { display: flex; align-items: baseline; gap: 8px; }
+.skyhead .sd { font-size: 11.5px; font-weight: 800; color: var(--accent); background: var(--accent-weak); border-radius: 5px; padding: 1px 5px; }
+.skyhead .sd-date { font-size: 12.5px; font-weight: 650; color: var(--muted); }
+.skyhead .st { font-size: 15px; font-weight: 700; margin-top: 4px; letter-spacing: -.01em; }
+.skyhead .sa { font-size: 11.5px; color: var(--muted-2); margin-left: auto; text-align: right; }
+.skyrows { padding: 6px 14px 10px; }
+.srow { display: flex; align-items: baseline; gap: 10px; padding: 6px 0; border-bottom: 1px dashed var(--line-2); }
+.srow:last-child { border-bottom: 0; }
+.srow .k { flex: 1; font-size: 13px; color: var(--muted); }
+.srow .v { font-size: 13.5px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.srow .v.hi { color: var(--sun); }
+.srow .v.mo { color: var(--moon); }
+.srow .v.dim { color: var(--muted-2); font-weight: 500; }
+.srow .az { font-size: 11.5px; color: var(--muted-2); font-weight: 500; margin-left: 3px; }
+.skyfoot { padding: 0 14px 11px; font-size: 11.5px; color: var(--muted-2); }
+
+/* ---------- 底部弹层 ---------- */
+.backdrop {
+  position: fixed; inset: 0; z-index: 60; background: rgba(0, 0, 0, .42);
+  opacity: 0; pointer-events: none; transition: opacity .22s ease;
+  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+}
+.backdrop.show { opacity: 1; pointer-events: auto; }
+.sheet {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 61;
+  background: var(--card); border-radius: 20px 20px 0 0;
+  padding: 8px 18px calc(18px + var(--sab));
+  transform: translateY(102%); transition: transform .26s cubic-bezier(.32, .72, 0, 1);
+  max-height: 82vh; overflow-y: auto; box-shadow: 0 -8px 40px rgba(0, 0, 0, .2);
+  max-width: 720px; margin: 0 auto;
+}
+.sheet.show { transform: translateY(0); }
+.sheet .grab { width: 38px; height: 4.5px; border-radius: 3px; background: var(--line); margin: 0 auto 12px; }
+.sh-kicker { font-size: 11.5px; font-weight: 700; color: var(--muted); letter-spacing: .02em; }
+.sh-title { font-size: 19px; font-weight: 750; margin-top: 3px; letter-spacing: -.01em; }
+.sh-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.sh-note { font-size: 13.5px; color: var(--text); background: var(--card-2); border: 1px solid var(--line-2); border-radius: 10px; padding: 9px 11px; margin-top: 11px; line-height: 1.55; }
+.sh-coord { font-size: 11.5px; color: var(--muted-2); margin-top: 9px; font-variant-numeric: tabular-nums; }
+.sh-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 14px; font-weight: 650; padding: 11px 10px; border-radius: 11px;
+  background: var(--card-2); border: 1px solid var(--line); color: var(--text);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.wide { grid-column: 1 / -1; }
+.btn:active { transform: scale(.985); }
+
+/* ---------- toast ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: calc(24px + var(--sab)); transform: translate(-50%, 14px);
+  z-index: 80; background: #1c1f26; color: #fff; font-size: 13px; font-weight: 600;
+  padding: 9px 16px; border-radius: 999px; opacity: 0; pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease; max-width: 86vw; text-align: center;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+.foot { text-align: center; font-size: 11.5px; color: var(--muted-2); padding: 18px 0 6px; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="tb-text">
+      <h1 class="tb-title" id="tbTitle">行程</h1>
+      <div class="tb-sub" id="tbSub">&nbsp;</div>
+    </div>
+    <button class="tb-today" id="btnToday">今天</button>
+  </div>
+  <nav class="segmented" id="tabs" role="tablist">
+    <button role="tab" data-view="plan" aria-selected="true">行程</button>
+    <button role="tab" data-view="map" aria-selected="false">地图</button>
+    <button role="tab" data-view="sky" aria-selected="false">天文</button>
+  </nav>
+</header>
+
+<main>
+  <section class="view" id="view-plan">
+    <div class="tripcard">
+      <div class="tc-count" id="tcCount"></div>
+      <div class="tc-meta" id="tcMeta"></div>
+    </div>
+    <div class="daystrip" id="daystrip"></div>
+    <div id="days"></div>
+    <div class="foot" id="foot"></div>
+  </section>
+
+  <section class="view" id="view-map" hidden>
+    <div class="mapwrap">
+      <div class="mapchips" id="mapchips"></div>
+      <svg class="map" id="mapsvg" viewBox="0 0 340 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="行程点位示意图"></svg>
+      <div class="mapfoot">
+        <span id="mapcount"></span>
+        <a id="mapall" href="#" target="_blank" rel="noopener">在 Google 地图打开全部 →</a>
+      </div>
+    </div>
+    <div class="foot">示意图按经纬度等比投影，连线是直线，不代表实际路线和距离。</div>
+  </section>
+
+  <section class="view" id="view-sky" hidden>
+    <div id="sky-list"></div>
+    <div class="foot">
+      日出日落、黄金/蓝调时刻按当天坐标本地计算，误差约 1 分钟；<br>
+      月升月落用简化天文算法，误差几分钟，看月亮够用；<br>
+      晚霞不做预测，只提供时刻参考。
+    </div>
+  </section>
+</main>
+
+<div class="backdrop" id="backdrop"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast"></div>
+
+<script src="trip-data.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* =====================================================================
+   * 0. 基础
+   * ===================================================================== */
+  const TRIP = window.TRIP || { days: [] };
+  const TZ = TRIP.timezone || 'Asia/Tokyo';
+  const DAY_MS = 86400000;
+  const MIN_MS = 60000;
+  const RAD = Math.PI / 180;
+  const DEG = 180 / Math.PI;
+  const sin = Math.sin, cos = Math.cos, tan = Math.tan;
+  const asin = Math.asin, acos = Math.acos, atan2 = Math.atan2;
+
+  const $ = (s, r) => (r || document).querySelector(s);
+  const el = (tag, cls, html) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  };
+  const pad2 = n => (n < 10 ? '0' + n : '' + n);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
+  const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
+
+  /* =====================================================================
+   * 1. 时区工具（不引第三方库）
+   * ===================================================================== */
+  const fmtTimeCache = {};
+  function tzFormatter(tz) {
+    if (!fmtTimeCache[tz]) {
+      fmtTimeCache[tz] = new Intl.DateTimeFormat('en-GB', {
+        timeZone: tz, hourCycle: 'h23', year: 'numeric', month: '2-digit',
+        day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+    }
+    return fmtTimeCache[tz];
+  }
+
+  // 某一 UTC 瞬间在该时区的偏移量（毫秒，localWall - utc）
+  function tzOffset(ms, tz) {
+    const parts = tzFormatter(tz).formatToParts(new Date(ms));
+    const p = {};
+    for (let i = 0; i < parts.length; i++) p[parts[i].type] = parts[i].value;
+    const wall = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+    return wall - Math.floor(ms / 1000) * 1000;
+  }
+
+  // 时区里某天某刻 -> UTC 毫秒
+  function zoned(dateStr, hh, mm) {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const base = Date.UTC(y, m - 1, d, hh || 0, mm || 0, 0);
+    let ms = base - tzOffset(base, TZ);
+    ms = base - tzOffset(ms, TZ);
+    return ms;
+  }
+
+  function fmtHM(ms) {
+    if (ms == null || !isFinite(ms)) return '—';
+    if (!fmtHM.formatter) {
+      fmtHM.formatter = new Intl.DateTimeFormat('en-GB', { timeZone: TZ, hourCycle: 'h23', hour: '2-digit', minute: '2-digit' });
+    }
+    const parts = fmtHM.formatter.formatToParts(new Date(ms));
+    const p = {};
+    for (let i = 0; i < parts.length; i++) p[parts[i].type] = parts[i].value;
+    return p.hour + ':' + p.minute;
+  }
+
+  function dateParts(dateStr) {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    return { y, m, d };
+  }
+  function weekdayCN(dateStr) {
+    const p = dateParts(dateStr);
+    const w = new Date(Date.UTC(p.y, p.m - 1, p.d)).getUTCDay();
+    return ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][w];
+  }
+  function todayInTZ() {
+    if (!todayInTZ.formatter) {
+      todayInTZ.formatter = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' });
+    }
+    const parts = todayInTZ.formatter.formatToParts(new Date());
+    const p = {};
+    for (let i = 0; i < parts.length; i++) p[parts[i].type] = parts[i].value;
+    return p.year + '-' + p.month + '-' + p.day;
+  }
+  function dayDiff(a, b) {
+    const [ay, am, ad] = a.split('-').map(Number);
+    const [by, bm, bd] = b.split('-').map(Number);
+    return Math.round((Date.UTC(by, bm - 1, bd) - Date.UTC(ay, am - 1, ad)) / DAY_MS);
+  }
+
+  /* =====================================================================
+   * 2. 天文算法
+   * ===================================================================== */
+  const J1970 = 2440588, J2000 = 2451545, OBLIQ = RAD * 23.4397;
+  const toJulian = ms => ms / DAY_MS - 0.5 + J1970;
+  const toDays = ms => toJulian(ms) - J2000;
+
+  function sunCoords(d) {
+    const M = RAD * (357.5291 + 0.98560028 * d);
+    const C = RAD * (1.9148 * sin(M) + 0.02 * sin(2 * M) + 0.0003 * sin(3 * M));
+    const L = M + C + RAD * 102.9372 + Math.PI; // 黄经（含近日点 102.9372° 与 π 修正）
+    return {
+      ra: atan2(sin(L) * cos(OBLIQ), cos(L)),
+      dec: asin(sin(OBLIQ) * sin(L))
+    };
+  }
+
+  function moonCoords(d) {
+    const L = RAD * (218.316 + 13.176396 * d);
+    const M = RAD * (134.963 + 13.064993 * d);
+    const F = RAD * (93.272 + 13.229350 * d);
+    const l = L + RAD * 6.289 * sin(M);
+    const b = RAD * 5.128 * sin(F);
+    const dist = 385001 - 20905 * cos(M); // km
+    return {
+      ra: atan2(sin(l) * cos(OBLIQ) - tan(b) * sin(OBLIQ), cos(l)),
+      dec: asin(sin(b) * cos(OBLIQ) + cos(b) * sin(OBLIQ) * sin(l)),
+      dist,
+      parallax: asin(6378.14 / dist)  // rad
+    };
+  }
+
+  function siderealTime(d, lw) { return RAD * (280.16 + 360.9856235 * d) - lw; }
+
+  function altitudeOf(body, ms, lat, lng) {
+    const d = toDays(ms);
+    const c = body === 'moon' ? moonCoords(d) : sunCoords(d);
+    const phi = RAD * lat;
+    const H = siderealTime(d, -RAD * lng) - c.ra;
+    return { alt: asin(sin(phi) * sin(c.dec) + cos(phi) * cos(c.dec) * cos(H)), c, d, H, phi };
+  }
+
+  // 返回「南为 0、向西为正」的方位角（弧度），调用方再转成北偏东
+  function azimuthOf(ra, dec, d, lat, lng) {
+    const phi = RAD * lat;
+    const H = siderealTime(d, -RAD * lng) - ra;
+    return atan2(sin(H), cos(H) * sin(phi) - tan(dec) * cos(phi));
+  }
+
+  // 在 [t0,t1] 内找天体高度穿过 h0 的时刻；dir=1 升起，dir=-1 落下
+  function crossings(body, t0, t1, lat, lng, h0) {
+    const out = [];
+    const step = 10 * MIN_MS;
+    let prevT = t0;
+    let prev = altitudeOf(body, t0, lat, lng).alt - h0;
+    for (let t = t0 + step; t <= t1 + 1; t += step) {
+      const tt = Math.min(t, t1);
+      const cur = altitudeOf(body, tt, lat, lng).alt - h0;
+      if (prev * cur < 0) {
+        let a = prevT, b = tt, fa = prev;
+        for (let i = 0; i < 44; i++) {
+          const m = (a + b) / 2;
+          const fm = altitudeOf(body, m, lat, lng).alt - h0;
+          if (fa * fm <= 0) { b = m; } else { a = m; fa = fm; }
+        }
+        out.push({ t: (a + b) / 2, dir: cur > 0 ? 1 : -1 });
+      }
+      prevT = tt; prev = cur;
+      if (tt >= t1) break;
+    }
+    return out;
+  }
+
+  function phaseInfo(ms) {
+    const d = toDays(ms);
+    const s = sunCoords(d), m = moonCoords(d);
+    const sdist = 149598000;
+    const phi = acos(sin(s.dec) * sin(m.dec) + cos(s.dec) * cos(m.dec) * cos(s.ra - m.ra));
+    const inc = atan2(sdist * sin(phi), m.dist - sdist * cos(phi));
+    const angle = atan2(cos(s.dec) * sin(s.ra - m.ra), sin(s.dec) * cos(m.dec) - cos(s.dec) * sin(m.dec) * cos(s.ra - m.ra));
+    const fraction = (1 + cos(inc)) / 2;
+    const phase = 0.5 + 0.5 * inc * (angle < 0 ? -1 : 1) / Math.PI;
+    return { fraction, phase, age: phase * 29.53059 };
+  }
+
+  function phaseName(phase) {
+    if (phase < 0.02 || phase > 0.98) return '新月';
+    if (phase < 0.23) return '娥眉月';
+    if (phase < 0.27) return '上弦月';
+    if (phase < 0.48) return '盈凸月';
+    if (phase < 0.52) return '满月';
+    if (phase < 0.73) return '亏凸月';
+    if (phase < 0.77) return '下弦月';
+    return '残月';
+  }
+
+  const cacheAstro = {};
+  function astroFor(day) {
+    const key = day.date + '|' + (day.base ? day.base.lat + ',' + day.base.lng : '');
+    if (cacheAstro[key]) return cacheAstro[key];
+    const lat = day.base ? day.base.lat : 0;
+    const lng = day.base ? day.base.lng : 0;
+    const t0 = zoned(day.date, 0, 0);
+    const t1 = t0 + DAY_MS;
+
+    const sunC = crossings('sun', t0, t1, lat, lng, -0.833 * RAD);
+    const rise = sunC.find(c => c.dir === 1);
+    const set = sunC.find(c => c.dir === -1);
+
+    const goldRise = crossings('sun', t0, t1, lat, lng, -4 * RAD).find(c => c.dir === 1);
+    const goldSet = crossings('sun', t0, t1, lat, lng, 6 * RAD).find(c => c.dir === -1);
+    const goldEndRise = crossings('sun', t0, t1, lat, lng, 6 * RAD).find(c => c.dir === 1);
+    const blueRise = crossings('sun', t0, t1, lat, lng, -6 * RAD).find(c => c.dir === 1);
+    const blueSet = crossings('sun', t0, t1, lat, lng, -6 * RAD).find(c => c.dir === -1);
+
+    // 月亮：h0 = 0.7275 * 视差 - 0.5667°
+    const md = toDays((t0 + t1) / 2);
+    const mc = moonCoords(md);
+    const h0moon = 0.7275 * (mc.parallax * DEG) - 0.5667;
+    const wide = crossings('moon', t0 - 12 * 3600e3, t1 + 12 * 3600e3, lat, lng, h0moon * RAD);
+    const pickMoon = dir => {
+      const inside = wide.find(c => c.dir === dir && c.t >= t0 && c.t < t1);
+      if (inside) return { t: inside.t, shift: 0 };
+      const after = wide.find(c => c.dir === dir && c.t >= t1);
+      if (after) return { t: after.t, shift: 1 };
+      const before = wide.filter(c => c.dir === dir && c.t < t0).pop();
+      if (before) return { t: before.t, shift: -1 };
+      return null;
+    };
+    const mrise = pickMoon(1);
+    const mset = pickMoon(-1);
+
+    const ph = phaseInfo((t0 + t1) / 2);
+
+    let riseAz = null, setAz = null;
+    if (rise) {
+      const a = altitudeOf('sun', rise.t, lat, lng);
+      // 该函数返回「南为 0、向西为正」，转成「北为 0、顺时针为正」
+      riseAz = (azimuthOf(a.c.ra, a.c.dec, a.d, lat, lng) * DEG + 180) % 360;
+    }
+    if (set) {
+      const a = altitudeOf('sun', set.t, lat, lng);
+      setAz = (azimuthOf(a.c.ra, a.c.dec, a.d, lat, lng) * DEG + 180) % 360;
+    }
+
+    const res = {
+      rise: rise ? rise.t : null,
+      set: set ? set.t : null,
+      riseAz, setAz,
+      goldenAm: goldRise && goldEndRise ? [goldRise.t, goldEndRise.t] : null,
+      goldenPm: goldSet ? [goldSet.t, set ? set.t : goldSet.t] : null,
+      blueAm: blueRise && goldRise ? [blueRise.t, goldRise.t] : null,
+      bluePm: set && blueSet ? [set.t, blueSet.t] : null,
+      moonRise: mrise ? mrise.t : null,
+      moonRiseShift: mrise ? mrise.shift : 0,
+      moonSet: mset ? mset.t : null,
+      moonSetShift: mset ? mset.shift : 0,
+      moonAlwaysUp: !mrise && !mset ? altitudeOf('moon', (t0 + t1) / 2, lat, lng).alt > 0 : null,
+      phase: ph
+    };
+    cacheAstro[key] = res;
+    return res;
+  }
+
+  /* =====================================================================
+   * 3. 状态
+   * ===================================================================== */
+  const DONE_KEY = 'travel.done.v1';
+  let done = {};
+  try { done = JSON.parse(localStorage.getItem(DONE_KEY) || '{}') || {}; } catch (e) { done = {}; }
+  function saveDone() {
+    try { localStorage.setItem(DONE_KEY, JSON.stringify(done)); } catch (e) { }
+  }
+  const itemKey = (day, item) => day.date + '|' + item.name;
+
+  let mapFilter = null; // null = 全部
+  let activeDay = 0;
+
+  /* =====================================================================
+   * 4. 通用渲染
+   * ===================================================================== */
+  function durationText(mins) {
+    if (!mins && mins !== 0) return '';
+    if (mins < 60) return mins + ' 分钟';
+    const h = Math.floor(mins / 60), m = mins % 60;
+    return m ? h + ' 小时 ' + m + ' 分' : h + ' 小时';
+  }
+
+  function fmtMoonTime(t, shift) {
+    if (t == null) return '—';
+    return (shift > 0 ? '次日' : shift < 0 ? '前日' : '') + fmtHM(t);
+  }
+
+  function astroPills(day) {
+    const a = astroFor(day);
+    const wrap = el('div', 'dh-astro');
+    const sun = el('span', 'pill sun');
+    sun.innerHTML = '<i>☀</i>' + fmtHM(a.rise) + ' → ' + fmtHM(a.set);
+    const moon = el('span', 'pill moon');
+    const mtxt = a.moonAlwaysUp === true ? '全天在地平线上'
+      : a.moonAlwaysUp === false ? '全天不升起'
+        : '升 ' + fmtMoonTime(a.moonRise, a.moonRiseShift) + ' 落 ' + fmtMoonTime(a.moonSet, a.moonSetShift);
+    moon.innerHTML = '<i>☾</i>' + mtxt;
+    const ph = el('span', 'pill');
+    ph.innerHTML = '<i>◐</i>' + Math.round(a.phase.fraction * 100) + '% ' + phaseName(a.phase.phase);
+    wrap.appendChild(sun);
+    wrap.appendChild(moon);
+    wrap.appendChild(ph);
+    return wrap;
+  }
+
+  /* =====================================================================
+   * 5. 行程视图
+   * ===================================================================== */
+  function renderTripCard() {
+    const days = TRIP.days || [];
+    const first = days[0] ? days[0].date : '';
+    const last = days.length ? days[days.length - 1].date : '';
+    const points = days.reduce((n, d) => n + (d.items ? d.items.length : 0), 0);
+    let meta = days.length + ' 天';
+    if (first && last) {
+      meta += ' · ' + fmtMD(first) + ' – ' + fmtMD(last);
+    }
+    if (TRIP.people) meta += ' · ' + TRIP.people + ' 人';
+    meta += ' · ' + points + ' 个点位';
+    $('#tcMeta').textContent = meta;
+
+    const today = todayInTZ();
+    let txt;
+    if (!first) txt = '';
+    else if (today < first) txt = '距出发还有 ' + dayDiff(today, first) + ' 天';
+    else if (today > last) txt = '行程已结束';
+    else txt = '行程第 ' + (dayDiff(first, today) + 1) + ' 天 · ' + (days.length - dayDiff(first, today) - 1) + ' 天后结束';
+    $('#tcCount').textContent = txt;
+  }
+
+  function fmtMD(dateStr) {
+    const p = dateParts(dateStr);
+    return p.m + '/' + p.d;
+  }
+
+  function renderDayStrip() {
+    const strip = $('#daystrip');
+    strip.innerHTML = '';
+    const todayStr = todayInTZ();
+    (TRIP.days || []).forEach((d, i) => {
+      const b = el('button', 'chip' + (i === activeDay ? ' active' : ''));
+      b.dataset.day = i;
+      b.innerHTML = '<b>D' + (i + 1) + '</b>' + fmtMD(d.date) + (d.date === todayStr ? ' ·今' : '');
+      b.addEventListener('click', () => {
+        const target = document.getElementById('day-' + i);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      strip.appendChild(b);
+    });
+  }
+
+  function renderDays() {
+    const box = $('#days');
+    box.innerHTML = '';
+    const todayStr = todayInTZ();
+    (TRIP.days || []).forEach((d, di) => {
+      const article = el('article', 'day' + (d.date === todayStr ? ' today' : ''));
+      article.id = 'day-' + di;
+
+      const head = el('div', 'day-head');
+      const row1 = el('div', 'dh-row1');
+      const doneCount = (d.items || []).filter(it => done[itemKey(d, it)]).length;
+      row1.innerHTML =
+        '<span class="dh-dnum">D' + (di + 1) + '</span>' +
+        '<span>' + fmtMD(d.date) + ' ' + weekdayCN(d.date) + '</span>' +
+        (d.date === todayStr ? '<span class="dh-today">今天</span>' : '') +
+        '<span class="dh-spacer"></span>' +
+        (doneCount ? '<span class="dh-progress">✓ ' + doneCount + '/' + (d.items || []).length + '</span>' : '') +
+        '<button class="dh-copy" data-copy="' + di + '">复制</button>';
+      head.appendChild(row1);
+
+      const h2 = el('h2', 'dh-title');
+      h2.textContent = d.title || fmtMD(d.date);
+      head.appendChild(h2);
+      if (d.note) {
+        const p = el('div', 'dh-note');
+        p.textContent = d.note;
+        head.appendChild(p);
+      }
+      head.appendChild(astroPills(d));
+      article.appendChild(head);
+
+      const ol = el('ol', 'tl');
+      (d.items || []).forEach((it, ii) => {
+        const li = el('li', 'it' + (done[itemKey(d, it)] ? ' done' : ''));
+        li.dataset.type = it.type || 'other';
+        li.dataset.day = di;
+        li.dataset.item = ii;
+
+        const time = el('div', 'it-time');
+        time.textContent = it.time || '';
+
+        const rail = el('div', 'it-rail');
+        rail.appendChild(el('span', 'it-dot'));
+
+        const body = el('div', 'it-body');
+        if (it.transit) {
+          const t = el('div', 'it-transit');
+          t.textContent = it.transit;
+          body.appendChild(t);
+        }
+        const name = el('div', 'it-name');
+        name.textContent = it.name || '';
+        body.appendChild(name);
+
+        const meta = el('div', 'it-meta');
+        if (it.stay) meta.appendChild(el('span', 'it-tag', '停留 ' + durationText(it.stay)));
+        if (it.type && TYPE_LABEL[it.type]) meta.appendChild(el('span', 'it-tag', TYPE_LABEL[it.type]));
+        if (meta.children.length) body.appendChild(meta);
+
+        if (it.note) {
+          const n = el('div', 'it-note');
+          n.textContent = it.note;
+          body.appendChild(n);
+        }
+
+        const chk = el('button', 'it-check');
+        chk.setAttribute('aria-label', '标记完成');
+        chk.innerHTML = '✓';
+        chk.addEventListener('click', ev => {
+          ev.stopPropagation();
+          const k = itemKey(d, it);
+          if (done[k]) delete done[k]; else done[k] = true;
+          saveDone();
+          li.classList.toggle('done', !!done[k]);
+          // 更新当天进度
+          const c = (d.items || []).filter(x => done[itemKey(d, x)]).length;
+          const prog = row1.querySelector('.dh-progress');
+          if (c && prog) prog.textContent = '✓ ' + c + '/' + d.items.length;
+          else if (c && !prog) {
+            const sp = row1.querySelector('.dh-spacer');
+            const span = el('span', 'dh-progress', '✓ ' + c + '/' + d.items.length);
+            row1.insertBefore(span, sp.nextSibling);
+          } else if (!c && prog) prog.remove();
+        });
+        li.appendChild(chk);
+
+        li.appendChild(time);
+        li.appendChild(rail);
+        li.appendChild(body);
+
+        li.addEventListener('click', () => openSheet(di, ii));
+        ol.appendChild(li);
+      });
+      article.appendChild(ol);
+
+      if (!(d.items || []).length) {
+        article.appendChild(el('div', 'dh-note', '这天还没有安排。'));
+      }
+      box.appendChild(article);
+    });
+
+    // 复制按钮
+    box.querySelectorAll('[data-copy]').forEach(btn => {
+      btn.addEventListener('click', ev => {
+        ev.stopPropagation();
+        const di = +btn.dataset.copy;
+        copyDay(di, btn);
+      });
+    });
+  }
+
+  function dayAsText(di) {
+    const d = TRIP.days[di];
+    const a = astroFor(d);
+    const lines = [];
+    lines.push('【D' + (di + 1) + ' · ' + fmtMD(d.date) + ' ' + weekdayCN(d.date) + '】' + (d.title || ''));
+    lines.push('日出 ' + fmtHM(a.rise) + ' · 日落 ' + fmtHM(a.set) + ' · 月相 ' + Math.round(a.phase.fraction * 100) + '%');
+    if (d.note) lines.push(d.note);
+    lines.push('');
+    (d.items || []).forEach(it => {
+      let l = it.time + '  ' + it.name;
+      const bits = [];
+      if (it.stay) bits.push('停留 ' + durationText(it.stay));
+      if (it.transit) bits.push(it.transit);
+      if (bits.length) l += '（' + bits.join(' · ') + '）';
+      lines.push(l);
+      if (it.note) lines.push('    ' + it.note);
+    });
+    return lines.join('\n');
+  }
+
+  async function copyDay(di, btn) {
+    const text = dayAsText(di);
+    const ok = await copyText(text);
+    if (ok) {
+      toast('已复制 D' + (di + 1) + ' 的行程');
+    } else {
+      openTextSheet('复制这段文字', text);
+    }
+  }
+
+  async function copyText(text) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+    } catch (e) { }
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:-500px;left:0;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      const ok = document.execCommand('copy');
+      ta.remove();
+      return ok;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /* =====================================================================
+   * 6. 地图视图
+   * ===================================================================== */
+  function renderMap() {
+    const svg = $('#mapsvg');
+    const chips = $('#mapchips');
+    chips.innerHTML = '';
+
+    const addChip = (label, color, active, onClick) => {
+      const c = el('button', 'mchip' + (active ? ' on' : ''));
+      if (color) {
+        const dot = el('span', 'dot');
+        dot.style.background = color;
+        c.appendChild(dot);
+      }
+      c.appendChild(document.createTextNode(label));
+      c.addEventListener('click', onClick);
+      chips.appendChild(c);
+    };
+    addChip('全部', null, mapFilter === null, () => { mapFilter = null; renderMap(); });
+    TRIP.days.forEach((d, di) => {
+      addChip('D' + (di + 1) + ' ' + fmtMD(d.date), DAY_COLORS[di % DAY_COLORS.length], mapFilter === di,
+        () => { mapFilter = (mapFilter === di ? null : di); renderMap(); });
+    });
+
+    const pts = [];
+    TRIP.days.forEach((d, di) => {
+      if (mapFilter !== null && mapFilter !== di) return;
+      (d.items || []).forEach((it, ii) => {
+        if (typeof it.lat === 'number' && typeof it.lng === 'number' && isFinite(it.lat) && isFinite(it.lng)) {
+          pts.push({ d, di, it, ii });
+        }
+      });
+    });
+
+    const MAXW = 340, MAXH = 400;
+    const single = mapFilter !== null;
+    const PAD = single ? 30 : 20;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    if (!pts.length) {
+      svg.setAttribute('viewBox', '0 0 340 180');
+      const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      t.setAttribute('x', 170); t.setAttribute('y', 90);
+      t.setAttribute('class', 'mapempty');
+      t.textContent = '这一天没有带坐标的点位';
+      svg.appendChild(t);
+      $('#mapcount').textContent = '';
+      $('#mapall').style.display = 'none';
+      return;
+    }
+
+    const lats = pts.map(p => p.it.lat);
+    const lngs = pts.map(p => p.it.lng);
+    const minLat = Math.min.apply(null, lats), maxLat = Math.max.apply(null, lats);
+    const minLng = Math.min.apply(null, lngs), maxLng = Math.max.apply(null, lngs);
+    const meanLat = (minLat + maxLat) / 2 * RAD;
+    const kx = cos(meanLat);
+
+    const xs = lngs.map(v => v * kx);
+    const minX = Math.min.apply(null, xs), maxX = Math.max.apply(null, xs);
+    const spanX = maxX - minX, spanY = maxLat - minLat;
+    const hasX = spanX > 1e-6, hasY = spanY > 1e-6;
+
+    let scale;
+    if (!hasX && !hasY) scale = 0;
+    else if (!hasX) scale = (MAXH - PAD * 2) / spanY;
+    else if (!hasY) scale = (MAXW - PAD * 2) / spanX;
+    else scale = Math.min((MAXW - PAD * 2) / spanX, (MAXH - PAD * 2) / spanY);
+
+    const vw = Math.max(spanX * scale + PAD * 2, 150);
+    const vh = Math.max(spanY * scale + PAD * 2, single ? 180 : 240);
+    const ox = (vw - spanX * scale) / 2;
+    const oy = (vh - spanY * scale) / 2;
+    svg.setAttribute('viewBox', '0 0 ' + Math.round(vw) + ' ' + Math.round(vh));
+
+    const proj = p => ({
+      x: ox + (p.it.lng * kx - minX) * scale,
+      y: oy + (maxLat - p.it.lat) * scale
+    });
+
+    const graticule = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    graticule.setAttribute('x', 0); graticule.setAttribute('y', 0);
+    graticule.setAttribute('width', Math.round(vw)); graticule.setAttribute('height', Math.round(vh));
+    graticule.setAttribute('fill', 'none');
+    svg.appendChild(graticule);
+
+    // 每天的连线
+    TRIP.days.forEach((d, di) => {
+      if (mapFilter !== null && mapFilter !== di) return;
+      const group = pts.filter(p => p.di === di);
+      if (group.length < 2) return;
+      const pl = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+      const str = group.map(p => { const q = proj(p); return q.x.toFixed(1) + ',' + q.y.toFixed(1); }).join(' ');
+      pl.setAttribute('points', str);
+      pl.setAttribute('fill', 'none');
+      pl.setAttribute('stroke', DAY_COLORS[di % DAY_COLORS.length]);
+      pl.setAttribute('stroke-width', '2.4');
+      pl.setAttribute('stroke-linecap', 'round');
+      pl.setAttribute('stroke-linejoin', 'round');
+      pl.setAttribute('opacity', '0.55');
+      svg.appendChild(pl);
+    });
+
+    // 点：同一天里坐标相同的点位只标一次（避免完全重叠），线仍然按顺序连
+    const seenKey = new Set();
+    const markers = [];
+    pts.forEach(p => {
+      const k = p.di + '|' + p.it.lat.toFixed(5) + ',' + p.it.lng.toFixed(5);
+      if (seenKey.has(k)) return;
+      seenKey.add(k);
+      markers.push(p);
+    });
+
+    const used = [];
+    markers.forEach((p, idx) => {
+      let q = proj(p);
+      if (single) {
+        // 不同点位离得太近时，沿小圆散开，保证都点得到
+        let guard = 0;
+        while (guard < 40 && used.some(u => Math.sqrt((u.x - q.x) * (u.x - q.x) + (u.y - q.y) * (u.y - q.y)) < 20)) {
+          guard++;
+          const r = 15 + Math.floor(guard / 8) * 13;
+          const ang = guard * 2.399963;  // 黄金角，散得均匀
+          q = { x: q.x + Math.cos(ang) * r, y: q.y + Math.sin(ang) * r };
+        }
+        used.push(q);
+      }
+      // 散开之后别跑出画布
+      q.x = Math.min(Math.max(q.x, 14), vw - 14);
+      q.y = Math.min(Math.max(q.y, 14), vh - 14);
+      const color = DAY_COLORS[p.di % DAY_COLORS.length];
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('class', 'mk');
+      g.setAttribute('data-day', p.di);
+      g.setAttribute('data-item', p.ii);
+
+      const hit = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      hit.setAttribute('cx', q.x); hit.setAttribute('cy', q.y); hit.setAttribute('r', 16);
+      hit.setAttribute('fill', 'transparent');
+      g.appendChild(hit);
+
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', q.x); c.setAttribute('cy', q.y);
+      c.setAttribute('r', single ? 11.5 : 6);
+      c.setAttribute('fill', color);
+      c.setAttribute('stroke', '#fff');
+      c.setAttribute('stroke-width', single ? '1.6' : '1.2');
+      c.setAttribute('opacity', single ? '1' : '0.92');
+      g.appendChild(c);
+
+      if (single) {
+        const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        t.setAttribute('x', q.x); t.setAttribute('y', q.y + 0.5);
+        t.textContent = String(p.ii + 1);
+        g.appendChild(t);
+      }
+
+      const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+      title.textContent = 'D' + (p.di + 1) + ' ' + p.it.time + ' ' + p.it.name;
+      g.appendChild(title);
+
+      g.addEventListener('click', () => openSheet(p.di, p.ii));
+      svg.appendChild(g);
+    });
+
+    $('#mapcount').textContent = single
+      ? 'D' + (mapFilter + 1) + ' · ' + markers.length + ' 个点位（同址只标一次），数字是当天顺序'
+      : markers.length + ' 个点位 · 点某一天看当天路线';
+
+    // 选中的日期按钮滚进视野
+    if (single) {
+      const chip = chips.querySelectorAll('.mchip')[mapFilter + 1];
+      if (chip && chip.scrollIntoView) chip.scrollIntoView({ block: 'nearest', inline: 'center' });
+    }
+
+    // 「用 Google 地图导航当天路线」：只在选中某一天时出现
+    const linkEl = $('#mapall');
+    if (mapFilter !== null && pts.length >= 2) {
+      const origin = pts[0].it.lat + ',' + pts[0].it.lng;
+      const dest = pts[pts.length - 1].it.lat + ',' + pts[pts.length - 1].it.lng;
+      const mids = pts.slice(1, -1).map(p => p.it.lat + ',' + p.it.lng).slice(0, 9);
+      let url = 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(origin) +
+        '&destination=' + encodeURIComponent(dest) + '&travelmode=transit';
+      if (mids.length) url += '&waypoints=' + encodeURIComponent(mids.join('|'));
+      linkEl.href = url;
+      linkEl.textContent = '用 Google 地图导航当天路线 →';
+      linkEl.style.display = '';
+    } else {
+      linkEl.style.display = 'none';
+    }
+  }
+
+  /* =====================================================================
+   * 7. 天文视图
+   * ===================================================================== */
+  function renderSky() {
+    const box = $('#sky-list');
+    box.innerHTML = '';
+    (TRIP.days || []).forEach((d, di) => {
+      const a = astroFor(d);
+      const card = el('div', 'skyday');
+      const head = el('div', 'skyhead');
+      head.innerHTML =
+        '<div class="sh-line"><span class="sd">D' + (di + 1) + '</span>' +
+        '<span class="sd-date">' + fmtMD(d.date) + ' ' + weekdayCN(d.date) + '</span>' +
+        '<span class="sa">' + esc(d.area || '') + '</span></div>' +
+        '<div class="st">' + esc(d.title || '') + '</div>';
+      card.appendChild(head);
+
+      const rows = el('div', 'skyrows');
+      const row = (k, v, cls, az) => {
+        const r = el('div', 'srow');
+        r.appendChild(el('div', 'k', k));
+        const vv = el('div', 'v' + (cls ? ' ' + cls : ''));
+        vv.textContent = v;
+        if (az != null) {
+          const s = el('span', 'az');
+          s.textContent = az;
+          vv.appendChild(s);
+        }
+        r.appendChild(vv);
+        rows.appendChild(r);
+      };
+
+      row('日出 · 日落', fmtHM(a.rise) + ' · ' + fmtHM(a.set), 'hi',
+        a.rise ? '日出方位 ' + Math.round(a.riseAz) + '°' : null);
+      row('白昼时长', a.rise && a.set ? durationText(Math.round((a.set - a.rise) / MIN_MS)) : '—', 'dim');
+      row('黄金时刻（早）', a.goldenAm ? fmtHM(a.goldenAm[0]) + ' – ' + fmtHM(a.goldenAm[1]) : '—', 'dim');
+      row('黄金时刻（晚）', a.goldenPm ? fmtHM(a.goldenPm[0]) + ' – ' + fmtHM(a.goldenPm[1]) : '—', 'dim');
+      row('蓝调时刻（早）', a.blueAm ? fmtHM(a.blueAm[0]) + ' – ' + fmtHM(a.blueAm[1]) : '—', 'dim');
+      row('蓝调时刻（晚）', a.bluePm ? fmtHM(a.bluePm[0]) + ' – ' + fmtHM(a.bluePm[1]) : '—', 'dim');
+      row('月升 · 月落',
+        a.moonAlwaysUp === true ? '全天在地平线上'
+          : a.moonAlwaysUp === false ? '全天不升起'
+            : fmtMoonTime(a.moonRise, a.moonRiseShift) + ' · ' + fmtMoonTime(a.moonSet, a.moonSetShift), 'mo');
+      row('月相', Math.round(a.phase.fraction * 100) + '% · ' + phaseName(a.phase.phase),
+        'mo', '月龄 ' + a.phase.age.toFixed(1) + ' 天');
+
+      card.appendChild(rows);
+      box.appendChild(card);
+    });
+  }
+
+  /* =====================================================================
+   * 8. 弹层
+   * ===================================================================== */
+  const backdrop = $('#backdrop');
+  const sheet = $('#sheet');
+
+  function closeSheet() {
+    sheet.classList.remove('show');
+    backdrop.classList.remove('show');
+  }
+  backdrop.addEventListener('click', closeSheet);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+
+  function openSheet(di, ii) {
+    const d = TRIP.days[di];
+    const it = d.items[ii];
+    if (!it) return;
+    const hasCoord = typeof it.lat === 'number' && isFinite(it.lat);
+    const name = esc(it.name);
+    const gq = hasCoord ? encodeURIComponent(it.lat + ',' + it.lng) : '';
+
+    sheet.innerHTML =
+      '<div class="grab"></div>' +
+      '<div class="sh-kicker">D' + (di + 1) + ' · ' + fmtMD(d.date) + ' ' + weekdayCN(d.date) +
+      (it.type && TYPE_LABEL[it.type] ? ' · ' + TYPE_LABEL[it.type] : '') + '</div>' +
+      '<h2 class="sh-title">' + name + '</h2>' +
+      '<div class="sh-meta">' +
+      (it.time ? '<span class="pill">' + esc(it.time) + '</span>' : '') +
+      (it.stay ? '<span class="pill">停留 ' + durationText(it.stay) + '</span>' : '') +
+      (it.transit ? '<span class="pill">' + esc(it.transit) + '</span>' : '') +
+      '</div>' +
+      (it.note ? '<div class="sh-note">' + esc(it.note) + '</div>' : '') +
+      (hasCoord ? '<div class="sh-coord">' + it.lat.toFixed(4) + ', ' + it.lng.toFixed(4) + '</div>' : '') +
+      '<div class="sh-actions">' +
+      (hasCoord
+        ? '<a class="btn primary" href="https://www.google.com/maps/search/?api=1&query=' + gq + '" target="_blank" rel="noopener">在 Google 地图打开</a>' +
+        '<a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=' + gq + '" target="_blank" rel="noopener">导航到这里</a>'
+        : '') +
+      (it.name ? '<button class="btn wide" id="shCopyName">复制地点名</button>' : '') +
+      '</div>';
+
+    const bn = $('#shCopyName');
+    if (bn) {
+      bn.addEventListener('click', async () => {
+        const ok = await copyText(it.name);
+        toast(ok ? '已复制地点名' : '复制失败，请长按选择');
+      });
+    }
+
+    sheet.classList.add('show');
+    backdrop.classList.add('show');
+    sheet.scrollTop = 0;
+  }
+
+  function openTextSheet(title, text) {
+    sheet.innerHTML =
+      '<div class="grab"></div>' +
+      '<div class="sh-kicker">手动复制</div>' +
+      '<h2 class="sh-title">' + esc(title) + '</h2>' +
+      '<div class="sh-note" style="user-select:text;-webkit-user-select:text;white-space:pre-wrap;max-height:46vh;overflow:auto">' +
+      esc(text) + '</div>' +
+      '<div class="sh-actions"><button class="btn wide primary" id="shSelAll">全选文本</button></div>';
+    const btn = $('#shSelAll');
+    btn.addEventListener('click', () => {
+      const box = sheet.querySelector('.sh-note');
+      const range = document.createRange();
+      range.selectNodeContents(box);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      toast('已全选，长按复制');
+    });
+    sheet.classList.add('show');
+    backdrop.classList.add('show');
+  }
+
+  /* =====================================================================
+   * 9. toast
+   * ===================================================================== */
+  let toastTimer = null;
+  function toast(msg) {
+    const t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+  }
+
+  /* =====================================================================
+   * 10. 视图切换 / 滚动监听
+   * ===================================================================== */
+  let currentView = 'plan';
+  function switchView(name) {
+    if (!name || name === currentView) return void syncTabs(name);
+    currentView = name;
+    ['plan', 'map', 'sky'].forEach(v => {
+      const sec = document.getElementById('view-' + v);
+      if (sec) sec.hidden = v !== name;
+    });
+    syncTabs(name);
+    if (name === 'map') renderMap();
+    if (name === 'sky') renderSky();
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    try {
+      const hash = name === 'map' && mapFilter !== null
+        ? 'map-' + (mapFilter + 1)
+        : name === 'plan' ? '' : name;
+      history.replaceState(null, '', hash ? '#' + hash : location.pathname + location.search);
+    } catch (e) { }
+  }
+  function syncTabs(name) {
+    $('#tabs').querySelectorAll('button').forEach(b => {
+      b.setAttribute('aria-selected', b.dataset.view === name ? 'true' : 'false');
+    });
+  }
+
+  $('#tabs').addEventListener('click', e => {
+    const b = e.target.closest('button[data-view]');
+    if (b) switchView(b.dataset.view);
+  });
+
+  let scrollTick = false;
+  window.addEventListener('scroll', () => {
+    if (scrollTick || currentView !== 'plan') return;
+    scrollTick = true;
+    requestAnimationFrame(() => {
+      scrollTick = false;
+      const cards = document.querySelectorAll('.day');
+      let best = 0, bestD = Infinity;
+      const ref = 160;
+      cards.forEach((c, i) => {
+        const top = c.getBoundingClientRect().top;
+        const d = Math.abs(top - ref);
+        if (top - ref < 0) {
+          const dd = Math.abs(top - ref);
+          if (dd < bestD) { bestD = dd; best = i; }
+        } else if (d < bestD) { bestD = d; best = i; }
+      });
+      if (best !== activeDay) {
+        activeDay = best;
+        document.querySelectorAll('#daystrip .chip').forEach((c, i) => c.classList.toggle('active', i === best));
+        const chip = document.querySelectorAll('#daystrip .chip')[best];
+        if (chip && chip.scrollIntoView) chip.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+      }
+    });
+  }, { passive: true });
+
+  /* =====================================================================
+   * 11. 今天
+   * ===================================================================== */
+  $('#btnToday').addEventListener('click', () => {
+    const today = todayInTZ();
+    const idx = (TRIP.days || []).findIndex(d => d.date === today);
+    if (currentView !== 'plan') switchView('plan');
+    if (idx >= 0) {
+      const target = document.getElementById('day-' + idx);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      toast('今天 · D' + (idx + 1));
+      return;
+    }
+    const first = TRIP.days[0];
+    const last = TRIP.days[TRIP.days.length - 1];
+    if (first && today < first.date) {
+      toast('还没出发，还有 ' + dayDiff(today, first.date) + ' 天');
+      const target = document.getElementById('day-0');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (last) {
+      toast('行程已结束');
+      const target = document.getElementById('day-' + (TRIP.days.length - 1));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      toast('没有行程数据');
+    }
+  });
+
+  /* =====================================================================
+   * 12. 启动
+   * ===================================================================== */
+  function syncSticky() {
+    const tb = document.querySelector('.topbar');
+    if (!tb) return;
+    const h = Math.round(tb.getBoundingClientRect().height);
+    document.documentElement.style.setProperty('--topbar-h', h + 'px');
+  }
+  window.addEventListener('resize', syncSticky);
+  window.addEventListener('orientationchange', () => setTimeout(syncSticky, 260));
+
+  function boot() {
+    if (!TRIP || !TRIP.days || !TRIP.days.length) {
+      document.querySelector('main').innerHTML =
+        '<div class="foot" style="padding:60px 20px;font-size:14px">没有读到行程数据。<br>请检查 trip-data.js 是否存在，并且定义了 window.TRIP。</div>';
+      return;
+    }
+    $('#tbTitle').textContent = TRIP.title || '行程';
+    $('#tbSub').textContent = TRIP.subtitle || '';
+    document.title = (TRIP.title || '行程') + ' · 行程';
+    renderTripCard();
+    renderDayStrip();
+    renderDays();
+    renderMap();
+    renderSky();
+    syncSticky();
+    $('#foot').innerHTML =
+      '共 ' + TRIP.days.length + ' 天 · 数据在 trip-data.js，改完刷新即可<br>' +
+      '日出日落按当地时间 ' + esc(TZ) + ' 计算';
+
+    // 自动定位到今天
+    const today = todayInTZ();
+    const idx = TRIP.days.findIndex(d => d.date === today);
+    if (idx > 0) {
+      setTimeout(() => {
+        const target = document.getElementById('day-' + idx);
+        if (target) target.scrollIntoView({ block: 'start' });
+        activeDay = idx;
+        const chips = document.querySelectorAll('#daystrip .chip');
+        if (chips[idx]) chips[idx].classList.add('active');
+        if (chips[0]) chips[0].classList.remove('active');
+      }, 120);
+    }
+
+    // 支持直接打开 #map / #map-3 / #sky
+    const hash = (location.hash || '').replace('#', '');
+    const md = /^map-(\d+)$/.exec(hash);
+    if (md) {
+      mapFilter = Math.min(Math.max(+md[1] - 1, 0), TRIP.days.length - 1);
+      switchView('map');
+    } else if (hash === 'map' || hash === 'sky') {
+      switchView(hash);
+    }
+
+    // service worker（仅安全上下文可用）
+    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+      navigator.serviceWorker.register('sw.js').catch(() => { });
+    }
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>

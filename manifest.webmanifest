@@ -1,0 +1,17 @@
+{
+  "name": "行程 · 旅行计划",
+  "short_name": "行程",
+  "description": "个人旅行计划：按天时间轴、地图点位、日出日落与月相",
+  "lang": "zh-CN",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f4f2",
+  "theme_color": "#0f766e",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
