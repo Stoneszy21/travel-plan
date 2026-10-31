@@ -646,6 +646,11 @@ window.TRIP_GUIDES = {
       icon: '🏡',
       ord: 'D2-06',
       name: 'Casa Feliz Historic Home',
+      photos: [
+        { t: 'img/sights/casa-1-t.jpg', m: 'img/sights/casa-1-m.jpg', f: 'img/sights/casa-1.jpg' },
+        { t: 'img/sights/casa-2-t.jpg', m: 'img/sights/casa-2-m.jpg', f: 'img/sights/casa-2.jpg' },
+        { t: 'img/sights/casa-3-t.jpg', m: 'img/sights/casa-3-m.jpg', f: 'img/sights/casa-3.jpg' }
+      ],
       day: 'D2 · 11/14（和 Kraft Azalea 二选一）',
       hours: '开放时段有限，去之前查官网',
       plan: ['656 N Park Ave', '1933 年的西班牙农庄式宅子', '院子比室内更好看'],
