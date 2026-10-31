@@ -100,6 +100,7 @@ window.TRIP = {
 
 ```powershell
 node tools/check-static.js             # 语法 / id / class 一致性
+node tools/check-data.js               # 数据完整性（图片存在、坐标齐全、餐次不缺、日期连续）
 node tools/check-astro.js              # 跑 App 自己的天文算法 + 不变式检查
 python tools/check-sun-noaa.py         # 与 NOAA 公式交叉验证日出日落
 python tools/check-moon-schlyter.py    # 与 Schlyter 模型交叉验证月升月落
