@@ -44,8 +44,8 @@ const used = new Set();
 for (const m of js.matchAll(/\$\('#([A-Za-z0-9_-]+)'/g)) used.add(m[1]);
 for (const m of js.matchAll(/getElementById\('([A-Za-z0-9_-]+)'/g)) used.add(m[1]);
 
-const dynamic = ['day-', 'view-'];           // 运行时拼接出来的 id 前缀
-const missing = [...used].filter(x => !ids.has(x) && !dynamic.some(p => x.startsWith(p)));
+const dynamic = ['day-', 'view-', 'ticket-']; // 运行时拼接出来的 id 前缀
+const missing = [...used].filter(x => !ids.has(x) && !dynamic.some(p => x.startsWith(p)) && !x.endsWith('-'));
 console.log('引用 id 数:', used.size, '| HTML 定义:', ids.size);
 console.log(missing.length ? '缺失 id: ' + missing.join(', ') : 'ID 引用全部存在');
 if (missing.length) process.exitCode = 1;
