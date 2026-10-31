@@ -33,6 +33,16 @@ if ($reg -and $reg.ProxyEnable -eq 1 -and $reg.ProxyServer) {
 
 $msg = if ($Message -and $Message.Count) { $Message -join ' ' } else { "更新行程 $(Get-Date -Format 'yyyy-MM-dd HH:mm')" }
 
+# 把 index.html 里的版本号改成当前时间，方便判断手机上看到的是哪一版
+$idx = Join-Path $dir 'index.html'
+if (Test-Path $idx) {
+    $stamp = Get-Date -Format 'yyyy-MM-dd HH:mm'
+    $html = [System.IO.File]::ReadAllText($idx, [System.Text.Encoding]::UTF8)
+    $html = [regex]::Replace($html, "const BUILD = '[^']*';", "const BUILD = '$stamp';")
+    [System.IO.File]::WriteAllText($idx, $html, [System.Text.UTF8Encoding]::new($false))
+    Write-Host "  版本号：$stamp" -ForegroundColor DarkGray
+}
+
 Write-Host ''
 Write-Host "  提交：$msg" -ForegroundColor Cyan
 # 用 cmd 包一层：git 把进度写到 stderr，PowerShell 会把它当成错误刷屏
