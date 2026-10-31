@@ -765,6 +765,10 @@ window.TRIP_GUIDES = {
       icon: '🌊',
       ord: 'D7-02',
       name: 'Fort Lauderdale Riverwalk',
+      photos: [
+        { t: 'img/sights/riverwalk-1-t.jpg', m: 'img/sights/riverwalk-1-m.jpg', f: 'img/sights/riverwalk-1.jpg' },
+        { t: 'img/sights/riverwalk-2-t.jpg', m: 'img/sights/riverwalk-2-m.jpg', f: 'img/sights/riverwalk-2.jpg' }
+      ],
       day: 'D7 · 11/19',
       hours: '全天开放，免费',
       plan: ['沿 New River 从 Broward Center 走到 Riverwalk 公园', '一路有雕塑、码头和露天剧场', '傍晚看游艇亮灯'],
@@ -774,6 +778,9 @@ window.TRIP_GUIDES = {
       icon: '🏖',
       ord: 'D9-01',
       name: 'Fort Lauderdale Beach（含 Las Olas）',
+      photos: [
+        { t: 'img/sights/beach-1-t.jpg', m: 'img/sights/beach-1-m.jpg', f: 'img/sights/beach-1.jpg' }
+      ],
       day: 'D9 · 11/21（方案 A）',
       hours: '全天；救生员值守约 9:00–17:00',
       plan: ['A1A 沿海大道旁的沙滩', 'Las Olas Blvd 东端就是海滩入口', '往北走人少，往南走商铺多'],
