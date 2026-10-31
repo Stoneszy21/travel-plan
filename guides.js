@@ -705,6 +705,11 @@ window.TRIP_GUIDES = {
       icon: '🚉',
       ord: 'D2-11',
       name: 'Church Street Station',
+      photos: [
+        { t: 'img/sights/church-1-t.jpg', m: 'img/sights/church-1-m.jpg', f: 'img/sights/church-1.jpg' },
+        { t: 'img/sights/church-2-t.jpg', m: 'img/sights/church-2-m.jpg', f: 'img/sights/church-2.jpg' },
+        { t: 'img/sights/church-3-t.jpg', m: 'img/sights/church-3-m.jpg', f: 'img/sights/church-3.jpg' }
+      ],
       day: 'D2 · 11/14',
       hours: '街区全天，店铺和酒吧傍晚才热闹',
       plan: ['129 W Church St', '1889 年老火车站的红砖站房', '天黑后酒吧和 live music 开场']
