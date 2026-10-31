@@ -792,6 +792,11 @@ window.TRIP_GUIDES = {
       icon: '🚤',
       ord: 'D9-02',
       name: 'Water Taxi（运河水上巴士）',
+      photos: [
+        { t: 'img/sights/watertaxi-1-t.jpg', m: 'img/sights/watertaxi-1-m.jpg', f: 'img/sights/watertaxi-1.jpg' },
+        { t: 'img/sights/watertaxi-2-t.jpg', m: 'img/sights/watertaxi-2-m.jpg', f: 'img/sights/watertaxi-2.jpg' },
+        { t: 'img/sights/watertaxi-3-t.jpg', m: 'img/sights/watertaxi-3-m.jpg', f: 'img/sights/watertaxi-3.jpg' }
+      ],
       day: 'D9 · 11/21（方案 A）',
       hours: '约 10:00–22:00，30–45 分钟一班',
       booking: '一日票约 $35，可随时上下船',
