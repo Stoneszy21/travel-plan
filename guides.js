@@ -384,6 +384,22 @@ window.TRIP_GUIDES = {
     }
   ],
 
+  tickets: [
+    { id: 'ksc', name: '肯尼迪航天中心 一日票', sight: '肯尼迪航天中心', day: 'D5 · 11/17', status: 'todo', price: '$75 左右', url: 'https://www.kennedyspacecenter.com/', note: '官网买一日票，含园区巴士和土星五号中心。提前一周买，现场排队 30 分钟起。' },
+    { id: 'ak', name: '迪士尼 Animal Kingdom 门票', sight: '迪士尼 Animal Kingdom', day: 'D4 · 11/16', status: 'todo', price: '$140–160', url: 'https://disneyworld.disney.go.com/admission/', note: '还要在 My Disney Experience 里预约入园日期（Park Reservation），光买票进不去。' },
+    { id: 'blue', name: 'Blue Spring 皮划艇导览', sight: 'Blue Spring State Park', day: 'D3 · 11/15', status: 'todo', price: '$60–80/人', url: 'https://www.floridastateparks.org/parks-and-trails/blue-spring-state-park', note: '公园门票另算（约 $6/车）。皮划艇要找本地运营方订，海牛季名额紧，尽量提前订。' },
+    { id: 'kings', name: 'Kings Landing 划船（备选）', sight: 'Kings Landing', day: 'D3 · 11/15', status: 'todo', price: '$35–45/人', url: 'https://kingslandingfl.com/', note: 'Rock Springs Run 上游，只能提前网上预约，不接受现场。和 Blue Spring 二选一。' },
+    { id: 'morse', name: 'Morse Museum 门票', sight: 'Morse Museum of American Art', day: 'D2 · 11/14', status: 'todo', price: '$6 左右', url: 'https://morsemuseum.org/', note: '现场买就行。周五傍晚常有免费时段，以官网公告为准。' },
+    { id: 'boattour', name: 'Scenic Boat Tour 船票', sight: 'Winter Park Scenic Boat Tour', day: 'D2 · 11/14', status: 'todo', price: '$20 左右', url: 'https://www.scenicboattours.com/', note: '现场买票，整点发船。旺季提前 15 分钟到码头排队。' },
+    { id: 'fsc', name: 'Florida Southern College 导览', sight: 'Florida Southern College（赖特校园）', day: 'D2 · 11/14（方案 B）', status: 'todo', price: 'Basic $45 / In-depth $70', url: 'https://www.flsouthern.edu/visit', note: '只在游客中心订，必须提前 24 小时。每天 10:00 和 14:00 两场 Basic，13:00 一场 In-depth。' },
+    { id: 'bonnet', name: 'Bonnet House 门票', sight: 'Bonnet House Museum & Gardens', day: 'D8 · 11/20', status: 'todo', price: '$30', url: 'https://www.bonnethouse.org/', note: '周二–周日 11:00–16:00，周一闭馆。最后入场 16:00。' },
+    { id: 'nsu', name: 'NSU Art Museum 门票', sight: 'NSU Art Museum', day: 'D7 · 11/19', status: 'todo', price: '$15', url: 'https://nsuartmuseum.org/', note: '周四延时至 20:00，其他日 17:00 关。' },
+    { id: 'vizcaya', name: 'Vizcaya 门票', sight: 'Vizcaya Museum & Gardens', day: 'D9 · 11/21（方案 B）', status: 'todo', price: '$25', url: 'https://www.vizcaya.org/', note: '必须提前网上订，现场常售完。周二闭馆。' },
+    { id: 'hc', name: 'Orange County History Center 门票', sight: 'Orange County Regional History Center', day: 'D2 · 11/14', status: 'todo', price: '$10 左右', url: 'https://www.thehistorycenter.org/', note: '就在图书馆旁边。只看建筑的话大厅免费区就够。' },
+    { id: 'wynwood', name: 'Wynwood Walls 门票', sight: 'Wynwood Walls', day: 'D9 · 11/21（方案 B）', status: 'todo', price: '$15', url: 'https://thewynwoodwalls.com/', note: '现场买也行，上午人少。外围街区免费。' },
+    { id: 'watertaxi', name: 'Water Taxi 一日票', sight: 'Water Taxi（运河水上巴士）', day: 'D9 · 11/21（方案 A）', status: 'todo', price: '$35', url: 'https://watertaxi.com/', note: '一日票可随时上下船，当天在码头或官网买都行。' }
+  ],
+
   hotels: [
     {
       name: '奥兰多酒店（待定）',
@@ -471,6 +487,7 @@ window.TRIP_GUIDES = {
         { t: 'img/sights/fsc-2-t.jpg', m: 'img/sights/fsc-2-m.jpg', f: 'img/sights/fsc-2.jpg' },
         { t: 'img/sights/fsc-3-t.jpg', m: 'img/sights/fsc-3-m.jpg', f: 'img/sights/fsc-3.jpg' }
       ],
+      ticketId: 'fsc',
       name: 'Florida Southern College（赖特校园）',
       icon: '🏛',
       day: 'D2 · 11/14（方案 B）',
@@ -490,6 +507,7 @@ window.TRIP_GUIDES = {
         { t: 'img/sights/bluespring-2-t.jpg', m: 'img/sights/bluespring-2-m.jpg', f: 'img/sights/bluespring-2.jpg' },
         { t: 'img/sights/bluespring-3-t.jpg', m: 'img/sights/bluespring-3-m.jpg', f: 'img/sights/bluespring-3.jpg' }
       ],
+      ticketId: 'blue',
       name: 'Blue Spring State Park',
       icon: '🐋',
       day: 'D3 · 11/15',
@@ -509,6 +527,7 @@ window.TRIP_GUIDES = {
         { t: 'img/sights/animal-2-t.jpg', m: 'img/sights/animal-2-m.jpg', f: 'img/sights/animal-2.jpg' },
         { t: 'img/sights/animal-3-t.jpg', m: 'img/sights/animal-3-m.jpg', f: 'img/sights/animal-3.jpg' }
       ],
+      ticketId: 'ak',
       name: '迪士尼 Animal Kingdom',
       icon: '🦁',
       day: 'D4 · 11/16',
@@ -529,6 +548,7 @@ window.TRIP_GUIDES = {
         { t: 'img/sights/ksc-2-t.jpg', m: 'img/sights/ksc-2-m.jpg', f: 'img/sights/ksc-2.jpg' },
         { t: 'img/sights/ksc-3-t.jpg', m: 'img/sights/ksc-3-m.jpg', f: 'img/sights/ksc-3.jpg' }
       ],
+      ticketId: 'ksc',
       name: '肯尼迪航天中心',
       icon: '🚀',
       day: 'D5 · 11/17',
@@ -552,6 +572,7 @@ window.TRIP_GUIDES = {
         { t: 'img/sights/bonnet-2-t.jpg', m: 'img/sights/bonnet-2-m.jpg', f: 'img/sights/bonnet-2.jpg' },
         { t: 'img/sights/bonnet-3-t.jpg', m: 'img/sights/bonnet-3-m.jpg', f: 'img/sights/bonnet-3.jpg' }
       ],
+      ticketId: 'bonnet',
       name: 'Bonnet House Museum & Gardens',
       icon: '🏡',
       day: 'D8 · 11/20',
@@ -567,6 +588,7 @@ window.TRIP_GUIDES = {
         { t: 'img/sights/nsu-2-t.jpg', m: 'img/sights/nsu-2-m.jpg', f: 'img/sights/nsu-2.jpg' },
         { t: 'img/sights/nsu-3-t.jpg', m: 'img/sights/nsu-3-m.jpg', f: 'img/sights/nsu-3.jpg' }
       ],
+      ticketId: 'nsu',
       name: 'NSU Art Museum',
       icon: '🖼',
       day: 'D7 · 11/19',
@@ -581,6 +603,7 @@ window.TRIP_GUIDES = {
         { t: 'img/sights/vizcaya-2-t.jpg', m: 'img/sights/vizcaya-2-m.jpg', f: 'img/sights/vizcaya-2.jpg' },
         { t: 'img/sights/vizcaya-3-t.jpg', m: 'img/sights/vizcaya-3-m.jpg', f: 'img/sights/vizcaya-3.jpg' }
       ],
+      ticketId: 'vizcaya',
       name: 'Vizcaya Museum & Gardens',
       icon: '🏰',
       day: 'D9 · 11/21（方案 B）',
@@ -617,6 +640,7 @@ window.TRIP_GUIDES = {
         { t: 'img/sights/morse-2-t.jpg', m: 'img/sights/morse-2-m.jpg', f: 'img/sights/morse-2.jpg' },
         { t: 'img/sights/morse-3-t.jpg', m: 'img/sights/morse-3-m.jpg', f: 'img/sights/morse-3.jpg' }
       ],
+      ticketId: 'morse',
       name: 'Morse Museum of American Art',
       day: 'D2 · 11/14',
       hours: '周二–周六 9:30–16:00；周日 13:00–16:00；周一闭馆',
@@ -636,6 +660,7 @@ window.TRIP_GUIDES = {
         { t: 'img/sights/boat-2-t.jpg', m: 'img/sights/boat-2-m.jpg', f: 'img/sights/boat-2.jpg' },
         { t: 'img/sights/boat-3-t.jpg', m: 'img/sights/boat-3-m.jpg', f: 'img/sights/boat-3.jpg' }
       ],
+      ticketId: 'boattour',
       name: 'Winter Park Scenic Boat Tour',
       day: 'D2 · 11/14',
       hours: '10:00–16:00 整点发船（天气不好会停）',
@@ -705,6 +730,7 @@ window.TRIP_GUIDES = {
     {
       icon: '🏛',
       ord: 'D2-09',
+      ticketId: 'hc',
       name: 'Orange County Regional History Center',
       day: 'D2 · 11/14（市区线顺路）',
       hours: '约 10:00–17:00，周日 12:00 开（以官网为准）',
@@ -811,6 +837,7 @@ window.TRIP_GUIDES = {
         { t: 'img/sights/watertaxi-2-t.jpg', m: 'img/sights/watertaxi-2-m.jpg', f: 'img/sights/watertaxi-2.jpg' },
         { t: 'img/sights/watertaxi-3-t.jpg', m: 'img/sights/watertaxi-3-m.jpg', f: 'img/sights/watertaxi-3.jpg' }
       ],
+      ticketId: 'watertaxi',
       name: 'Water Taxi（运河水上巴士）',
       day: 'D9 · 11/21（方案 A）',
       hours: '约 10:00–22:00，30–45 分钟一班',
@@ -826,6 +853,7 @@ window.TRIP_GUIDES = {
         { t: 'img/sights/wynwood-2-t.jpg', m: 'img/sights/wynwood-2-m.jpg', f: 'img/sights/wynwood-2.jpg' },
         { t: 'img/sights/wynwood-3-t.jpg', m: 'img/sights/wynwood-3-m.jpg', f: 'img/sights/wynwood-3.jpg' }
       ],
+      ticketId: 'wynwood',
       name: 'Wynwood Walls',
       day: 'D9 · 11/21（方案 B）',
       hours: '约 10:30–18:00（周一常闭）',
@@ -848,7 +876,21 @@ window.TRIP_GUIDES = {
       hours: '全天',
       plan: ['Ocean Drive 的 Art Deco 建筑群', 'Lummus Park 海滩', '走到南端 South Pointe 看码头'],
       note: '晚上酒吧街很吵；Joe’s Stone Crab 就在南边不远。'
-    }
-
+    },
+    {
+      icon: '🛶',
+      ord: 'D3-01b',
+      ticketId: 'kings',
+      name: 'Kings Landing（备选）',
+      day: 'D3 · 11/15（替代 Blue Spring）',
+      hours: '约 8:00–16:00，按时段放船',
+      booking: '只能提前官网预约，不接受现场；旺季两周前就满',
+      plan: [
+        '从 Kings Landing 码头上船，顺 Rock Springs Run 往下漂',
+        '水清见底，两边是原始柏树林，比 Blue Spring 更野',
+        '划到 Wekiva River 交汇处折返，全程 2.5–4 小时'
+      ],
+      note: '在 Apopka 的 Kelly Park 北侧（Rock Springs Run 上游）。和 Blue Spring 二选一：Kings Landing 水质更清、人更少，但没有海牛；Blue Spring 海牛季能看海牛，人稍多。⚠️ 具体门牌和放船时段以官网为准。'
+    },
   ]
 };
