@@ -43,6 +43,10 @@ window.TRIP = {
       note: '全天在路上，落地后还要开 3 小时车，尽量在飞机上睡。',
       items: [
         {
+          time: '待办', name: '订奥兰多酒店（11/13–11/17 四晚）', type: 'other',
+          note: '⚠️ 还没订，尽快订。选市中心或 Winter Park 附近，前两天活动都在这两处；自驾的话要带停车位。订好把右边这个勾打上。'
+        },
+        {
           time: '07:30', name: '上海浦东 T1 · 达美柜台', type: 'transport',
           lat: 31.1443, lng: 121.8083, stay: 150, transit: '打车或地铁 2 号线到浦东',
           note: '国际航班建议提前 3 小时。值机时确认行李直挂到 FLL，问清底特律要不要重新托运。'
@@ -83,10 +87,10 @@ window.TRIP = {
     /* ------------------------------------------------------------------ */
     {
       date: '2026-11-14',
-      title: 'Winter Park · 奥兰多市中心',
+      title: 'Winter Park · 奥兰多市区',
       area: 'Winter Park / 市区',
       base: { lat: 28.5423, lng: -81.3785 },
-      note: '全天都在城里，打车为主。这一天和「赖特校园」二选一的话，看你想看城市还是看建筑。',
+      note: '上午都在 Winter Park。下午两条线二选一：A 留在市区，B 打车去 Lakeland 看赖特。',
       items: [
         {
           time: '09:00', name: '出发去 Winter Park', type: 'transport',
@@ -96,17 +100,21 @@ window.TRIP = {
         {
           time: '09:30', name: 'Rollins College', type: 'sight',
           lat: 28.5916, lng: -81.3485, stay: 90, transit: '步行进校区',
-          note: '湖边校园，红砖+西班牙风。Cornell Fine Arts Museum 免费，周四到周日开。'
+          note: '湖边校园，红砖 + 西班牙风。Cornell Fine Arts Museum 免费，周四到周日开。'
         },
         {
           time: '11:10', name: 'Park Avenue', type: 'shop',
           lat: 28.5966, lng: -81.3512, stay: 50, transit: '步行 5 分钟',
-          note: '梧桐树主街，书店和咖啡馆，冬天有圣诞装饰。'
+          note: '梧桐树主街，书店和咖啡馆，11 月已经有圣诞装饰。'
         },
         {
           time: '12:10', name: 'Park Ave 午餐', type: 'food',
           lat: 28.5952, lng: -81.3508, stay: 70, transit: '步行 3 分钟',
           note: 'The Ravenous Pig 或 Prato，周末要等位。'
+        },
+        {
+          time: '', name: '方案 A · 留在奥兰多市区', type: 'divider',
+          note: ''
         },
         {
           time: '13:40', name: '打车去市中心', type: 'transport',
@@ -116,27 +124,56 @@ window.TRIP = {
         {
           time: '14:10', name: '奥兰多公共图书馆', type: 'sight',
           lat: 28.5423, lng: -81.3785, stay: 45, transit: '步行 5 分钟',
-          note: '1986 年扩建的玻璃中庭，光很好。可以顺便看看当地的展览。'
+          note: '1986 年扩建的玻璃中庭，光很好。顺便看看当地的展览。'
         },
         {
           time: '15:10', name: 'Lake Eola Park', type: 'sight',
-          lat: 28.5433, lng: -81.3728, stay: 60, transit: '步行 8 分钟',
+          lat: 28.5433, lng: -81.3728, stay: 70, transit: '步行 8 分钟',
           note: '环湖 1 英里，天鹅船 30 分钟约 $15。傍晚喷泉配天际线最好看。'
         },
         {
-          time: '16:30', name: '备选：Florida Southern College（赖特）', type: 'other',
-          lat: 28.0306, lng: -81.9479, stay: 210, transit: '打车单程约 1 小时（Lakeland）',
-          note: '赖特在单一校园里建成 12 栋建筑，是美国最大规模的赖特建筑群，参观中心有导览。去了就在 Lakeland 吃晚饭，21:00 回奥兰多，Lake Eola 那站砍掉。'
+          time: '16:40', name: 'Church Street 一带闲逛', type: 'shop',
+          lat: 28.5403, lng: -81.3805, stay: 60, transit: '步行 10 分钟',
+          note: '老火车站改造的街区，有几家不错的酒吧和唱片店。'
         },
         {
           time: '18:30', name: '市中心晚餐', type: 'food',
           lat: 28.5400, lng: -81.3760, stay: 90, transit: '步行',
-          note: '不去 Lakeland 就在这里吃；Church Street 一带选择多。'
+          note: ''
+        },
+        {
+          time: '', name: '方案 B · 去赖特校园（Lakeland，单程 1 小时）', type: 'divider',
+          note: ''
+        },
+        {
+          time: '13:40', name: '出发去 Lakeland', type: 'transport',
+          lat: 28.0306, lng: -81.9479, stay: 60, transit: '打车单程约 1 小时（I-4 向西）',
+          note: '打车往返约 $120–150；也可以租一天车。回程容易叫不到车，提前和司机约好。'
+        },
+        {
+          time: '14:45', name: 'Florida Southern College', type: 'sight',
+          lat: 28.0306, lng: -81.9479, stay: 105, transit: '步行到游客中心',
+          note: '赖特在单一校园里建成 12 栋建筑，美国最大规模的赖特建筑群。游客中心有导览（约 1 小时），建议参加，不然看不出门道。'
+        },
+        {
+          time: '16:30', name: '校园自由逛', type: 'sight',
+          lat: 28.0330, lng: -81.9450, stay: 50, transit: '步行',
+          note: '重点看 Annie Pfeiffer Chapel 和 Water Dome 喷泉。'
+        },
+        {
+          time: '17:20', name: '回奥兰多', type: 'transport',
+          lat: 28.5383, lng: -81.3792, stay: 60, transit: '打车 1 小时',
+          note: ''
+        },
+        {
+          time: '18:30', name: '晚餐', type: 'food',
+          lat: 28.5400, lng: -81.3760, stay: 90, transit: '步行',
+          note: ''
         },
         {
           time: '20:30', name: '回酒店', type: 'stay',
           lat: 28.5383, lng: -81.3792, stay: 30, transit: '打车 15 分钟',
-          note: ''
+          note: '明天去迪士尼要早起。'
         }
       ]
     },
@@ -246,40 +283,75 @@ window.TRIP = {
     /* ------------------------------------------------------------------ */
     {
       date: '2026-11-17',
-      title: '肯尼迪航天中心 → 劳德代尔堡',
-      area: 'Merritt Island → Fort Lauderdale',
+      title: '肯尼迪航天中心一日 → 劳德代尔堡',
+      area: 'KSC → Fort Lauderdale',
       base: { lat: 26.1018, lng: -80.1252 },
-      note: '这天要开 4 小时车（奥兰多→KSC 1 小时，KSC→劳德代尔堡 3 小时），晚上到会场旁边住。',
+      note: '航天中心 9:00 开门、17:00 关门，官方给成人的一日推荐是「Gateway 75 分钟 + Atlantis 60 分钟 + 巴士导览 2 小时 + Heroes & Legends 45 分钟」。你要在 15:20 前出园（还要开 3 小时车），所以下面这个顺序是掐着表的——巴士导览必须一进门就去。',
       items: [
         {
-          time: '08:00', name: '退房，出发去 KSC', type: 'transport',
-          lat: 28.5231, lng: -80.6818, stay: 60, transit: '自驾约 1 小时（FL-528 向东）',
-          note: '行李放车上，今天不再回奥兰多。'
+          time: '07:45', name: '退房，出发去 KSC', type: 'transport',
+          lat: 28.5231, lng: -80.6818, stay: 75, transit: '自驾约 1 小时（FL-417→FL-528 向东）',
+          note: '行李放车上。门票提前在网上买好，现场排队买票会吃掉半小时。'
         },
         {
-          time: '09:00', name: '肯尼迪航天中心游客中心', type: 'sight',
-          lat: 28.5231, lng: -80.6818, stay: 330, transit: '园区停车场',
-          note: '门票含 bus tour 到 Apollo/Saturn V 中心，单程 40 分钟，先坐这个再回来逛。Atlantis 展馆必看，预留 1 小时。'
+          time: '08:45', name: '停车 + 安检入园', type: 'transport',
+          lat: 28.5231, lng: -80.6818, stay: 15, transit: '停车场',
+          note: '9:00 开门。安检类似机场，别带大包。进门先在时刻牌上记下当天的 Astronaut Encounter 和 IMAX 场次。'
         },
         {
-          time: '14:30', name: '离开 KSC，南下', type: 'transport',
-          lat: 26.1018, lng: -80.1252, stay: 200, transit: 'I-95 南下约 3 小时',
-          note: '中途在 Fort Pierce 或 Palm Beach 服务区休息一次。'
+          time: '09:05', name: '直奔巴士导览乘车点', type: 'transport',
+          lat: 28.5215, lng: -80.6810, stay: 10, transit: '进门往右后方 Taylor Dunn 乘车区',
+          note: '关键：第一班车人最少。晚一点这里就要排 40 分钟以上。'
         },
         {
-          time: '18:00', name: '入住 Holiday Inn Express', type: 'stay',
-          lat: 26.1018, lng: -80.1252, stay: 45, transit: '1500 SE 17th St Causeway',
-          note: '离会展中心 0.5 英里、离机场 2 英里，走路能到会场。先还车或把车停酒店（停车费确认一下）。'
+          time: '09:15', name: '巴士导览 + 土星五号中心', type: 'sight',
+          lat: 28.6070, lng: -80.6040, stay: 125, transit: '园区巴士，单程约 40 分钟',
+          note: '全程 2 小时：沿途经过火箭发射台和总装大楼（VAB），到 Apollo/Saturn V 中心可以下车看 1 小时。返程巴士连续发车，随时走。'
         },
         {
-          time: '18:50', name: 'WAF 欢迎酒会（可选）', type: 'other',
-          lat: 26.0996, lng: -80.1190, stay: 60, transit: '步行 12 分钟到会展中心',
-          note: '官网写的是节前周二晚在会展中心有欢迎酒会，可以顺便提前领胸牌，省掉明天排队。'
+          time: '11:25', name: '航天飞机 Atlantis 展馆', type: 'sight',
+          lat: 28.5218, lng: -80.6818, stay: 60, transit: '坐巴士回主园区，步行 5 分钟',
+          note: '一眼看到 Atlantis 实体是全程最震撼的时刻。含 Shuttle Launch Experience（模拟发射，1.2 米以上才能玩）。'
         },
         {
-          time: '20:00', name: '17th Street 晚餐', type: 'food',
-          lat: 26.1030, lng: -80.1240, stay: 90, transit: '步行',
-          note: 'Boatyard 或 15th Street Fisheries，都在运河边。'
+          time: '12:30', name: '午餐', type: 'food',
+          lat: 28.5220, lng: -80.6815, stay: 40, transit: 'Orbit Cafe / Red Rock Grill',
+          note: '园区内餐饮一般，胜在省时间。'
+        },
+        {
+          time: '13:12', name: 'Gateway: Deep Space Launch', type: 'sight',
+          lat: 28.5222, lng: -80.6812, stay: 75, transit: '步行 3 分钟',
+          note: '最新的沉浸式展馆，四个「太空港」体验，是园里排队最长的项目。这个展馆 2022 年开，值这 75 分钟。'
+        },
+        {
+          time: '14:30', name: 'Heroes & Legends（航天员名人堂）', type: 'sight',
+          lat: 28.5212, lng: -80.6822, stay: 40, transit: '步行 4 分钟',
+          note: '从水星计划讲到航天飞机，有新人墙。赶时间的话 30 分钟能看完主线。'
+        },
+        {
+          time: '15:12', name: '火箭花园 + 商店', type: 'shop',
+          lat: 28.5208, lng: -80.6825, stay: 18, transit: '步行 2 分钟',
+          note: '火箭花园就在出口路上，顺路拍。商店 10 分钟够。'
+        },
+        {
+          time: '15:30', name: '离开 KSC，南下劳德代尔堡', type: 'transport',
+          lat: 26.1018, lng: -80.1252, stay: 195, transit: 'I-95 南下约 3 小时 15 分',
+          note: '中途在 Fort Pierce 服务区休息一次。晚高峰 I-95 会堵，多留半小时。'
+        },
+        {
+          time: '18:45', name: '入住 Holiday Inn Express', type: 'stay',
+          lat: 26.1018, lng: -80.1252, stay: 40, transit: '1500 SE 17th St Causeway',
+          note: '离会场 0.5 英里、离机场 2 英里。车可以停酒店，明天走路去会场。'
+        },
+        {
+          time: '19:40', name: '17th Street 晚餐', type: 'food',
+          lat: 26.1030, lng: -80.1240, stay: 80, transit: '步行 5 分钟',
+          note: 'Boatyard 或 15th Street Fisheries，运河边，适合犒劳这一天。'
+        },
+        {
+          time: '21:00', name: '回房休息', type: 'stay',
+          lat: 26.1018, lng: -80.1252, stay: 30, transit: '步行',
+          note: '明天第一场汇报 14:00，上午还能睡到自然醒。'
         }
       ]
     },
@@ -430,50 +502,83 @@ window.TRIP = {
     /* ------------------------------------------------------------------ */
     {
       date: '2026-11-21',
-      title: '自由日（两个方案）',
+      title: '自由日（两条线都列了，当天二选一）',
       area: 'Fort Lauderdale / Miami',
       base: { lat: 26.1198, lng: -80.1046 },
-      note: '两个方案二选一：A 就在劳德代尔堡慢一点，B 去迈阿密看建筑。想去迈阿密的话早点出发，40 分钟车程。',
+      note: '方案 A 就在劳德代尔堡慢一点，方案 B 去迈阿密看建筑。B 线车程 40 分钟，想走 B 就早点出发。',
       items: [
         {
-          time: '09:30', name: '方案 A：劳德代尔堡海滩', type: 'sight',
-          lat: 26.1198, lng: -80.1046, stay: 120, transit: '打车 10 分钟',
-          note: 'A1A 沿线。可以租躺椅，冬天水温还在 25℃ 左右。'
-        },
-        {
-          time: '11:40', name: '方案 A：运河游船', type: 'sight',
-          lat: 26.1128, lng: -80.1043, stay: 90, transit: '步行到码头',
-          note: 'Jungle Queen 或 Water Taxi，看「美国的威尼斯」那些豪宅河道。'
-        },
-        {
-          time: '13:30', name: '方案 A：Las Olas 午餐', type: 'food',
-          lat: 26.1195, lng: -80.1345, stay: 75, transit: '打车 10 分钟',
+          time: '', name: '方案 A · 劳德代尔堡慢游', type: 'divider',
           note: ''
         },
         {
-          time: '09:30', name: '方案 B：Vizcaya Museum', type: 'sight',
-          lat: 25.7444, lng: -80.2103, stay: 120, transit: '自驾或打车约 40 分钟',
-          note: 'B 方案第一站。1916 年意大利文艺复兴式庄园，要提前网上订票。'
+          time: '09:30', name: '劳德代尔堡海滩', type: 'sight',
+          lat: 26.1198, lng: -80.1046, stay: 120, transit: '打车 10 分钟（A1A）',
+          note: 'A1A 沿线，可以租躺椅。11 月水温还在 25℃ 左右，下海没问题。'
         },
         {
-          time: '12:30', name: '方案 B：Wynwood Walls', type: 'sight',
-          lat: 25.8011, lng: -80.1994, stay: 90, transit: '打车 15 分钟',
-          note: '涂鸦墙 + 画廊区，午餐就在这一带吃，选择多。'
+          time: '11:40', name: '运河游船', type: 'sight',
+          lat: 26.1128, lng: -80.1043, stay: 90, transit: '步行到码头',
+          note: 'Jungle Queen 或 Water Taxi，看「美国的威尼斯」那些豪宅河道，这条是全城最值的一个项目。'
         },
         {
-          time: '15:00', name: '方案 B：South Beach / Art Deco', type: 'sight',
-          lat: 25.7826, lng: -80.1341, stay: 120, transit: '打车 20 分钟',
-          note: 'Ocean Drive 的装饰艺术建筑群，走一圈比拍照更有意思。'
+          time: '13:30', name: 'Las Olas 午餐', type: 'food',
+          lat: 26.1195, lng: -80.1345, stay: 80, transit: '打车 10 分钟',
+          note: ''
         },
         {
-          time: '18:00', name: '回劳德代尔堡', type: 'transport',
-          lat: 26.1018, lng: -80.1252, stay: 50, transit: '自驾 40 分钟 / 打车 $50 上下',
-          note: '明早飞机，今晚早点收拾行李。'
+          time: '15:00', name: 'Las Olas 逛街 / 回酒店休息', type: 'shop',
+          lat: 26.1180, lng: -80.1330, stay: 120, transit: '步行',
+          note: '沿街画廊、买手店；不想逛就回酒店收拾行李。'
+        },
+        {
+          time: '18:00', name: '回酒店', type: 'stay',
+          lat: 26.1018, lng: -80.1252, stay: 30, transit: '打车 10 分钟',
+          note: '明早飞机，今晚把行李收好。'
         },
         {
           time: '19:30', name: '晚餐', type: 'food',
           lat: 26.1030, lng: -80.1240, stay: 90, transit: '步行',
-          note: '最后一个晚上，找个运河边的位置。'
+          note: '最后一晚，找运河边的位置。'
+        },
+        {
+          time: '', name: '方案 B · 迈阿密一日（建筑线）', type: 'divider',
+          note: ''
+        },
+        {
+          time: '09:00', name: '出发去 Miami', type: 'transport',
+          lat: 25.7444, lng: -80.2103, stay: 45, transit: '自驾或打车约 40 分钟（I-95 南）',
+          note: '打车单程约 $50。想省钱包车一天更划算。'
+        },
+        {
+          time: '09:50', name: 'Vizcaya Museum & Gardens', type: 'sight',
+          lat: 25.7444, lng: -80.2103, stay: 120, transit: '停车场',
+          note: '1916 年意大利文艺复兴式庄园，面朝 Biscayne 湾。必须提前网上订票，现场常售完。'
+        },
+        {
+          time: '12:20', name: 'Wynwood Walls', type: 'sight',
+          lat: 25.8011, lng: -80.1994, stay: 100, transit: '打车 15 分钟',
+          note: '涂鸦墙 + 画廊区，周围餐厅多，午餐就在这一带解决。'
+        },
+        {
+          time: '14:15', name: 'South Beach / Ocean Drive', type: 'sight',
+          lat: 25.7826, lng: -80.1341, stay: 120, transit: '打车 20 分钟',
+          note: 'Art Deco 装饰艺术建筑群，沿 Ocean Drive 走一圈比拍照有意思。'
+        },
+        {
+          time: '16:45', name: '回劳德代尔堡', type: 'transport',
+          lat: 26.1018, lng: -80.1252, stay: 55, transit: '自驾 40 分钟',
+          note: '晚高峰 I-95 会堵，多留时间。'
+        },
+        {
+          time: '18:00', name: '回酒店', type: 'stay',
+          lat: 26.1018, lng: -80.1252, stay: 30, transit: '步行 / 打车',
+          note: '明早飞机，今晚把行李收好。'
+        },
+        {
+          time: '19:30', name: '晚餐', type: 'food',
+          lat: 26.1030, lng: -80.1240, stay: 90, transit: '步行',
+          note: '最后一晚，找运河边的位置。'
         }
       ]
     },

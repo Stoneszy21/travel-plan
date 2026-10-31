@@ -169,6 +169,12 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 
 /* ---------- 时间轴 ---------- */
 .tl { list-style: none; padding: 12px 14px 4px; }
+.tl-divider { display: flex; align-items: center; gap: 8px; margin: 4px 0 14px; }
+.tl-divider::before, .tl-divider::after { content: ""; height: 1px; background: var(--line); flex: 1; }
+.tl-divider .lbl {
+  font-size: 11.5px; font-weight: 750; letter-spacing: .01em; white-space: nowrap;
+  color: var(--accent); background: var(--accent-weak); border-radius: 6px; padding: 3px 9px;
+}
 .it {
   display: grid; grid-template-columns: 42px 14px 1fr; gap: 0 9px;
   position: relative; padding-bottom: 16px;
@@ -800,6 +806,14 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 
       const ol = el('ol', 'tl');
       (d.items || []).forEach((it, ii) => {
+        // 方案分隔条：把「方案 A / 方案 B」在时间轴上分开
+        if (it.type === 'divider') {
+          const dvd = el('li', 'tl-divider');
+          dvd.appendChild(el('span', 'lbl', esc(it.name || '')));
+          ol.appendChild(dvd);
+          return;
+        }
+
         const li = el('li', 'it' + (done[itemKey(d, it)] ? ' done' : ''));
         li.dataset.type = it.type || 'other';
         li.dataset.day = di;
@@ -887,6 +901,11 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     if (d.note) lines.push(d.note);
     lines.push('');
     (d.items || []).forEach(it => {
+      if (it.type === 'divider') {
+        lines.push('');
+        lines.push('—— ' + it.name + ' ——');
+        return;
+      }
       let l = it.time + '  ' + it.name;
       const bits = [];
       if (it.stay) bits.push('停留 ' + durationText(it.stay));
