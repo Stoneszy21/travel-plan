@@ -244,24 +244,24 @@ window.TRIP_GUIDES = {
       title: '奥兰多 · 值得专程去的几家',
       note: '下面这些不是"顺路吃"，是值得为它调整行程的。都在市区或 Winter Park 附近，打车 15 分钟内。',
       places: [
-        { name: 'Domu', cat: '拉面', addr: '3201 Corrine Dr（East End Market）', note: '奥兰多公认最好的一碗拉面，招牌是辣味噌。排队 30–60 分钟，去之前在 Yelp 上排号。' },
+        { name: 'Christner\'s Prime Steak House', cat: '老派牛排', addr: '5410 E Colonial Dr', note: '1975 年开到现在，深色木头、西装服务生那种老派牛排馆，本地人谈事情都来这儿。' },
         { name: '4 Rivers Smokehouse', cat: 'BBQ', addr: '1600 W Fairbanks Ave, Winter Park', note: '佛州本地最好的烤肉连锁，牛肋排和 brisket 都稳。中午 11:30 前去不用排。' },
         { name: "Gideon's Bakehouse", cat: '曲奇', addr: 'East End Market / Disney Springs', note: '半磅一块的厚曲奇，网红但真的好吃。下午常有 40 分钟队，买两块带走当夜宵。' },
         { name: 'Se7en Bites', cat: '南方 Brunch', addr: '539 Virginia Dr（Milk District）', note: '南方家常菜和烘焙，只开到下午 3 点——想吃必须排在上午。' }
       ]
     },
     {
-      title: '亚洲胃：Mills 50 街区',
-      note: '奥兰多的亚洲菜集中在 N Mills Ave × E Colonial Dr 一带（本地叫 Mills 50），开车 15 分钟。连吃几天西餐后，这里能救命。',
+      title: '傍晚喝一杯 · 有景观的酒吧',
+      note: '白天跑完景点，日落前后去这些地方坐一小时，比在餐厅排队值。',
       places: [
-        { name: 'Pho 88', cat: '越南粉', addr: '730 N Mills Ave', note: '开了二十多年的老店，牛肉粉和春卷稳。' },
-        { name: 'Tako Cheena', cat: '亚洲融合 taco', addr: '948 N Mills Ave', note: '韩式烤肉 taco、咖喱 taco，便宜好吃，晚上开到很晚。' },
-        { name: 'Mills 50 街区其他', cat: '中餐 / 日料 / 奶茶', addr: 'N Mills Ave 沿线', note: '沿街还有川菜、粤菜、拉面和奶茶店，看哪家门口排队就进哪家。地址以地图为准。' }
+        { name: 'Sparrow', cat: '天台酒吧', addr: '299 N Federal Hwy（Dalmar 酒店顶楼）', note: 'Fort Lauderdale 最好的天台之一，看得到 Intracoastal 水道和整片天际线。日落前 30 分钟上去。' },
+        { name: 'Rooftop @ 1WLO', cat: '天台酒吧', addr: '1 W Las Olas Blvd（11 楼）', note: '就在 Las Olas 西端，俯瞰整条街和 New River。WAF 期间人多，早点去。' },
+        { name: 'Capa Bar', cat: '天台酒吧', addr: '10100 Dream Tree Blvd（Four Seasons 顶楼）', note: '和 Capa 餐厅同一层，只喝酒的话不用订餐位，站着看烟花也行。' }
       ]
     },
     {
       title: '劳德代尔堡：说句实话',
-      note: '这边的中餐选择远不如奥兰多，WAF 那几天别指望吃到正宗的。想吃亚洲菜就在奥兰多那几天吃够，或者去 Miami 时顺路解决（Brickell 一带中餐更多）。',
+      note: '这几天的重点放在海鲜和意餐上——Fort Lauderdale 这两样做得比中餐好得多。真想换口味，Miami 的 Brickell 一带选择更多。',
       places: [
         { name: 'Coconuts', cat: '海鲜', addr: '429 Seabreeze Blvd', note: '本地人认可的海边餐厅，不是游客店。' },
         { name: 'Boatyard', cat: '海鲜 / 牛排', addr: '1555 SE 17th St', note: '运河边，离酒店最近的一家正经餐厅。' }
@@ -292,12 +292,12 @@ window.TRIP_GUIDES = {
     },
     {
       day: 'D3 · 11/15', area: 'Blue Spring / Mount Dora',
-      note: '中午在小山城的百年老酒店吃，晚上回城吃亚洲菜换口味。',
+      note: '中午在小山城的百年老酒店吃湖景，晚上回城吃一顿扎实的烧烤。',
       meals: [
         { slot: '早餐', name: '路上解决', img: 'breakfast', cuisine: '—', price: '$8', note: '7:30 出发，别指望酒店早餐。' },
         { slot: '午餐', name: 'Lakeside Inn', img: 'seafood', cuisine: '美式 / 湖景', price: '$25–40', view: true, note: '100 N Alexander St, Mount Dora。1883 年的老酒店，餐厅对着 Lake Dora，木廊和吊扇是那个年代的样子。看完跳蚤市场回来吃正好。' },
-        { slot: '晚餐', name: 'Domu', img: 'asian', cuisine: '拉面', price: '$20–30', note: '3201 Corrine Dr（East End Market）。奥兰多公认最好的一碗，辣味噌招牌，排队 30–60 分钟，先在 Yelp 排号。' },
-        { slot: '夜宵', name: 'Tako Cheena', img: 'taco', cuisine: '亚洲融合 taco', price: '$12–18', note: '948 N Mills Ave。韩式烤肉 taco、咖喱 taco，便宜好吃，开到很晚。' }
+        { slot: '晚餐', name: 'The Polite Pig', img: 'barbecue', cuisine: '佛州烧烤', price: '$25–35', note: 'Disney Springs（1504 Buena Vista Dr）。本地人认可的烧烤，brisket 和猪肋排都稳，不用订位。从 Mount Dora 回来顺路。' },
+        { slot: '夜宵', name: 'Gideon’s Bakehouse', img: 'icecream', cuisine: '曲奇', price: '$8', note: '和 Polite Pig 同在 Disney Springs，吃完顺路买两块带走。' }
       ]
     },
     {
