@@ -251,7 +251,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .ov-sum { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
 /* ---------- 分类汇总 ---------- */
 .snap {
-  position: relative; width: 100%; height: 148px; border-radius: 10px; overflow: hidden;
+  position: relative; width: 100%; height: 168px; border-radius: 10px; overflow: hidden;
   background: #e9e6e0; margin: 2px 0 10px; border: 1px solid var(--line-2);
 }
 .snap-sm { height: 112px; margin: 6px 0 6px; }
@@ -259,6 +259,33 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   .snap { background: #14171c; }
   .snap img { filter: invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.7); }
 }
+/* ---------- 全屏地图 ---------- */
+.mapmodal { position: fixed; inset: 0; z-index: 70; display: none; }
+.mapmodal.show { display: block; }
+.mm-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, .55); }
+.mm-panel { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--bg); }
+.mm-head { display: flex; align-items: center; gap: 10px; padding: calc(var(--sat) + 10px) 14px 10px; }
+.mm-cap { flex: 1; min-width: 0; font-size: 14px; font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mm-close { flex: none; font-size: 13px; font-weight: 650; color: var(--accent); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px; }
+.mm-canvas { position: relative; flex: 1; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; background: #e9e6e0; }
+.mm-tiles { position: absolute; inset: 0; }
+.mm-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.mm-marks { position: absolute; inset: 0; pointer-events: none; }
+.mm-dot { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 1px 5px rgba(0, 0, 0, .4); }
+.mm-ctl { position: absolute; right: 10px; bottom: 10px; display: flex; flex-direction: column; gap: 6px; }
+.mm-ctl button { width: 38px; height: 38px; border-radius: 10px; font-size: 18px; font-weight: 700; background: var(--card); color: var(--text); border: 1px solid var(--line); box-shadow: 0 1px 4px rgba(0, 0, 0, .18); }
+.mm-ctl button:active { transform: scale(.95); }
+@media (prefers-color-scheme: dark) {
+  .mm-canvas { background: #14171c; }
+  .mm-tiles img { filter: invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.7); }
+}
+.snap.tappable { cursor: pointer; }
+.snap.tappable::after {
+  content: "点击放大"; position: absolute; right: 6px; top: 6px;
+  font-size: 10px; font-weight: 600; color: #fff; background: rgba(0, 0, 0, .55);
+  border-radius: 4px; padding: 1px 5px; pointer-events: none;
+}
+
 .snap-cap {
   position: absolute; left: 5px; bottom: 4px; font-size: 9.5px; color: #444;
   background: rgba(255,255,255,.82); border-radius: 3px; padding: 0 4px; pointer-events: none;
@@ -583,6 +610,26 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 <div class="backdrop" id="backdrop"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
 <div class="toast" id="toast"></div>
+
+<div class="mapmodal" id="mapModal">
+  <div class="mm-backdrop" id="mmBackdrop"></div>
+  <div class="mm-panel">
+    <div class="mm-head">
+      <div class="mm-cap" id="mmCap"></div>
+      <button class="mm-close" id="mmClose">关闭</button>
+    </div>
+    <div class="mm-canvas" id="mmCanvas">
+      <div class="mm-tiles" id="mmTiles"></div>
+      <svg class="mm-svg" id="mmSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="mm-marks" id="mmMarks"></div>
+      <div class="mm-ctl">
+        <button id="mmZoomIn" aria-label="放大">+</button>
+        <button id="mmZoomOut" aria-label="缩小">−</button>
+      </div>
+      <div class="mapattr">© OpenStreetMap contributors</div>
+    </div>
+  </div>
+</div>
 
 <script src="guides.js"></script>
 <script src="trip-data.js"></script>
@@ -1710,6 +1757,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
       });
       if (!pending.length) return;
       driveRoute(g.from, g.to).then(r => {
+        if (r && r.geo) { g._geo = r.geo; }
         if (r && r.geo && g._snap) {
           drawStaticMap(g._snap, g._mid, g._zoom, {
             geo: r.geo,
@@ -1731,6 +1779,23 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 
 
   /* ---------- 静态地图快照（不可拖拽，只用于说明） ---------- */
+  /* ---------- 快照懒加载：进入视口才请求瓦片 ---------- */
+  const snapIO = ('IntersectionObserver' in window) ? new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const fn = e.target.__draw;
+      if (fn) { try { fn(); } catch (err) { } }
+      e.target.__draw = null;
+      snapIO.unobserve(e.target);
+    });
+  }, { rootMargin: '300px 0px' }) : null;
+
+  function lazyDraw(box, fn) {
+    box.__draw = fn;
+    if (snapIO) snapIO.observe(box);
+    else fn();          // 老浏览器直接画
+  }
+
   const TILE_SRC = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 
   function fitZoomBox(a, b, w, h, pad) {
@@ -1826,6 +1891,199 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     box.appendChild(cap);
   }
 
+
+  /* ---------- 全屏地图（点快照打开，可拖拽缩放） ---------- */
+  const mm = { center: { lat: 0, lng: 0 }, zoom: 12, from: null, to: null, geo: null, spot: null, binded: false };
+
+  function openMapModal(g, center, zoom, spot) {
+    // 先让弹层显示，否则量不到尺寸
+    const el = $('#mapModal');
+    el.classList.add('show');
+    document.body.style.overflow = 'hidden';
+
+    mm.center = { lat: center.lat, lng: center.lng };
+    mm.zoom = zoom;
+    mm.from = (g && g.from) || null;
+    mm.to = (g && g.to) || null;
+    mm.geo = (g && g._geo) || null;
+    mm.spot = spot || null;
+
+    // 全屏窗口比快照大得多，按实际尺寸重新算缩放
+    const box = el.querySelector('.mm-canvas');
+    const w = box ? box.clientWidth : 0, h = box ? box.clientHeight : 0;
+    if (w && h) {
+      if (mm.from && mm.to) {
+        mm.zoom = fitZoomBox(mm.from, mm.to, w, h, 120);
+        mm.center = { lat: (mm.from.lat + mm.to.lat) / 2, lng: (mm.from.lng + mm.to.lng) / 2 };
+      } else if (mm.spot) {
+        mm.zoom = Math.max(zoom, 15);
+      }
+    }
+
+    mmBind();
+    mmDraw();
+  }
+  function closeMapModal() {
+    $('#mapModal').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  function mmDraw() {
+    const box = $('#mmCanvas');
+    if (!box) return;
+    const w = box.clientWidth, h = box.clientHeight;
+    if (!w || !h) return;
+
+    const z = mm.zoom;
+    const c = mProj(mm.center.lat, mm.center.lng, z);
+    const ox = c.x - w / 2, oy = c.y - h / 2;
+
+    const layer = $('#mmTiles');
+    layer.innerHTML = '';
+    const tz = Math.max(1, Math.min(19, Math.round(z)));
+    const scale = Math.pow(2, z - tz);
+    const tilePx = 256 * scale;
+    const n = Math.pow(2, tz);
+    const x0 = Math.floor(ox / tilePx) - 1, x1 = Math.floor((ox + w) / tilePx) + 1;
+    const y0 = Math.floor(oy / tilePx) - 1, y1 = Math.floor((oy + h) / tilePx) + 1;
+
+    for (let tx = x0; tx <= x1; tx++) {
+      for (let ty = y0; ty <= y1; ty++) {
+        if (ty < 0 || ty >= n) continue;
+        const wx = ((tx % n) + n) % n;
+        const img = document.createElement('img');
+        img.alt = '';
+        img.src = TILE_SRC.replace('{z}', tz).replace('{x}', wx).replace('{y}', ty);
+        img.style.cssText = 'position:absolute;pointer-events:none;' +
+          'left:' + Math.round(tx * tilePx - ox) + 'px;top:' + Math.round(ty * tilePx - oy) + 'px;' +
+          'width:' + Math.round(tilePx) + 'px;height:' + Math.round(tilePx) + 'px;';
+        layer.appendChild(img);
+      }
+    }
+
+    const svg = $('#mmSvg');
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    const xy = p => { const q = mProj(p.lat, p.lng, z); return { x: q.x - ox, y: q.y - oy }; };
+
+    if (mm.geo && mm.geo.length > 1) {
+      const pl = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+      pl.setAttribute('points', mm.geo.map(pt => {
+        const q = mProj(pt[1], pt[0], z);
+        return (q.x - ox).toFixed(1) + ',' + (q.y - oy).toFixed(1);
+      }).join(' '));
+      pl.setAttribute('fill', 'none');
+      pl.setAttribute('stroke', '#0f766e');
+      pl.setAttribute('stroke-width', '4');
+      pl.setAttribute('opacity', '0.9');
+      pl.setAttribute('stroke-linecap', 'round');
+      svg.appendChild(pl);
+    } else if (mm.from && mm.to) {
+      const a = xy(mm.from), b = xy(mm.to);
+      const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      ln.setAttribute('x1', a.x); ln.setAttribute('y1', a.y);
+      ln.setAttribute('x2', b.x); ln.setAttribute('y2', b.y);
+      ln.setAttribute('stroke', '#0f766e');
+      ln.setAttribute('stroke-width', '3');
+      ln.setAttribute('stroke-dasharray', '8 6');
+      svg.appendChild(ln);
+    }
+
+    const marks = $('#mmMarks');
+    marks.innerHTML = '';
+    const dots = [];
+    if (mm.from) dots.push({ p: mm.from, color: '#0f766e', label: mm.from.label || '起点' });
+    if (mm.to) dots.push({ p: mm.to, color: '#c2410c', label: mm.to.label || '终点' });
+    if (mm.spot) dots.push({ p: { lat: mm.spot.lat, lng: mm.spot.lng }, color: '#0f766e', label: mm.spot.label || '' });
+    dots.forEach(d => {
+      const q = xy(d.p);
+      const dot = document.createElement('div');
+      dot.className = 'mm-dot';
+      dot.style.cssText = 'left:' + q.x + 'px;top:' + q.y + 'px;background:' + d.color;
+      dot.title = d.label;
+      marks.appendChild(dot);
+    });
+
+    const cap = $('#mmCap');
+    if (cap) {
+      cap.textContent = mm.spot ? (mm.spot.label || '')
+        : (mm.from ? (mm.from.label + ' → ' + mm.to.label) : '');
+    }
+  }
+
+  function mmBind() {
+    const box = $('#mmCanvas');
+    if (!box || mm.binded) return;
+    mm.binded = true;
+
+    let pointers = new Map(), drag = null, pinch = null;
+
+    box.addEventListener('pointerdown', e => {
+      try { box.setPointerCapture(e.pointerId); } catch (_) { }
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1) {
+        drag = { x: e.clientX, y: e.clientY, center: { lat: mm.center.lat, lng: mm.center.lng } };
+        pinch = null;
+      } else if (pointers.size === 2) {
+        const v = [...pointers.values()];
+        pinch = { dist: Math.hypot(v[0].x - v[1].x, v[0].y - v[1].y) || 1, zoom: mm.zoom, mx: (v[0].x + v[1].x) / 2, my: (v[0].y + v[1].y) / 2 };
+        drag = null;
+      }
+    });
+
+    box.addEventListener('pointermove', e => {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1 && drag) {
+        const c = mProj(drag.center.lat, drag.center.lng, mm.zoom);
+        mm.center = mUnproj(c.x - (e.clientX - drag.x), c.y - (e.clientY - drag.y), mm.zoom);
+        mmDraw();
+        e.preventDefault();
+      } else if (pointers.size === 2 && pinch) {
+        const v = [...pointers.values()];
+        const dist = Math.hypot(v[0].x - v[1].x, v[0].y - v[1].y) || 1;
+        const rect = box.getBoundingClientRect();
+        const ax = pinch.mx - rect.left, ay = pinch.my - rect.top;
+        const nz = clampZoom(pinch.zoom + Math.log2(dist / pinch.dist));
+        const w = box.clientWidth, h = box.clientHeight;
+        const c0 = mProj(mm.center.lat, mm.center.lng, mm.zoom);
+        const wx = c0.x - w / 2 + ax, wy = c0.y - h / 2 + ay;
+        const sc = Math.pow(2, nz - mm.zoom);
+        mm.center = mUnproj(wx * sc + w / 2 - ax, wy * sc + h / 2 - ay, nz);
+        mm.zoom = nz;
+        mmDraw();
+        e.preventDefault();
+      }
+    });
+
+    const end = e => {
+      pointers.delete(e.pointerId);
+      if (pointers.size < 2) pinch = null;
+      if (pointers.size === 1) {
+        const v = [...pointers.values()][0];
+        drag = { x: v.x, y: v.y, center: { lat: mm.center.lat, lng: mm.center.lng } };
+      }
+      if (!pointers.size) drag = null;
+    };
+    box.addEventListener('pointerup', end);
+    box.addEventListener('pointercancel', end);
+
+    box.addEventListener('wheel', e => {
+      e.preventDefault();
+      mm.zoom = clampZoom(mm.zoom + (e.deltaY < 0 ? 0.6 : -0.6));
+      mmDraw();
+    }, { passive: false });
+
+    box.addEventListener('dblclick', () => { mm.zoom = clampZoom(mm.zoom + 1); mmDraw(); });
+
+    $('#mmZoomIn').addEventListener('click', () => { mm.zoom = clampZoom(mm.zoom + 1); mmDraw(); });
+    $('#mmZoomOut').addEventListener('click', () => { mm.zoom = clampZoom(mm.zoom - 1); mmDraw(); });
+    $('#mmClose').addEventListener('click', closeMapModal);
+    $('#mmBackdrop').addEventListener('click', closeMapModal);
+    window.addEventListener('resize', () => { if ($('#mapModal').classList.contains('show')) mmDraw(); });
+  }
+
   function renderGuides() {
     const chips = $('#guideChips');
     if (!chips) return;
@@ -1876,14 +2134,16 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
           card.appendChild(snap);
           const mid = { lat: (g.from.lat + g.to.lat) / 2, lng: (g.from.lng + g.to.lng) / 2 };
           const z = fitZoomBox(g.from, g.to, snap.clientWidth || 340, snap.clientHeight || 140, 56);
-          drawStaticMap(snap, mid, z, {
+          lazyDraw(snap, () => drawStaticMap(snap, mid, z, {
             from: g.from, to: g.to,
             markers: [
               { lat: g.from.lat, lng: g.from.lng, color: '#0f766e' },
               { lat: g.to.lat, lng: g.to.lng, color: '#c2410c' }
             ],
-            cap: (g.from.label || '起点') + ' → ' + (g.to.label || '终点') + '（虚线为示意）'
-          });
+            cap: (g.from.label || '起点') + ' → ' + (g.to.label || '终点')
+          }));
+          snap.classList.add('tappable');
+          snap.addEventListener('click', () => openMapModal(g, mid, z));
           g._snap = snap;
           g._mid = mid;
           g._zoom = z;
@@ -1919,9 +2179,14 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
             wrap.appendChild(smap);
             if (sp.note) wrap.appendChild(el('div', 'spot-note', esc(sp.note)));
             opt.appendChild(wrap);
-            drawStaticMap(smap, { lat: sp.lat, lng: sp.lng }, sp.zoom || 15.5, {
+            lazyDraw(smap, () => drawStaticMap(smap, { lat: sp.lat, lng: sp.lng }, sp.zoom || 15.5, {
               markers: [{ lat: sp.lat, lng: sp.lng, big: true }],
-              cap: '换乘 / 到站位置'
+              cap: sp.label || '换乘 / 到站位置'
+            }));
+            smap.classList.add('tappable');
+            smap.addEventListener('click', ev => {
+              ev.stopPropagation();
+              openMapModal({ from: null, to: null }, { lat: sp.lat, lng: sp.lng }, sp.zoom || 15.5, sp);
             });
           });
 
@@ -2300,7 +2565,12 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     backdrop.classList.remove('show');
   }
   backdrop.addEventListener('click', closeSheet);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    const m = document.getElementById('mapModal');
+    if (m && m.classList.contains('show')) { m.classList.remove('show'); document.body.style.overflow = ''; return; }
+    closeSheet();
+  });
 
   function openSheet(di, ii) {
     const d = TRIP.days[di];
