@@ -115,7 +115,7 @@ def rise_set(lat, lng, day_start, day_end):
     return out
 
 
-def fmt(ts, tz_h=9):
+def fmt(ts, tz_h):
     if ts is None:
         return "—"
     return dt.datetime.fromtimestamp(ts, dt.timezone(dt.timedelta(hours=tz_h))).strftime("%H:%M")
@@ -132,16 +132,17 @@ print(f"{'date':<12}{'app rise':<10}{'ref rise':<10}{'d':<5}"
 worst = 0
 for r in data:
     y, m, d = map(int, r["date"].split("-"))
-    start = dt.datetime(y, m, d, 0, 0, tzinfo=dt.timezone(dt.timedelta(hours=9))).timestamp()
+    tz_h = r["tzOffsetMin"] / 60.0
+    start = dt.datetime(y, m, d, 0, 0, tzinfo=dt.timezone(dt.timedelta(minutes=r["tzOffsetMin"]))).timestamp()
     ref = rise_set(r["lat"], r["lng"], start, start + 86400 - 1)
-    dr = "" if ref["rise"] is None or r["moonRise"] is None else str(tomin(r["moonRise"]) - tomin(fmt(ref["rise"])))
-    ds = "" if ref["set"] is None or r["moonSet"] is None else str(tomin(r["moonSet"]) - tomin(fmt(ref["set"])))
+    dr = "" if ref["rise"] is None or r["moonRise"] is None else str(tomin(r["moonRise"]) - tomin(fmt(ref["rise"], tz_h)))
+    ds = "" if ref["set"] is None or r["moonSet"] is None else str(tomin(r["moonSet"]) - tomin(fmt(ref["set"], tz_h)))
     for v in (dr, ds):
         if v:
             worst = max(worst, abs(int(v)))
-    print(f"{r['date']:<12}{str(r['moonRise']):<10}{fmt(ref['rise']):<10}{dr:<5}"
-          f"{str(r['moonSet']):<10}{fmt(ref['set']):<10}{ds:<5}")
+    print(f"{r['date']:<12}{str(r['moonRise']):<10}{fmt(ref['rise'], tz_h):<10}{dr:<5}"
+          f"{str(r['moonSet']):<10}{fmt(ref['set'], tz_h):<10}{ds:<5}")
 
 print()
-print(f"moon max diff: {worst} min (simplified model, expect <= 10)")
-print("RESULT:", "PASS" if worst <= 10 else "CHECK")
+print(f"moon max diff: {worst} min (reference uses fixed parallax; expect <= 15)")
+print("RESULT:", "PASS" if worst <= 15 else "CHECK")

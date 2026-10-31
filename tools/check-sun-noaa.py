@@ -1,6 +1,8 @@
 """独立复核日出日落：用 NOAA / Almanac 经典算法（与 App 里的 SunCalc 风格实现不同），
 再用朔望月周期算月相，跟 App 的输出逐日对比。
 
+时区不硬编码，从 astro-out.json 里的 tzOffsetMin 读（App 按行程时区算出来的）。
+
 用法：
     node tools/check-astro.js        # 先跑 App 自己的算法，生成 tools/astro-out.json
     python tools/check-sun-noaa.py   # 再用另一套算法对比
@@ -44,7 +46,7 @@ def sun_times(lat, lon, date, tz_h):
 
 def hhmm(x):
     if x is None:
-        return "—"
+        return "--"
     h = int(x) % 24
     m = int(round((x - int(x)) * 60))
     if m == 60:
@@ -69,10 +71,11 @@ worst_age = 0
 for r in data:
     y, m, d = map(int, r["date"].split("-"))
     date = dt.date(y, m, d)
-    t = sun_times(r["lat"], r["lng"], date, 9)   # 东京 UTC+9
+    tz_h = r["tzOffsetMin"] / 60.0
+    t = sun_times(r["lat"], r["lng"], date, tz_h)
     dr = (tomin(r["rise"]) - tomin(hhmm(t["rise"])) + 720) % 1440 - 720
     ds = (tomin(r["set"]) - tomin(hhmm(t["set"])) + 720) % 1440 - 720
-    noon = dt.datetime(y, m, d, 12, 0, tzinfo=dt.timezone(dt.timedelta(hours=9)))
+    noon = dt.datetime(y, m, d, 12, 0, tzinfo=dt.timezone(dt.timedelta(minutes=r["tzOffsetMin"])))
     age = ((noon - NEW_MOON_EPOCH).total_seconds() / 86400) % SYNODIC
     da = r["age"] - age
     worst = max(worst, abs(dr), abs(ds))

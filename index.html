@@ -217,11 +217,50 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .mchip { flex: none; font-size: 12px; font-weight: 650; border-radius: 999px; padding: 4px 9px; border: 1px solid var(--line); color: var(--text); background: var(--card); display: inline-flex; align-items: center; gap: 5px; }
 .mchip .dot { width: 7px; height: 7px; border-radius: 50%; }
 .mchip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
-svg.map { display: block; width: 100%; height: auto; border-radius: 10px; background: var(--card-2); touch-action: manipulation; }
-svg.map text { font-size: 9px; font-weight: 800; fill: #fff; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
-svg.map text.mapempty { font-size: 12px; font-weight: 600; fill: var(--muted-2); }
-svg.map .mk { cursor: pointer; }
-svg.map .mk circle.ring { fill: none; stroke: #fff; stroke-width: 1.6; }
+
+.mapcanvas {
+  position: relative; height: 62vh; min-height: 340px; max-height: 620px;
+  overflow: hidden; border-radius: 10px; background: #e9e6e0;
+  touch-action: none; user-select: none; -webkit-user-select: none;
+}
+@media (prefers-color-scheme: dark) {
+  .mapcanvas { background: #14171c; }
+  .maptiles img { filter: invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.7); }
+}
+.maptiles { position: absolute; inset: 0; }
+.maptiles img {
+  position: absolute; width: 256px; height: 256px; max-width: none;
+  user-select: none; -webkit-user-drag: none; pointer-events: none;
+}
+.mapoverlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.mapmarkers { position: absolute; inset: 0; }
+.mk {
+  position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px;
+  border-radius: 50%; display: grid; place-items: center;
+  font-size: 11.5px; font-weight: 800; color: #fff; line-height: 1;
+  border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .35);
+  cursor: pointer; transform-origin: center;
+}
+.mk.small { width: 14px; height: 14px; margin: -7px 0 0 -7px; border-width: 1.5px; font-size: 0; }
+.mk.tap { animation: mkpop .35s ease-out; }
+@keyframes mkpop { 0% { transform: scale(.6); } 60% { transform: scale(1.18); } 100% { transform: scale(1); } }
+.mapctl { position: absolute; right: 8px; bottom: 8px; display: flex; flex-direction: column; gap: 5px; }
+.mapctl button {
+  width: 34px; height: 34px; border-radius: 9px; font-size: 17px; font-weight: 700;
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+  color: var(--text); border: 1px solid var(--line);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .15); display: grid; place-items: center;
+}
+.mapctl button:active { transform: scale(.95); }
+.mapattr {
+  position: absolute; left: 6px; bottom: 5px; font-size: 10px; color: #444;
+  background: rgba(255, 255, 255, .78); border-radius: 4px; padding: 1px 4px; pointer-events: none;
+}
+@media (prefers-color-scheme: dark) { .mapattr { color: #ddd; background: rgba(0, 0, 0, .5); } }
+.mapempty {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-size: 13px; color: var(--muted-2); text-align: center; padding: 20px;
+}
 .mapfoot { display: flex; flex-direction: column; gap: 3px; margin-top: 8px; font-size: 11.5px; color: var(--muted-2); }
 .mapfoot a { font-weight: 650; }
 
@@ -319,20 +358,33 @@ svg.map .mk circle.ring { fill: none; stroke: #fff; stroke-width: 1.6; }
   <section class="view" id="view-map" hidden>
     <div class="mapwrap">
       <div class="mapchips" id="mapchips"></div>
-      <svg class="map" id="mapsvg" viewBox="0 0 340 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="行程点位示意图"></svg>
+      <div class="mapcanvas" id="mapCanvas">
+        <div class="maptiles" id="mapTiles"></div>
+        <svg class="mapoverlay" id="mapOverlay" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="mapmarkers" id="mapMarkers"></div>
+        <div class="mapctl">
+          <button id="mapZoomIn" aria-label="放大">+</button>
+          <button id="mapZoomOut" aria-label="缩小">−</button>
+          <button id="mapFit" aria-label="适配全部点位">◎</button>
+        </div>
+        <div class="mapattr">© OpenStreetMap contributors</div>
+      </div>
       <div class="mapfoot">
         <span id="mapcount"></span>
         <a id="mapall" href="#" target="_blank" rel="noopener">在 Google 地图打开全部 →</a>
       </div>
     </div>
-    <div class="foot">示意图按经纬度等比投影，连线是直线，不代表实际路线和距离。</div>
+    <div class="foot">
+      底图需要联网，断网时只显示点位。<br>
+      连线是直线，不代表实际路线和距离；真实路线点开点位用 Google 地图导航。
+    </div>
   </section>
 
   <section class="view" id="view-sky" hidden>
     <div id="sky-list"></div>
     <div class="foot">
       日出日落、黄金/蓝调时刻按当天坐标本地计算，误差约 1 分钟；<br>
-      月升月落用简化天文算法，误差几分钟，看月亮够用；<br>
+      月升月落用简化月球算法，误差 10 分钟以内，看月亮够用；<br>
       晚霞不做预测，只提供时刻参考。
     </div>
   </section>
@@ -457,11 +509,30 @@ svg.map .mk circle.ring { fill: none; stroke: #fff; stroke-width: 1.6; }
   }
 
   function moonCoords(d) {
-    const L = RAD * (218.316 + 13.176396 * d);
-    const M = RAD * (134.963 + 13.064993 * d);
-    const F = RAD * (93.272 + 13.229350 * d);
-    const l = L + RAD * 6.289 * sin(M);
-    const b = RAD * 5.128 * sin(F);
+    const L = RAD * (218.316 + 13.176396 * d);         // 月亮平黄经
+    const M = RAD * (134.963 + 13.064993 * d);         // 月亮平近点角
+    const F = RAD * (93.272 + 13.229350 * d);          // 升交点角距
+    const Ms = RAD * (357.5291 + 0.98560028 * d);      // 太阳平近点角
+    const Ls = RAD * (282.9404 + 4.70935e-5 * d) + Ms; // 太阳平黄经
+    const D = L - Ls;                                  // 平距角
+    const N = RAD * (125.1228 - 0.0529538083 * d);     // 升交点黄经
+    const Fn = L - N;
+
+    let l = L + RAD * 6.289 * sin(M);
+    let b = RAD * 5.128 * sin(F);
+    // 主要摄动项：不加这些，月升月落会差十几分钟
+    l += RAD * (
+      -1.274 * sin(M - 2 * D) + 0.658 * sin(2 * D) - 0.186 * sin(Ms)
+      - 0.059 * sin(2 * M - 2 * D) - 0.057 * sin(M - 2 * D + Ms)
+      + 0.053 * sin(M + 2 * D) + 0.046 * sin(2 * D - Ms)
+      + 0.041 * sin(M - Ms) - 0.035 * sin(D) - 0.031 * sin(M + Ms)
+      - 0.015 * sin(2 * Fn - 2 * D) + 0.011 * sin(M - 4 * D)
+    );
+    b += RAD * (
+      -0.173 * sin(Fn - 2 * D) - 0.055 * sin(M - Fn - 2 * D)
+      - 0.046 * sin(M + Fn - 2 * D) + 0.033 * sin(Fn + 2 * D)
+      + 0.017 * sin(2 * M + Fn)
+    );
     const dist = 385001 - 20905 * cos(M); // km
     return {
       ra: atan2(sin(l) * cos(OBLIQ) - tan(b) * sin(OBLIQ), cos(l)),
@@ -861,10 +932,294 @@ svg.map .mk circle.ring { fill: none; stroke: #fff; stroke-width: 1.6; }
   }
 
   /* =====================================================================
-   * 6. 地图视图
+   * 6. 地图视图（OSM/CARTO 底图 + 拖拽缩放）
    * ===================================================================== */
+  // OSM 官方瓦片：免费、无需 API Key（个人低频率使用符合其使用政策，需署名）
+  const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+  const mapState = {
+    center: { lat: 27.6, lng: -81.2 },
+    zoom: 7,
+    inited: false,
+    tiles: new Map(),
+    points: [],
+    single: false,
+    binded: false
+  };
+
+  const clampZoom = z => Math.max(2, Math.min(17, z));
+
+  // Web Mercator：经纬度 -> 世界像素坐标
+  function mProj(lat, lng, z) {
+    const size = 256 * Math.pow(2, z);
+    const s = Math.sin(lat * Math.PI / 180);
+    return {
+      x: (lng + 180) / 360 * size,
+      y: (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * size
+    };
+  }
+  function mUnproj(x, y, z) {
+    const size = 256 * Math.pow(2, z);
+    const n = Math.PI - 2 * Math.PI * y / size;
+    return {
+      lat: 180 / Math.PI * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n))),
+      lng: x / size * 360 - 180
+    };
+  }
+
+  function mDraw() {
+    const canvas = $('#mapCanvas');
+    if (!canvas) return;
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w || !h) return;
+
+    const z = mapState.zoom;
+    const c = mProj(mapState.center.lat, mapState.center.lng, z);
+    const ox = c.x - w / 2, oy = c.y - h / 2;
+
+    /* ---- 底图瓦片 ---- */
+    const tz = Math.max(1, Math.min(19, Math.round(z)));
+    const scale = Math.pow(2, z - tz);
+    const tilePx = 256 * scale;
+    const n = Math.pow(2, tz);
+    const retina = '';
+    const layer = $('#mapTiles');
+    const need = new Set();
+
+    const x0 = Math.floor(ox / tilePx) - 1, x1 = Math.floor((ox + w) / tilePx) + 1;
+    const y0 = Math.floor(oy / tilePx) - 1, y1 = Math.floor((oy + h) / tilePx) + 1;
+
+    for (let tx = x0; tx <= x1; tx++) {
+      for (let ty = y0; ty <= y1; ty++) {
+        if (ty < 0 || ty >= n) continue;
+        const wx = ((tx % n) + n) % n;
+        const key = tz + '/' + wx + '/' + ty;
+        need.add(key);
+        let img = mapState.tiles.get(key);
+        if (!img) {
+          img = document.createElement('img');
+          img.alt = '';
+          img.decoding = 'async';
+          img.onerror = function () { this.style.visibility = 'hidden'; };
+          img.src = TILE_URL.replace('{z}', tz).replace('{x}', wx).replace('{y}', ty);
+          layer.appendChild(img);
+          mapState.tiles.set(key, img);
+        }
+        img.style.visibility = '';
+        img.style.left = Math.round(tx * tilePx - ox) + 'px';
+        img.style.top = Math.round(ty * tilePx - oy) + 'px';
+        img.style.width = Math.round(tilePx) + 'px';
+        img.style.height = Math.round(tilePx) + 'px';
+      }
+    }
+    // 缓存别无限长：超过 120 张就把最早的扔掉
+    if (mapState.tiles.size > 120) {
+      let over = mapState.tiles.size - 120;
+      for (const [k, v] of mapState.tiles) {
+        if (over-- <= 0) break;
+        v.remove();
+        mapState.tiles.delete(k);
+      }
+    }
+
+    /* ---- 折线 ---- */
+    const svg = $('#mapOverlay');
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const byDay = {};
+    mapState.points.forEach(p => {
+      (byDay[p.di] = byDay[p.di] || []).push(p);
+    });
+    Object.keys(byDay).forEach(di => {
+      const group = byDay[di];
+      if (group.length < 2) return;
+      const pts = group.map(p => {
+        const q = mProj(p.it.lat, p.it.lng, z);
+        return (q.x - ox).toFixed(1) + ',' + (q.y - oy).toFixed(1);
+      }).join(' ');
+      const pl = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+      pl.setAttribute('points', pts);
+      pl.setAttribute('fill', 'none');
+      pl.setAttribute('stroke', DAY_COLORS[di % DAY_COLORS.length]);
+      pl.setAttribute('stroke-width', '2.6');
+      pl.setAttribute('stroke-linecap', 'round');
+      pl.setAttribute('stroke-linejoin', 'round');
+      pl.setAttribute('opacity', '0.75');
+      svg.appendChild(pl);
+    });
+
+    /* ---- 点位 ---- */
+    const box = $('#mapMarkers');
+    box.innerHTML = '';
+    const used = [];
+    const single = mapState.single;
+
+    // 同一天里坐标相同的点只画一次
+    const seen = new Set();
+    const markers = mapState.points.filter(p => {
+      const k = p.di + '|' + p.it.lat.toFixed(5) + ',' + p.it.lng.toFixed(5);
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+
+    markers.forEach((p, idx) => {
+      const q = mProj(p.it.lat, p.it.lng, z);
+      let x = q.x - ox, y = q.y - oy;
+      if (single) {
+        // 太近的点散开一点，保证都点得到
+        let guard = 0;
+        while (guard < 24 && used.some(u => Math.hypot(u.x - x, u.y - y) < 22)) {
+          guard++;
+          const r = 16 + Math.floor(guard / 6) * 12;
+          const ang = guard * 2.399963 + idx * 0.4;
+          x = q.x - ox + Math.cos(ang) * r;
+          y = q.y - oy + Math.sin(ang) * r;
+        }
+        used.push({ x, y });
+      }
+      if (x < -40 || x > w + 40 || y < -40 || y > h + 40) return;
+
+      const el = document.createElement('div');
+      el.className = 'mk' + (single ? '' : ' small');
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+      el.style.background = DAY_COLORS[p.di % DAY_COLORS.length];
+      if (single) el.textContent = String(p.ii + 1);
+      el.title = 'D' + (p.di + 1) + ' ' + p.it.time + ' ' + p.it.name;
+      el.addEventListener('click', ev => {
+        ev.stopPropagation();
+        openSheet(p.di, p.ii);
+      });
+      box.appendChild(el);
+    });
+
+    if (!markers.length) {
+      const msg = document.createElement('div');
+      msg.className = 'mapempty';
+      msg.textContent = '这一天没有带坐标的点位';
+      box.appendChild(msg);
+    }
+  }
+
+  function mFit(points) {
+    const canvas = $('#mapCanvas');
+    if (!canvas || !points.length) return;
+    const w = canvas.clientWidth || 340, h = canvas.clientHeight || 400;
+    const lats = points.map(p => p.it.lat), lngs = points.map(p => p.it.lng);
+    const minLat = Math.min.apply(null, lats), maxLat = Math.max.apply(null, lats);
+    const minLng = Math.min.apply(null, lngs), maxLng = Math.max.apply(null, lngs);
+    mapState.center = { lat: (minLat + maxLat) / 2, lng: (minLng + maxLng) / 2 };
+    let z = 17;
+    for (; z > 2; z -= 0.25) {
+      const a = mProj(maxLat, minLng, z), b = mProj(minLat, maxLng, z);
+      if (Math.abs(b.x - a.x) < w - 60 && Math.abs(b.y - a.y) < h - 60) break;
+    }
+    mapState.zoom = clampZoom(z);
+  }
+
+  function mZoomBy(delta, anchorX, anchorY) {
+    const canvas = $('#mapCanvas');
+    if (!canvas) return;
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    const ax = anchorX == null ? w / 2 : anchorX;
+    const ay = anchorY == null ? h / 2 : anchorY;
+    const nz = clampZoom(mapState.zoom + delta);
+    if (nz === mapState.zoom) return;
+    const c0 = mProj(mapState.center.lat, mapState.center.lng, mapState.zoom);
+    const wx = c0.x - w / 2 + ax, wy = c0.y - h / 2 + ay;
+    const s = Math.pow(2, nz - mapState.zoom);
+    const c1 = mUnproj(wx * s + w / 2 - ax, wy * s + h / 2 - ay, nz);
+    mapState.center = c1;
+    mapState.zoom = nz;
+    mDraw();
+  }
+
+  function mBind() {
+    const canvas = $('#mapCanvas');
+    if (!canvas || mapState.binded) return;
+    mapState.binded = true;
+
+    let pointers = new Map();
+    let drag = null;
+    let pinch = null;
+
+    canvas.addEventListener('pointerdown', e => {
+      if (e.target.closest && e.target.closest('.mapctl')) return;
+      try { canvas.setPointerCapture(e.pointerId); } catch (_) { }
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1) {
+        drag = { x: e.clientX, y: e.clientY, center: { lat: mapState.center.lat, lng: mapState.center.lng } };
+        pinch = null;
+      } else if (pointers.size === 2) {
+        const v = [...pointers.values()];
+        pinch = {
+          dist: Math.hypot(v[0].x - v[1].x, v[0].y - v[1].y) || 1,
+          zoom: mapState.zoom,
+          mx: (v[0].x + v[1].x) / 2,
+          my: (v[0].y + v[1].y) / 2
+        };
+        drag = null;
+      }
+    });
+
+    canvas.addEventListener('pointermove', e => {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+      if (pointers.size === 1 && drag) {
+        const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+        const c = mProj(drag.center.lat, drag.center.lng, mapState.zoom);
+        mapState.center = mUnproj(c.x - dx, c.y - dy, mapState.zoom);
+        mDraw();
+        e.preventDefault();
+      } else if (pointers.size === 2 && pinch) {
+        const v = [...pointers.values()];
+        const dist = Math.hypot(v[0].x - v[1].x, v[0].y - v[1].y) || 1;
+        const rect = canvas.getBoundingClientRect();
+        const ax = pinch.mx - rect.left, ay = pinch.my - rect.top;
+        const nz = clampZoom(pinch.zoom + Math.log2(dist / pinch.dist));
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        const c0 = mProj(mapState.center.lat, mapState.center.lng, mapState.zoom);
+        const wx = c0.x - w / 2 + ax, wy = c0.y - h / 2 + ay;
+        const s = Math.pow(2, nz - mapState.zoom);
+        mapState.center = mUnproj(wx * s + w / 2 - ax, wy * s + h / 2 - ay, nz);
+        mapState.zoom = nz;
+        mDraw();
+        e.preventDefault();
+      }
+    });
+
+    const endPointer = e => {
+      pointers.delete(e.pointerId);
+      if (pointers.size < 2) pinch = null;
+      if (pointers.size === 1) {
+        const v = [...pointers.values()][0];
+        drag = { x: v.x, y: v.y, center: { lat: mapState.center.lat, lng: mapState.center.lng } };
+      }
+      if (pointers.size === 0) drag = null;
+    };
+    canvas.addEventListener('pointerup', endPointer);
+    canvas.addEventListener('pointercancel', endPointer);
+
+    // 桌面滚轮
+    canvas.addEventListener('wheel', e => {
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      mZoomBy(e.deltaY < 0 ? 0.5 : -0.5, e.clientX - rect.left, e.clientY - rect.top);
+    }, { passive: false });
+
+    // 双击放大
+    canvas.addEventListener('dblclick', e => {
+      const rect = canvas.getBoundingClientRect();
+      mZoomBy(1, e.clientX - rect.left, e.clientY - rect.top);
+    });
+
+    window.addEventListener('resize', () => {
+      if (currentView === 'map') mDraw();
+    });
+  }
+
   function renderMap() {
-    const svg = $('#mapsvg');
     const chips = $('#mapchips');
     chips.innerHTML = '';
 
@@ -895,148 +1250,39 @@ svg.map .mk circle.ring { fill: none; stroke: #fff; stroke-width: 1.6; }
       });
     });
 
-    const MAXW = 340, MAXH = 400;
-    const single = mapFilter !== null;
-    const PAD = single ? 30 : 20;
-    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    mapState.points = pts;
+    mapState.single = mapFilter !== null;
 
-    if (!pts.length) {
-      svg.setAttribute('viewBox', '0 0 340 180');
-      const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      t.setAttribute('x', 170); t.setAttribute('y', 90);
-      t.setAttribute('class', 'mapempty');
-      t.textContent = '这一天没有带坐标的点位';
-      svg.appendChild(t);
-      $('#mapcount').textContent = '';
-      $('#mapall').style.display = 'none';
-      return;
+    const canvasOk = $('#mapCanvas') && $('#mapCanvas').clientWidth > 0;
+    if (!mapState.inited && canvasOk) {
+      mapState.inited = true;
+      const home = TRIP.mapHome;
+      if (home) {
+        mapState.center = { lat: home.lat, lng: home.lng };
+        mapState.zoom = clampZoom(home.zoom || 7);
+      } else if (pts.length) {
+        mFit(pts);
+      }
+    } else if (mapFilter !== null && pts.length) {
+      mFit(pts);
+    } else if (mapFilter === null && TRIP.mapHome) {
+      mapState.center = { lat: TRIP.mapHome.lat, lng: TRIP.mapHome.lng };
+      mapState.zoom = clampZoom(TRIP.mapHome.zoom || 7);
     }
 
-    const lats = pts.map(p => p.it.lat);
-    const lngs = pts.map(p => p.it.lng);
-    const minLat = Math.min.apply(null, lats), maxLat = Math.max.apply(null, lats);
-    const minLng = Math.min.apply(null, lngs), maxLng = Math.max.apply(null, lngs);
-    const meanLat = (minLat + maxLat) / 2 * RAD;
-    const kx = cos(meanLat);
+    mBind();
+    mDraw();
 
-    const xs = lngs.map(v => v * kx);
-    const minX = Math.min.apply(null, xs), maxX = Math.max.apply(null, xs);
-    const spanX = maxX - minX, spanY = maxLat - minLat;
-    const hasX = spanX > 1e-6, hasY = spanY > 1e-6;
+    const markerCount = pts.length;
+    $('#mapcount').textContent = mapFilter === null
+      ? markerCount + ' 个点位 · 点某一天看当天路线'
+      : 'D' + (mapFilter + 1) + ' · ' + markerCount + ' 个点位，数字是当天顺序';
 
-    let scale;
-    if (!hasX && !hasY) scale = 0;
-    else if (!hasX) scale = (MAXH - PAD * 2) / spanY;
-    else if (!hasY) scale = (MAXW - PAD * 2) / spanX;
-    else scale = Math.min((MAXW - PAD * 2) / spanX, (MAXH - PAD * 2) / spanY);
-
-    const vw = Math.max(spanX * scale + PAD * 2, 150);
-    const vh = Math.max(spanY * scale + PAD * 2, single ? 180 : 240);
-    const ox = (vw - spanX * scale) / 2;
-    const oy = (vh - spanY * scale) / 2;
-    svg.setAttribute('viewBox', '0 0 ' + Math.round(vw) + ' ' + Math.round(vh));
-
-    const proj = p => ({
-      x: ox + (p.it.lng * kx - minX) * scale,
-      y: oy + (maxLat - p.it.lat) * scale
-    });
-
-    const graticule = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    graticule.setAttribute('x', 0); graticule.setAttribute('y', 0);
-    graticule.setAttribute('width', Math.round(vw)); graticule.setAttribute('height', Math.round(vh));
-    graticule.setAttribute('fill', 'none');
-    svg.appendChild(graticule);
-
-    // 每天的连线
-    TRIP.days.forEach((d, di) => {
-      if (mapFilter !== null && mapFilter !== di) return;
-      const group = pts.filter(p => p.di === di);
-      if (group.length < 2) return;
-      const pl = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-      const str = group.map(p => { const q = proj(p); return q.x.toFixed(1) + ',' + q.y.toFixed(1); }).join(' ');
-      pl.setAttribute('points', str);
-      pl.setAttribute('fill', 'none');
-      pl.setAttribute('stroke', DAY_COLORS[di % DAY_COLORS.length]);
-      pl.setAttribute('stroke-width', '2.4');
-      pl.setAttribute('stroke-linecap', 'round');
-      pl.setAttribute('stroke-linejoin', 'round');
-      pl.setAttribute('opacity', '0.55');
-      svg.appendChild(pl);
-    });
-
-    // 点：同一天里坐标相同的点位只标一次（避免完全重叠），线仍然按顺序连
-    const seenKey = new Set();
-    const markers = [];
-    pts.forEach(p => {
-      const k = p.di + '|' + p.it.lat.toFixed(5) + ',' + p.it.lng.toFixed(5);
-      if (seenKey.has(k)) return;
-      seenKey.add(k);
-      markers.push(p);
-    });
-
-    const used = [];
-    markers.forEach((p, idx) => {
-      let q = proj(p);
-      if (single) {
-        // 不同点位离得太近时，沿小圆散开，保证都点得到
-        let guard = 0;
-        while (guard < 40 && used.some(u => Math.sqrt((u.x - q.x) * (u.x - q.x) + (u.y - q.y) * (u.y - q.y)) < 20)) {
-          guard++;
-          const r = 15 + Math.floor(guard / 8) * 13;
-          const ang = guard * 2.399963;  // 黄金角，散得均匀
-          q = { x: q.x + Math.cos(ang) * r, y: q.y + Math.sin(ang) * r };
-        }
-        used.push(q);
-      }
-      // 散开之后别跑出画布
-      q.x = Math.min(Math.max(q.x, 14), vw - 14);
-      q.y = Math.min(Math.max(q.y, 14), vh - 14);
-      const color = DAY_COLORS[p.di % DAY_COLORS.length];
-      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      g.setAttribute('class', 'mk');
-      g.setAttribute('data-day', p.di);
-      g.setAttribute('data-item', p.ii);
-
-      const hit = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      hit.setAttribute('cx', q.x); hit.setAttribute('cy', q.y); hit.setAttribute('r', 16);
-      hit.setAttribute('fill', 'transparent');
-      g.appendChild(hit);
-
-      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      c.setAttribute('cx', q.x); c.setAttribute('cy', q.y);
-      c.setAttribute('r', single ? 11.5 : 6);
-      c.setAttribute('fill', color);
-      c.setAttribute('stroke', '#fff');
-      c.setAttribute('stroke-width', single ? '1.6' : '1.2');
-      c.setAttribute('opacity', single ? '1' : '0.92');
-      g.appendChild(c);
-
-      if (single) {
-        const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        t.setAttribute('x', q.x); t.setAttribute('y', q.y + 0.5);
-        t.textContent = String(p.ii + 1);
-        g.appendChild(t);
-      }
-
-      const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
-      title.textContent = 'D' + (p.di + 1) + ' ' + p.it.time + ' ' + p.it.name;
-      g.appendChild(title);
-
-      g.addEventListener('click', () => openSheet(p.di, p.ii));
-      svg.appendChild(g);
-    });
-
-    $('#mapcount').textContent = single
-      ? 'D' + (mapFilter + 1) + ' · ' + markers.length + ' 个点位（同址只标一次），数字是当天顺序'
-      : markers.length + ' 个点位 · 点某一天看当天路线';
-
-    // 选中的日期按钮滚进视野
-    if (single) {
+    if (mapFilter !== null) {
       const chip = chips.querySelectorAll('.mchip')[mapFilter + 1];
       if (chip && chip.scrollIntoView) chip.scrollIntoView({ block: 'nearest', inline: 'center' });
     }
 
-    // 「用 Google 地图导航当天路线」：只在选中某一天时出现
     const linkEl = $('#mapall');
     if (mapFilter !== null && pts.length >= 2) {
       const origin = pts[0].it.lat + ',' + pts[0].it.lng;

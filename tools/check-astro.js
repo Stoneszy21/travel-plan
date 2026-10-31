@@ -20,7 +20,7 @@ const src = [
   'globalThis.window = globalThis;',
   '(function(){',
   slice,
-  'globalThis.__api = { TRIP, astroFor, fmtHM, zoned, phaseInfo, phaseName, dateParts, weekdayCN, dayDiff, todayInTZ };',
+  'globalThis.__api = { TRIP, astroFor, fmtHM, zoned, tzOffset, phaseInfo, phaseName, dateParts, weekdayCN, dayDiff, todayInTZ };',
   '})();'
 ].join('\n');
 
@@ -30,12 +30,17 @@ vm.createContext(ctx);
 vm.runInContext(src, ctx, { filename: 'astro-harness.js' });
 
 const api = ctx.__api;
+// 时区偏移（分钟，东为正）：给 python 交叉验证脚本用，避免硬编码
+const tzOffsetMin = Math.round(
+  api.tzOffset(api.zoned(api.TRIP.days[0].date, 12, 0), api.TRIP.timezone) / 60000
+);
 const out = api.TRIP.days.map(d => {
   const a = api.astroFor(d);
   return {
     date: d.date,
     lat: d.base.lat,
     lng: d.base.lng,
+    tzOffsetMin: tzOffsetMin,
     rise: api.fmtHM(a.rise),
     set: api.fmtHM(a.set),
     riseAz: a.riseAz == null ? null : Math.round(a.riseAz),
@@ -67,7 +72,9 @@ out.forEach((r, i) => {
   if (i > 0) {
     const prev = out[i - 1];
     const dDay = r.dayMin - prev.dayMin;
-    chk(Math.abs(dDay) <= 4, r.date + ' 白昼变化合理 (' + dDay + ' 分钟)');
+    const dLat = Math.abs(r.lat - prev.lat);
+    // 纬度变化大时（例如从奥兰多飞到劳德代尔堡）白昼本来就会差几分钟，跳过
+    if (dLat < 0.3) chk(Math.abs(dDay) <= 4, r.date + ' 白昼变化合理 (' + dDay + ' 分钟)');
   }
   // 月亮每天晚 30~80 分钟升起（有点变化，放宽到 10~100）
   if (i > 0 && r.moonRiseMs && out[i - 1].moonRiseMs) {
