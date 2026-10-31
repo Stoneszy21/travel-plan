@@ -259,6 +259,31 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   .snap { background: #14171c; }
   .snap img { filter: invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.7); }
 }
+/* ---------- 门票 / 导航 ---------- */
+.tk-sum { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); margin-bottom: 12px; }
+.tk-sum.warn { border-color: #f59e0b; background: #fffbeb; }
+@media (prefers-color-scheme: dark) { .tk-sum.warn { background: #2a1f05; border-color: #7c5308; } }
+.tk-sum-n { font-size: 15px; font-weight: 800; }
+.tk-sum.warn .tk-sum-n { color: #b45309; }
+.tk-sum-s { font-size: 12px; color: var(--muted); margin-left: auto; }
+.tk-card.done { opacity: .72; }
+.tk-rows { display: flex; align-items: center; gap: 8px; margin: 2px 0 6px; }
+.tk-badge { font-size: 11px; font-weight: 800; border-radius: 5px; padding: 2px 7px; }
+.tk-badge.warn { color: #b45309; background: #fef3c7; }
+.tk-badge.ok { color: #065f46; background: #d1fae5; }
+@media (prefers-color-scheme: dark) {
+  .tk-badge.warn { color: #fcd34d; background: #422006; }
+  .tk-badge.ok { color: #6ee7b7; background: #064e3b; }
+}
+.tk-price { font-size: 12.5px; color: var(--muted-2); font-variant-numeric: tabular-nums; }
+.tk-note { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
+.tk-btn { display: block; text-align: center; padding: 9px; border-radius: 10px; background: var(--accent); color: #fff; font-size: 13.5px; font-weight: 700; text-decoration: none; }
+.tk-btn:active { opacity: .85; }
+.tk-jump { display: inline-block; margin-top: 9px; font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-weak); border: 0; border-radius: 7px; padding: 5px 10px; }
+.flash { animation: tflash 1.4s ease; }
+@keyframes tflash { 0%, 100% { box-shadow: none; } 20%, 60% { box-shadow: 0 0 0 3px var(--accent); } }
+.it-nav { display: inline-block; margin-top: 8px; font-size: 12.5px; font-weight: 700; color: #fff; background: var(--accent); border-radius: 8px; padding: 6px 12px; text-decoration: none; }
+.it-nav:active { opacity: .85; }
 /* ---------- 全屏地图 ---------- */
 .mapmodal { position: fixed; inset: 0; z-index: 70; display: none; }
 .mapmodal.show { display: block; }
@@ -670,7 +695,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const BUILD = '2026-10-31 23:21';   // 部署时由 deploy.ps1 自动改写
+  const BUILD = '2026-10-31 23:46';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -1107,6 +1132,7 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
       article.appendChild(head);
 
       const ol = el('ol', 'tl');
+      let navLat = null, navLng = null;
       (d.items || []).forEach((it, ii) => {
         // 方案分隔条：把「方案 A / 方案 B」在时间轴上分开
         if (it.type === 'divider') {
@@ -1137,6 +1163,7 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
         name.textContent = it.name || '';
         body.appendChild(name);
 
+
         const meta = el('div', 'it-meta');
         if (it.stay) meta.appendChild(el('span', 'it-tag', '停留 ' + durationText(it.stay)));
         if (it.type && TYPE_LABEL[it.type]) meta.appendChild(el('span', 'it-tag', TYPE_LABEL[it.type]));
@@ -1147,6 +1174,23 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
           n.textContent = it.note;
           body.appendChild(n);
         }
+
+        if (it.type === 'transport' && typeof it.lat === 'number' && typeof it.lng === 'number') {
+          const o = (typeof navLat === 'number') ? (navLat + ',' + navLng) : '';
+          const a = document.createElement('a');
+          a.className = 'it-nav';
+          a.href = 'https://www.google.com/maps/dir/?api=1' +
+            (o ? '&origin=' + o : '') +
+            '&destination=' + it.lat + ',' + it.lng + '&travelmode=driving';
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = '🧭 Google 导航';
+          a.addEventListener('click', ev => ev.stopPropagation());
+          body.appendChild(a);
+        }
+
+        // 记住这一站的目的地，作为下一段的导航起点
+        if (typeof it.lat === 'number' && typeof it.lng === 'number') { navLat = it.lat; navLng = it.lng; }
 
         const chk = el('button', 'it-check');
         chk.setAttribute('aria-label', '标记完成');
@@ -1708,6 +1752,7 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
     { key: 'flights', label: '洲际交通' },
     { key: 'ground', label: '当地交通' },
     { key: 'sights', label: '景点' },
+    { key: 'tickets', label: '门票' },
     { key: 'food', label: '美食' },
     { key: 'hotels', label: '酒店' }
   ];
@@ -2310,6 +2355,57 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
       return;
     }
 
+    if (guideTab === 'tickets') {
+      const list = GUIDES.tickets || [];
+      if (!list.length) { box.appendChild(el('div', 'ml-hint', '还没有门票信息')); return; }
+      const todo = list.filter(t => t.status !== 'done' && t.status !== 'free');
+      const doneN = list.filter(t => t.status === 'done').length;
+
+      const head = el('div', 'tk-sum');
+      head.appendChild(el('div', 'tk-sum-n', todo.length ? ('还有 ' + todo.length + ' 项没订') : '全部已订'));
+      head.appendChild(el('div', 'tk-sum-s', '已订 ' + doneN + ' / 共 ' + list.length + ' 项'));
+      if (todo.length) head.classList.add('warn');
+      box.appendChild(head);
+
+      list.forEach(t => {
+        const card = el('div', 'gd-card tk-card');
+        card.id = 'ticket-' + t.id;
+        if (t.status === 'done') card.classList.add('done');
+
+        const h = el('div', 'gd-head');
+        h.appendChild(el('div', 'gd-ico', t.status === 'done' ? '✅' : '🎫'));
+        const hw = el('div', 'gd-hw');
+        const line = el('div', 'gd-h', esc(t.name || ''));
+        line.appendChild(el('span', 'gd-day', esc(t.day || '')));
+        hw.appendChild(line);
+        h.appendChild(hw);
+        card.appendChild(h);
+
+        const rows = el('div', 'tk-rows');
+        const st = t.status === 'done' ? '已预订' : '待预订';
+        rows.appendChild(el('div', 'tk-badge ' + (t.status === 'done' ? 'ok' : 'warn'), st));
+        if (t.price) rows.appendChild(el('div', 'tk-price', esc(t.price)));
+        card.appendChild(rows);
+
+        if (t.note) card.appendChild(el('div', 'tk-note', esc(t.note)));
+
+        if (t.url) {
+          const a = document.createElement('a');
+          a.className = 'tk-btn';
+          a.href = t.url;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = '去官网订票 ↗';
+          card.appendChild(a);
+        }
+        box.appendChild(card);
+      });
+
+      box.appendChild(el('div', 'foot', '免票的：Rollins 校园、图书馆、Lake Eola、Park Ave、农贸市集、Renninger’s、Mount Dora 老城、Casa Feliz、Kraft Azalea、Riverwalk、海滩、狗公园。'));
+      box.appendChild(el('div', 'foot', '版本 ' + BUILD));
+      return;
+    }
+
     if (!GUIDES.sights || !GUIDES.sights.length) { box.appendChild(el('div', 'ml-hint', '还没有景点信息')); return; }
     const sorted = GUIDES.sights.slice().sort((a, b) => {
       const ka = a.ord || 'Z', kb = b.ord || 'Z';
@@ -2356,6 +2452,25 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
           strip.appendChild(im);
         });
         card.appendChild(strip);
+      }
+
+      const tk = s.ticketId && (GUIDES.tickets || []).find(t => t.id === s.ticketId);
+      if (tk) {
+        const b = el('button', 'tk-jump', '🎫 门票 · ' + (tk.status === 'done' ? '已订' : '待订'));
+        b.addEventListener('click', ev => {
+          ev.stopPropagation();
+          guideTab = 'tickets';
+          renderGuides();
+          setTimeout(() => {
+            const target = document.getElementById('ticket-' + tk.id);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              target.classList.add('flash');
+              setTimeout(() => target.classList.remove('flash'), 1600);
+            }
+          }, 60);
+        });
+        card.appendChild(b);
       }
 
       if (s.hours) {
