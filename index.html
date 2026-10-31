@@ -264,6 +264,19 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   background: rgba(255,255,255,.82); border-radius: 3px; padding: 0 4px; pointer-events: none;
 }
 @media (prefers-color-scheme: dark) { .snap-cap { color: #ddd; background: rgba(0,0,0,.55); } }
+.fd-row { display: grid; grid-template-columns: 26px 1fr; gap: 9px; align-items: start; padding: 8px 0; border-bottom: 1px dashed var(--line-2); }
+.fd-row:last-child { border-bottom: 0; }
+.fd-slot { width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff; margin-top: 1px; }
+.fd-slot.s-b { background: #d97706; }
+.fd-slot.s-l { background: #0f766e; }
+.fd-slot.s-d { background: #2563eb; }
+.fd-slot.s-n { background: #7c3aed; }
+.fd-body { min-width: 0; }
+.fd-line1 { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.fd-name { font-size: 13.5px; font-weight: 650; }
+.fd-meta { font-size: 11px; color: var(--muted); margin-left: auto; white-space: nowrap; }
+.fd-note2 { font-size: 12px; color: var(--muted); line-height: 1.55; margin-top: 3px; }
+.fd-note { font-size: 12px; color: var(--muted); line-height: 1.55; margin-bottom: 4px; }
 .gd-row.fac { padding: 3px 0; }
 .gd-row.fac.long { display: block; }
 .gd-row.fac.long .k { width: auto; color: var(--accent); font-weight: 700; margin-bottom: 1px; }
@@ -1636,9 +1649,12 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     { key: 'flights', label: '洲际交通' },
     { key: 'ground', label: '当地交通' },
     { key: 'sights', label: '景点' },
+    { key: 'food', label: '美食' },
     { key: 'hotels', label: '酒店' }
   ];
   let guideTab = 'flights';
+
+  const slotClass = s => /早/.test(s) ? 's-b' : /午/.test(s) ? 's-l' : /晚/.test(s) ? 's-d' : 's-n';
 
   const modeClass = m => /自驾/.test(m) ? 'drive'
     : /打车|出租|Uber/i.test(m) ? 'taxi'
@@ -1946,6 +1962,42 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
         box.appendChild(card);
       });
       box.appendChild(el('div', 'foot', '按入住日期排序。没订的先占个卡位，订好把 status 改成「已定」即可。'));
+      return;
+    }
+
+    if (guideTab === 'food') {
+      const list = GUIDES.food || [];
+      if (!list.length) { box.appendChild(el('div', 'ml-hint', '还没有美食信息')); return; }
+      box.appendChild(el('div', 'gd-tip', '想吃什么随时告诉我。如果那家不在当天的路线附近，我们再一起把当天的行程挪一挪——不是不能改，是要提前算一下路上时间。'));
+      list.forEach(d => {
+        const card = el('div', 'gd-card');
+        const head = el('div', 'gd-head');
+        head.appendChild(el('div', 'gd-ico', '🍽'));
+        const hw = el('div', 'gd-hw');
+        const h = el('div', 'gd-h', esc(d.day || ''));
+        if (d.area) h.appendChild(el('span', 'gd-day', esc(d.area)));
+        hw.appendChild(h);
+        head.appendChild(hw);
+        card.appendChild(head);
+        if (d.note) card.appendChild(el('div', 'fd-note', esc(d.note)));
+        (d.meals || []).forEach(m => {
+          const row = el('div', 'fd-row');
+          const slot = el('span', 'fd-slot ' + slotClass(m.slot));
+          slot.textContent = String(m.slot || '').charAt(0);
+          row.appendChild(slot);
+          const body = el('div', 'fd-body');
+          const line1 = el('div', 'fd-line1');
+          line1.appendChild(el('span', 'fd-name', esc(m.name || '')));
+          const meta = [m.cuisine, m.price].filter(Boolean).join(' · ');
+          if (meta) line1.appendChild(el('span', 'fd-meta', esc(meta)));
+          body.appendChild(line1);
+          if (m.note) body.appendChild(el('div', 'fd-note2', esc(m.note)));
+          row.appendChild(body);
+          card.appendChild(row);
+        });
+        box.appendChild(card);
+      });
+      box.appendChild(el('div', 'foot', '营业时间和是否还开着，出发前用 Google 地图再看一眼；标了「要订位」的，提前一天打电话。'));
       return;
     }
 
