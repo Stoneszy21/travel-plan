@@ -252,6 +252,12 @@ window.TRIP = {
           lat: 28.9487, lng: -81.3396, stay: 180, transit: '园内码头（2100 W French Ave）',
           note: '订 2–3 小时的 guided kayak tour（含装备）。海牛季泉眼水道禁船，皮划艇在圣约翰河段下水，照样能看到。带防蚊液和换洗衣服。'
         },
+        { time: '', name: '备选 · 不想看海牛就划 Kings Landing', type: 'divider', note: '' },
+        {
+          time: '08:30', name: 'Kings Landing 划船', type: 'sight',
+          lat: 28.7637, lng: -81.5148, stay: 210, transit: '自驾 50 分钟（Apopka，Kelly Park 北侧）',
+          note: 'Rock Springs Run 上游放船，水清见底、柏树林夹岸，比 Blue Spring 野。只能官网预约，不接受现场；划 2.5–4 小时。代价是看不到海牛，而且不经过 Sanford。'
+        },
         { time: '', name: '中午 · Sanford → Mount Dora', type: 'divider', note: '' },
         {
           time: '12:00', name: 'Sanford 老城午餐', type: 'food',
