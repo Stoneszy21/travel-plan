@@ -536,5 +536,100 @@ window.TRIP_GUIDES = {
       plan: ['9:50 到，先看主楼 16 个房间（1 小时）', '花园和石船 40 分钟', '海边平台拍照 15 分钟'],
       note: '1916 年意大利文艺复兴式庄园。周六上午团队多，早到 30 分钟更从容。'
     }
+    ,
+    {
+      icon: '🧺',
+      name: 'Winter Park Farmers\' Market',
+      day: 'D2 · 11/14（周六限定）',
+      hours: '每周六 8:00–13:00',
+      booking: '不用预约，带现金更好砍价',
+      plan: [
+        '从 200 W New England Ave 的旧火车站进去，先绕一圈看有什么',
+        '早餐摊（可颂、biscuit、咖啡）排队最快的是本地面包房',
+        '买点柑橘和蜂蜜带走，佛罗里达的橘子 11 月正当季'
+      ],
+      note: '室内仓库式市集，下雨也开。只有周六上午有——排错一天就白跑。'
+    },
+    {
+      icon: '🪟',
+      name: 'Morse Museum of American Art',
+      day: 'D2 · 11/14',
+      hours: '周二–周六 9:30–16:00；周日 13:00–16:00；周一闭馆',
+      booking: '门票几美元，周五傍晚常有免费时段（以官网为准）',
+      plan: [
+        '先看 Tiffany 礼拜堂——整间搬进来的，最震撼',
+        '灯饰厅（Dragonfly、Wisteria 那些）30 分钟',
+        '绘画与装饰艺术 20 分钟'
+      ],
+      note: '445 N Park Ave。馆不大但密度极高，1 小时刚好。这是全美最重要的 Tiffany 收藏。'
+    },
+    {
+      icon: '⛵',
+      name: 'Winter Park Scenic Boat Tour',
+      day: 'D2 · 11/14',
+      hours: '10:00–16:00 整点发船（天气不好会停）',
+      booking: '现场买票，$20 上下，旺季提前 15 分钟排队',
+      plan: ['提前 15 分钟到 312 E Morse Blvd 的码头', '一小时穿过三条运河', '听船老大讲湖边豪宅的八卦']
+    },
+    {
+      icon: '🏡',
+      name: 'Casa Feliz Historic Home',
+      day: 'D2 · 11/14（和 Kraft Azalea 二选一）',
+      hours: '开放时段有限，去之前查官网',
+      plan: ['656 N Park Ave', '1933 年的西班牙农庄式宅子', '院子比室内更好看'],
+      note: '免费参观，但常常只开上午或只开周末，别扑空。'
+    },
+    {
+      icon: '🌳',
+      name: 'Kraft Azalea Garden',
+      day: 'D2 · 11/14（和 Casa Feliz 二选一）',
+      hours: '日出到日落，免费',
+      plan: ['1365 Alabama Dr', '湖边小花园，一圈 10 分钟', '傍晚光线最好，适合坐着发呆']
+    },
+    {
+      icon: '🪑',
+      name: 'Renninger\'s Mt. Dora 跳蚤市场 + 古董中心',
+      day: 'D3 · 11/15（周日）',
+      hours: '周末开放，跳蚤市场上午人多；具体时段以官网为准',
+      booking: '免费进场，带现金',
+      plan: [
+        '先逛古董中心三层楼（有电梯）',
+        '再去户外跳蚤摊位，越往里越便宜',
+        '大件别买——你还要飞回上海'
+      ],
+      note: '20651 US-441, Mount Dora。从 Blue Spring 开车 40 分钟。'
+    },
+    {
+      icon: '🏘',
+      name: 'Mount Dora 老城',
+      day: 'D3 · 11/15',
+      hours: '店铺大多 10:00–17:00，周日部分不开',
+      plan: ['Donnelly St 主街逛古董店和书店', '走到湖滨看 Mount Dora 灯塔（1 Lighthouse Cir）', '找家咖啡馆坐一会儿'],
+      note: '佛州小山城，节奏很慢。周日下午人不多，适合收尾。'
+    },
+    {
+      icon: '🏛',
+      name: 'Orange County Regional History Center',
+      day: 'D2 · 11/14（市区线顺路）',
+      hours: '约 10:00–17:00，周日 12:00 开（以官网为准）',
+      plan: ['65 E Central Blvd，就在图书馆旁边', '老法院改造的四层展馆', '佛州历史 + 迪士尼之前的奥兰多'],
+      note: '如果只想看建筑，大厅免费区就够；展区要门票。'
+    },
+    {
+      icon: '🚉',
+      name: 'Church Street Station',
+      day: 'D2 · 11/14',
+      hours: '街区全天，店铺和酒吧傍晚才热闹',
+      plan: ['129 W Church St', '1889 年老火车站的红砖站房', '天黑后酒吧和 live music 开场']
+    },
+    {
+      icon: '🐕',
+      name: 'Lake Baldwin 狗公园',
+      day: 'D3 · 11/15（可选）',
+      hours: '日出到日落，免费',
+      plan: ['2070 Lake Baldwin Ln', '湖滨大草坪，无绳区', '周末下午常有狗主人聚会'],
+      note: '没狗也能在旁边步道走，看热闹。不感兴趣就跳过。'
+    }
+
   ]
 };

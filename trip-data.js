@@ -112,113 +112,116 @@ window.TRIP = {
     /* ------------------------------------------------------------------ */
     {
       date: '2026-11-14',
-      title: 'Winter Park · 奥兰多市区（上午/下午各二选一）',
-      area: 'Winter Park / 市区',
-      summary: 'Winter Park 校园 + 奥兰多市区；下午可选赖特校园或市区线',
+      title: 'Winter Park 深度 · 奥兰多市区',
+      area: 'Winter Park / 市中心',
+      base: { lat: 28.5963, lng: -81.3539 },
+      summary: '周六农贸市集 + 赖特校区 + 蒂芙尼玻璃馆 + 运河船 + 市区图书馆与湖',
       tag: '城市',
-      base: { lat: 28.5423, lng: -81.3785 },
-      note: '上午看昨晚走的是哪条：已在奥兰多就去 Winter Park；昨晚住机场的话上午是车程，Winter Park 这半天就没了。下午在「市区线」和「赖特线」里挑一条。',
+      note: '这一天是「城市日」。周六限定：Winter Park 农贸市集只在上午开，所以 8 点就得起。下午四点回市区，图书馆和 Lake Eola 都在步行圈里。',
       items: [
+        { time: '', name: '上午 · 已在奥兰多（昨晚走 D1 方案 A）', type: 'divider', note: '' },
         {
-          time: '', name: '上午 · 已在奥兰多（昨晚走 D1 方案 A）', type: 'divider',
-          note: ''
+          time: '08:00', name: 'Winter Park 农贸市集（周六限定）', type: 'food',
+          lat: 28.5963, lng: -81.3539, stay: 55, transit: '打车 20 分钟到 200 W New England Ave',
+          note: '每周六 8:00–13:00，在旧火车站仓库里。手工面包、佛罗里达柑橘、鲜花、蜂蜜摊；早餐就在这儿解决——现做的可颂和咖啡是本地人的标配。'
         },
         {
-          time: '09:00', name: '出发去 Winter Park', type: 'transport',
-          lat: 28.5916, lng: -81.3485, stay: 25, transit: '打车 20 分钟',
-          note: ''
+          time: '09:05', name: 'Rollins College', type: 'sight',
+          lat: 28.5916, lng: -81.3485, stay: 70, transit: '沿 Park Ave 往南走 10 分钟，从 Holt Ave 正门进',
+          note: '1000 Holt Ave。红砖 + 西班牙殖民复兴风格，沿主轴线走到 Lake Virginia 湖边。重点看 Knowles Memorial Chapel（1932 年）和 Mills Memorial（钟楼）。校园全天开放，随便走。'
         },
         {
-          time: '09:30', name: 'Rollins College', type: 'sight',
-          lat: 28.5916, lng: -81.3485, stay: 90, transit: '步行进校区',
-          note: '湖边校园，红砖 + 西班牙风。Cornell Fine Arts Museum 免费，周四到周日开。'
+          time: '10:20', name: 'Morse Museum（蒂芙尼玻璃）', type: 'sight',
+          lat: 28.6012, lng: -81.3508, stay: 65, transit: '打车 6 分钟 / 步行 15 分钟，445 N Park Ave',
+          note: '全美最重要的装饰艺术收藏之一，Louis Comfort Tiffany 的玻璃、灯饰、礼拜堂。门票几美元，馆不大但密度极高。⚠️ 周二–周六开，周日下午才开，别排错日子。'
         },
         {
-          time: '11:10', name: 'Park Avenue', type: 'shop',
-          lat: 28.5966, lng: -81.3512, stay: 50, transit: '步行 5 分钟',
-          note: '梧桐树主街，书店和咖啡馆，11 月已经有圣诞装饰。'
+          time: '11:35', name: 'Park Avenue 逛街', type: 'shop',
+          lat: 28.5975, lng: -81.351, stay: 45, transit: '出馆就是 Park Ave',
+          note: 'Park Ave 在 Morse Blvd 到 Fairbanks Ave 之间这段最好逛：书店、买手店、老式药妆店。11 月中已经有圣诞橱窗。'
         },
         {
-          time: '12:10', name: 'Park Ave 午餐', type: 'food',
-          lat: 28.5952, lng: -81.3508, stay: 70, transit: '步行 3 分钟',
-          note: 'The Ravenous Pig 或 Prato，周末要等位。'
+          time: '12:30', name: 'Park Ave 午餐', type: 'food',
+          lat: 28.5962, lng: -81.3513, stay: 70, transit: '步行 3 分钟',
+          note: 'Briarpatch（252 N Park Ave）是老牌 brunch，但 12 点半去要等位；备选 Prato（124 N Park Ave）意式，或 The Ravenous Pig（565 W Fairbanks Ave）新美式。'
         },
         {
-          time: '', name: '上午 · 昨晚住机场（D1 方案 B）', type: 'divider',
-          note: ''
+          time: '13:50', name: 'Scenic Boat Tour 运河游船', type: 'sight',
+          lat: 28.5973, lng: -81.3472, stay: 70, transit: '步行 6 分钟到 312 E Morse Blvd',
+          note: '一小时的平底船，穿过 Winter Park 的运河看湖边豪宅，讲解很逗。整点发船（10:00–16:00），$20 左右，早点去排队。这条路是我觉得全城最值的一个项目。'
         },
         {
-          time: '09:00', name: '出发北上奥兰多', type: 'transport',
-          lat: 28.5383, lng: -81.3792, stay: 195, transit: 'I-95 转 Turnpike，约 3 小时',
-          note: '睡到 7:30 再走，酒店吃完早餐出发。中途在服务区停一次。'
+          time: '15:15', name: 'Casa Feliz / Kraft Azalea Garden（选一个）', type: 'sight',
+          lat: 28.6031, lng: -81.3503, stay: 50, transit: '打车 5 分钟',
+          note: 'Casa Feliz（656 N Park Ave）是 1933 年的西班牙农庄式老宅，免费参观但开放时段有限（以官网为准）。不想看房子就去 Kraft Azalea Garden（1365 Alabama Dr），湖边小花园，傍晚光线最好。'
         },
         {
-          time: '12:15', name: '到奥兰多，午餐', type: 'food',
-          lat: 28.5383, lng: -81.3792, stay: 60, transit: '直接开到市区',
-          note: '吃完刚好接下午的线。Winter Park 那半天只能放弃，下次再来。'
-        },
-        {
-          time: '', name: '下午 · 市区线（图书馆 + Lake Eola）', type: 'divider',
-          note: ''
-        },
-        {
-          time: '13:40', name: '打车去市中心', type: 'transport',
+          time: '16:25', name: '打车去市中心', type: 'transport',
           lat: 28.5423, lng: -81.3785, stay: 25, transit: '打车 20 分钟',
-          note: '已经在市区的话这段可以省掉，直接走过去。'
-        },
-        {
-          time: '14:10', name: '奥兰多公共图书馆', type: 'sight',
-          lat: 28.5423, lng: -81.3785, stay: 45, transit: '步行 5 分钟',
-          note: '1986 年扩建的玻璃中庭，光很好。顺便看看当地的展览。'
-        },
-        {
-          time: '15:10', name: 'Lake Eola Park', type: 'sight',
-          lat: 28.5433, lng: -81.3728, stay: 70, transit: '步行 8 分钟',
-          note: '环湖 1 英里，天鹅船 30 分钟约 $15。傍晚喷泉配天际线最好看。'
-        },
-        {
-          time: '16:40', name: 'Church Street 一带闲逛', type: 'shop',
-          lat: 28.5403, lng: -81.3805, stay: 60, transit: '步行 10 分钟',
-          note: '老火车站改造的街区，有几家不错的酒吧和唱片店。'
-        },
-        {
-          time: '18:30', name: '市中心晚餐', type: 'food',
-          lat: 28.5400, lng: -81.3760, stay: 90, transit: '步行',
           note: ''
         },
+        { time: '', name: '下午 · 市区线（图书馆 + Lake Eola + Church St）', type: 'divider', note: '' },
         {
-          time: '', name: '下午 · 赖特线（Lakeland，单程 1 小时）', type: 'divider',
-          note: ''
+          time: '16:55', name: 'Orlando Public Library', type: 'sight',
+          lat: 28.5423, lng: -81.3785, stay: 40, transit: '101 E Central Blvd',
+          note: '1986 年扩建的玻璃中庭，光很好。1 楼主厅抬头看结构，2–3 楼有本地历史展。旁边就是 Orange County Regional History Center（65 E Central Blvd），想看老法院改造的展馆可以顺路进去。'
         },
         {
-          time: '12:30', name: '出发去 Lakeland', type: 'transport',
+          time: '17:40', name: 'Lake Eola Park', type: 'sight',
+          lat: 28.5433, lng: -81.3728, stay: 45, transit: '步行 8 分钟，512 E Washington St',
+          note: '环湖 1.2 公里，天鹅船 30 分钟约 $15。傍晚喷泉配天际线是拍照点。周日下午这里还有露天市集（见 D3 备注）。'
+        },
+        {
+          time: '18:35', name: 'Church Street Station', type: 'sight',
+          lat: 28.5413, lng: -81.3813, stay: 40, transit: '步行 10 分钟，129 W Church St',
+          note: '1889 年的老火车站改的街区，红砖建筑和旧月台还在。有几家酒吧和 live music，天黑后气氛最好。'
+        },
+        {
+          time: '19:30', name: '市中心晚餐', type: 'food',
+          lat: 28.5405, lng: -81.3795, stay: 90, transit: '步行',
+          note: 'Thornton Park 一带（E Washington St × N Summerlin Ave）餐馆密度最高，Hawkers 亚洲街头小吃就在附近。'
+        },
+        { time: '', name: '上午 · 昨晚住机场（D1 方案 B）', type: 'divider', note: '' },
+        {
+          time: '09:05', name: '出发北上奥兰多', type: 'transport',
+          lat: 28.5383, lng: -81.3792, stay: 195, transit: 'I-95 转 Turnpike，约 3 小时',
+          note: '睡到 7:30 再走，酒店吃完早餐出发。⚠️ 走这条线就赶不上周六市集和上午的博物馆了。'
+        },
+        {
+          time: '12:20', name: '到奥兰多，午餐', type: 'food',
+          lat: 28.5383, lng: -81.3792, stay: 60, transit: '直接开到市区',
+          note: '吃完接下面的市区线（图书馆 → Lake Eola → Church St）。'
+        },
+        { time: '', name: '下午 · 赖特线（Lakeland，单程 1 小时）', type: 'divider', note: '' },
+        {
+          time: '12:40', name: '出发去 Lakeland', type: 'transport',
           lat: 28.0306, lng: -81.9479, stay: 60, transit: '打车单程约 1 小时（I-4 向西）',
-          note: '打车往返约 $130–160；回程容易叫不到车，提前和司机约好时间。13:35 到游客中心正好赶上 14:00 的导览。'
+          note: '打车往返约 $130–160；回程容易叫不到车，提前和司机约好。13:45 到游客中心正好赶上 14:00 的导览。'
         },
         {
-          time: '13:35', name: 'Florida Southern College', type: 'sight',
+          time: '13:45', name: 'Florida Southern College', type: 'sight',
           lat: 28.0306, lng: -81.9479, stay: 130, transit: '步行到游客中心',
-          note: '导览每天只有 10:00 和 14:00 两场（Basic，90 分钟，$45/人），提前 24 小时在网上订。全美最大规模的单一校区赖特建筑群，13 栋。'
+          note: '导览每天只有 10:00 和 14:00 两场（Basic，90 分钟，$45/人），提前 24 小时网上订。全美最大规模的单一校区赖特建筑群，13 栋。'
         },
         {
-          time: '15:45', name: '校园自由逛', type: 'sight',
-          lat: 28.0330, lng: -81.9450, stay: 50, transit: '步行',
-          note: '重点看 Annie Pfeiffer Chapel 和 Water Dome 喷泉。'
+          time: '15:55', name: '校园自由逛', type: 'sight',
+          lat: 28.033, lng: -81.945, stay: 45, transit: '步行',
+          note: '重点看 Annie Pfeiffer Chapel 和 Water Dome 喷泉，连廊（Esplanades）本身也是赖特的作品。'
         },
         {
-          time: '16:40', name: '回奥兰多', type: 'transport',
+          time: '16:45', name: '回奥兰多', type: 'transport',
           lat: 28.5383, lng: -81.3792, stay: 60, transit: '打车 1 小时',
           note: ''
         },
         {
-          time: '17:50', name: '晚餐', type: 'food',
-          lat: 28.5400, lng: -81.3760, stay: 90, transit: '步行',
+          time: '18:00', name: '晚餐', type: 'food',
+          lat: 28.54, lng: -81.376, stay: 90, transit: '步行',
           note: ''
         },
         {
           time: '20:30', name: '回酒店', type: 'stay',
           lat: 28.5383, lng: -81.3792, stay: 30, transit: '打车 15 分钟',
-          note: '明天去迪士尼要早起。'
+          note: '明天去 Blue Spring 要早起。'
         }
       ]
     },
@@ -226,42 +229,60 @@ window.TRIP = {
     /* ------------------------------------------------------------------ */
     {
       date: '2026-11-15',
-      title: 'Blue Spring 划船看海牛',
-      area: 'Orange City',
-      summary: 'Blue Spring 皮划艇看海牛，海牛季第一天',
-      tag: '自然',
+      title: 'Blue Spring 看海牛 · Mount Dora 旧物集市',
+      area: 'Orange City / Mount Dora',
       base: { lat: 28.9487, lng: -81.3396 },
-      note: '11 月 15 日正好是海牛季第一天。泉眼水道当天起禁止船只进入，但皮划艇在圣约翰河段下水照样能看到海牛，而且人少。',
+      summary: '早上海牛 + 下午 Mount Dora 跳蚤市场与老城',
+      tag: '自然',
+      note: '11/15 正好是海牛季第一天。下午把路线往北延伸一站：Mount Dora 周日有跳蚤市场和古董中心，比回城逛公园有意思。',
       items: [
+        { time: '', name: '上午 · Blue Spring', type: 'divider', note: '' },
         {
           time: '07:30', name: '出发', type: 'transport',
           lat: 28.9487, lng: -81.3396, stay: 50, transit: '自驾或打车约 45 分钟（I-4 转 17-92）',
-          note: '越早越好：清晨海牛活动最活跃，人也最少。'
+          note: '越早越好：清晨海牛最活跃，人也最少。'
         },
         {
           time: '08:30', name: 'Blue Spring State Park 皮划艇', type: 'sight',
-          lat: 28.9487, lng: -81.3396, stay: 180, transit: '园内码头',
-          note: '建议订 2–3 小时的 guided kayak tour（含装备）。海牛季这里会限流，提前在网上订；带防蚊液和换洗衣服。'
+          lat: 28.9487, lng: -81.3396, stay: 180, transit: '园内码头（2100 W French Ave）',
+          note: '订 2–3 小时的 guided kayak tour（含装备）。海牛季泉眼水道禁船，皮划艇在圣约翰河段下水，照样能看到。带防蚊液和换洗衣服。'
+        },
+        { time: '', name: '中午 · Sanford → Mount Dora', type: 'divider', note: '' },
+        {
+          time: '12:00', name: 'Sanford 老城午餐', type: 'food',
+          lat: 28.8127, lng: -81.2687, stay: 70, transit: '开车 25 分钟（沿 US-17/92 南下）',
+          note: 'Sanford 的 Magnolia Ave 一带是老城餐馆区，河边的位置多。The Willow Tree Cafe（德国菜）分量大，适合划完船补热量。'
         },
         {
-          time: '12:00', name: 'Orange City 午餐', type: 'food',
-          lat: 28.9520, lng: -81.2990, stay: 60, transit: '开车 10 分钟',
+          time: '13:30', name: 'Renninger\'s 跳蚤市场 + 古董中心', type: 'sight',
+          lat: 28.8177, lng: -81.6486, stay: 90, transit: '开车 40 分钟（20651 US-441, Mount Dora）',
+          note: '周日开：跳蚤市场人气最旺，古董中心三层楼，从美式旧家具到小玩意儿都有。⚠️ 摊位和营业时间以官网为准，去之前看一眼。'
+        },
+        {
+          time: '15:20', name: 'Mount Dora 老城', type: 'shop',
+          lat: 28.7999, lng: -81.6443, stay: 70, transit: '开车 5 分钟到 Donnelly St',
+          note: 'Donnelly St 是主街，古董店、书店、咖啡馆一路排开。走到湖滨看 Mount Dora 灯塔（1 Lighthouse Cir），傍晚风很舒服。'
+        },
+        {
+          time: '16:40', name: '回奥兰多', type: 'transport',
+          lat: 28.5383, lng: -81.3792, stay: 60, transit: '开车 50 分钟（FL-429 / Turnpike）',
           note: ''
         },
+        { time: '', name: '傍晚 · 奥兰多', type: 'divider', note: '' },
         {
-          time: '13:30', name: '回奥兰多', type: 'transport',
-          lat: 28.5383, lng: -81.3792, stay: 50, transit: '自驾约 45 分钟',
-          note: ''
+          time: '17:50', name: 'Lake Baldwin 狗公园（可选）', type: 'sight',
+          lat: 28.573, lng: -81.326, stay: 45, transit: '开车 20 分钟（2070 Lake Baldwin Ln）',
+          note: '奥兰多最有名的湖滨狗公园，周末下午常有狗主人聚会，没狗也能在旁边步道走走看热闹。不想去就直接吃饭。'
         },
         {
-          time: '15:00', name: 'Leu Gardens（备选）', type: 'sight',
-          lat: 28.5680, lng: -81.3610, stay: 75, transit: '自驾 15 分钟',
-          note: '50 英亩植物园；不想逛花园可以改 Orlando Museum of Art 或 ICON Park。'
-        },
-        {
-          time: '18:30', name: '晚餐', type: 'food',
-          lat: 28.5400, lng: -81.3760, stay: 90, transit: '打车',
+          time: '18:45', name: '晚餐', type: 'food',
+          lat: 28.54, lng: -81.376, stay: 90, transit: '开车 15 分钟',
           note: '明天去迪士尼要早起，今晚别太晚。'
+        },
+        {
+          time: '20:15', name: '回酒店', type: 'stay',
+          lat: 28.5383, lng: -81.3792, stay: 30, transit: '打车',
+          note: ''
         }
       ]
     },

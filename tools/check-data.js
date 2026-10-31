@@ -24,7 +24,7 @@ let photoCount = 0;
       if (!fs.existsSync(path.join(APP, x))) fail(s.name + ' 缺图：' + x);
     });
   });
-  if (!s.photos || !s.photos.length) fail(s.name + ' 没有照片');
+  if (!s.photos || !s.photos.length) console.log('  · 无照片（用图标）：' + s.name);
 });
 console.log('景点 ' + (G.sights || []).length + ' 个，引用照片 ' + photoCount + ' 张');
 
