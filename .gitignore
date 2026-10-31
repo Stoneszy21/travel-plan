@@ -11,3 +11,5 @@ _contact.png
 _foodsheet.png
 # 手机传上来的原始照片，不进仓库
 img/inbox/
+# 接图时的旧图备份，不进仓库
+img/sights/backup/
