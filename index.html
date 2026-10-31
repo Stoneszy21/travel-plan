@@ -249,6 +249,49 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .ov-today { font-size: 10px; font-weight: 700; color: #fff; background: var(--accent); border-radius: 4px; padding: 1px 5px; }
 .ov-title { font-size: 14.5px; font-weight: 650; margin-top: 4px; line-height: 1.35; }
 .ov-sum { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+/* ---------- 分类汇总 ---------- */
+.gd-card {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
+  box-shadow: var(--shadow); padding: 13px 14px; margin-bottom: 11px;
+}
+.gd-h { font-size: 15px; font-weight: 700; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.gd-day { font-size: 11.5px; font-weight: 700; color: var(--accent); background: var(--accent-weak); border-radius: 5px; padding: 1px 6px; }
+.gd-leg {
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 10px;
+  padding: 9px 0; border-bottom: 1px dashed var(--line-2);
+}
+.gd-leg:last-of-type { border-bottom: 0; }
+.gd-leg .no { font-size: 11.5px; font-weight: 800; color: var(--accent); }
+.gd-leg .route { font-size: 13.5px; font-weight: 600; }
+.gd-leg .times { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+.gd-leg .dur { font-size: 11px; color: var(--muted-2); }
+.gd-list { margin: 10px 0 0; padding-left: 18px; }
+.gd-list li { font-size: 12.5px; line-height: 1.6; color: var(--text); margin-bottom: 4px; }
+.gd-opt { padding: 9px 0; border-bottom: 1px dashed var(--line-2); }
+.gd-opt:last-of-type { border-bottom: 0; }
+.gd-opt-h { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.gd-mode { font-size: 11px; font-weight: 800; color: #fff; background: var(--accent); border-radius: 5px; padding: 1.5px 6px; }
+.gd-mode.walk { background: #7c3aed; }
+.gd-mode.drive { background: #0f766e; }
+.gd-mode.transit { background: #2563eb; }
+.gd-mode.taxi { background: #ea580c; }
+.gd-opt-h .time { font-size: 12.5px; font-weight: 650; }
+.gd-opt-h .cost { font-size: 11.5px; color: var(--muted); margin-left: auto; }
+.gd-opt .detail { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-top: 4px; }
+.gd-tip {
+  margin-top: 10px; font-size: 12.5px; line-height: 1.6; color: var(--text);
+  background: var(--card-2); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 8px 10px;
+}
+.gd-row { display: flex; gap: 10px; padding: 5px 0; font-size: 12.5px; line-height: 1.6; }
+.gd-row .k { flex: none; width: 46px; color: var(--muted); }
+.gd-row .v { flex: 1; min-width: 0; }
+.gd-sub { font-size: 11.5px; font-weight: 750; color: var(--muted); margin: 10px 0 4px; letter-spacing: .02em; }
+.gd-plan { margin: 0; padding-left: 18px; }
+.gd-plan li { font-size: 12.5px; line-height: 1.65; margin-bottom: 3px; }
+.wx-row { display: flex; align-items: baseline; gap: 8px; }
+.wx-icon { font-size: 15px; line-height: 1; }
+.wx-temp { font-weight: 700; }
+.wx-src { font-size: 10.5px; color: var(--muted-2); }
 /* ---------- 地图 ---------- */
 .mapwrap { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 10px 10px 12px; }
 .mapchips { display: flex; gap: 6px; overflow-x: auto; padding: 2px 2px 8px; scrollbar-width: none; }
@@ -417,6 +460,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     <button role="tab" data-view="plan" aria-selected="false">行程</button>
     <button role="tab" data-view="map" aria-selected="false">地图</button>
     <button role="tab" data-view="sky" aria-selected="false">天文</button>
+    <button role="tab" data-view="guides" aria-selected="false">分类</button>
   </nav>
 </header>
 
@@ -467,6 +511,12 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     </div>
   </section>
 
+  <section class="view" id="view-guides" hidden>
+    <div class="mapchips" id="guideChips"></div>
+    <div id="guideBody"></div>
+    <div class="foot">按类别归纳的信息，和行程时间轴是两套视图，数据同源于 trip-data.js 与 guides.js</div>
+  </section>
+
   <section class="view" id="view-sky" hidden>
     <div id="sky-list"></div>
     <div class="foot">
@@ -481,6 +531,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 <div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
 <div class="toast" id="toast"></div>
 
+<script src="guides.js"></script>
 <script src="trip-data.js"></script>
 <script>
 (function () {
@@ -1538,6 +1589,281 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   }
 
   /* =====================================================================
+   * 6.5 分类汇总（洲际交通 / 当地交通 / 景点）
+   * ===================================================================== */
+  const GUIDES = window.TRIP_GUIDES || { flights: [], ground: [], sights: [] };
+  const GUIDE_TABS = [
+    { key: 'flights', label: '洲际交通' },
+    { key: 'ground', label: '当地交通' },
+    { key: 'sights', label: '景点' }
+  ];
+  let guideTab = 'flights';
+
+  const modeClass = m => /自驾/.test(m) ? 'drive'
+    : /打车|出租|Uber/i.test(m) ? 'taxi'
+      : /步行/.test(m) ? 'walk' : 'transit';
+
+  function renderGuides() {
+    const chips = $('#guideChips');
+    if (!chips) return;
+    chips.innerHTML = '';
+    GUIDE_TABS.forEach(t => {
+      const c = el('button', 'mchip' + (guideTab === t.key ? ' on' : ''), t.label);
+      c.addEventListener('click', () => { guideTab = t.key; renderGuides(); });
+      chips.appendChild(c);
+    });
+
+    const box = $('#guideBody');
+    box.innerHTML = '';
+
+    if (guideTab === 'flights') {
+      if (!GUIDES.flights || !GUIDES.flights.length) { box.appendChild(el('div', 'ml-hint', '还没有洲际交通信息')); return; }
+      GUIDES.flights.forEach(f => {
+        const card = el('div', 'gd-card');
+        card.appendChild(el('div', 'gd-h', esc(f.label || '')));
+        (f.legs || []).forEach(g => {
+          const row = el('div', 'gd-leg');
+          row.appendChild(el('div', 'no', esc(g.no || '')));
+          row.appendChild(el('div', 'times', esc(g.dep || '') + ' → ' + esc(g.arr || '')));
+          row.appendChild(el('div', 'route', esc(g.from || '') + ' → ' + esc(g.to || '')));
+          row.appendChild(el('div', 'dur', esc(g.dur || '')));
+          card.appendChild(row);
+        });
+        if (f.points && f.points.length) {
+          const ul = el('ul', 'gd-list');
+          f.points.forEach(p => ul.appendChild(el('li', '', esc(p))));
+          card.appendChild(ul);
+        }
+        box.appendChild(card);
+      });
+      return;
+    }
+
+    if (guideTab === 'ground') {
+      if (!GUIDES.ground || !GUIDES.ground.length) { box.appendChild(el('div', 'ml-hint', '还没有当地交通信息')); return; }
+      GUIDES.ground.forEach(g => {
+        const card = el('div', 'gd-card');
+        const h = el('div', 'gd-h', esc(g.title || ''));
+        if (g.day) h.appendChild(el('span', 'gd-day', esc(g.day)));
+        card.appendChild(h);
+        (g.options || []).forEach(o => {
+          const opt = el('div', 'gd-opt');
+          const oh = el('div', 'gd-opt-h');
+          oh.appendChild(el('span', 'gd-mode ' + modeClass(o.mode || ''), esc(o.mode || '')));
+          oh.appendChild(el('span', 'time', esc(o.time || '')));
+          if (o.cost) oh.appendChild(el('span', 'cost', esc(o.cost)));
+          opt.appendChild(oh);
+          if (o.detail) opt.appendChild(el('div', 'detail', esc(o.detail)));
+          card.appendChild(opt);
+        });
+        if (g.tip) card.appendChild(el('div', 'gd-tip', esc(g.tip)));
+        box.appendChild(card);
+      });
+      return;
+    }
+
+    if (!GUIDES.sights || !GUIDES.sights.length) { box.appendChild(el('div', 'ml-hint', '还没有景点信息')); return; }
+    GUIDES.sights.forEach(s => {
+      const card = el('div', 'gd-card');
+      const h = el('div', 'gd-h', esc(s.name || ''));
+      if (s.day) h.appendChild(el('span', 'gd-day', esc(s.day)));
+      card.appendChild(h);
+
+      if (s.hours) {
+        const r = el('div', 'gd-row');
+        r.appendChild(el('span', 'k', '营业'));
+        r.appendChild(el('span', 'v', esc(s.hours)));
+        card.appendChild(r);
+      }
+      if (s.booking) {
+        const r = el('div', 'gd-row');
+        r.appendChild(el('span', 'k', '预约'));
+        r.appendChild(el('span', 'v', esc(s.booking)));
+        card.appendChild(r);
+      }
+      if (s.plan && s.plan.length) {
+        card.appendChild(el('div', 'gd-sub', '园内动线'));
+        const ol = el('ol', 'gd-plan');
+        s.plan.forEach(p => ol.appendChild(el('li', '', esc(p))));
+        card.appendChild(ol);
+      }
+      if (s.note) card.appendChild(el('div', 'gd-tip', esc(s.note)));
+      box.appendChild(card);
+    });
+  }
+
+  /* =====================================================================
+   * 6.6 天气（Open-Meteo，免费无 Key）
+   * ===================================================================== */
+  const WX_TTL = 3 * 3600e3;
+  const WX_KEY = 'travel.weather.v2';
+  const wxState = { data: null, loading: false, failed: false };
+
+  const WX_CODES = {
+    0: ['☀️', '晴'], 1: ['🌤', '晴间多云'], 2: ['⛅', '多云'], 3: ['☁️', '阴'],
+    45: ['🌫', '雾'], 48: ['🌫', '雾凇'],
+    51: ['🌦', '小毛雨'], 53: ['🌦', '毛雨'], 55: ['🌧', '大毛雨'],
+    56: ['🌧', '冻毛雨'], 57: ['🌧', '冻毛雨'],
+    61: ['🌦', '小雨'], 63: ['🌧', '中雨'], 65: ['🌧', '大雨'],
+    66: ['🌧', '冻雨'], 67: ['🌧', '冻雨'],
+    71: ['🌨', '小雪'], 73: ['🌨', '中雪'], 75: ['❄️', '大雪'], 77: ['🌨', '霰'],
+    80: ['🌦', '阵雨'], 81: ['🌧', '阵雨'], 82: ['⛈', '强阵雨'],
+    85: ['🌨', '阵雪'], 86: ['🌨', '强阵雪'],
+    95: ['⛈', '雷雨'], 96: ['⛈', '雷雨冰雹'], 99: ['⛈', '强雷雨冰雹']
+  };
+  const wxInfo = code => WX_CODES[code] || ['🌡', '—'];
+
+  const shiftDate = (dateStr, days) => {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const t = Date.UTC(y, m - 1, d) + days * 86400000;
+    const dt = new Date(t);
+    return dt.getUTCFullYear() + '-' + pad2(dt.getUTCMonth() + 1) + '-' + pad2(dt.getUTCDate());
+  };
+  const shiftYear = (dateStr, years) => {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    return (y + years) + '-' + pad2(m) + '-' + pad2(d);
+  };
+
+  function weatherAnchors() {
+    const map = new Map();
+    (TRIP.days || []).forEach(d => {
+      const k = d.base.lat.toFixed(2) + ',' + d.base.lng.toFixed(2);
+      if (!map.has(k)) map.set(k, { lat: +d.base.lat.toFixed(2), lng: +d.base.lng.toFixed(2) });
+    });
+    return [...map.values()];
+  }
+
+  async function fetchWx(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }
+
+  function absorb(job, anchors, byDate, pick) {
+    const arr = Array.isArray(job) ? job : [job];
+    arr.forEach((loc, i) => {
+      const a = anchors[i];
+      if (!a || !loc || !loc.daily || !loc.daily.time) return;
+      const d = loc.daily;
+      d.time.forEach((dt, j) => {
+        const rec = pick(d, j);
+        if (rec) byDate[dt] = rec;
+      });
+    });
+  }
+
+  async function loadWeather() {
+    if (wxState.loading) return;
+    wxState.loading = true;
+
+    try {
+      const raw = localStorage.getItem(WX_KEY);
+      if (raw) {
+        const o = JSON.parse(raw);
+        if (o && o.at && Date.now() - o.at < WX_TTL && o.byDate) {
+          wxState.data = o.byDate;
+          wxState.loading = false;
+          refreshWeatherUI();
+          return;
+        }
+      }
+    } catch (e) { }
+
+    const days = TRIP.days || [];
+    if (!days.length) { wxState.loading = false; return; }
+
+    const anchors = weatherAnchors();
+    const lat = anchors.map(a => a.lat).join(',');
+    const lon = anchors.map(a => a.lng).join(',');
+    const tz = TRIP.timezone || 'auto';
+    const byDate = {};
+    const today = todayInTZ();
+    const horizon = shiftDate(today, 14);
+    const first = days[0].date, last = days[days.length - 1].date;
+    const from = first > today ? first : today;
+    const to = last < horizon ? last : horizon;
+
+    if (from <= to) {
+      const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+        '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
+        '&timezone=' + encodeURIComponent(tz) + '&start_date=' + from + '&end_date=' + to;
+      try {
+        absorb(await fetchWx(url), anchors, byDate, (d, j) => ({
+          tmax: d.temperature_2m_max[j],
+          tmin: d.temperature_2m_min[j],
+          pop: d.precipitation_probability_max ? d.precipitation_probability_max[j] : null,
+          code: d.weather_code[j],
+          src: 'forecast'
+        }));
+      } catch (e) { }
+    }
+
+    // 预报窗口之外的日期：用去年同期的实测值做参考
+    const missing = days.map(d => d.date).filter(dt => !byDate[dt]);
+    if (missing.length) {
+      const a0 = shiftYear(missing[0], -1);
+      const a1 = shiftYear(missing[missing.length - 1], -1);
+      const url = 'https://archive-api.open-meteo.com/v1/archive?latitude=' + lat + '&longitude=' + lon +
+        '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum' +
+        '&timezone=' + encodeURIComponent(tz) + '&start_date=' + a0 + '&end_date=' + a1;
+      try {
+        const tmp = {};
+        absorb(await fetchWx(url), anchors, tmp, (d, j) => ({
+          tmax: d.temperature_2m_max[j],
+          tmin: d.temperature_2m_min[j],
+          pop: d.precipitation_sum ? Math.min(100, Math.round((d.precipitation_sum[j] || 0) * 100)) : null,
+          code: d.weather_code[j],
+          src: 'lastyear'
+        }));
+        // 2025-11-13 → 2026-11-13
+        Object.keys(tmp).forEach(k => {
+          const target = shiftYear(k, 1);
+          if (!byDate[target]) byDate[target] = tmp[k];
+        });
+      } catch (e) { }
+    }
+
+    if (!Object.keys(byDate).length) {
+      wxState.failed = true;
+      wxState.loading = false;
+      refreshWeatherUI();
+      return;
+    }
+
+    wxState.data = byDate;
+    wxState.loading = false;
+    try { localStorage.setItem(WX_KEY, JSON.stringify({ at: Date.now(), byDate })); } catch (e) { }
+    refreshWeatherUI();
+  }
+
+  function paintWx(row, date) {
+    const v = row.querySelector('.v');
+    if (!v) return;
+    v.innerHTML = '';
+    const w = wxState.data && wxState.data[date];
+    if (!w || w.tmax == null) {
+      v.className = 'v dim';
+      v.textContent = wxState.failed ? '天气暂不可用' : '加载中…';
+      return;
+    }
+    v.className = 'v';
+    const info = wxInfo(w.code);
+    const wrap = el('div', 'wx-row');
+    const icon = el('span', 'wx-icon', info[0]);
+    wrap.appendChild(icon);
+    const temp = el('span', 'wx-temp', Math.round(w.tmax) + '° / ' + Math.round(w.tmin) + '°');
+    wrap.appendChild(temp);
+    wrap.appendChild(el('span', '', info[1]));
+    if (w.pop != null) wrap.appendChild(el('span', 'wx-src', '降雨 ' + Math.round(w.pop) + '%'));
+    wrap.appendChild(el('span', 'wx-src', w.src === 'forecast' ? '预报' : '去年同期'));
+    v.appendChild(wrap);
+  }
+
+  function refreshWeatherUI() {
+    document.querySelectorAll('[data-wx]').forEach(row => paintWx(row, row.dataset.wx));
+  }
+
+  /* =====================================================================
    * 7. 天文视图
    * ===================================================================== */
   function renderSky() {
@@ -1555,6 +1881,13 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
       card.appendChild(head);
 
       const rows = el('div', 'skyrows');
+      // 天气行（异步填充）
+      const wxRow = el('div', 'srow');
+      wxRow.dataset.wx = d.date;
+      wxRow.appendChild(el('div', 'k', '天气'));
+      wxRow.appendChild(el('div', 'v dim', '加载中…'));
+      rows.appendChild(wxRow);
+
       const row = (k, v, cls, az) => {
         const r = el('div', 'srow');
         r.appendChild(el('div', 'k', k));
@@ -1683,14 +2016,15 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   function switchView(name) {
     if (!name || name === currentView) return void syncTabs(name);
     currentView = name;
-    ['overview', 'plan', 'map', 'sky'].forEach(v => {
+    ['overview', 'plan', 'map', 'guides', 'sky'].forEach(v => {
       const sec = document.getElementById('view-' + v);
       if (sec) sec.hidden = v !== name;
     });
     syncTabs(name);
     if (name === 'overview') renderOverview();
     if (name === 'map') renderMap();
-    if (name === 'sky') renderSky();
+    if (name === 'guides') renderGuides();
+    if (name === 'sky') { renderSky(); loadWeather(); }
     window.scrollTo({ top: 0, behavior: 'auto' });
     try {
       const hash = name === 'map' && mapFilter !== null
@@ -1790,6 +2124,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     renderDayStrip();
     renderDays();
     renderMap();
+    renderGuides();
     renderSky();
     syncSticky();
     $('#foot').innerHTML =
@@ -1816,7 +2151,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     if (md) {
       mapFilter = Math.min(Math.max(+md[1] - 1, 0), TRIP.days.length - 1);
       switchView('map');
-    } else if (hash === 'overview' || hash === 'map' || hash === 'sky') {
+    } else if (hash === 'overview' || hash === 'map' || hash === 'sky' || hash === 'guides') {
       switchView(hash);
     }
 

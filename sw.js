@@ -4,11 +4,12 @@
  * 如果缓存优先，手机上永远看到旧版本。所以在线时总是先取网络，
  * 顺手更新缓存；没网时（飞机上、山里）再用缓存。
  */
-const CACHE = 'trip-v3';
+const CACHE = 'trip-v4';
 const ASSETS = [
   './',
   './index.html',
   './trip-data.js',
+  './guides.js',
   './manifest.webmanifest',
   './icon-180.png',
   './icon-192.png',

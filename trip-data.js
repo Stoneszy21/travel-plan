@@ -191,27 +191,27 @@ window.TRIP = {
           note: ''
         },
         {
-          time: '13:40', name: '出发去 Lakeland', type: 'transport',
+          time: '12:30', name: '出发去 Lakeland', type: 'transport',
           lat: 28.0306, lng: -81.9479, stay: 60, transit: '打车单程约 1 小时（I-4 向西）',
-          note: '打车往返约 $120–150；回程容易叫不到车，提前和司机约好时间。'
+          note: '打车往返约 $130–160；回程容易叫不到车，提前和司机约好时间。13:35 到游客中心正好赶上 14:00 的导览。'
         },
         {
-          time: '14:45', name: 'Florida Southern College', type: 'sight',
-          lat: 28.0306, lng: -81.9479, stay: 105, transit: '步行到游客中心',
-          note: '赖特在单一校园里建成 12 栋建筑，美国最大规模的赖特建筑群。游客中心有导览（约 1 小时），建议参加。'
+          time: '13:35', name: 'Florida Southern College', type: 'sight',
+          lat: 28.0306, lng: -81.9479, stay: 130, transit: '步行到游客中心',
+          note: '导览每天只有 10:00 和 14:00 两场（Basic，90 分钟，$45/人），提前 24 小时在网上订。全美最大规模的单一校区赖特建筑群，13 栋。'
         },
         {
-          time: '16:30', name: '校园自由逛', type: 'sight',
+          time: '15:45', name: '校园自由逛', type: 'sight',
           lat: 28.0330, lng: -81.9450, stay: 50, transit: '步行',
           note: '重点看 Annie Pfeiffer Chapel 和 Water Dome 喷泉。'
         },
         {
-          time: '17:20', name: '回奥兰多', type: 'transport',
+          time: '16:40', name: '回奥兰多', type: 'transport',
           lat: 28.5383, lng: -81.3792, stay: 60, transit: '打车 1 小时',
           note: ''
         },
         {
-          time: '18:30', name: '晚餐', type: 'food',
+          time: '17:50', name: '晚餐', type: 'food',
           lat: 28.5400, lng: -81.3760, stay: 90, transit: '步行',
           note: ''
         },
