@@ -832,6 +832,8 @@ window.TRIP_GUIDES = {
       icon: '🌴',
       ord: 'D9-05',
       photos: [
+        { t: 'img/sights/ocean-1-t.jpg', m: 'img/sights/ocean-1-m.jpg', f: 'img/sights/ocean-1.jpg' },
+        { t: 'img/sights/ocean-2-t.jpg', m: 'img/sights/ocean-2-m.jpg', f: 'img/sights/ocean-2.jpg' },
         { t: 'img/sights/southbeach-1-t.jpg', m: 'img/sights/southbeach-1-m.jpg', f: 'img/sights/southbeach-1.jpg' },
         { t: 'img/sights/southbeach-2-t.jpg', m: 'img/sights/southbeach-2-m.jpg', f: 'img/sights/southbeach-2.jpg' },
         { t: 'img/sights/southbeach-3-t.jpg', m: 'img/sights/southbeach-3-m.jpg', f: 'img/sights/southbeach-3.jpg' }
