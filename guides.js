@@ -51,6 +51,8 @@ window.TRIP_GUIDES = {
   ground: [
     {
       title: 'FLL 机场 → 奥兰多',
+      from: { lat: 26.0742, lng: -80.1506, label: 'FLL 机场' },
+      to: { lat: 28.5383, lng: -81.3792, label: '奥兰多市区' },
       day: '11/13',
       options: [
         { mode: '自驾', time: '约 3 小时', cost: '油费 $25 上下（车另算）', detail: 'I-95 北上 → FL-91 Turnpike，全程高速。19:30 出发约 22:30–23:00 到。夜里车少，服务区也少，出发前加满油。' },
@@ -61,6 +63,8 @@ window.TRIP_GUIDES = {
     },
     {
       title: '奥兰多市内：酒店 ↔ Winter Park / 市区',
+      from: { lat: 28.5383, lng: -81.3792, label: '奥兰多市区' },
+      to: { lat: 28.5916, lng: -81.3485, label: 'Winter Park' },
       day: '11/14',
       options: [
         { mode: '打车 / Uber', time: '15–20 分钟', cost: '$15–22 单程', detail: '上下车点：Winter Park 在 Park Ave 与 Morse Blvd 路口最好停；市区在 Lake Eola 东侧 Rosalind Ave 路边。' },
@@ -71,6 +75,8 @@ window.TRIP_GUIDES = {
     },
     {
       title: '奥兰多 → Blue Spring State Park',
+      from: { lat: 28.5383, lng: -81.3792, label: '奥兰多' },
+      to: { lat: 28.9487, lng: -81.3396, label: 'Blue Spring' },
       day: '11/15',
       options: [
         { mode: '自驾', time: '45–50 分钟', cost: '油费 $8 + 门票 $6/车', detail: 'I-4 东 → FL-472 → US-17，直接导航到 2100 W French Ave, Orange City。园内停车免费。' },
@@ -80,6 +86,8 @@ window.TRIP_GUIDES = {
     },
     {
       title: '奥兰多 → Lakeland（赖特校园，D2 方案 B）',
+      from: { lat: 28.5383, lng: -81.3792, label: '奥兰多' },
+      to: { lat: 28.0306, lng: -81.9479, label: 'Lakeland' },
       day: '11/14',
       options: [
         { mode: '自驾', time: '约 1 小时', cost: '油费 $10', detail: 'I-4 向西，导航到 111 Lake Hollingsworth Dr, Lakeland。校园内有访客停车。' },
@@ -88,16 +96,30 @@ window.TRIP_GUIDES = {
       tip: '导览只有 10:00 和 14:00 两场（90 分钟），要去就得 12:30 从奥兰多出发赶 14:00 那场。'
     },
     {
-      title: '奥兰多 → 肯尼迪航天中心 → 劳德代尔堡',
+      title: '奥兰多 → 肯尼迪航天中心',
+      from: { lat: 28.5383, lng: -81.3792, label: '奥兰多' },
+      to: { lat: 28.5231, lng: -80.6818, label: 'KSC 游客中心' },
       day: '11/17',
       options: [
-        { mode: '自驾（推荐）', time: '1 小时 + 3 小时 15 分', cost: '油费约 $40 + KSC 停车 $10', detail: '去程 FL-417 → FL-528 向东直达；回程 FL-528 转 I-95 南下。中途在 Fort Pierce 服务区休息一次。' },
-        { mode: '打车', time: '同上', cost: '单程 $100–130 / 跨城 $300+', detail: 'KSC 位置偏，回程叫车困难；跨城长途更不划算。' }
+        { mode: '自驾（推荐）', time: '约 1 小时', cost: '油费约 $12 + 停车 $10', detail: 'FL-417 → FL-528 向东直达，全程高速，早高峰往东不堵。' },
+        { mode: '打车 / Uber', time: '约 1 小时', cost: '$95–120 单程', detail: '去程好叫，回程在 KSC 门口很难叫到车——一定要提前约好返程，或者干脆自驾。' }
       ],
-      tip: '这是全程开车最久的一天。15:30 出园，算上晚高峰，18:45 前后到酒店。'
+      tip: '早上 7:45 出发，8:45 到，正好赶上 9:00 开门。'
+    },
+    {
+      title: '肯尼迪航天中心 → 劳德代尔堡',
+      from: { lat: 28.5231, lng: -80.6818, label: 'KSC 游客中心' },
+      to: { lat: 26.1018, lng: -80.1252, label: 'Holiday Inn Express' },
+      day: '11/17',
+      options: [
+        { mode: '自驾', time: '约 3 小时 15 分', cost: '油费约 $28', detail: 'FL-528 转 I-95 南下，中途在 Fort Pierce 服务区休息；17:00 后进入 Broward 段会堵，多留 30 分钟。' }
+      ],
+      tip: '15:30 出园，算上晚高峰，18:45 前后到酒店。'
     },
     {
       title: '劳德代尔堡本地：酒店 ↔ 会场 ↔ 海滩',
+      from: { lat: 26.1018, lng: -80.1252, label: '酒店' },
+      to: { lat: 26.0996, lng: -80.119, label: '会展中心' },
       day: '11/17–11/22',
       options: [
         { mode: '步行', time: '12 分钟', cost: '免费', detail: '酒店（1500 SE 17th St）到会展中心（1950 Eisenhower Blvd）过一座桥就到，全程有人行道。' },
@@ -108,6 +130,8 @@ window.TRIP_GUIDES = {
     },
     {
       title: '自由日：劳德代尔堡 ↔ 迈阿密',
+      from: { lat: 26.1018, lng: -80.1252, label: '劳德代尔堡' },
+      to: { lat: 25.7444, lng: -80.2103, label: 'Vizcaya / 迈阿密' },
       day: '11/21',
       options: [
         { mode: '自驾', time: '40–50 分钟', cost: '油费 $8 + 迈阿密停车 $20–30', detail: 'I-95 南下。Vizcaya 有停车场；Wynwood 停车贵，建议停在 NW 2nd Ave 的车库。' },
@@ -122,6 +146,7 @@ window.TRIP_GUIDES = {
   sights: [
     {
       name: 'Rollins College',
+      icon: '🎓',
       day: 'D2 · 11/14',
       hours: '校园全天开放；Cornell Fine Arts Museum 周四–周日，免费',
       plan: [
@@ -133,6 +158,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Orlando Public Library',
+      icon: '📚',
       day: 'D2 · 11/14',
       hours: '约 10:00–18:00（各日不同，以官网为准）',
       plan: ['1 楼主厅的玻璃中庭抬头看', '2–3 楼有本地历史和艺术类藏书', '门口广场有水景，是市区打卡点'],
@@ -140,6 +166,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Lake Eola Park',
+      icon: '🦢',
       day: 'D2 · 11/14',
       hours: '公园全天；天鹅船约 10:00–19:00',
       plan: ['环湖步道一圈 1.2 公里，25 分钟慢走', '天鹅船 30 分钟约 $15/船', '傍晚喷泉配市中心天际线是拍照点'],
@@ -147,6 +174,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Florida Southern College（赖特校园）',
+      icon: '🏛',
       day: 'D2 · 11/14（方案 B）',
       hours: '游客中心 9:30–16:30（每天）',
       booking: '导览每天 10:00 与 14:00（Basic，90 分钟，$45/人），强烈建议提前 24 小时在网上预约；另有 13:00 的 In-Depth（2.5 小时，$70）',
@@ -159,6 +187,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Blue Spring State Park',
+      icon: '🐋',
       day: 'D3 · 11/15',
       hours: '8:00 开门，至日落',
       booking: '皮划艇导览建议提前订（2–3 小时含装备），海牛季会限流',
@@ -171,6 +200,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: '迪士尼 Animal Kingdom',
+      icon: '🦁',
       day: 'D4 · 11/16',
       hours: '约 8:00–19:00（每天不同，以官方 App 为准）',
       booking: '提前买指定日期门票并绑定 App；热门项目建议买 Lightning Lane',
@@ -184,6 +214,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: '肯尼迪航天中心',
+      icon: '🚀',
       day: 'D5 · 11/17',
       hours: '9:00–17:00',
       booking: '一定要提前在网上买票，现场买要排半小时',
@@ -198,6 +229,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Bonnet House Museum & Gardens',
+      icon: '🏡',
       day: 'D8 · 11/20',
       hours: '周二–周日 11:00–16:00（16:00 最后入场，园区 17:00 关）；周一闭馆',
       booking: '自助参观不用预约，成人 $30；只逛花园 $15',
@@ -206,6 +238,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'NSU Art Museum',
+      icon: '🖼',
       day: 'D7 · 11/19',
       hours: '周三–周日开放，周四延时至 20:00（以官网为准）',
       plan: ['1 小时看常设的拉丁美洲和当代收藏', '周四晚上人少，适合下班后去'],
@@ -213,6 +246,7 @@ window.TRIP_GUIDES = {
     },
     {
       name: 'Vizcaya Museum & Gardens',
+      icon: '🏰',
       day: 'D9 · 11/21（方案 B）',
       hours: '9:30–16:30，周二闭馆',
       booking: '必须提前网上订票，现场常售完；成人约 $25',

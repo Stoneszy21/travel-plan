@@ -250,6 +250,16 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .ov-title { font-size: 14.5px; font-weight: 650; margin-top: 4px; line-height: 1.35; }
 .ov-sum { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
 /* ---------- 分类汇总 ---------- */
+.gd-head { display: flex; gap: 11px; align-items: center; margin-bottom: 7px; }
+.gd-hw { min-width: 0; flex: 1; }
+.gd-ico {
+  width: 42px; height: 42px; flex: none; border-radius: 12px;
+  display: grid; place-items: center; font-size: 21px; line-height: 1;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--accent) 15%, var(--card-2)), var(--card-2));
+  border: 1px solid var(--line-2);
+}
+.gd-dist { font-size: 11.5px; color: var(--muted-2); margin-top: 3px; font-variant-numeric: tabular-nums; }
+
 .gd-card {
   background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
   box-shadow: var(--shadow); padding: 13px 14px; margin-bottom: 11px;
@@ -1603,6 +1613,64 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     : /打车|出租|Uber/i.test(m) ? 'taxi'
       : /步行/.test(m) ? 'walk' : 'transit';
 
+
+  /* ---------- 距离：自驾/打车走 OSRM 实际路线，其余算直线 ---------- */
+  const routeCache = {};
+
+  const haversineKm = (a, b) => {
+    const R = 6371, d2r = Math.PI / 180;
+    const dLat = (b.lat - a.lat) * d2r, dLng = (b.lng - a.lng) * d2r;
+    const h = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(a.lat * d2r) * Math.cos(b.lat * d2r) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
+  };
+
+  const fmtKm = km => km < 10 ? km.toFixed(1) + ' km' : Math.round(km) + ' km';
+  const fmtMin = min => {
+    if (min < 60) return min + ' 分钟';
+    const h = Math.floor(min / 60), m = min % 60;
+    return m ? h + ' 小时 ' + m + ' 分' : h + ' 小时';
+  };
+
+  async function driveRoute(a, b) {
+    const key = [a.lat.toFixed(4), a.lng.toFixed(4), b.lat.toFixed(4), b.lng.toFixed(4)].join('|');
+    if (routeCache[key]) return routeCache[key];
+    try {
+      const url = 'https://router.project-osrm.org/route/v1/driving/' +
+        a.lng + ',' + a.lat + ';' + b.lng + ',' + b.lat + '?overview=false&alternatives=false';
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      const j = await res.json();
+      if (j.code !== 'Ok' || !j.routes || !j.routes.length) return null;
+      const r = { km: j.routes[0].distance / 1000, min: Math.round(j.routes[0].duration / 60) };
+      routeCache[key] = r;
+      return r;
+    } catch (e) { return null; }
+  }
+
+  function refreshGuideDistances() {
+    const G = GUIDES.ground || [];
+    G.forEach((g, gi) => {
+      if (!g.from || !g.to) return;
+      const line = haversineKm(g.from, g.to);
+      const pending = [];
+      (g.options || []).forEach((o, oi) => {
+        const cell = document.querySelector('.gd-dist[data-gi="' + gi + '"][data-oi="' + oi + '"]');
+        if (!cell) return;
+        cell.textContent = '直线 ' + fmtKm(line);
+        if (/自驾|打车|出租|Uber/i.test(o.mode || '')) pending.push(cell);
+      });
+      if (!pending.length) return;
+      driveRoute(g.from, g.to).then(r => {
+        pending.forEach(cell => {
+          cell.textContent = r
+            ? '实际路线 ' + fmtKm(r.km)
+            : '直线 ' + fmtKm(line);
+        });
+      });
+    });
+  }
+
   function renderGuides() {
     const chips = $('#guideChips');
     if (!chips) return;
@@ -1641,33 +1709,45 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 
     if (guideTab === 'ground') {
       if (!GUIDES.ground || !GUIDES.ground.length) { box.appendChild(el('div', 'ml-hint', '还没有当地交通信息')); return; }
-      GUIDES.ground.forEach(g => {
+      GUIDES.ground.forEach((g, gi) => {
         const card = el('div', 'gd-card');
         const h = el('div', 'gd-h', esc(g.title || ''));
         if (g.day) h.appendChild(el('span', 'gd-day', esc(g.day)));
         card.appendChild(h);
-        (g.options || []).forEach(o => {
+        (g.options || []).forEach((o, oi) => {
           const opt = el('div', 'gd-opt');
           const oh = el('div', 'gd-opt-h');
           oh.appendChild(el('span', 'gd-mode ' + modeClass(o.mode || ''), esc(o.mode || '')));
           oh.appendChild(el('span', 'time', esc(o.time || '')));
           if (o.cost) oh.appendChild(el('span', 'cost', esc(o.cost)));
           opt.appendChild(oh);
+          if (g.from && g.to) {
+            const dcell = el('div', 'gd-dist');
+            dcell.dataset.gi = gi;
+            dcell.dataset.oi = oi;
+            opt.appendChild(dcell);
+          }
           if (o.detail) opt.appendChild(el('div', 'detail', esc(o.detail)));
           card.appendChild(opt);
         });
         if (g.tip) card.appendChild(el('div', 'gd-tip', esc(g.tip)));
         box.appendChild(card);
       });
+      refreshGuideDistances();
       return;
     }
 
     if (!GUIDES.sights || !GUIDES.sights.length) { box.appendChild(el('div', 'ml-hint', '还没有景点信息')); return; }
     GUIDES.sights.forEach(s => {
       const card = el('div', 'gd-card');
+      const head = el('div', 'gd-head');
+      head.appendChild(el('div', 'gd-ico', esc(s.icon || '📍')));
+      const hw = el('div', 'gd-hw');
       const h = el('div', 'gd-h', esc(s.name || ''));
       if (s.day) h.appendChild(el('span', 'gd-day', esc(s.day)));
-      card.appendChild(h);
+      hw.appendChild(h);
+      head.appendChild(hw);
+      card.appendChild(head);
 
       if (s.hours) {
         const r = el('div', 'gd-row');
