@@ -19,13 +19,7 @@ opener = urllib.request.build_opener(
 opener.addheaders = [("User-Agent", "travel-plan-app/1.0 (personal trip planner)")]
 
 PICKS = [
-    ("rollins-3.jpg", "File:Rollins College Campus.jpg"),
-    ("animal-3.jpg", "File:Expedition Everest.jpg"),
-    ("ksc-2.jpg", "File:Space Shuttle Atlantis exhibit, Kennedy Space Center, Cape Canaveral, FL, KW (15545743177).jpg"),
-    ("bonnet-1.jpg", "File:Bonnet House Museum & Gardens (Fort Lauderdale, Florida) 001.jpg"),
-    ("nsu-3.jpg", "File:Museum of Art Fort Lauderdale, exterior.JPG"),
-    ("vizcaya-1.jpg", "File:VizcayaMansion.JPG"),
-    ("vizcaya-2.jpg", "File:Stone barge, Vizcaya Museum and Gardens , Miami 060524 DSC6654.jpg"),
+    ("nsu-3.jpg", "File:Fort Laud FL MoA02.jpg"),
 ]
 
 TARGET = (720, 480)
