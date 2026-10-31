@@ -1,13 +1,15 @@
-/* 行程 App · 离线缓存
+/* 行程 App · 离线缓存 + 秒开
  *
  * 两层缓存：
- *   1. 应用文件（同源）——网络优先，断网回落。内容会更新，所以在线时总是先取网络。
- *      因为 GitHub Pages 给了 ETag + max-age=600，正常打开基本是 304，不重复下载。
+ *   1. 应用文件（同源）——「缓存优先 + 后台静默更新」（stale-while-revalidate）
+ *      打开先用缓存，立刻出画面；同时后台拉一遍新文件，
+ *      内容变了就更新缓存并通知页面「有新版本」，由用户点一下刷新。
+ *      这样既秒开，又不会永远停在旧版本。
  *   2. 地图瓦片（tile.openstreetmap.org）——缓存优先 + 后台更新。
  *      OSM 瓦片是 no-cache，不缓存的话每次看地图都要重新验证几十张。
  *      只缓存「用户实际看过的」瓦片，不做预下载（符合 OSM 的 tile usage policy）。
  */
-const CACHE = 'trip-v8';
+const CACHE = 'trip-v9';
 const TILE_CACHE = 'tiles-v1';
 const TILE_MAX = 500;
 
@@ -49,6 +51,19 @@ async function trimTiles(cache, max) {
   for (let i = 0; i < drop; i++) await cache.delete(keys[i]);
 }
 
+// 轻量对比：ETag / Last-Modified / 长度，任一变就认为有新版本
+function sameVersion(a, b) {
+  if (!a || !b) return true;
+  const ka = [a.headers.get('etag'), a.headers.get('last-modified'), a.headers.get('content-length')].join('|');
+  const kb = [b.headers.get('etag'), b.headers.get('last-modified'), b.headers.get('content-length')].join('|');
+  return ka === kb;
+}
+
+async function notifyClients(file) {
+  const all = await self.clients.matchAll({ type: 'window' });
+  all.forEach(c => c.postMessage({ type: 'update-ready', file: file }));
+}
+
 self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
@@ -81,21 +96,38 @@ self.addEventListener('fetch', e => {
   // ---- 其他跨域请求（天气、路由）：不接管 ----
   if (url.origin !== location.origin) return;
 
-  // ---- 应用文件：网络优先，失败回落缓存 ----
-  // cache: 'no-store' 是关键：GitHub Pages 给 max-age=600，
-  // 不加这个的话 fetch 会吃到浏览器 HTTP 缓存，部署后最多 10 分钟还是旧文件。
-  e.respondWith(
-    fetch(req, { cache: 'no-store' })
-      .then(res => {
-        if (res && res.status === 200 && res.type === 'basic') {
-          const copy = res.clone();
-          caches.open(CACHE).then(c => c.put(req, copy)).catch(() => { });
-        }
-        return res;
-      })
-      .catch(() =>
-        caches.match(req, { ignoreSearch: true })
-          .then(hit => hit || caches.match('./index.html'))
-      )
-  );
+  // ---- 应用文件：缓存优先秒开 + 后台更新 ----
+  e.respondWith((async () => {
+    const cache = await caches.open(CACHE);
+    const cached = await cache.match(req, { ignoreSearch: true });
+
+    // 后台静默拉新（不阻塞页面）
+    const refresh = (async () => {
+      try {
+        // no-store 绕过 GitHub Pages 的 max-age=600
+        const res = await fetch(req, { cache: 'no-store' });
+        if (!res || res.status !== 200 || res.type !== 'basic') return;
+        if (cached && sameVersion(cached, res)) return;      // 没变就不打扰
+        await cache.put(req, res.clone());
+        if (cached) notifyClients(url.pathname);
+      } catch (_) { }
+    })();
+
+    if (cached) {
+      e.waitUntil(refresh);                                   // 让后台任务活下来
+      return cached;                                          // 立即返回
+    }
+
+    // 首次访问：等网络
+    try {
+      const res = await fetch(req, { cache: 'no-store' });
+      if (res && res.status === 200 && res.type === 'basic') {
+        cache.put(req, res.clone()).catch(() => { });
+      }
+      return res;
+    } catch (err) {
+      const fb = await caches.match('./index.html');
+      return fb || new Response('离线且无缓存', { status: 503 });
+    }
+  })());
 });
