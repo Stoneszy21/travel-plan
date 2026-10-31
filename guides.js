@@ -239,6 +239,36 @@ window.TRIP_GUIDES = {
     taco: { t: 'img/food/taco-t.jpg', m: 'img/food/taco-m.jpg', f: 'img/food/taco.jpg' }
   },
 
+  foodTips: [
+    {
+      title: '奥兰多 · 值得专程去的几家',
+      note: '下面这些不是"顺路吃"，是值得为它调整行程的。都在市区或 Winter Park 附近，打车 15 分钟内。',
+      places: [
+        { name: 'Domu', cat: '拉面', addr: '3201 Corrine Dr（East End Market）', note: '奥兰多公认最好的一碗拉面，招牌是辣味噌。排队 30–60 分钟，去之前在 Yelp 上排号。' },
+        { name: '4 Rivers Smokehouse', cat: 'BBQ', addr: '1600 W Fairbanks Ave, Winter Park', note: '佛州本地最好的烤肉连锁，牛肋排和 brisket 都稳。中午 11:30 前去不用排。' },
+        { name: "Gideon's Bakehouse", cat: '曲奇', addr: 'East End Market / Disney Springs', note: '半磅一块的厚曲奇，网红但真的好吃。下午常有 40 分钟队，买两块带走当夜宵。' },
+        { name: 'Se7en Bites', cat: '南方 Brunch', addr: '539 Virginia Dr（Milk District）', note: '南方家常菜和烘焙，只开到下午 3 点——想吃必须排在上午。' }
+      ]
+    },
+    {
+      title: '亚洲胃：Mills 50 街区',
+      note: '奥兰多的亚洲菜集中在 N Mills Ave × E Colonial Dr 一带（本地叫 Mills 50），开车 15 分钟。连吃几天西餐后，这里能救命。',
+      places: [
+        { name: 'Pho 88', cat: '越南粉', addr: '730 N Mills Ave', note: '开了二十多年的老店，牛肉粉和春卷稳。' },
+        { name: 'Tako Cheena', cat: '亚洲融合 taco', addr: '948 N Mills Ave', note: '韩式烤肉 taco、咖喱 taco，便宜好吃，晚上开到很晚。' },
+        { name: 'Mills 50 街区其他', cat: '中餐 / 日料 / 奶茶', addr: 'N Mills Ave 沿线', note: '沿街还有川菜、粤菜、拉面和奶茶店，看哪家门口排队就进哪家。地址以地图为准。' }
+      ]
+    },
+    {
+      title: '劳德代尔堡：说句实话',
+      note: '这边的中餐选择远不如奥兰多，WAF 那几天别指望吃到正宗的。想吃亚洲菜就在奥兰多那几天吃够，或者去 Miami 时顺路解决（Brickell 一带中餐更多）。',
+      places: [
+        { name: 'Coconuts', cat: '海鲜', addr: '429 Seabreeze Blvd', note: '本地人认可的海边餐厅，不是游客店。' },
+        { name: 'Boatyard', cat: '海鲜 / 牛排', addr: '1555 SE 17th St', note: '运河边，离酒店最近的一家正经餐厅。' }
+      ]
+    }
+  ],
+
   food: [
     {
       day: 'D1 · 11/13', area: '上海 → 底特律 → 劳德代尔堡 → 奥兰多',
