@@ -594,6 +594,11 @@ window.TRIP_GUIDES = {
       icon: '🧺',
       ord: 'D2-01',
       name: 'Winter Park Farmers\' Market',
+      photos: [
+        { t: 'img/sights/market-1-t.jpg', m: 'img/sights/market-1-m.jpg', f: 'img/sights/market-1.jpg' },
+        { t: 'img/sights/market-2-t.jpg', m: 'img/sights/market-2-m.jpg', f: 'img/sights/market-2.jpg' },
+        { t: 'img/sights/market-3-t.jpg', m: 'img/sights/market-3-m.jpg', f: 'img/sights/market-3.jpg' }
+      ],
       day: 'D2 · 11/14（周六限定）',
       hours: '每周六 8:00–13:00',
       booking: '不用预约，带现金更好砍价',

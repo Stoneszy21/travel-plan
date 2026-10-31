@@ -111,6 +111,15 @@ python tools/make-thumbs.py             # 重新生成照片缩略图与中图  
 
 最近一次结果（2026-11 佛罗里达行程）：日出日落与 NOAA 最大偏差 1 分钟，月升月落与 Schlyter 模型最大偏差 11 分钟（参考实现用固定视差，App 用动态视差，实际更准）。
 
+## 手机传照片（不用导到电脑）
+
+1. 双击 传照片.cmd（会显示一个地址，例如 http://192.168.x.x:8080/）
+2. iPhone 连**同一个 Wi-Fi**，Safari 打开那个地址
+3. 点「选照片」直接从相册挑，或者当场拍；iOS 会自动把 HEIC 转成 JPG
+4. 照片存到 img/inbox/，之后用 	ools/add-photo.py 接进景点卡片
+
+只在局域网内可见，不对外开放。img/inbox/ 不进仓库。
+
 ## 图片来源
 
 景点照片与菜品示意照来自 [Wikimedia Commons](https://commons.wikimedia.org/)（CC BY / CC BY-SA / 公有领域），已下载并压缩到 img/sights/，逐张授权信息记录在 img/sights/credits.json。抓取脚本见 	ools/fetch-photos.py（可按需重跑或替换）。

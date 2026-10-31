@@ -9,3 +9,5 @@ _shots/
 # 图片检查用的联络表
 _contact.png
 _foodsheet.png
+# 手机传上来的原始照片，不进仓库
+img/inbox/
