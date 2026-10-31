@@ -718,6 +718,11 @@ window.TRIP_GUIDES = {
       icon: '🐕',
       ord: 'D3-04',
       name: 'Lake Baldwin 狗公园',
+      photos: [
+        { t: 'img/sights/dogpark-1-t.jpg', m: 'img/sights/dogpark-1-m.jpg', f: 'img/sights/dogpark-1.jpg' },
+        { t: 'img/sights/dogpark-2-t.jpg', m: 'img/sights/dogpark-2-m.jpg', f: 'img/sights/dogpark-2.jpg' },
+        { t: 'img/sights/dogpark-3-t.jpg', m: 'img/sights/dogpark-3-m.jpg', f: 'img/sights/dogpark-3.jpg' }
+      ],
       day: 'D3 · 11/15（可选）',
       hours: '日出到日落，免费',
       plan: ['2070 Lake Baldwin Ln', '湖滨大草坪，无绳区', '周末下午常有狗主人聚会'],
