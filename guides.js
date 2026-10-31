@@ -55,13 +55,21 @@ window.TRIP_GUIDES = {
       to: { lat: 28.5383, lng: -81.3792, label: '奥兰多市区' },
       day: '11/13',
       options: [
-        { mode: '自驾', time: '约 3 小时', cost: '油费 $25 上下（车另算）', detail: 'I-95 北上 → FL-91 Turnpike，全程高速。19:30 出发约 22:30–23:00 到。夜里车少，服务区也少，出发前加满油。' },
+        { mode: '自驾', time: '约 3 小时', cost: '油费 $25 上下（车另算）', detail: 'I-95 北上 → FL-91 Turnpike，全程高速。19:30 出发约 22:30–23:00 到。夜里车少，服务区也少，出发前加满油。',
+          fac: [
+            { k: '取车', v: 'FLL 到达层出站后跟「Rental Car Center」指示，坐免费接驳车 5 分钟到；还车也是这里' },
+            { k: '停车', v: '奥兰多酒店自带车位，约 $15–25/晚（订房时确认）' }
+          ] },
         { mode: 'Brightline 火车', time: '约 3 小时', cost: '$40–90/人（提前买更便宜）', detail: '劳德代尔堡站在市中心（NW 2nd Ave），奥兰多站在 MCO 机场 C 航站楼，到市区还要再打车 25 分钟。⚠️ 今晚 18:35 落地赶不上末班车，这条只适合白天走。',
           spots: [
             { label: '起点 · Brightline 劳德代尔堡站', lat: 26.1224, lng: -80.1440, zoom: 15.6, note: '从 FLL 机场打车 12 分钟约 $18；从 17th St 的酒店 8 分钟约 $10。车站入口在 NW 2nd Ave，候车厅在 2 楼，建议提前 15 分钟到。行李可以带上车，车上有行李架。' },
             { label: '终点 · 奥兰多站（MCO C 航站楼）', lat: 28.4219, lng: -81.3077, zoom: 15.6, note: '出站直接进 MCO 机场 C 航站楼。最后一公里：到市区酒店打车 25 分钟约 $35–45，或坐 Lynx 111 路约 45 分钟 $2（班次 30 分钟一班）。这段最容易低估时间。' }
           ] },
-        { mode: '打车 / Uber', time: '约 3 小时', cost: '$250–320', detail: '价格高且不可控，两个人不如租车。回程如果自驾不方便，可以只买单程。' }
+        { mode: '打车 / Uber', time: '约 3 小时', cost: '$250–320', detail: '价格高且不可控，两个人不如租车。回程如果自驾不方便，可以只买单程。',
+          fac: [
+            { k: '上车', v: 'FLL 到达层门外 Rideshare 区（1 号门出去，有蓝色标识），别在出租车道等' },
+            { k: '下车', v: '奥兰多酒店门口，让司机停大堂前' }
+          ] }
       ],
       tip: '结论：在 FLL 直接租车，奥兰多几天、KSC、回劳德代尔堡全用得上，比打车划算得多。'
     },
@@ -71,8 +79,15 @@ window.TRIP_GUIDES = {
       to: { lat: 28.5916, lng: -81.3485, label: 'Winter Park' },
       day: '11/14',
       options: [
-        { mode: '打车 / Uber', time: '15–20 分钟', cost: '$15–22 单程', detail: '上下车点：Winter Park 在 Park Ave 与 Morse Blvd 路口最好停；市区在 Lake Eola 东侧 Rosalind Ave 路边。' },
-        { mode: '自驾', time: '15–20 分钟', cost: '停车 $5–10', detail: 'Park Ave 有路边咪表位，周末中午比较满；市区图书馆有公共车库。' },
+        { mode: '打车 / Uber', time: '15–20 分钟', cost: '$15–22 单程', detail: '上下车点：Winter Park 在 Park Ave 与 Morse Blvd 路口最好停；市区在 Lake Eola 东侧 Rosalind Ave 路边。',
+          fac: [
+            { k: '下车', v: 'Winter Park：Park Ave × Morse Blvd 路口东北角；市区：Rosalind Ave 靠 Lake Eola 一侧' },
+            { k: '上车', v: '回程在同一路口叫车，Winter Park 晚上车不多，提前 5 分钟叫' }
+          ] },
+        { mode: '自驾', time: '15–20 分钟', cost: '停车 $5–10', detail: 'Park Ave 有路边咪表位，周末中午比较满；市区图书馆有公共车库。',
+          fac: [
+            { k: '停车', v: 'Park Ave 路边咪表 $1.5/小时（最多 2 小时）；市中心图书馆旁 Parken 车库 $5 起' }
+          ] },
         { mode: '公交 LYNX', time: '40–60 分钟', cost: '$2', detail: '班次 30 分钟一班，等车时间比车程长，这趟不建议。',
           spots: [
             { label: '换乘点 · Lynx Central Station', lat: 28.5413, lng: -81.3868, zoom: 15.6, note: '市区几乎所有线路都从这个枢纽发车。去 Winter Park 坐 102 路；最后一公里从 Park Ave 下车后步行约 5 分钟到 Rollins College 正门。' }
@@ -86,8 +101,16 @@ window.TRIP_GUIDES = {
       to: { lat: 28.9487, lng: -81.3396, label: 'Blue Spring' },
       day: '11/15',
       options: [
-        { mode: '自驾', time: '45–50 分钟', cost: '油费 $8 + 门票 $6/车', detail: 'I-4 东 → FL-472 → US-17，直接导航到 2100 W French Ave, Orange City。园内停车免费。' },
-        { mode: '打车 / Uber', time: '45–50 分钟', cost: '$45–60 单程', detail: '⚠️ 回程在这边很难叫到车，一定提前跟司机约好返程时间，或者留一个当地出租电话。' }
+        { mode: '自驾', time: '45–50 分钟', cost: '油费 $8 + 门票 $6/车', detail: 'I-4 东 → FL-472 → US-17，直接导航到 2100 W French Ave, Orange City。园内停车免费。',
+          fac: [
+            { k: '入口', v: '2100 W French Ave，进门后左转是 1 号停车场' },
+            { k: '停车', v: '园内免费；1 号场离皮划艇码头最近，8:30 前到基本有位' }
+          ] },
+        { mode: '打车 / Uber', time: '45–50 分钟', cost: '$45–60 单程', detail: '⚠️ 回程在这边很难叫到车，一定提前跟司机约好返程时间，或者留一个当地出租电话。',
+          fac: [
+            { k: '下车', v: '园区入口游客中心前（不是里面码头）' },
+            { k: '回程', v: '提前 15 分钟约车；园内信号弱，最好在停车场再叫' }
+          ] }
       ],
       tip: '这一天强烈建议自驾：早上 7:30 出发，园里 8:00 开门，第一批下水人最少。'
     },
@@ -97,8 +120,16 @@ window.TRIP_GUIDES = {
       to: { lat: 28.0306, lng: -81.9479, label: 'Lakeland' },
       day: '11/14',
       options: [
-        { mode: '自驾', time: '约 1 小时', cost: '油费 $10', detail: 'I-4 向西，导航到 111 Lake Hollingsworth Dr, Lakeland。校园内有访客停车。' },
-        { mode: '打车 / Uber', time: '约 1 小时', cost: '$65–80 单程', detail: '往返 $130–160；回程 16:30 在校园不好叫车，提前约好。' }
+        { mode: '自驾', time: '约 1 小时', cost: '油费 $10', detail: 'I-4 向西，导航到 111 Lake Hollingsworth Dr, Lakeland。校园内有访客停车。',
+          fac: [
+            { k: '入口', v: '从 Frank Lloyd Wright Way 进校园，访客停车场就在游客中心旁' },
+            { k: '停车', v: '校园访客停车免费' }
+          ] },
+        { mode: '打车 / Uber', time: '约 1 小时', cost: '$65–80 单程', detail: '往返 $130–160；回程 16:30 在校园不好叫车，提前约好。',
+          fac: [
+            { k: '下车', v: '游客中心正门（111 Lake Hollingsworth Dr）' },
+            { k: '回程', v: '16:30 在游客中心门口等，提前 20 分钟叫车' }
+          ] }
       ],
       tip: '导览只有 10:00 和 14:00 两场（90 分钟），要去就得 12:30 从奥兰多出发赶 14:00 那场。'
     },
@@ -108,8 +139,16 @@ window.TRIP_GUIDES = {
       to: { lat: 28.5231, lng: -80.6818, label: 'KSC 游客中心' },
       day: '11/17',
       options: [
-        { mode: '自驾（推荐）', time: '约 1 小时', cost: '油费约 $12 + 停车 $10', detail: 'FL-417 → FL-528 向东直达，全程高速，早高峰往东不堵。' },
-        { mode: '打车 / Uber', time: '约 1 小时', cost: '$95–120 单程', detail: '去程好叫，回程在 KSC 门口很难叫到车——一定要提前约好返程，或者干脆自驾。' }
+        { mode: '自驾（推荐）', time: '约 1 小时', cost: '油费约 $12 + 停车 $10', detail: 'FL-417 → FL-528 向东直达，全程高速，早高峰往东不堵。',
+          fac: [
+            { k: '入口', v: '下 FL-528 后跟「Kennedy Space Center Visitor Complex」标志走' },
+            { k: '停车', v: '游客中心停车场 $10/天，A 区离检票口最近' }
+          ] },
+        { mode: '打车 / Uber', time: '约 1 小时', cost: '$95–120 单程', detail: '去程好叫，回程在 KSC 门口很难叫到车——一定要提前约好返程，或者干脆自驾。',
+          fac: [
+            { k: '下车', v: '游客中心主入口（不是团体大巴下客区）' },
+            { k: '回程', v: '提前一天在 App 里预约 15:30 的返程，现场叫车经常没人接' }
+          ] }
       ],
       tip: '早上 7:45 出发，8:45 到，正好赶上 9:00 开门。'
     },
@@ -120,6 +159,10 @@ window.TRIP_GUIDES = {
       day: '11/17',
       options: [
         { mode: '自驾', time: '约 3 小时 15 分', cost: '油费约 $28', detail: 'FL-528 转 I-95 南下，中途在 Fort Pierce 服务区休息；17:00 后进入 Broward 段会堵，多留 30 分钟。',
+          fac: [
+            { k: '停车', v: '直接开进酒店停车场，约 $15/天（入住时确认）' },
+            { k: '加油', v: '下高速前在服务的加油站加满——还车要求满油' }
+          ],
           spots: [
             { label: '中途休息 · Fort Pierce 服务区', lat: 27.4250, lng: -80.3770, zoom: 14.5, note: 'I-95 南向约 130 公里处，有加油站、快餐和厕所。开到这里差不多 1 小时 40 分，正好换人开。' }
           ] },
@@ -132,9 +175,20 @@ window.TRIP_GUIDES = {
       to: { lat: 26.0996, lng: -80.119, label: '会展中心' },
       day: '11/17–11/22',
       options: [
-        { mode: '步行', time: '12 分钟', cost: '免费', detail: '酒店（1500 SE 17th St）到会展中心（1950 Eisenhower Blvd）过一座桥就到，全程有人行道。' },
-        { mode: '打车', time: '5 分钟', cost: '$8–12', detail: '下雨或穿正装时打车。海滩方向在 A1A 与 Las Olas 路口下车最方便。' },
-        { mode: '自驾', time: '5–8 分钟', cost: '会场停车 $15–20/天', detail: '会展中心有停车楼；酒店自己也有车位，建议车停酒店、走过去。' }
+        { mode: '步行', time: '12 分钟', cost: '免费', detail: '酒店（1500 SE 17th St）到会展中心（1950 Eisenhower Blvd）过一座桥就到，全程有人行道。',
+          fac: [
+            { k: '路线', v: 'SE 17th St 往东，过 Intracoastal 桥，桥上有独立人行道' },
+            { k: '提示', v: '穿正装或下雨就打车，5 分钟 $8–12' }
+          ] },
+        { mode: '打车', time: '5 分钟', cost: '$8–12', detail: '下雨或穿正装时打车。海滩方向在 A1A 与 Las Olas 路口下车最方便。',
+          fac: [
+            { k: '下车', v: '会展中心正门 Eisenhower Blvd 有 Rideshare 区；海滩在 A1A × Las Olas 路口' },
+            { k: '上车', v: '会展中心正门或酒店大堂，两个都在 5 分钟内' }
+          ] },
+        { mode: '自驾', time: '5–8 分钟', cost: '会场停车 $15–20/天', detail: '会展中心有停车楼；酒店自己也有车位，建议车停酒店、走过去。',
+          fac: [
+            { k: '停车', v: '会展中心停车楼 $15–20/天；酒店车位约 $15/天，建议停酒店' }
+          ] }
       ],
       tip: 'WAF 三天完全可以不开车。要去远一点（Bonnet House、NSU）再打车，单程都在 $10 以内。'
     },
@@ -144,9 +198,23 @@ window.TRIP_GUIDES = {
       to: { lat: 25.7444, lng: -80.2103, label: 'Vizcaya / 迈阿密' },
       day: '11/21',
       options: [
-        { mode: '自驾', time: '40–50 分钟', cost: '油费 $8 + 迈阿密停车 $20–30', detail: 'I-95 南下。Vizcaya 有停车场；Wynwood 停车贵，建议停在 NW 2nd Ave 的车库。' },
-        { mode: '打车 / Uber', time: '40–50 分钟', cost: '$50–60 单程', detail: '一天跑三个点，打车总价可能 $150+，两个人分摊还行。' },
-        { mode: 'Brightline 火车', time: '30–40 分钟', cost: '$15–25/人', detail: '劳德代尔堡站 → 迈阿密中央站，再打车去各点。班次约 1 小时一班，适合只去市中心一个点。' }
+        { mode: '自驾', time: '40–50 分钟', cost: '油费 $8 + 迈阿密停车 $20–30', detail: 'I-95 南下。Vizcaya 有停车场；Wynwood 停车贵，建议停在 NW 2nd Ave 的车库。',
+          fac: [
+            { k: 'Vizcaya', v: '正门停车场免费，车位不少，9:50 到好停' },
+            { k: 'Wynwood', v: 'NW 2nd Ave 的公共车库，$10–20/半天' },
+            { k: 'South Beach', v: '12th St 市政停车楼，约 $2/小时' }
+          ] },
+        { mode: '打车 / Uber', time: '40–50 分钟', cost: '$50–60 单程', detail: '一天跑三个点，打车总价可能 $150+，两个人分摊还行。',
+          fac: [
+            { k: 'Vizcaya', v: '正门下车（South Miami Ave 入口）' },
+            { k: 'Wynwood', v: 'NW 2nd Ave × 25th St 路口下车' },
+            { k: 'South Beach', v: 'Ocean Dr × 12th St 下车' }
+          ] },
+        { mode: 'Brightline 火车', time: '30–40 分钟', cost: '$15–25/人', detail: '劳德代尔堡站 → 迈阿密中央站，再打车去各点。班次约 1 小时一班，适合只去市中心一个点。',
+          fac: [
+            { k: '下车', v: 'MiamiCentral 站（NW 6th St），出站打车去各点' },
+            { k: '回程', v: '末班车约 21:00，玩到傍晚就够回' }
+          ] }
       ],
       tip: '三个点（Vizcaya → Wynwood → South Beach）跨得远，自驾最灵活；只去一个点就坐 Brightline。'
     }

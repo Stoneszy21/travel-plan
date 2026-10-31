@@ -264,6 +264,9 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   background: rgba(255,255,255,.82); border-radius: 3px; padding: 0 4px; pointer-events: none;
 }
 @media (prefers-color-scheme: dark) { .snap-cap { color: #ddd; background: rgba(0,0,0,.55); } }
+.gd-row.fac { padding: 3px 0; }
+.gd-row.fac.long { display: block; }
+.gd-row.fac.long .k { width: auto; color: var(--accent); font-weight: 700; margin-bottom: 1px; }
 .spot { margin-top: 8px; }
 .spot-label { font-size: 11.5px; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
 .spot-note { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 4px; }
@@ -1878,6 +1881,13 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
             dcell.dataset.oi = oi;
             opt.appendChild(dcell);
           }
+          (o.fac || []).forEach(f => {
+            const isLong = String(f.k || '').length > 4;
+            const r = el('div', 'gd-row fac' + (isLong ? ' long' : ''));
+            r.appendChild(el('span', 'k', esc(f.k || '')));
+            r.appendChild(el('span', 'v', esc(f.v || '')));
+            opt.appendChild(r);
+          });
           if (o.detail) opt.appendChild(el('div', 'detail', esc(o.detail)));
 
           // 换乘 / 最后一公里的局部图
