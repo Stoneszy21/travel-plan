@@ -660,6 +660,11 @@ window.TRIP_GUIDES = {
       icon: '🌳',
       ord: 'D2-07',
       name: 'Kraft Azalea Garden',
+      photos: [
+        { t: 'img/sights/kraft-1-t.jpg', m: 'img/sights/kraft-1-m.jpg', f: 'img/sights/kraft-1.jpg' },
+        { t: 'img/sights/kraft-2-t.jpg', m: 'img/sights/kraft-2-m.jpg', f: 'img/sights/kraft-2.jpg' },
+        { t: 'img/sights/kraft-3-t.jpg', m: 'img/sights/kraft-3-m.jpg', f: 'img/sights/kraft-3.jpg' }
+      ],
       day: 'D2 · 11/14（和 Casa Feliz 二选一）',
       hours: '日出到日落，免费',
       plan: ['1365 Alabama Dr', '湖边小花园，一圈 10 分钟', '傍晚光线最好，适合坐着发呆']
