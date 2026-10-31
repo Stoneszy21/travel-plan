@@ -613,6 +613,11 @@ window.TRIP_GUIDES = {
       icon: '🪟',
       ord: 'D2-03',
       name: 'Morse Museum of American Art',
+      photos: [
+        { t: 'img/sights/morse-1-t.jpg', m: 'img/sights/morse-1-m.jpg', f: 'img/sights/morse-1.jpg' },
+        { t: 'img/sights/morse-2-t.jpg', m: 'img/sights/morse-2-m.jpg', f: 'img/sights/morse-2.jpg' },
+        { t: 'img/sights/morse-3-t.jpg', m: 'img/sights/morse-3-m.jpg', f: 'img/sights/morse-3.jpg' }
+      ],
       day: 'D2 · 11/14',
       hours: '周二–周六 9:30–16:00；周日 13:00–16:00；周一闭馆',
       booking: '门票几美元，周五傍晚常有免费时段（以官网为准）',
