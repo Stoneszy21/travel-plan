@@ -673,6 +673,11 @@ window.TRIP_GUIDES = {
       icon: '🪑',
       ord: 'D3-02',
       name: 'Renninger\'s Mt. Dora 跳蚤市场 + 古董中心',
+      photos: [
+        { t: 'img/sights/renningers-1-t.jpg', m: 'img/sights/renningers-1-m.jpg', f: 'img/sights/renningers-1.jpg' },
+        { t: 'img/sights/renningers-2-t.jpg', m: 'img/sights/renningers-2-m.jpg', f: 'img/sights/renningers-2.jpg' },
+        { t: 'img/sights/renningers-3-t.jpg', m: 'img/sights/renningers-3-m.jpg', f: 'img/sights/renningers-3.jpg' }
+      ],
       day: 'D3 · 11/15（周日）',
       hours: '周末开放，跳蚤市场上午人多；具体时段以官网为准',
       booking: '免费进场，带现金',
@@ -705,11 +710,6 @@ window.TRIP_GUIDES = {
       icon: '🚉',
       ord: 'D2-11',
       name: 'Church Street Station',
-      photos: [
-        { t: 'img/sights/church-1-t.jpg', m: 'img/sights/church-1-m.jpg', f: 'img/sights/church-1.jpg' },
-        { t: 'img/sights/church-2-t.jpg', m: 'img/sights/church-2-m.jpg', f: 'img/sights/church-2.jpg' },
-        { t: 'img/sights/church-3-t.jpg', m: 'img/sights/church-3-m.jpg', f: 'img/sights/church-3.jpg' }
-      ],
       day: 'D2 · 11/14',
       hours: '街区全天，店铺和酒吧傍晚才热闹',
       plan: ['129 W Church St', '1889 年老火车站的红砖站房', '天黑后酒吧和 live music 开场']
