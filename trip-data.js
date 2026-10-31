@@ -37,8 +37,10 @@ window.TRIP = {
     /* ------------------------------------------------------------------ */
     {
       date: '2026-11-13',
-      title: '上海 → 底特律 → 劳德代尔堡（当晚两个选择）',
+      title: '上海 → 底特律 → 劳德代尔堡',
       area: '长途飞行',
+      summary: '10:00 起飞，18:40 落地；当晚「直接开去奥兰多」还是「住机场」，两条路都写在下面',
+      tag: '航班',
       base: { lat: 28.5383, lng: -81.3792 },
       note: '落地 18:40 已是疲劳极限，两条路：A 硬开 3 小时今晚到奥兰多（23:00 入住，第二天能睡到自然醒）；B 今晚就住机场附近，明早 9 点出发。B 更稳，代价是第二天上午变成车程。',
       items: [
@@ -112,6 +114,8 @@ window.TRIP = {
       date: '2026-11-14',
       title: 'Winter Park · 奥兰多市区（上午/下午各二选一）',
       area: 'Winter Park / 市区',
+      summary: 'Winter Park 校园 + 奥兰多市区；下午可选赖特校园或市区线',
+      tag: '城市',
       base: { lat: 28.5423, lng: -81.3785 },
       note: '上午看昨晚走的是哪条：已在奥兰多就去 Winter Park；昨晚住机场的话上午是车程，Winter Park 这半天就没了。下午在「市区线」和「赖特线」里挑一条。',
       items: [
@@ -224,6 +228,8 @@ window.TRIP = {
       date: '2026-11-15',
       title: 'Blue Spring 划船看海牛',
       area: 'Orange City',
+      summary: 'Blue Spring 皮划艇看海牛，海牛季第一天',
+      tag: '自然',
       base: { lat: 28.9487, lng: -81.3396 },
       note: '11 月 15 日正好是海牛季第一天。泉眼水道当天起禁止船只进入，但皮划艇在圣约翰河段下水照样能看到海牛，而且人少。',
       items: [
@@ -265,6 +271,8 @@ window.TRIP = {
       date: '2026-11-16',
       title: '迪士尼 Animal Kingdom',
       area: 'Disney World',
+      summary: '迪士尼 Animal Kingdom 全天，走路最多的一天',
+      tag: '玩',
       base: { lat: 28.3553, lng: -81.5901 },
       note: '这是全程走路最多的一天。提前买好指定日期的票并绑定 App，开门前 30 分钟到闸口。',
       items: [
@@ -326,6 +334,8 @@ window.TRIP = {
       date: '2026-11-17',
       title: '肯尼迪航天中心一日 → 劳德代尔堡',
       area: 'KSC → Fort Lauderdale',
+      summary: '肯尼迪航天中心 9:00–15:30，晚上开到劳德代尔堡',
+      tag: '重头戏',
       base: { lat: 26.1018, lng: -80.1252 },
       note: '航天中心 9:00 开门、17:00 关门，官方给成人的一日推荐是「Gateway 75 分钟 + Atlantis 60 分钟 + 巴士导览 2 小时 + Heroes & Legends 45 分钟」。你要在 15:20 前出园（还要开 3 小时车），所以下面这个顺序是掐着表的——巴士导览必须一进门就去。',
       items: [
@@ -402,6 +412,8 @@ window.TRIP = {
       date: '2026-11-18',
       title: 'WAF Day 1 · 桐安里 + 南山里',
       area: 'Fort Lauderdale',
+      summary: 'WAF Day 1：14:00 桐安里、17:00 南山里',
+      tag: '汇报',
       base: { lat: 26.0996, lng: -80.1190 },
       note: '两场汇报相隔 3 小时，中间别跑远，在会场看别的 crit 正好。',
       items: [
@@ -448,6 +460,8 @@ window.TRIP = {
       date: '2026-11-19',
       title: 'WAF Day 2 · 东石村养老 + 金光汇',
       area: 'Fort Lauderdale',
+      summary: 'WAF Day 2：11:00 东石村养老、15:20 金光汇',
+      tag: '汇报',
       base: { lat: 26.0996, lng: -80.1190 },
       note: '今天两场之间空 2 小时，可以在会场看展，别回酒店（来回 1 小时不值）。',
       items: [
@@ -499,6 +513,8 @@ window.TRIP = {
       date: '2026-11-20',
       title: 'WAF Day 3 · 颁奖典礼',
       area: 'Fort Lauderdale',
+      summary: 'WAF Day 3：19:00 Gala 颁奖典礼',
+      tag: '汇报',
       base: { lat: 26.0996, lng: -80.1190 },
       note: '晚上是 Gala Dinner（19:00），白天不用早起，穿正装的那件记得熨。',
       items: [
@@ -545,6 +561,8 @@ window.TRIP = {
       date: '2026-11-21',
       title: '自由日（两条线都列了，当天二选一）',
       area: 'Fort Lauderdale / Miami',
+      summary: '自由日：A 劳德代尔堡慢游 / B 迈阿密建筑线',
+      tag: '自由',
       base: { lat: 26.1198, lng: -80.1046 },
       note: '方案 A 就在劳德代尔堡慢一点，方案 B 去迈阿密看建筑。B 线车程 40 分钟，想走 B 就早点出发。',
       items: [
@@ -629,6 +647,8 @@ window.TRIP = {
       date: '2026-11-22',
       title: '劳德代尔堡 → 上海',
       area: '返程',
+      summary: '07:20 值机，09:20 起飞回上海',
+      tag: '返程',
       base: { lat: 26.0742, lng: -80.1506 },
       note: '国际航班建议提前 3 小时到。还车留 20 分钟，油加满再还。',
       items: [
