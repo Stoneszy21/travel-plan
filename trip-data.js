@@ -353,77 +353,96 @@ window.TRIP = {
     /* ------------------------------------------------------------------ */
     {
       date: '2026-11-17',
-      title: '肯尼迪航天中心一日 → 劳德代尔堡',
-      area: 'KSC → Fort Lauderdale',
-      base: { lat: 26.1018, lng: -80.1252 },
-      summary: '航天中心从开门待到闭园（9:00–17:00），晚上开到劳德代尔堡',
-      tag: '重头戏',
-      note: '既然只有一天，就把 8 小时用满：9:00 开门进、17:00 闭园走，官方推荐的项目全都能覆盖。代价是到酒店要 20:15 左右，晚饭会晚一点。',
+      title: '肯尼迪航天中心一整天 → 劳德代尔堡',
+      area: 'Cape Canaveral / Fort Lauderdale',
+      base: { lat: 28.5729, lng: -80.6490 },
+      summary: '开园 9:00 到闭园 17:00，巴士导览 + 土星五号 + Atlantis 全刷完',
+      tag: '航天',
+      note: '这一天把 KSC 玩到闭园，晚上到劳德代尔堡 20:30 左右，晚饭 21:00 不算晚——附近有几家开到 23:00。',
       items: [
+        { time: '', name: '上午 · 开园即进', type: 'divider', note: '' },
         {
-          time: '07:45', name: '退房，出发去 KSC', type: 'transport',
-          lat: 28.5231, lng: -80.6818, stay: 75, transit: '自驾约 1 小时（FL-417→FL-528 向东）',
-          note: '行李放车上。门票提前网上买好，现场买票要排半小时。'
+          time: '07:30', name: '退房出发', type: 'transport',
+          lat: 28.5729, lng: -80.6490, stay: 70, transit: '自驾 FL-528 向东，约 1 小时 10 分',
+          note: '早点走，路上买杯咖啡。园区 9:00 开门，8:50 到停车场刚好。'
         },
         {
-          time: '08:45', name: '停车 + 安检入园', type: 'transport',
-          lat: 28.5231, lng: -80.6818, stay: 15, transit: '停车场',
-          note: '9:00 开门。进门先在时刻牌上记下当天 Astronaut Encounter 和 IMAX 的场次——这两项是定时项目。'
+          time: '08:50', name: '停车 + 安检入园', type: 'transport',
+          lat: 28.5233, lng: -80.6819, stay: 15, transit: '游客中心主入口',
+          note: '停车 $10。进门先拿一张当天的演出/巴士时刻表——后面的顺序要按它调整。'
         },
         {
-          time: '09:05', name: '直奔巴士导览乘车点', type: 'transport',
-          lat: 28.5215, lng: -80.6810, stay: 10, transit: '进门往右后方 Taylor Dunn 乘车区',
-          note: '关键：第一班车人最少。晚一小时这里就要排 40 分钟以上。'
+          time: '09:05', name: 'Heroes & Legends（航天员名人堂）', type: 'sight',
+          lat: 28.5233, lng: -80.6819, stay: 55, transit: '进门右手边',
+          note: '室内馆，趁早上凉快先看。水星/双子星/阿波罗三代航天员的故事，有真飞船。'
         },
         {
-          time: '09:15', name: '巴士导览 + 土星五号中心', type: 'sight',
-          lat: 28.6070, lng: -80.6040, stay: 125, transit: '园区巴士，单程约 40 分钟',
-          note: '沿途经过发射台和总装大楼（VAB），到 Apollo/Saturn V 中心下车看 1 小时。返程车连续发，随时走。'
+          time: '10:00', name: '火箭花园', type: 'sight',
+          lat: 28.5233, lng: -80.6819, stay: 20, transit: '园区中央',
+          note: '室外，八支真火箭立着。拍照 15 分钟够，正午太晒，趁现在。'
+        },
+        { time: '', name: '上午到下午 · 巴士导览 + 土星五号', type: 'divider', note: '' },
+        {
+          time: '10:25', name: '巴士导览出发', type: 'transport',
+          lat: 28.5233, lng: -80.6819, stay: 30, transit: '园区巴士站（首班车约 10:00，以现场牌为准）',
+          note: '这是全园最费时的项目：车程 30 分钟穿过 NASA 厂区，路过总装大楼（VAB）和发射台。'
         },
         {
-          time: '11:25', name: '航天飞机 Atlantis 展馆', type: 'sight',
-          lat: 28.5218, lng: -80.6818, stay: 60, transit: '坐巴士回主园区，步行 5 分钟',
-          note: '看到 Atlantis 实体是全程最震撼的时刻。含 Shuttle Launch Experience（模拟发射，身高 1.2 米以上）。'
+          time: '10:55', name: 'Apollo / Saturn V Center', type: 'sight',
+          lat: 28.6084, lng: -80.6043, stay: 110, transit: '巴士直接送到',
+          note: '躺着的土星五号整支火箭，从这头走到那头要 100 米。还有阿波罗 14 号返回舱、月岩可以摸。⭐ 这是整个 KSC 最值的一站，别赶。'
         },
         {
-          time: '12:30', name: '午餐', type: 'food',
-          lat: 28.5220, lng: -80.6815, stay: 45, transit: 'Orbit Cafe / Red Rock Grill',
-          note: '园区内餐饮一般，胜在省时间。'
+          time: '12:45', name: 'Moon Rock Cafe 午餐', type: 'food',
+          lat: 28.6084, lng: -80.6043, stay: 45, transit: '土星五号中心内',
+          note: '就在馆里吃，省一趟往返。不想吃快餐可以回主园区再吃，但会挤掉后面的时间。'
         },
         {
-          time: '13:20', name: 'Gateway: Deep Space Launch', type: 'sight',
-          lat: 28.5222, lng: -80.6812, stay: 75, transit: '步行 3 分钟',
-          note: '最新的沉浸式展馆，四个「太空港」体验，园里排队最长的项目。'
+          time: '13:30', name: '巴士返回主园区', type: 'transport',
+          lat: 28.5233, lng: -80.6819, stay: 30, transit: '同站台',
+          note: '班次密，不用赶。'
+        },
+        { time: '', name: '下午 · Atlantis 与未来', type: 'divider', note: '' },
+        {
+          time: '14:00', name: 'Space Shuttle Atlantis 展馆', type: 'sight',
+          lat: 28.5233, lng: -80.6819, stay: 90, transit: '主园区西侧',
+          note: '真机 Atlantis 挂在 90 度倾斜的位置，机舱门开着。先看 8 分钟的入场影片再进展厅，顺序别反。附带 Shuttle Launch Experience 模拟发射（排队 15–30 分钟）。'
         },
         {
-          time: '14:40', name: 'Heroes & Legends（航天员名人堂）', type: 'sight',
-          lat: 28.5212, lng: -80.6822, stay: 45, transit: '步行 4 分钟',
-          note: '从水星计划讲到航天飞机，有新人墙和真正的航天器。'
+          time: '15:30', name: 'Gateway: The Deep Space Launch', type: 'sight',
+          lat: 28.5233, lng: -80.6819, stay: 45, transit: 'Atlantis 隔壁',
+          note: '2022 年新开，四层楼的深空探索展 + 两个 4D 飞行影院。人少的时候可以直接连刷。'
         },
         {
-          time: '15:30', name: 'IMAX 电影', type: 'sight',
-          lat: 28.5225, lng: -80.6815, stay: 45, transit: '步行 2 分钟',
-          note: '场次每天不同，进门时看时刻牌挑一场。没赶上就换成 Rocket Garden 导览或再看一次 Atlantis。'
+          time: '16:15', name: 'IMAX 电影', type: 'sight',
+          lat: 28.5233, lng: -80.6819, stay: 40, transit: '园区东侧影院',
+          note: '看当天场次，赶不上就跳过。片长 40 分钟左右，讲太空站或登月。'
         },
         {
-          time: '16:20', name: '火箭花园 + 商店', type: 'shop',
-          lat: 28.5208, lng: -80.6825, stay: 40, transit: '步行 2 分钟',
-          note: '火箭花园就在出口路上，顺路拍。商店买点 NASA 纪念品，17:00 闭园前出来。'
+          time: '16:55', name: '商店买纪念品', type: 'shop',
+          lat: 28.5233, lng: -80.6819, stay: 20, transit: '出口旁的主商店',
+          note: '17:00 闭园，商店最后关。NASA 标志的帽子和任务徽章值得买。'
+        },
+        { time: '', name: '晚上 · 南下劳德代尔堡', type: 'divider', note: '' },
+        {
+          time: '17:15', name: '出发南下', type: 'transport',
+          lat: 26.0745, lng: -80.1504, stay: 195, transit: 'FL-528 转 I-95 南下，约 3 小时 15 分',
+          note: '全程 340 公里。18:30 左右在 Fort Pierce 服务区停一次，加油 + 上厕所。'
         },
         {
-          time: '17:00', name: '闭园，南下劳德代尔堡', type: 'transport',
-          lat: 26.1018, lng: -80.1252, stay: 195, transit: 'FL-528 转 I-95 南下，约 3 小时 15 分',
-          note: '中途在 Fort Pierce 服务区吃个快餐。18:00 后进入 Broward 段会堵，多留半小时。'
+          time: '20:30', name: '入住 Holiday Inn Express', type: 'stay',
+          lat: 26.1006, lng: -80.1189, stay: 30, transit: '1500 SE 17th St Causeway',
+          note: '放下行李就走，餐厅在步行范围。'
         },
         {
-          time: '20:20', name: '入住 Holiday Inn Express', type: 'stay',
-          lat: 26.1018, lng: -80.1252, stay: 30, transit: '1500 SE 17th St Causeway',
-          note: '车停酒店，后面三天走路去会场。'
+          time: '21:05', name: '晚餐 Boatyard', type: 'food',
+          lat: 26.1003, lng: -80.1197, stay: 80, transit: '步行 8 分钟（1555 SE 17th St）',
+          note: '运河边，厨房到 22:00。到店先问还能不能点；想吃更好的海鲜就改天再去 15th Street Fisheries（也在附近，厨房关得早）。'
         },
         {
-          time: '21:00', name: '17th Street 晚餐', type: 'food',
-          lat: 26.1030, lng: -80.1240, stay: 75, transit: '步行 5 分钟',
-          note: '比原计划晚一小时，找家开到 22:00 之后的，Boatyard 或 15th Street Fisheries。'
+          time: '22:30', name: '回酒店', type: 'stay',
+          lat: 26.1006, lng: -80.1189, stay: 15, transit: '步行',
+          note: '明天 WAF 第一天，早点睡。'
         }
       ]
     },

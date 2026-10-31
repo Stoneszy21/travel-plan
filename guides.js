@@ -327,7 +327,7 @@ window.TRIP_GUIDES = {
       meals: [
         { slot: '早餐', name: '酒店早餐', img: 'breakfast', cuisine: '—', price: '含房费', note: '走之前吃饱。' },
         { slot: '午餐', name: 'KSC 园区', img: 'burger', cuisine: '园区简餐', price: '$15–20', note: 'Orbit Cafe 是唯一像样的选择，别抱期待。' },
-        { slot: '晚餐', name: '15th Street Fisheries', img: 'seafood', cuisine: '海鲜 / 运河景观', price: '$35–55', view: true, note: '1900 SE 15th St。二楼临水，窗外是游艇码头和运河，比楼下热闹的鱼市餐厅安静。离酒店走路 10 分钟。' },
+        { slot: '晚餐', name: 'Boatyard', img: 'seafood', cuisine: '海鲜 / 运河景观', price: '$30–45', view: true, note: '1555 SE 17th St，步行 8 分钟。厨房到 22:00，21 点到店还能点。想更讲究就换 15th Street Fisheries（1900 SE 15th St），但厨房关得早，得赶。' },
         { slot: '夜宵', name: 'Kilwins', img: 'icecream', cuisine: '冰淇淋', price: '$8', note: 'Las Olas / 17th St 都有，21:00 关。' }
       ]
     },
@@ -534,13 +534,15 @@ window.TRIP_GUIDES = {
       hours: '9:00–17:00',
       booking: '一定要提前在网上买票，现场买要排半小时',
       plan: [
-        '09:05 进门直奔巴士导览乘车点（第一班人最少）',
-        '09:15–11:20 巴士 + 土星五号中心',
-        '11:25–12:25 Atlantis 展馆，12:30 午餐',
-        '13:12–14:27 Gateway，14:30–15:10 Heroes & Legends',
-        '15:12 火箭花园 + 商店，15:30 出园'
+        '09:00 开门就进，先看 Heroes & Legends（室内，趁凉快）',
+        '10:00 火箭花园拍照 20 分钟',
+        '10:25 上巴士去土星五号中心（车程 30 分钟，最费时的一段）',
+        '10:55–12:45 土星五号中心，馆内 Moon Rock Cafe 吃午饭',
+        '13:30 巴士回主园区，14:00 Atlantis 展馆 + 模拟发射 90 分钟',
+        '15:30 Gateway 深空展 45 分钟，16:15 IMAX（看场次）',
+        '16:55 商店，17:00 闭园'
       ],
-      note: '唯一需要守时的是巴士导览；Astronaut Encounter / IMAX 每天场次不同，进门先看时刻牌。'
+      note: '唯一需要守时的是巴士导览（首班车约 10:00）和 IMAX 场次，进门先看当天时刻牌。玩到 17:00 闭园时间刚好够，不用赶。'
     },
     {
       ord: 'D8-01',

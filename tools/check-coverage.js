@@ -17,7 +17,7 @@ const LOGISTICS = /回酒店|退房|入住|休息|准备|出发|过夜|check-?in
 // 属于某个大园区的子项目
 const PARK_OF = [
   { park: '迪士尼 Animal Kingdom', re: /Animal Kingdom|Avatar|Safari|Na.vi|Expedition Everest|Lion King|Maharajah|Pandora|DinoLand|Kali/ },
-  { park: '肯尼迪航天中心', re: /Atlantis|土星五号|巴士导览|Gateway|Heroes|IMAX|火箭花园|KSC|航天中心/ }
+  { park: '肯尼迪航天中心', re: /Atlantis|土星五号|Saturn|巴士|Gateway|Heroes|IMAX|火箭花园|KSC|航天中心|Moon Rock|商店买纪念品/ }
 ];
 // 名称别名
 const ALIAS = [
