@@ -1118,7 +1118,9 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
       return true;
     });
 
-    markers.forEach((p, idx) => {
+    // 选中的点最后画，保证它在重叠时压在最上面
+    const ordered = markers.slice().sort((a, b) => (a.ii === mapSelected ? 1 : 0) - (b.ii === mapSelected ? 1 : 0));
+    ordered.forEach((p, idx) => {
       const q = mProj(p.it.lat, p.it.lng, z);
       const x = q.x - ox, y = q.y - oy;
       // 不做「散开」：真地图上把同一个园区的点挪开几公里是撒谎。
