@@ -632,6 +632,11 @@ window.TRIP_GUIDES = {
       icon: '⛵',
       ord: 'D2-05',
       name: 'Winter Park Scenic Boat Tour',
+      photos: [
+        { t: 'img/sights/boat-3-t.jpg', m: 'img/sights/boat-3-m.jpg', f: 'img/sights/boat-3.jpg' },
+        { t: 'img/sights/boat-1-t.jpg', m: 'img/sights/boat-1-m.jpg', f: 'img/sights/boat-1.jpg' },
+        { t: 'img/sights/boat-2-t.jpg', m: 'img/sights/boat-2-m.jpg', f: 'img/sights/boat-2.jpg' }
+      ],
       day: 'D2 · 11/14',
       hours: '10:00–16:00 整点发船（天气不好会停）',
       booking: '现场买票，$20 上下，旺季提前 15 分钟排队',
