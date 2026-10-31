@@ -244,6 +244,7 @@ window.TRIP_GUIDES = {
       title: '奥兰多 · 值得专程去的几家',
       note: '下面这些不是"顺路吃"，是值得为它调整行程的。都在市区或 Winter Park 附近，打车 15 分钟内。',
       places: [
+        { name: 'Prato', cat: '意式', addr: '124 N Park Ave, Winter Park', note: 'Park Ave 上最稳的一家，手工意面和柴火披萨。室内偏暗、木桌，适合坐下来慢慢吃；D2 中午就安排在这儿。周末要等位，12 点前到。' },
         { name: 'Christner\'s Prime Steak House', cat: '老派牛排', addr: '5410 E Colonial Dr', note: '1975 年开到现在，深色木头、西装服务生那种老派牛排馆，本地人谈事情都来这儿。' },
         { name: '4 Rivers Smokehouse', cat: 'BBQ', addr: '1600 W Fairbanks Ave, Winter Park', note: '佛州本地最好的烤肉连锁，牛肋排和 brisket 都稳。中午 11:30 前去不用排。' },
         { name: "Gideon's Bakehouse", cat: '曲奇', addr: 'East End Market / Disney Springs', note: '半磅一块的厚曲奇，网红但真的好吃。下午常有 40 分钟队，买两块带走当夜宵。' },
