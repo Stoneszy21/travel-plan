@@ -259,6 +259,11 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   .snap { background: #14171c; }
   .snap img { filter: invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.7); }
 }
+/* 新版本提示 */
+.upd-pill { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 95;
+  padding: 9px 16px; border-radius: 999px; border: 0; font-size: 13px; font-weight: 700; color: #fff;
+  background: var(--accent); box-shadow: 0 6px 20px rgba(0, 0, 0, .28); animation: updIn .25s ease; }
+@keyframes updIn { from { opacity: 0; transform: translateX(-50%) translateY(8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 /* ---------- 门票 / 导航 ---------- */
 .tk-sum { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); margin-bottom: 12px; }
 .tk-sum.warn { border-color: #f59e0b; background: #fffbeb; }
@@ -695,7 +700,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const BUILD = '2026-10-31 23:46';   // 部署时由 deploy.ps1 自动改写
+  const BUILD = '2026-10-31 23:56';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -2982,7 +2987,27 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
     // service worker（仅安全上下文可用）
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
       navigator.serviceWorker.register('sw.js').catch(() => { });
+
+      // 后台发现新版本时提示一下，不打断使用
+      navigator.serviceWorker.addEventListener('message', e => {
+        if (e.data && e.data.type === 'update-ready') showUpdatePill();
+      });
+
+      // 争取持久化存储，减少被系统清掉缓存的概率（iOS 会忽略，但无害）
+      if (navigator.storage && navigator.storage.persist) {
+        navigator.storage.persist().catch(() => { });
+      }
     }
+  }
+
+  function showUpdatePill() {
+    if (document.getElementById('updatePill')) return;
+    const b = document.createElement('button');
+    b.id = 'updatePill';
+    b.className = 'upd-pill';
+    b.textContent = '有新版本 · 点此刷新';
+    b.addEventListener('click', () => location.reload());
+    document.body.appendChild(b);
   }
 
   boot();
