@@ -45,6 +45,7 @@ const ALIAS = [
   [/nsu|art museum/i, 'NSU Art Museum'],
   [/vizcaya/i, 'Vizcaya Museum & Gardens'],
   [/blue spring|海牛/i, 'Blue Spring State Park'],
+  [/kings landing/i, 'Kings Landing（备选）'],
   [/rollins/i, 'Rollins College'],
   [/florida southern|赖特校园|fsc|校园自由逛/i, 'Florida Southern College（赖特校园）']
 ];
