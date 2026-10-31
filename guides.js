@@ -251,6 +251,17 @@ window.TRIP_GUIDES = {
       ]
     },
     {
+      title: '机场怎么吃（美国航站楼通用）',
+      note: '美国机场餐饮两极分化：连锁稳、独立店贵且慢。赶时间就认牌子，别赌。',
+      places: [
+        { name: 'Chick-fil-A', cat: '炸鸡三明治', addr: '大多数枢纽机场都有', note: '出餐最快、口味最稳的一家。注意周日关门，这是美国全国惯例。' },
+        { name: 'Panera Bread', cat: '汤 + 三明治', addr: '常见于大型航站楼', note: '想坐下吃口热的就它，一份汤加半个三明治出餐最快。' },
+        { name: 'Chipotle', cat: '墨西哥碗', addr: '部分航站楼', note: '份量大、吃得饱，选鸡肉碗最稳。' },
+        { name: "Starbucks / Dunkin'", cat: '咖啡 + 烘焙', addr: '到处都是', note: '早班机的唯一解。Dunkin 的 bagel 比星巴克的强。' },
+        { name: '底特律特色：Coney Island', cat: '热狗', addr: 'DTW McNamara（Leo 或 National）', note: '只在底特律能吃到，辣椒肉酱 + 洋葱 + 芥末，值得专门试一次。' }
+      ]
+    },
+    {
       title: '傍晚喝一杯 · 有景观的酒吧',
       note: '白天跑完景点，日落前后去这些地方坐一小时，比在餐厅排队值。',
       places: [
@@ -274,9 +285,9 @@ window.TRIP_GUIDES = {
       day: 'D1 · 11/13', area: '上海 → 底特律 → 奥兰多',
       note: '全天在交通工具上。这一天不安排餐厅——机场和飞机上能吃饱就行，把胃留给奥兰多。',
       meals: [
-        { slot: '早餐', name: '浦东 T1 出发前', cuisine: '机场', price: '—', note: '不建议在机场花时间吃；登机后第一顿正餐 1 小时内就发。' },
+        { slot: '早餐', name: '浦东 T1 · 南翔小笼 / 永和大王 / 星巴克', cuisine: '机场连锁', price: '¥40–70', note: 'T1 安检后这几家都在，认准牌子点就行。想吃得像样一点就南翔的小笼和粥；赶时间拿个星巴克三明治。' },
         { slot: '午餐', name: '机上', cuisine: '飞机餐', price: '含在机票', note: '13.5 小时两顿正餐，自带坚果和黑巧补能量。' },
-        { slot: '晚餐', name: '底特律转机', cuisine: '机场', price: '—', note: 'McNamara 航站楼有正经餐厅和酒吧，想坐下吃就挑人多的那家；赶时间就买个三明治。' },
+        { slot: '晚餐', name: '底特律 McNamara · Coney Island 热狗', cuisine: '本地连锁', price: '$12–18', note: 'Leo\'s 或 National Coney Island 是底特律自己的连锁，辣椒肉酱热狗（coney dog）加一份薯条，是这个地方最该吃的东西。不想吃热狗就 Chick-fil-A 或 Panera。' },
         { slot: '夜宵', name: '到奥兰多后不安排', cuisine: '—', price: '—', note: '23:00 落地，别折腾了。' }
       ]
     },
@@ -364,9 +375,9 @@ window.TRIP_GUIDES = {
       day: 'D10 · 11/22', area: '返程',
       note: '全天在路上。',
       meals: [
-        { slot: '早餐', name: 'FLL 安检后', img: 'sandwich', cuisine: '机场', price: '—', note: '6:00 退房，让酒店打包咖啡。' },
+        { slot: '早餐', name: 'FLL 安检后 · 星巴克 / BurgerFi', img: 'sandwich', cuisine: '机场连锁', price: '$10–18', note: '6:00 退房，先让酒店打包咖啡。安检后 T2 有星巴克；想吃热的看 BurgerFi（佛州本地汉堡连锁）在不在，不在就 Panera 的汤和三明治。' },
         { slot: '午餐', name: '机上', img: 'sandwich', cuisine: '飞机餐', price: '含在机票', note: '' },
-        { slot: '晚餐', name: '底特律转机', cuisine: '—', price: '—', note: '看中转时间，够就在航站楼吃。' },
+        { slot: '晚餐', name: '底特律 McNamara · Chick-fil-A / Panera', cuisine: '连锁', price: '$12–20', note: '看中转时间：够 40 分钟就坐下吃 Panera（汤 + 三明治），只够 20 分钟就在 Chick-fil-A 打包。机场里这两家最不容易踩雷。' },
         { slot: '夜宵', name: '上海落地后', cuisine: '—', price: '—', note: '回家路上随便吃点。' }
       ]
     }
