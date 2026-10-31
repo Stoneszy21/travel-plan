@@ -709,6 +709,11 @@ window.TRIP_GUIDES = {
       icon: '🛍',
       ord: 'D2-04',
       name: 'Park Avenue',
+      photos: [
+        { t: 'img/sights/park-1-t.jpg', m: 'img/sights/park-1-m.jpg', f: 'img/sights/park-1.jpg' },
+        { t: 'img/sights/park-2-t.jpg', m: 'img/sights/park-2-m.jpg', f: 'img/sights/park-2.jpg' },
+        { t: 'img/sights/park-3-t.jpg', m: 'img/sights/park-3-m.jpg', f: 'img/sights/park-3.jpg' }
+      ],
       day: 'D2 · 11/14',
       hours: '店铺大多 10:00–18:00，周日部分休息',
       plan: [
