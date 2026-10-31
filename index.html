@@ -2008,7 +2008,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
       if (s.photos && s.photos.length) {
         const th = document.createElement('img');
         th.className = 'gd-ico-img';
-        th.src = s.photos[0];
+        th.src = s.photos[0].t || s.photos[0];
         th.alt = '';
         th.onerror = function () { this.style.display = 'none'; };
         head.appendChild(th);
@@ -2024,13 +2024,14 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 
       if (s.photos && s.photos.length) {
         const strip = el('div', 'ph-strip');
-        s.photos.forEach(src => {
+        s.photos.forEach(ph => {
           const im = document.createElement('img');
-          im.src = src;
+          im.src = ph.m || ph;
           im.alt = '';
           im.loading = 'lazy';
+          im.decoding = 'async';
           im.onerror = function () { this.style.visibility = 'hidden'; };
-          im.addEventListener('click', () => openImage(src, s.name));
+          im.addEventListener('click', () => openImage(ph.f || ph.m || ph, s.name));
           strip.appendChild(im);
         });
         card.appendChild(strip);

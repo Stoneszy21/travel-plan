@@ -19,7 +19,10 @@ let photoCount = 0;
 (G.sights || []).forEach(s => {
   (s.photos || []).forEach(p => {
     photoCount++;
-    if (!fs.existsSync(path.join(APP, p))) fail(s.name + ' 缺图：' + p);
+    const paths = (typeof p === 'string') ? [p] : [p.t, p.m, p.f].filter(Boolean);
+    paths.forEach(x => {
+      if (!fs.existsSync(path.join(APP, x))) fail(s.name + ' 缺图：' + x);
+    });
   });
   if (!s.photos || !s.photos.length) fail(s.name + ' 没有照片');
 });
