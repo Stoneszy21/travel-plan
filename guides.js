@@ -142,6 +142,39 @@ window.TRIP_GUIDES = {
     }
   ],
 
+  /* ------------------------------- 酒店 -------------------------------- */
+  hotels: [
+    {
+      name: '奥兰多酒店（待定）',
+      status: '待定',
+      icon: '🏨',
+      checkIn: '2026-11-13',
+      checkOut: '2026-11-17',
+      nights: 4,
+      area: '奥兰多市中心 / Winter Park 一带',
+      note: '⚠️ 还没订。前两天活动都在 Winter Park 和市区，选这两处附近最省事；自驾的话一定要带停车位。如果走 D1 方案 B（今晚住机场），这里就改成 11/14 入住、3 晚。订好把 status 改成「已定」。'
+    },
+    {
+      name: '机场过渡酒店（可选，仅 D1 方案 B）',
+      status: '待定',
+      icon: '🛬',
+      checkIn: '2026-11-13',
+      checkOut: '2026-11-14',
+      nights: 1,
+      area: 'FLL 机场 / 17th Street 一带',
+      note: '只有走 D1 方案 B（当晚不开去奥兰多）才需要。可以直接订 17th Street 那家 Holiday Inn Express，跟后面 WAF 住的是同一家，熟门熟路。走方案 A 就不需要这条。'
+    },
+    {
+      name: 'Holiday Inn Express Ft. Lauderdale Cruise-Airport',
+      status: '已定',
+      icon: '🏨',
+      checkIn: '2026-11-17',
+      checkOut: '2026-11-22',
+      nights: 5,
+      area: '1500 SE 17th St Causeway, Fort Lauderdale, FL 33316',
+      note: '离会展中心 0.5 英里（走路 12 分钟），离 FLL 机场 2 英里。停车费入住时确认一下；车可以一直停在酒店，会场走路去。11/22 早上退房去机场。'
+    }
+  ],
   /* ------------------------------- 景点 -------------------------------- */
   sights: [
     {

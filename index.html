@@ -258,6 +258,10 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   background: linear-gradient(150deg, color-mix(in srgb, var(--accent) 15%, var(--card-2)), var(--card-2));
   border: 1px solid var(--line-2);
 }
+.gst { font-size: 10.5px; font-weight: 800; border-radius: 5px; padding: 1px 6px; color: #b45309; background: #fef3c7; }
+@media (prefers-color-scheme: dark) { .gst { color: #fbbf24; background: #422006; } }
+.gst.ok { color: #0f766e; background: var(--accent-weak); }
+.gd-dates { font-size: 11.5px; color: var(--muted); margin-top: 3px; font-variant-numeric: tabular-nums; }
 .gd-dist { font-size: 11.5px; color: var(--muted-2); margin-top: 3px; font-variant-numeric: tabular-nums; }
 
 .gd-card {
@@ -469,7 +473,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     <button role="tab" data-view="overview" aria-selected="true">总览</button>
     <button role="tab" data-view="plan" aria-selected="false">行程</button>
     <button role="tab" data-view="map" aria-selected="false">地图</button>
-    <button role="tab" data-view="sky" aria-selected="false">天文</button>
+    <button role="tab" data-view="sky" aria-selected="false">天气</button>
     <button role="tab" data-view="guides" aria-selected="false">要点</button>
   </nav>
 </header>
@@ -1605,7 +1609,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const GUIDE_TABS = [
     { key: 'flights', label: '洲际交通' },
     { key: 'ground', label: '当地交通' },
-    { key: 'sights', label: '景点' }
+    { key: 'sights', label: '景点' },
+    { key: 'hotels', label: '酒店' }
   ];
   let guideTab = 'flights';
 
@@ -1734,6 +1739,37 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
         box.appendChild(card);
       });
       refreshGuideDistances();
+      return;
+    }
+
+    if (guideTab === 'hotels') {
+      const list = (GUIDES.hotels || []).slice().sort((a, b) => String(a.checkIn || '').localeCompare(String(b.checkIn || '')));
+      if (!list.length) { box.appendChild(el('div', 'ml-hint', '还没有酒店信息')); return; }
+      list.forEach(h => {
+        const card = el('div', 'gd-card');
+        const head = el('div', 'gd-head');
+        head.appendChild(el('div', 'gd-ico', esc(h.icon || '🏨')));
+        const hw = el('div', 'gd-hw');
+        const title = el('div', 'gd-h', esc(h.name || ''));
+        if (h.status) title.appendChild(el('span', 'gst' + (h.status === '已定' ? ' ok' : ''), esc(h.status)));
+        hw.appendChild(title);
+        const dates = el('div', 'gd-dates');
+        const din = h.checkIn ? fmtMD(h.checkIn) + ' ' + weekdayCN(h.checkIn) : '待定';
+        const dout = h.checkOut ? fmtMD(h.checkOut) + ' ' + weekdayCN(h.checkOut) : '待定';
+        dates.textContent = din + ' 入住 · ' + dout + ' 离店' + (h.nights ? ' · ' + h.nights + ' 晚' : '');
+        hw.appendChild(dates);
+        head.appendChild(hw);
+        card.appendChild(head);
+        if (h.area) {
+          const r = el('div', 'gd-row');
+          r.appendChild(el('span', 'k', '地址'));
+          r.appendChild(el('span', 'v', esc(h.area)));
+          card.appendChild(r);
+        }
+        if (h.note) card.appendChild(el('div', 'gd-tip', esc(h.note)));
+        box.appendChild(card);
+      });
+      box.appendChild(el('div', 'foot', '按入住日期排序。没订的先占个卡位，订好把 status 改成「已定」即可。'));
       return;
     }
 
@@ -2231,7 +2267,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     if (md) {
       mapFilter = Math.min(Math.max(+md[1] - 1, 0), TRIP.days.length - 1);
       switchView('map');
-    } else if (hash === 'overview' || hash === 'map' || hash === 'sky' || hash === 'guides') {
+    } else if (hash === 'overview' || hash === 'plan' || hash === 'map' || hash === 'sky' || hash === 'guides') {
       switchView(hash);
     }
 
