@@ -779,6 +779,8 @@ window.TRIP_GUIDES = {
       ord: 'D9-01',
       name: 'Fort Lauderdale Beach（含 Las Olas）',
       photos: [
+        { t: 'img/sights/beach-2-t.jpg', m: 'img/sights/beach-2-m.jpg', f: 'img/sights/beach-2.jpg' },
+        { t: 'img/sights/beach-3-t.jpg', m: 'img/sights/beach-3-m.jpg', f: 'img/sights/beach-3.jpg' },
         { t: 'img/sights/beach-1-t.jpg', m: 'img/sights/beach-1-m.jpg', f: 'img/sights/beach-1.jpg' }
       ],
       day: 'D9 · 11/21（方案 A）',
