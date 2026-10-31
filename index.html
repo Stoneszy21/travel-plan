@@ -225,7 +225,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .mchip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
 
 .mapcanvas {
-  position: relative; height: 62vh; min-height: 340px; max-height: 620px;
+  position: relative; height: 40vh; min-height: 230px; max-height: 400px;
   overflow: hidden; border-radius: 10px; background: #e9e6e0;
   touch-action: none; user-select: none; -webkit-user-select: none;
 }
@@ -248,6 +248,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   cursor: pointer; transform-origin: center;
 }
 .mk.small { width: 14px; height: 14px; margin: -7px 0 0 -7px; border-width: 1.5px; font-size: 0; }
+.mk.sel { box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 45%, transparent), 0 2px 6px rgba(0,0,0,.35); z-index: 3; transform: scale(1.15); }
 .mk.tap { animation: mkpop .35s ease-out; }
 @keyframes mkpop { 0% { transform: scale(.6); } 60% { transform: scale(1.18); } 100% { transform: scale(1); } }
 .mapctl { position: absolute; right: 8px; bottom: 8px; display: flex; flex-direction: column; gap: 5px; }
@@ -269,6 +270,41 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 }
 .mapfoot { display: flex; flex-direction: column; gap: 3px; margin-top: 8px; font-size: 11.5px; color: var(--muted-2); }
 .mapfoot a { font-weight: 650; }
+
+/* 地图下的当天行程列表 */
+.maplist {
+  margin-top: 10px; max-height: 48vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r);
+  box-shadow: var(--shadow); padding: 6px 0 8px;
+}
+.ml-head {
+  padding: 2px 14px 8px; font-size: 12px; font-weight: 650; color: var(--muted);
+  border-bottom: 1px solid var(--line-2); margin-bottom: 4px;
+}
+.ml-row {
+  display: grid; grid-template-columns: 44px 9px 1fr auto; gap: 8px; align-items: center;
+  padding: 8px 14px; cursor: pointer;
+}
+.ml-row:active { background: var(--card-2); }
+.ml-row.sel { background: var(--accent-weak); }
+.ml-row.sel .ml-name { color: var(--accent); }
+.ml-time { font-size: 12.5px; font-weight: 650; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.ml-dot { width: 8px; height: 8px; border-radius: 50%; }
+.ml-name { font-size: 14px; font-weight: 600; line-height: 1.35; }
+.ml-meta { font-size: 11px; color: var(--muted-2); font-variant-numeric: tabular-nums; }
+.ml-div { font-size: 11.5px; font-weight: 750; color: var(--accent); padding: 9px 14px 3px; }
+.ml-exp { grid-column: 1 / -1; padding: 4px 0 2px; }
+.ml-note { font-size: 12.5px; color: var(--muted); line-height: 1.55; margin-bottom: 6px; }
+.ml-more { font-size: 12px; font-weight: 650; color: var(--accent); }
+.ml-hint { padding: 16px 14px; font-size: 13px; color: var(--muted); text-align: center; }
+.ml-dayrow {
+  display: flex; align-items: center; gap: 8px; padding: 9px 14px; cursor: pointer;
+  border-bottom: 1px solid var(--line-2); font-size: 13.5px;
+}
+.ml-dayrow:last-child { border-bottom: 0; }
+.ml-dayrow .badge { font-size: 11px; font-weight: 800; color: #fff; border-radius: 5px; padding: 1px 5px; }
+.ml-dayrow .title { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ml-dayrow .cnt { margin-left: auto; font-size: 11.5px; color: var(--muted-2); white-space: nowrap; }
 
 /* ---------- 天文 ---------- */
 .skyday { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); margin-bottom: 12px; overflow: hidden; }
@@ -380,6 +416,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
         <a id="mapall" href="#" target="_blank" rel="noopener">在 Google 地图打开全部 →</a>
       </div>
     </div>
+    <div class="maplist" id="mapList"></div>
     <div class="foot">
       底图需要联网，断网时只显示点位。<br>
       连线是直线，不代表实际路线和距离；真实路线点开点位用 Google 地图导航。
@@ -692,6 +729,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const itemKey = (day, item) => day.date + '|' + item.name;
 
   let mapFilter = null; // null = 全部
+  let mapSelected = null; // 当前选中的点位（当天 items 的下标）
   let activeDay = 0;
 
   /* =====================================================================
@@ -1069,7 +1107,6 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     /* ---- 点位 ---- */
     const box = $('#mapMarkers');
     box.innerHTML = '';
-    const used = [];
     const single = mapState.single;
 
     // 同一天里坐标相同的点只画一次
@@ -1083,23 +1120,13 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 
     markers.forEach((p, idx) => {
       const q = mProj(p.it.lat, p.it.lng, z);
-      let x = q.x - ox, y = q.y - oy;
-      if (single) {
-        // 太近的点散开一点，保证都点得到
-        let guard = 0;
-        while (guard < 24 && used.some(u => Math.hypot(u.x - x, u.y - y) < 22)) {
-          guard++;
-          const r = 16 + Math.floor(guard / 6) * 12;
-          const ang = guard * 2.399963 + idx * 0.4;
-          x = q.x - ox + Math.cos(ang) * r;
-          y = q.y - oy + Math.sin(ang) * r;
-        }
-        used.push({ x, y });
-      }
+      const x = q.x - ox, y = q.y - oy;
+      // 不做「散开」：真地图上把同一个园区的点挪开几公里是撒谎。
+      // 重叠的点靠下方列表点选（或放大后自然分开）。
       if (x < -40 || x > w + 40 || y < -40 || y > h + 40) return;
 
       const el = document.createElement('div');
-      el.className = 'mk' + (single ? '' : ' small');
+      el.className = 'mk' + (single ? '' : ' small') + (single && mapSelected === p.ii ? ' sel' : '');
       el.style.left = x + 'px';
       el.style.top = y + 'px';
       el.style.background = DAY_COLORS[p.di % DAY_COLORS.length];
@@ -1107,6 +1134,11 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
       el.title = 'D' + (p.di + 1) + ' ' + p.it.time + ' ' + p.it.name;
       el.addEventListener('click', ev => {
         ev.stopPropagation();
+        // 点地图上的点：打开详情，同时把下面的列表滚到对应行
+        mapSelected = p.ii;
+        mDraw();
+        renderMapList();
+        scrollListTo(p.ii);
         openSheet(p.di, p.ii);
       });
       box.appendChild(el);
@@ -1253,10 +1285,10 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
       c.addEventListener('click', onClick);
       chips.appendChild(c);
     };
-    addChip('全部', null, mapFilter === null, () => { mapFilter = null; renderMap(); });
+    addChip('全部', null, mapFilter === null, () => { mapFilter = null; mapSelected = null; renderMap(); });
     TRIP.days.forEach((d, di) => {
       addChip('D' + (di + 1) + ' ' + fmtMD(d.date), DAY_COLORS[di % DAY_COLORS.length], mapFilter === di,
-        () => { mapFilter = (mapFilter === di ? null : di); renderMap(); });
+        () => { mapFilter = (mapFilter === di ? null : di); mapSelected = null; renderMap(); });
     });
 
     const pts = [];
@@ -1316,6 +1348,90 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
     } else {
       linkEl.style.display = 'none';
     }
+
+    renderMapList();
+  }
+
+  /* ---------- 地图下方的当天行程 ---------- */
+  function renderMapList() {
+    const box = $('#mapList');
+    if (!box) return;
+    box.innerHTML = '';
+
+    if (mapFilter === null) {
+      // 全部模式：列每天一行，点一下就切到那天
+      const hint = el('div', 'ml-hint', '点上面某一天，这里显示当天的安排');
+      box.appendChild(hint);
+      TRIP.days.forEach((d, di) => {
+        const cnt = (d.items || []).filter(it => typeof it.lat === 'number' && isFinite(it.lat)).length;
+        const row = el('div', 'ml-dayrow');
+        const badge = el('span', 'badge', 'D' + (di + 1));
+        badge.style.background = DAY_COLORS[di % DAY_COLORS.length];
+        row.appendChild(badge);
+        const t = el('span', 'title', esc(d.title || ''));
+        row.appendChild(t);
+        row.appendChild(el('span', 'cnt', cnt + ' 点'));
+        row.addEventListener('click', () => { mapFilter = di; mapSelected = null; renderMap(); });
+        box.appendChild(row);
+      });
+      return;
+    }
+
+    const d = TRIP.days[mapFilter];
+    const head = el('div', 'ml-head',
+      'D' + (mapFilter + 1) + ' · ' + fmtMD(d.date) + ' ' + weekdayCN(d.date) + ' · ' + esc(d.title || ''));
+    box.appendChild(head);
+
+    (d.items || []).forEach((it, ii) => {
+      if (it.type === 'divider') {
+        box.appendChild(el('div', 'ml-div', esc(it.name || '')));
+        return;
+      }
+      const sel = mapSelected === ii;
+      const row = el('div', 'ml-row' + (sel ? ' sel' : ''));
+      row.dataset.ii = ii;
+      row.appendChild(el('span', 'ml-time', esc(it.time || '')));
+      const dot = el('span', 'ml-dot');
+      dot.style.background = DAY_COLORS[mapFilter % DAY_COLORS.length];
+      row.appendChild(dot);
+      row.appendChild(el('span', 'ml-name', esc(it.name || '')));
+      row.appendChild(el('span', 'ml-meta', it.stay ? it.stay + '′' : ''));
+
+      if (sel) {
+        const exp = el('div', 'ml-exp');
+        if (it.note) exp.appendChild(el('div', 'ml-note', esc(it.note)));
+        const more = el('button', 'ml-more', '查看详情 ›');
+        more.addEventListener('click', ev => {
+          ev.stopPropagation();
+          openSheet(mapFilter, ii);
+        });
+        exp.appendChild(more);
+        row.appendChild(exp);
+      }
+
+      row.addEventListener('click', () => selectMapItem(ii));
+      box.appendChild(row);
+    });
+  }
+
+  // 点一行：地图飞过去 + 高亮 + 展开这一行
+  function selectMapItem(ii) {
+    mapSelected = (mapSelected === ii ? null : ii);
+    const p = (mapState.points || []).find(x => x.ii === ii);
+    if (p && mapSelected === ii) {
+      mapState.center = { lat: p.it.lat, lng: p.it.lng };
+      if (mapState.zoom < 12) mapState.zoom = 14;
+    }
+    mDraw();
+    renderMapList();
+    if (mapSelected === ii) scrollListTo(ii);
+  }
+
+  function scrollListTo(ii) {
+    const box = $('#mapList');
+    if (!box) return;
+    const row = box.querySelector('.ml-row[data-ii="' + ii + '"]');
+    if (row && row.scrollIntoView) row.scrollIntoView({ block: 'nearest' });
   }
 
   /* =====================================================================
