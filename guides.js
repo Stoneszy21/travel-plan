@@ -761,6 +761,11 @@ window.TRIP_GUIDES = {
     {
       ord: 'D2-04b',
       icon: '✉️',
+      photos: [
+        { t: 'img/sights/rifle-1-t.jpg', m: 'img/sights/rifle-1-m.jpg', f: 'img/sights/rifle-1.jpg' },
+        { t: 'img/sights/rifle-2-t.jpg', m: 'img/sights/rifle-2-m.jpg', f: 'img/sights/rifle-2.jpg' },
+        { t: 'img/sights/rifle-3-t.jpg', m: 'img/sights/rifle-3-m.jpg', f: 'img/sights/rifle-3.jpg' }
+      ],
       name: 'Rifle Paper Co 创始店',
       day: 'D2 · 11/14',
       hours: '约 10:00–18:00，周日开门较晚（以官网为准）',
