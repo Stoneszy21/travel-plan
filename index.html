@@ -846,7 +846,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const BUILD = '2026-11-01 12:25';   // 部署时由 deploy.ps1 自动改写
+  const BUILD = '2026-11-01 12:28';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -2396,7 +2396,9 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
       if (!GUIDES.flights || !GUIDES.flights.length) { box.appendChild(el('div', 'ml-hint', '还没有洲际交通信息')); return; }
       GUIDES.flights.forEach(f => {
         const card = el('div', 'gd-card');
-        card.appendChild(el('div', 'gd-h', esc(f.label || '')));
+        const fh = el('div', 'gd-h', esc(f.label || ''));
+        if (f.status) fh.appendChild(el('span', 'gst' + (f.status === '已出票' ? ' ok' : ''), esc(f.status)));
+        card.appendChild(fh);
         (f.legs || []).forEach(g => {
           const row = el('div', 'gd-leg');
           row.appendChild(el('div', 'no', esc(g.no || '')));
