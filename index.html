@@ -264,6 +264,33 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   padding: 9px 16px; border-radius: 999px; border: 0; font-size: 13px; font-weight: 700; color: #fff;
   background: var(--accent); box-shadow: 0 6px 20px rgba(0, 0, 0, .28); animation: updIn .25s ease; }
 @keyframes updIn { from { opacity: 0; transform: translateX(-50%) translateY(8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+/* ---------- 交通方案对比 ---------- */
+.pl-card.best { border-color: var(--accent); }
+.pl-best { display: inline-block; font-size: 10.5px; font-weight: 800; color: #fff; background: var(--accent); border-radius: 5px; padding: 2px 8px; margin-bottom: 8px; }
+.pl-tag { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+.pl-total { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin: 6px 0 10px; padding: 9px 11px; border-radius: 9px; background: var(--card-2); }
+.pl-total-k { font-size: 11.5px; color: var(--muted); }
+.pl-total-v { font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.pl-total-p { font-size: 11.5px; color: var(--muted); margin-left: auto; }
+.pl-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+@media (max-width: 380px) { .pl-cols { grid-template-columns: 1fr; } }
+.pl-col { min-width: 0; }
+.pl-col-h { font-size: 11.5px; font-weight: 800; margin-bottom: 4px; }
+.pl-col-h.pro { color: #047857; }
+.pl-col-h.con { color: #b91c1c; }
+@media (prefers-color-scheme: dark) {
+  .pl-col-h.pro { color: #6ee7b7; }
+  .pl-col-h.con { color: #fca5a5; }
+}
+.pl-li { font-size: 12px; line-height: 1.55; color: var(--muted); margin-bottom: 3px; }
+.pn-row { padding: 7px 0; border-bottom: 1px dashed var(--line-2); }
+.pn-row:last-child { border-bottom: 0; }
+.pn-k { font-size: 12.5px; font-weight: 700; }
+.pn-v { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-top: 2px; }
+.pl-cost { display: flex; align-items: baseline; gap: 12px; padding: 5px 0; border-bottom: 1px dashed var(--line-2); }
+.pl-cost:last-child { border-bottom: 0; }
+.pl-cost-k { flex: 1; min-width: 0; font-size: 12.5px; line-height: 1.5; }
+.pl-cost-v { flex: none; font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
 /* ---------- 门票 / 导航 ---------- */
 .tk-sum { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); margin-bottom: 12px; }
 .tk-sum.warn { border-color: #f59e0b; background: #fffbeb; }
@@ -700,7 +727,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const BUILD = '2026-11-01 10:32';   // 部署时由 deploy.ps1 自动改写
+  const BUILD = '2026-11-01 10:47';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -1756,6 +1783,7 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
   const GUIDE_TABS = [
     { key: 'flights', label: '洲际交通' },
     { key: 'ground', label: '当地交通' },
+    { key: 'plans', label: '交通方案' },
     { key: 'sights', label: '景点' },
     { key: 'tickets', label: '门票' },
     { key: 'food', label: '美食' },
@@ -2356,6 +2384,72 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
         box.appendChild(card);
       });
       box.appendChild(el('div', 'foot', '营业时间和是否还开着，出发前用 Google 地图再看一眼；标了「要订位」的，提前一天打电话。'));
+      box.appendChild(el('div', 'foot', '版本 ' + BUILD));
+      return;
+    }
+
+    if (guideTab === 'plans') {
+      const plans = GUIDES.plans || [];
+      if (!plans.length) { box.appendChild(el('div', 'ml-hint', '还没有方案对比')); return; }
+
+      box.appendChild(el('div', 'gd-tip', '三个方案的差别主要在「租几天车」。下面的钱是按两人分摊、经济型车（丰田卡罗拉一级）估的，实际以订车页面为准。'));
+
+      plans.forEach(p => {
+        const card = el('div', 'gd-card pl-card' + (p.best ? ' best' : ''));
+        if (p.best) card.appendChild(el('div', 'pl-best', '推荐'));
+
+        const h = el('div', 'gd-head');
+        h.appendChild(el('div', 'gd-ico', p.id === 'p1' ? '🚗' : p.id === 'p2' ? '🚙' : '🚆'));
+        const hw = el('div', 'gd-hw');
+        hw.appendChild(el('div', 'gd-h', esc(p.name || '')));
+        if (p.tagline) hw.appendChild(el('div', 'pl-tag', esc(p.tagline)));
+        h.appendChild(hw);
+        card.appendChild(h);
+
+        const total = el('div', 'pl-total');
+        total.appendChild(el('span', 'pl-total-k', '预算'));
+        total.appendChild(el('span', 'pl-total-v', esc(p.total || '')));
+        if (p.perPerson) total.appendChild(el('span', 'pl-total-p', esc(p.perPerson)));
+        card.appendChild(total);
+
+        const cols = el('div', 'pl-cols');
+        const mk = (title, arr, cls) => {
+          const col = el('div', 'pl-col');
+          col.appendChild(el('div', 'pl-col-h ' + cls, title));
+          (arr || []).forEach(x => col.appendChild(el('div', 'pl-li ' + cls, '· ' + x)));
+          return col;
+        };
+        cols.appendChild(mk('优点', p.pros, 'pro'));
+        cols.appendChild(mk('缺点', p.cons, 'con'));
+        card.appendChild(cols);
+
+        if (p.cost && p.cost.length) {
+          card.appendChild(el('div', 'gd-sub', '费用明细'));
+          p.cost.forEach(c => {
+            const r = el('div', 'pl-cost');
+            r.appendChild(el('span', 'pl-cost-k', esc(c.k)));
+            r.appendChild(el('span', 'pl-cost-v', esc(c.v)));
+            card.appendChild(r);
+          });
+        }
+
+        if (p.verdict) card.appendChild(el('div', 'gd-tip', esc(p.verdict)));
+        box.appendChild(card);
+      });
+
+      (GUIDES.planningNotes || []).forEach(block => {
+        const card = el('div', 'gd-card');
+        card.appendChild(el('div', 'gd-h', esc(block.title || '')));
+        (block.items || []).forEach(it => {
+          const row = el('div', 'pn-row');
+          row.appendChild(el('div', 'pn-k', esc(it.k || '')));
+          row.appendChild(el('div', 'pn-v', esc(it.v || '')));
+          card.appendChild(row);
+        });
+        box.appendChild(card);
+      });
+
+      box.appendChild(el('div', 'foot', '租车价格按 11 月淡季经济型车估算，含税费；旺季和临期会涨。油费按 $3.3/加仑、卡罗拉约 32 mpg 算。'));
       box.appendChild(el('div', 'foot', '版本 ' + BUILD));
       return;
     }
