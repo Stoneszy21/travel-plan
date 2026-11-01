@@ -389,8 +389,10 @@ window.TRIP_GUIDES = {
       id: 'p1',
       name: '方案一 · 全程租车',
       summary: '模式：全程自驾。11/13 落地取车，11/22 直接还到机场，9 天车不离手。好处是任何一段路都不用等，D5 从 KSC 出来直接开回酒店，行李箱一直有地方放。坏处是市区停车又贵又难找——D6–D8 那几天你会为了 3 公里开一趟车、付 $22 停车费，这钱花得没必要。',
+      timeCost: '1 小时 40 分',
+      keyCost: '零等待，但停车费高',
       tagline: '11/13 FLL 取车 → 11/22 FLL 还车，共 9 天',
-      best: true,
+      best: false,
       pros: [
         '全程有车，行程零等待，D5 从 KSC 直接开回酒店',
         'D2 赖特校园线（Lakeland 单程 1 小时）必须开车，这个方案最省事',
@@ -476,7 +478,10 @@ window.TRIP_GUIDES = {
     {
       id: 'p2',
       name: '方案二 · 只租前半程',
+      best: true,
       summary: '模式：前半程自驾、后半程打车。只在奥兰多那几天（11/13–11/17）用车，把这趟最需要车的三段路——Lakeland 赖特校园、KSC、Blue Spring——全部覆盖，D5 晚上在机场还车，之后在劳德代尔堡全程打车。这是「花最少的钱覆盖最难的路线」的切法，代价是还车那 40 分钟的折腾，以及 D9 去迈阿密要依赖火车。',
+      timeCost: '2 小时 40 分',
+      keyCost: '覆盖所有长途，后半程打车',
       tagline: 'D1 取车，D5 晚上 FLL 还车；D6–D10 打车 + 公共交通',
       pros: [
         '省钱：租车只付 5 天，省掉一半租车费和保险',
@@ -565,6 +570,8 @@ window.TRIP_GUIDES = {
       id: 'p3',
       name: '方案三 · 火车 + 奥兰多租车',
       summary: '模式：火车接驳 + 目的地租车。不动 FLL 到奥兰多那段长途高速，改坐 Brightline，到奥兰多再租 4 天车。租车费确实最低，但两头都在赶：D2 早上要赶车、取车，D5 闭园后要赶末班车。省下的钱换不回损失的时间。',
+      timeCost: '6 小时 30 分',
+      keyCost: 'D2 半天报废，赶车风险高',
       tagline: 'D1 住机场，D2 早班火车去奥兰多，当地租车；D5 还车坐火车回',
       best: false,
       pros: [
@@ -657,6 +664,8 @@ window.TRIP_GUIDES = {
       id: 'p4',
       name: '方案四 · 完全不租车',
       summary: '模式：一次方向盘都不碰。全程 Brightline + 打车 + 步行。听起来最轻松，实际上是四个里最贵的：长距离打车（KSC 往返 $210、Blue Spring 往返 $130）把租车省下的钱全吃回去了，而且 Lakeland 和 Mount Dora 这两个点直接去不了。',
+      timeCost: '约 6 小时',
+      keyCost: '最贵，还要砍两个目的地',
       tagline: '全程打车 + Brightline + 公共交通，一次方向盘都不碰',
       best: false,
       pros: [
