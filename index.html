@@ -920,8 +920,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const APP_VERSION = 'V2.7';
-const BUILD = '2026-11-01 20:36';   // 部署时由 deploy.ps1 自动改写
+  const APP_VERSION = 'V2.8';
+const BUILD = '2026-11-01 20:39';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -1640,8 +1640,9 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
         }
 
         // 只有"开车/打车去某地"才需要导航按钮；航班、值机、转机、取还车、园区内部都不需要
-        const navSkip = /(DL\d|值机|安检|转机|中转|柜台|取租车|还车|巴士|到达上海|登机|行李)/;
-        const showNav = it.type === 'transport' && it.nav !== false &&
+        const navSkip = /(DL\d|值机|安检|转机|中转|柜台|取租车|还车|巴士|到达上海|登机|行李|休息|退房|睡觉|check-in)/;
+        const navType = it.type === 'transport' || it.type === 'sight' || it.type === 'food' || it.type === 'shop';
+        const showNav = navType && it.nav !== false &&
           typeof it.lat === 'number' && typeof it.lng === 'number' &&
           !navSkip.test(it.name || '') && !navSkip.test(it.transit || '');
         if (showNav) {
