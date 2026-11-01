@@ -719,33 +719,48 @@ window.TRIP = {
     {
       date: '2026-11-22',
       title: '劳德代尔堡 → 上海',
-      area: '返程',
-      summary: '07:20 值机，09:20 起飞回上海',
-      tag: '返程',
+      area: 'Fort Lauderdale / 底特律',
       base: { lat: 26.0742, lng: -80.1506 },
-      note: '国际航班建议提前 3 小时到。还车留 20 分钟，油加满再还。',
+      summary: '05:30 退房，05:50 还车，06:10 值机，09:20 起飞',
+      tag: '返程',
+      note: '国际航班提前 3 小时到，09:20 起飞就是 06:20 值机。酒店早餐 06:00 才开，让前台前一晚打包。',
       items: [
         {
-          time: '06:00', name: '退房', type: 'stay',
-          lat: 26.1018, lng: -80.1252, stay: 30, transit: '前台退房',
-          note: '前一晚把行李收好；酒店早餐可能还没开，带走咖啡。'
+          time: '05:30', name: '退房', type: 'stay',
+          lat: 26.1006, lng: -80.1189, stay: 15, transit: '1500 SE 17th St',
+          note: '前一晚跟前台说好 05:30 走，请他们准备两份打包早餐（面包、水果、咖啡）。房卡直接还即可。'
         },
         {
-          time: '06:40', name: '还车', type: 'transport',
-          lat: 26.0742, lng: -80.1506, stay: 25, transit: '开车 12 分钟到 Rental Car Center',
-          note: '还车后坐接驳车到航站楼。'
+          time: '05:45', name: '开车去 FLL', type: 'transport',
+          lat: 26.0742, lng: -80.1506, stay: 15, transit: 'SE 17th St → I-595 → 机场，约 10 分钟',
+          note: '这个点不堵，路上几乎没车。'
         },
         {
-          time: '07:20', name: 'FLL 值机 + 安检', type: 'transport',
-          lat: 26.0742, lng: -80.1506, stay: 120, transit: '步行 + 接驳车',
-          note: '国际航班提前 3 小时。达美柜台在 T2，行李直挂到上海。'
+          time: '06:00', name: '还车（Budget）', type: 'transport',
+          lat: 26.0742, lng: -80.1506, stay: 20, transit: '租车中心 → 航站楼步行',
+          note: '还车前加满油（机场附近加油站）。Budget 柜台在航站楼内，还完车走几分钟就到值机区。⚠️ 携程单子写的还车时间是 05:00，实际 06:00 还——把订单时间改成 06:00 或 06:30，仍在 9 天内不加钱，避免超时争议。'
         },
         {
-          time: '09:20', name: 'FLL → 底特律 → 上海', type: 'transport',
-          lat: 31.1443, lng: 121.8083, stay: 300, transit: '经底特律中转，全程约 20 小时',
-          note: 'FLL → 底特律 DL356，底特律 → 上海 DL281。中转时间够的话在底特律买点吃的，下一程 13 小时。'
+          time: '06:20', name: '值机 + 安检 + 出境', type: 'transport',
+          lat: 26.0742, lng: -80.1506, stay: 120, transit: 'Delta 国际航班柜台',
+          note: '国际航班建议提前 3 小时。FLL 早上安检排队 20–40 分钟，出境柜台另算。办完进候机区吃打包的早餐。'
+        },
+        {
+          time: '09:20', name: 'DL356 · FLL → 底特律', type: 'transport',
+          lat: 42.2124, lng: -83.3534, stay: 190, transit: '约 3 小时',
+          note: '托运行李直挂上海。'
+        },
+        {
+          time: '12:30', name: '底特律转机', type: 'transport',
+          lat: 42.2124, lng: -83.3534, stay: 150, transit: 'McNamara 航站楼',
+          note: '同一航站楼转机，不需要取行李。时间够的话吃一顿正经的，下一程 13 小时。'
+        },
+        {
+          time: '15:00', name: 'DL281 · 底特律 → 上海浦东', type: 'transport',
+          lat: 31.1443, lng: 121.8083, stay: 900, transit: '约 13 小时',
+          note: '落地下次，注意调整时差。'
         }
       ]
-    }
+    },
   ]
 };
