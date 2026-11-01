@@ -581,9 +581,14 @@ window.TRIP = {
           note: '打车约 $14。公园入口在 Sunrise Blvd 上，容易开过头，跟着棕色公园指示牌走。'
         },
         {
-          time: '09:40', name: 'Hugh Taylor Birch State Park', type: 'sight',
-          lat: 26.1455, lng: -80.1055, stay: 100, transit: '园内步行',
-          note: '1920 年代的老庄园改的州立公园，藏在海滩大道和 Intracoastal 之间。走地下通道（Beach Tunnel）穿过 A1A 就是沙滩，人比公共海滩少得多。园内有潟湖，清晨常见海牛和鹈鹕。想划船可以在园内租皮划艇（约 $25/小时）。⚠️ 门票按车收 $6，步行/骑车 $2。'
+          time: '09:40', name: 'Fort Lauderdale 海滩散步', type: 'sight',
+          lat: 26.1315, lng: -80.1042, stay: 70, transit: '开车 15 分钟，停在 A1A 沿线收费停车位（约 $4/小时）',
+          note: '从 Las Olas Blvd 东端往北走，棕榈夹道、白色矮墙，走到 Sunrise Blvd 折返。11 月早上不晒，海风凉快。想下水就带泳衣，水温约 25°C。'
+        },
+        {
+          time: '10:55', name: 'Las Olas 东段喝杯咖啡', type: 'food',
+          lat: 26.1195, lng: -80.1043, stay: 35, transit: '开车 5 分钟 / 步行 20 分钟',
+          note: '海滩边一排咖啡馆，坐室外看人来人往。不用吃多，中午还有 Coconuts。'
         },
         {
           time: '11:25', name: '走到 Coconuts 午餐', type: 'food',
