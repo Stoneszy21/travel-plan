@@ -54,7 +54,7 @@ window.TRIP = {
           note: '国际航班建议提前 3 小时。值机时确认行李直挂到 FLL，问清底特律要不要重新托运。'
         },
         {
-          time: '10:00', name: 'PVG → 底特律 DTW（DL280）', type: 'transport',
+          time: '10:00', name: 'PVG → 底特律 DTW（DL388）', type: 'transport',
           lat: 42.2124, lng: -83.3534, stay: 810, transit: '直飞约 13.5 小时',
           note: '当地时间同日 11:31 落地。机上有两顿正餐，落地前把外套拿出来。'
         },
@@ -64,7 +64,7 @@ window.TRIP = {
           note: '入境、取行李、海关、重新托运再安检，正常 1 小时内能办完，剩下时间在航站楼吃饭。'
         },
         {
-          time: '15:35', name: 'DTW → 劳德代尔堡 FLL', type: 'transport',
+          time: '15:35', name: 'DTW → 劳德代尔堡 FLL（DL1037）', type: 'transport',
           lat: 26.0742, lng: -80.1506, stay: 170, transit: '约 2 小时 50 分',
           note: '时刻待核对（按 4 小时中转推算）。'
         },
@@ -743,7 +743,7 @@ window.TRIP = {
         {
           time: '09:20', name: 'FLL → 底特律 → 上海', type: 'transport',
           lat: 31.1443, lng: 121.8083, stay: 300, transit: '经底特律中转，全程约 20 小时',
-          note: '具体时刻待核对。中转时间够的话在底特律买点吃的，下一程 13 小时。'
+          note: 'FLL → 底特律 DL356，底特律 → 上海 DL281。中转时间够的话在底特律买点吃的，下一程 13 小时。'
         }
       ]
     }
