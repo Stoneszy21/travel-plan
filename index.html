@@ -920,8 +920,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const APP_VERSION = 'V2.4';
-const BUILD = '2026-11-01 17:36';   // 部署时由 deploy.ps1 自动改写
+  const APP_VERSION = 'V2.5';
+const BUILD = '2026-11-01 17:38';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -1424,7 +1424,7 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
     const tree = el('div', 'dec-tree');
     ds.forEach(d => {
       const skipped = d.skipIf && decisions && decisions[d.skipIf.q] && decisions[d.skipIf.q] !== d.skipIf.opt;
-      const node = el('div', 'dec-node' + (skipped ? ' skipped' : ''));
+      const node = el('div', 'dec-node' + (skipped && !showAllBranches ? ' skipped' : ''));
       const h = el('div', 'dec-node-h');
       h.appendChild(el('span', 'dec-q', d.day + ' · ' + d.title));
       if (skipped) h.appendChild(el('span', 'dec-skip-tag', '已跳过'));
@@ -1432,7 +1432,9 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
 
       (d.options || []).forEach(o => {
         const isOn = decisions && decisions[d.id] === o.key;
-        const leaf = el('div', 'dec-leaf' + (isOn ? ' on' : (decisions ? ' off' : '')));
+        // 「显示全部可能」时不再置灰任何选项，只在已选的那条打点
+        const greyOut = decisions && !showAllBranches;
+        const leaf = el('div', 'dec-leaf' + (greyOut && isOn ? ' on' : (greyOut && !isOn ? ' off' : '')));
         leaf.appendChild(el('span', 'dec-dot'));
         const txt = el('span', 'dec-leaf-t', o.label);
         leaf.appendChild(txt);
