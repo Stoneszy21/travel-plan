@@ -807,7 +807,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const BUILD = '2026-11-01 11:27';   // 部署时由 deploy.ps1 自动改写
+  const BUILD = '2026-11-01 11:30';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -2479,6 +2479,17 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
           r.appendChild(el('span', 'v', esc(h.area)));
           card.appendChild(r);
         }
+        const addRow = (k, v) => {
+          if (!v) return;
+          const r = el('div', 'gd-row');
+          r.appendChild(el('span', 'k', k));
+          r.appendChild(el('span', 'v', esc(v)));
+          card.appendChild(r);
+        };
+        addRow('停车', h.parking);
+        addRow('班车', h.shuttle);
+        addRow('周边', h.transit);
+
         if (h.note) card.appendChild(el('div', 'gd-tip', esc(h.note)));
         box.appendChild(card);
       });
