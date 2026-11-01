@@ -291,6 +291,15 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .pl-cost:last-child { border-bottom: 0; }
 .pl-cost-k { flex: 1; min-width: 0; font-size: 12.5px; line-height: 1.5; }
 .pl-cost-v { flex: none; font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pl-hidden { margin: 10px 0 4px; padding: 10px 12px; border-radius: 10px; background: #fff7ed; border: 1px solid #fed7aa; }
+@media (prefers-color-scheme: dark) { .pl-hidden { background: #2a1a05; border-color: #7c4a08; } }
+.pl-hidden-h { font-size: 11.5px; font-weight: 800; color: #b45309; margin-bottom: 6px; }
+.pl-hidden-row { display: flex; gap: 10px; padding: 4px 0; font-size: 12px; line-height: 1.55; }
+.pl-hidden-k { flex: none; width: 42%; color: var(--text); }
+.pl-hidden-v { flex: 1; min-width: 0; color: var(--muted); }
+.pl-hidden-row.sum { border-top: 1px dashed #f0c089; margin-top: 4px; padding-top: 7px; font-weight: 700; }
+.pl-hidden-row.sum .pl-hidden-k, .pl-hidden-row.sum .pl-hidden-v { color: #b45309; }
+@media (prefers-color-scheme: dark) { .pl-hidden-row.sum .pl-hidden-k, .pl-hidden-row.sum .pl-hidden-v { color: #fbbf24; } }
 /* ---------- 门票 / 导航 ---------- */
 .tk-sum { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); margin-bottom: 12px; }
 .tk-sum.warn { border-color: #f59e0b; background: #fffbeb; }
@@ -727,7 +736,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const BUILD = '2026-11-01 10:51';   // 部署时由 deploy.ps1 自动改写
+  const BUILD = '2026-11-01 10:56';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -2431,6 +2440,20 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
             r.appendChild(el('span', 'pl-cost-v', esc(c.v)));
             card.appendChild(r);
           });
+        }
+
+        if (p.hidden && p.hidden.length) {
+          const hb = el('div', 'pl-hidden');
+          hb.appendChild(el('div', 'pl-hidden-h', '隐性成本（时间和打车费）'));
+          p.hidden.forEach(h => {
+            const row = el('div', 'pl-hidden-row');
+            const isSum = h.k === '合计';
+            if (isSum) row.classList.add('sum');
+            row.appendChild(el('span', 'pl-hidden-k', esc(h.k)));
+            row.appendChild(el('span', 'pl-hidden-v', esc(h.v)));
+            hb.appendChild(row);
+          });
+          card.appendChild(hb);
         }
 
         if (p.verdict) card.appendChild(el('div', 'gd-tip', esc(p.verdict)));
