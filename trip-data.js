@@ -565,20 +565,20 @@ window.TRIP = {
       title: '海滩片区半日 · 颁奖典礼',
       area: 'Fort Lauderdale Beach',
       base: { lat: 26.1455, lng: -80.1055 },
-      summary: 'Birch 州立公园 + Coconuts 午餐 + Bonnet House，三处相距不到 1 公里',
+      summary: '海滩散步 + Coconuts 午餐 + Bonnet House，三处相距不到 2 公里',
       tag: '海边',
-      note: '不听 crit 后，上午正好补上海滩这一片。三个点都在 Birch Road 上，走路或开车 3 分钟切换。下午 15:00 就回酒店，熨衣服、补觉都来得及。',
+      note: '不听 crit 后，上午正好补上海滩这一片。海滩、Coconuts、Bonnet House 都在 A1A 到 Birch Rd 这一小片，开车最远 6 分钟。下午 14:45 就回酒店，熨衣服、补觉都来得及。',
       items: [
-        { time: '', name: '上午 · 海滩片区（Birch Road 一线）', type: 'divider', note: '' },
+        { time: '', name: '上午 · 海滩片区', type: 'divider', note: '' },
         {
           time: '08:30', name: '酒店早餐', type: 'food',
           lat: 26.1006, lng: -80.1189, stay: 45, transit: '酒店内',
           note: '这家 Holiday Inn Express 的早餐到 9:30，别拖。'
         },
         {
-          time: '09:20', name: '出发去 Birch 州立公园', type: 'transport',
+          time: '09:20', name: '出发去海滩', type: 'transport',
           lat: 26.1455, lng: -80.1055, stay: 20, transit: '开车 15 分钟（3109 E Sunrise Blvd）',
-          note: '打车约 $14。公园入口在 Sunrise Blvd 上，容易开过头，跟着棕色公园指示牌走。'
+          note: '打车约 $14。沿 Las Olas Blvd 一直往东到海边，再往北就是 A1A 海滩段。'
         },
         {
           time: '09:40', name: 'Fort Lauderdale 海滩散步', type: 'sight',
@@ -598,7 +598,7 @@ window.TRIP = {
         {
           time: '13:00', name: 'Bonnet House Museum & Gardens', type: 'sight',
           lat: 26.1352, lng: -80.1053, stay: 95, transit: '开车 4 分钟 / 步行 15 分钟（900 N Birch Rd）',
-          note: '就在 Birch 公园旁边——那块地原本就是 Birch 家的。1920 年建的加勒比庄园，主人是画家 Frederic Bartlett，屋里还留着他的画和收藏。周二–周日 11:00–16:00，最后入场 16:00。'
+          note: '900 N Birch Rd，海边那片最后的私人庄园。1920 年建的加勒比风格，主人是画家 Frederic Bartlett，屋里还留着他的画和收藏。周二–周日 11:00–16:00，最后入场 16:00。'
         },
         { time: '', name: '下午 · 回酒店准备', type: 'divider', note: '' },
         {
