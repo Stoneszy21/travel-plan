@@ -399,6 +399,56 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .ha-split-h { font-size: 12.5px; font-weight: 800; margin-bottom: 4px; }
 .ha-split-t { font-size: 12px; line-height: 1.65; color: var(--muted); }
 .gd-leg .seat { flex: none; font-size: 11px; font-weight: 700; color: var(--accent); background: var(--accent-weak); border-radius: 5px; padding: 1px 6px; white-space: nowrap; }
+/* ---------- 行程分支决策（V2.1） ---------- */
+.dec-card { margin: 0 0 12px; padding: 14px; border-radius: 14px; border: 1px solid var(--accent); background: var(--card); }
+.dec-head { display: flex; align-items: baseline; gap: 8px; }
+.dec-title { flex: 1; font-size: 15px; font-weight: 800; }
+.dec-state { font-size: 11.5px; color: var(--accent); font-weight: 700; }
+.dec-sub { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+.dec-tree { margin: 10px 0 4px; padding-left: 2px; }
+.dec-node { position: relative; padding: 6px 0 6px 14px; border-left: 1px solid var(--line); }
+.dec-node:last-child { border-left-color: transparent; }
+.dec-node::before { content: ''; position: absolute; left: 0; top: 16px; width: 8px; height: 1px; background: var(--line); }
+.dec-node.skipped { opacity: .45; }
+.dec-node-h { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.dec-q { font-size: 12px; font-weight: 700; color: var(--muted-2); }
+.dec-skip-tag { font-size: 10px; color: var(--muted-2); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+.dec-leaf { display: flex; align-items: baseline; gap: 6px; padding: 3px 0 3px 10px; }
+.dec-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--muted-2); margin-top: 5px; }
+.dec-leaf-t { font-size: 12.5px; line-height: 1.45; }
+.dec-leaf.on .dec-dot { background: var(--accent); border-color: var(--accent); }
+.dec-leaf.on .dec-leaf-t { font-weight: 700; color: var(--text); }
+.dec-leaf.off { opacity: .5; }
+.dec-leaf.off .dec-leaf-t { font-size: 11.5px; color: var(--muted-2); }
+.dec-leaf-tag { flex: none; font-size: 9.5px; color: var(--muted-2); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+.dec-leaf.on .dec-leaf-tag { color: var(--accent); border-color: var(--accent); }
+.dec-hint { font-size: 11px; color: var(--muted-2); padding-left: 10px; margin-top: 2px; }
+.dec-acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.dec-btn { flex: 1; min-width: 120px; padding: 9px 12px; font-size: 12.5px; font-weight: 700; color: var(--accent); background: transparent; border: 1px solid var(--accent); border-radius: 9px; }
+.dec-btn.primary { background: var(--accent); color: #fff; }
+.dec-btn:active { opacity: .85; }
+
+/* ---------- 问答弹层 ---------- */
+.qamodal { position: fixed; inset: 0; z-index: 85; display: none; }
+.qamodal.show { display: block; }
+.qm-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, .55); }
+.qm-panel { position: absolute; left: 0; right: 0; bottom: 0; max-height: 88vh; display: flex; flex-direction: column; background: var(--bg); border-radius: 18px 18px 0 0; }
+.qm-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px 8px; }
+.qm-step { flex: 1; font-size: 12px; font-weight: 700; color: var(--muted-2); }
+.qm-close { flex: none; font-size: 13px; font-weight: 700; color: var(--accent); background: transparent; border: 1px solid var(--accent); border-radius: 999px; padding: 5px 13px; }
+.qm-body { flex: 1; overflow-y: auto; padding: 6px 16px calc(24px + env(safe-area-inset-bottom)); }
+.qa-day { font-size: 11.5px; color: var(--muted-2); margin-top: 6px; }
+.qa-q { font-size: 17px; font-weight: 800; line-height: 1.4; margin: 4px 0 6px; }
+.qa-hint { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.qa-opts { display: flex; flex-direction: column; gap: 9px; }
+.qa-opt { text-align: left; padding: 13px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); }
+.qa-opt:active { border-color: var(--accent); background: var(--card-2); }
+.qa-opt-l { font-size: 14px; font-weight: 700; line-height: 1.4; }
+.qa-opt-d { font-size: 12px; color: var(--muted); line-height: 1.55; margin-top: 3px; }
+.qa-opt .dec-leaf-tag { display: inline-block; margin-top: 6px; }
+.qa-done { padding: 20px 0; }
+.qa-done-h { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+.qa-done-p { font-size: 12.5px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
 /* ---------- 门票 / 导航 ---------- */
 .tk-sum { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); margin-bottom: 12px; }
 .tk-sum.warn { border-color: #f59e0b; background: #fffbeb; }
@@ -736,6 +786,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
       <div class="tc-count" id="tcCount"></div>
       <div class="tc-meta" id="tcMeta"></div>
     </div>
+    <div id="decideCard"></div>
     <div class="daystrip" id="daystrip"></div>
     <div id="days"></div>
     <div class="foot" id="foot"></div>
@@ -787,6 +838,17 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 <div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
 <div class="toast" id="toast"></div>
 
+
+<div class="qamodal" id="qaModal">
+  <div class="qm-backdrop" id="qaBackdrop"></div>
+  <div class="qm-panel">
+    <div class="qm-head">
+      <div class="qm-step" id="qaStep"></div>
+      <button class="qm-close" id="qaClose">关闭</button>
+    </div>
+    <div class="qm-body" id="qaBody"></div>
+  </div>
+</div>
 
 <div class="planmodal" id="planModal">
   <div class="pm-backdrop" id="pmBackdrop"></div>
@@ -847,7 +909,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const BUILD = '2026-11-01 15:19';   // 部署时由 deploy.ps1 自动改写
+  const APP_VERSION = 'V2.1';
+const BUILD = '2026-11-01 16:31';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -1252,7 +1315,197 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
     });
   }
 
+
+  /* ---------- 行程分支决策（V2.1） ---------- */
+  const DEC_KEY = 'travel.decisions.v21';
+  let decisions = null;          // { q1:'a', q2:'a', ... } 或 null
+  let showAllBranches = false;   // true = 忽略选择，展示全部
+
+  try {
+    const raw = localStorage.getItem(DEC_KEY);
+    if (raw) decisions = JSON.parse(raw);
+  } catch (_) { }
+
+  function saveDecisions() {
+    try {
+      if (decisions) localStorage.setItem(DEC_KEY, JSON.stringify(decisions));
+      else localStorage.removeItem(DEC_KEY);
+    } catch (_) { }
+  }
+
+  function decHasChoice(qid) {
+    return !!(decisions && decisions[qid]);
+  }
+
+  function decCountChosen() {
+    const ds = TRIP.decisions || [];
+    return ds.filter(d => decisions && decisions[d.id]).length;
+  }
+
+  function renderDecide() {
+    const box = $('#decideCard');
+    if (!box) return;
+    box.innerHTML = '';
+    const ds = TRIP.decisions || [];
+    if (!ds.length) return;
+
+    const chosen = decCountChosen();
+    const total = ds.filter(d => !(d.skipIf && decisions && decisions[d.skipIf.q] !== d.skipIf.opt)).length;
+
+    const card = el('div', 'dec-card');
+    const head = el('div', 'dec-head');
+    head.appendChild(el('div', 'dec-title', '行程分支'));
+    const st = el('div', 'dec-state');
+    if (showAllBranches) st.textContent = '显示全部可能';
+    else if (!decisions) st.textContent = '还没选，显示全部';
+    else st.textContent = '已选 ' + chosen + ' / ' + total;
+    head.appendChild(st);
+    card.appendChild(head);
+
+    if (decisions && !showAllBranches) {
+      card.appendChild(el('div', 'dec-sub', '灰掉的选项不会出现在下面行程里。'));
+    }
+
+    // 树
+    const tree = el('div', 'dec-tree');
+    ds.forEach(d => {
+      const skipped = d.skipIf && decisions && decisions[d.skipIf.q] && decisions[d.skipIf.q] !== d.skipIf.opt;
+      const node = el('div', 'dec-node' + (skipped ? ' skipped' : ''));
+      const h = el('div', 'dec-node-h');
+      h.appendChild(el('span', 'dec-q', d.day + ' · ' + d.title));
+      if (skipped) h.appendChild(el('span', 'dec-skip-tag', '已跳过'));
+      node.appendChild(h);
+
+      (d.options || []).forEach(o => {
+        const isOn = decisions && decisions[d.id] === o.key;
+        const leaf = el('div', 'dec-leaf' + (isOn ? ' on' : (decisions ? ' off' : '')));
+        leaf.appendChild(el('span', 'dec-dot'));
+        const txt = el('span', 'dec-leaf-t', o.label);
+        leaf.appendChild(txt);
+        if (o.tag) leaf.appendChild(el('span', 'dec-leaf-tag', o.tag));
+        node.appendChild(leaf);
+      });
+      if (d.hint) node.appendChild(el('div', 'dec-hint', d.hint));
+      tree.appendChild(node);
+    });
+    card.appendChild(tree);
+
+    // 按钮
+    const acts = el('div', 'dec-acts');
+    if (!decisions || showAllBranches) {
+      const b = el('button', 'dec-btn primary', '试着决定');
+      b.addEventListener('click', openDecideQA);
+      acts.appendChild(b);
+    }
+    if (decisions) {
+      const b2 = el('button', 'dec-btn', '重新选');
+      b2.addEventListener('click', () => { showAllBranches = false; openDecideQA(); });
+      acts.appendChild(b2);
+
+      const b3 = el('button', 'dec-btn', showAllBranches ? '只看已选的' : '在行程中查看所有可能');
+      b3.addEventListener('click', () => {
+        showAllBranches = !showAllBranches;
+        renderDecide();
+        renderDays();
+      });
+      acts.appendChild(b3);
+    }
+    card.appendChild(acts);
+    box.appendChild(card);
+  }
+
+  /* ---------- 问答 ---------- */
+  let qaQueue = [];
+  let qaIndex = 0;
+  let qaDraft = {};
+
+  function openDecideQA() {
+    const ds = TRIP.decisions || [];
+    qaQueue = ds.slice();
+    qaIndex = 0;
+    qaDraft = {};
+    $('#qaModal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    qaRender();
+  }
+
+  function closeDecideQA() {
+    $('#qaModal').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  function qaRender() {
+    const body = $('#qaBody');
+    const step = $('#qaStep');
+    if (!body) return;
+    body.innerHTML = '';
+
+    // 跳过条件：同一题被上游答案跳过
+    while (qaIndex < qaQueue.length) {
+      const d = qaQueue[qaIndex];
+      if (d.skipIf) {
+        const up = qaDraft[d.skipIf.q];
+        // 上游选了指定选项时，这题被强制（不提问，直接沿用该选项）
+        if (up && up === d.skipIf.opt) {
+          qaDraft[d.id] = d.skipIf.opt;
+          qaIndex++;
+          continue;
+        }
+      }
+      break;
+    }
+
+    if (qaIndex >= qaQueue.length) {
+      step.textContent = '完成';
+      const done = el('div', 'qa-done');
+      done.appendChild(el('div', 'qa-done-h', '选择已记录'));
+      done.appendChild(el('div', 'qa-done-p', '下面把没选的选项灰掉，行程里也不再显示。随时可以「重新选」。'));
+      const b = el('button', 'dec-btn primary', '应用并返回');
+      b.addEventListener('click', () => {
+        decisions = Object.assign({}, qaDraft);
+        showAllBranches = false;
+        saveDecisions();
+        closeDecideQA();
+        renderDecide();
+        renderDays();
+      });
+      done.appendChild(b);
+      body.appendChild(done);
+      return;
+    }
+
+    const d = qaQueue[qaIndex];
+    step.textContent = '第 ' + (qaIndex + 1) + ' / ' + qaQueue.length + ' 题';
+
+    body.appendChild(el('div', 'qa-day', d.day || ''));
+    body.appendChild(el('div', 'qa-q', d.title || ''));
+    if (d.hint) body.appendChild(el('div', 'qa-hint', d.hint));
+
+    const opts = el('div', 'qa-opts');
+    (d.options || []).forEach(o => {
+      const b = el('button', 'qa-opt');
+      const t1 = el('div', 'qa-opt-l', o.label);
+      b.appendChild(t1);
+      if (o.desc) b.appendChild(el('div', 'qa-opt-d', o.desc));
+      if (o.tag) b.appendChild(el('span', 'dec-leaf-tag', o.tag));
+      b.addEventListener('click', () => {
+        qaDraft[d.id] = o.key;
+        qaIndex++;
+        qaRender();
+      });
+      opts.appendChild(b);
+    });
+    body.appendChild(opts);
+
+    if (qaIndex > 0) {
+      const back = el('button', 'dec-btn', '上一题');
+      back.addEventListener('click', () => { qaIndex--; qaRender(); });
+      body.appendChild(back);
+    }
+  }
+
   function renderDays() {
+    renderDecide();
     const box = $('#days');
     box.innerHTML = '';
     const todayStr = todayInTZ();
@@ -1286,6 +1539,12 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
       const ol = el('ol', 'tl');
       let navLat = null, navLng = null;
       (d.items || []).forEach((it, ii) => {
+        // V2.1：按决策过滤未选中的分支
+        if (it.br && decisions && !showAllBranches) {
+          const parts = String(it.br).split(':');
+          const picked = decisions[parts[0]];
+          if (picked && picked !== parts[1]) return;
+        }
         // 方案分隔条：把「方案 A / 方案 B」在时间轴上分开
         if (it.type === 'divider') {
           const dvd = el('li', 'tl-divider');
@@ -2673,7 +2932,7 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
         box.appendChild(card);
       });
       box.appendChild(el('div', 'foot', '营业时间和是否还开着，出发前用 Google 地图再看一眼；标了「要订位」的，提前一天打电话。'));
-      box.appendChild(el('div', 'foot', '版本 ' + BUILD));
+      box.appendChild(el('div', 'foot', APP_VERSION + ' · 版本 ' + BUILD));
       return;
     }
 
@@ -2798,7 +3057,7 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
       }
 
       box.appendChild(el('div', 'foot', '租车价格按 11 月淡季经济型车估算，含税费；油费按 $3.3/加仑、卡罗拉约 32 mpg 算。'));
-      box.appendChild(el('div', 'foot', '版本 ' + BUILD));
+      box.appendChild(el('div', 'foot', APP_VERSION + ' · 版本 ' + BUILD));
       return;
     }
 
@@ -2849,7 +3108,7 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
       });
 
       box.appendChild(el('div', 'foot', '免票的：Rollins 校园、图书馆、Lake Eola、Park Ave、农贸市集、Renninger’s、Mount Dora 老城、Casa Feliz、Kraft Azalea、Riverwalk、海滩、狗公园。'));
-      box.appendChild(el('div', 'foot', '版本 ' + BUILD));
+      box.appendChild(el('div', 'foot', APP_VERSION + ' · 版本 ' + BUILD));
       return;
     }
 
@@ -3183,6 +3442,17 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
     backdrop.classList.remove('show');
   }
   backdrop.addEventListener('click', closeSheet);
+  const qaCloseBtn = document.getElementById('qaClose');
+  if (qaCloseBtn) qaCloseBtn.addEventListener('click', () => {
+    document.getElementById('qaModal').classList.remove('show');
+    document.body.style.overflow = '';
+  });
+  const qaBd = document.getElementById('qaBackdrop');
+  if (qaBd) qaBd.addEventListener('click', () => {
+    document.getElementById('qaModal').classList.remove('show');
+    document.body.style.overflow = '';
+  });
+
   const pmCloseBtn = document.getElementById('pmClose');
   if (pmCloseBtn) pmCloseBtn.addEventListener('click', closePlanDetail);
   const pmBd = document.getElementById('pmBackdrop');
