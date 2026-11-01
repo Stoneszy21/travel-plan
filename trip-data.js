@@ -66,7 +66,7 @@ window.TRIP = {
         {
           time: '15:35', name: 'DTW → 劳德代尔堡 FLL（DL1037）', type: 'transport',
           lat: 26.0742, lng: -80.1506, stay: 170, transit: '约 2 小时 50 分',
-          note: '时刻待核对（按 4 小时中转推算）。'
+          note: '15:35 起飞、18:35 落地（已出票）。中转 4 小时够吃一顿。'
         },
         {
           time: '18:40', name: 'FLL 取租车', type: 'transport',
