@@ -13,7 +13,7 @@ const G = ctx.window.TRIP_GUIDES;
 const T = ctx.window.TRIP;
 
 // 不需要单独卡片的：后勤动作
-const LOGISTICS = /回酒店|退房|入住|休息|准备|出发|过夜|check-?in|取行李|还车|加油|汇报|旁听|会场|Gala|交流|订.*酒店|值机|安检/;
+const LOGISTICS = /回酒店|退房|入住|休息|准备|出发|过夜|check-?in|取行李|还车|加油|汇报|旁听|会场|Gala|酒会|交流|订.*酒店|值机|安检/;
 // 属于某个大园区的子项目
 const PARK_OF = [
   { park: '迪士尼 Animal Kingdom', re: /Animal Kingdom|Avatar|Safari|Na.vi|Expedition Everest|Lion King|Maharajah|Pandora|DinoLand|Kali/ },
