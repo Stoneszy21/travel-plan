@@ -449,6 +449,9 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .qa-done { padding: 20px 0; }
 .qa-done-h { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
 .qa-done-p { font-size: 12.5px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+/* ---------- 决策操作反馈 toast ---------- */
+.dec-toast { position: fixed; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom)); transform: translate(-50%, 12px); z-index: 120; max-width: 80vw; padding: 9px 16px; border-radius: 999px; background: rgba(17, 20, 24, .92); color: #fff; font-size: 12.5px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity .18s, transform .18s; }
+.dec-toast.show { opacity: 1; transform: translate(-50%, 0); }
 /* ---------- 门票 / 导航 ---------- */
 .tk-sum { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); margin-bottom: 12px; }
 .tk-sum.warn { border-color: #f59e0b; background: #fffbeb; }
@@ -515,7 +518,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .tip-note { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-top: 3px; }
 .fd-row { display: grid; grid-template-columns: 26px 1fr 46px; gap: 9px; align-items: start; padding: 8px 0; border-bottom: 1px dashed var(--line-2); }
 .fd-view { font-size: 9.5px; font-weight: 800; color: #b45309; background: #fef3c7; border-radius: 4px; padding: 1px 5px; margin-left: 4px; }
-@media (prefers-color-scheme: dark) { .fd-view { color: #fbbf24; background: #422006; } }
+@media (prefers-color-scheme: dark) { .fd-view { color: #fbbf24; background: #422006; } }
+
 .fd-thumb { width: 46px; height: 46px; border-radius: 9px; object-fit: cover; display: block; background: var(--card-2); cursor: pointer; }
 .fd-row:last-child { border-bottom: 0; }
 .fd-slot { width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff; margin-top: 1px; }
@@ -840,6 +844,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 <div class="toast" id="toast"></div>
 
 
+<div class="dec-toast" id="decToast"></div>
+
 <div class="qamodal" id="qaModal">
   <div class="qm-backdrop" id="qaBackdrop"></div>
   <div class="qm-panel">
@@ -910,8 +916,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const APP_VERSION = 'V2.2';
-const BUILD = '2026-11-01 17:09';   // 部署时由 deploy.ps1 自动改写
+  const APP_VERSION = 'V2.3';
+const BUILD = '2026-11-01 17:29';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -1343,6 +1349,49 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
     return ds.filter(d => decisions && decisions[d.id]).length;
   }
 
+  // 事件委托：容器常驻，按钮被重建也不会丢监听（修复点不动的问题）
+  let decideBound = false;
+  function bindDecideOnce() {
+    if (decideBound) return;
+    const host = document.getElementById('decideCard');
+    if (!host) return;
+    decideBound = true;
+    host.addEventListener('click', e => {
+      const btn = e.target.closest('[data-act]');
+      if (!btn) return;
+      const act = btn.dataset.act;
+      if (act === 'start') { openDecideQA(); }
+      else if (act === 'restart') { showAllBranches = false; openDecideQA(); }
+      else if (act === 'toggle-all') {
+        showAllBranches = !showAllBranches;
+        renderDecide();
+        renderDays();
+        showToast(showAllBranches ? '已显示所有可能' : '只看已选的');
+      }
+    });
+    // 触摸端兜底：某些浏览器点击事件丢失时用 touchend 补
+    host.addEventListener('touchend', e => {
+      const btn = e.target.closest('[data-act]');
+      if (!btn) return;
+      if (Date.now() - (btn._lastTouch || 0) < 600) return;
+      btn._lastTouch = Date.now();
+      e.preventDefault();
+      btn.click();
+    }, { passive: false });
+  }
+
+  function showToast(msg) {
+    let t = document.getElementById('decToast');
+    if (!t) {
+      t = el('div', 'dec-toast');
+      t.id = 'decToast';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 1800);
+  }
   function renderDecide() {
     const box = $('#decideCard');
     if (!box) return;
@@ -1395,24 +1444,21 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
     const acts = el('div', 'dec-acts');
     if (!decisions || showAllBranches) {
       const b = el('button', 'dec-btn primary', '试着决定');
-      b.addEventListener('click', openDecideQA);
+      b.dataset.act = 'start';
       acts.appendChild(b);
     }
     if (decisions) {
       const b2 = el('button', 'dec-btn', '重新选');
-      b2.addEventListener('click', () => { showAllBranches = false; openDecideQA(); });
+      b2.dataset.act = 'restart';
       acts.appendChild(b2);
 
       const b3 = el('button', 'dec-btn', showAllBranches ? '只看已选的' : '在行程中查看所有可能');
-      b3.addEventListener('click', () => {
-        showAllBranches = !showAllBranches;
-        renderDecide();
-        renderDays();
-      });
+      b3.dataset.act = 'toggle-all';
       acts.appendChild(b3);
     }
     card.appendChild(acts);
     box.appendChild(card);
+    bindDecideOnce();
   }
 
   /* ---------- 问答 ---------- */
