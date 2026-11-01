@@ -409,7 +409,7 @@ window.TRIP_GUIDES = {
         { k: '保险：零起赔碰撞 + 盗抢 + 加强三者 + 玻璃轮胎', v: '已含' },
         { k: '油费（约 950 英里）', v: '$95–110' },
         { k: '过路费 SunPass（含 KSC、迈阿密）', v: '$35–45' },
-        { k: '停车（奥兰多 4 晚约 $20/晚 + FLL 5 晚 $10/晚 + 景点）', v: '$190–225' }
+        { k: '停车（奥兰多 4 晚 $17 + FLL 5 晚 $10 + 景点）', v: '$178–208' }
       ],
       total: '$630–690',
       perPerson: '两人约 $315–345/人',
@@ -498,7 +498,7 @@ window.TRIP_GUIDES = {
         { k: '保险：零起赔碰撞 + 盗抢 + 加强三者 + 玻璃轮胎', v: '已含' },
         { k: '油费（约 620 英里）', v: '$60–70' },
         { k: '过路费', v: '$25–30' },
-        { k: '停车（奥兰多 4 晚 + 景点）', v: '$120–150' },
+        { k: '停车（奥兰多 4 晚 $68 + 景点）', v: '$108–138' },
         { k: 'D6–D10 打车（约 10 程，可改用 Sun Trolley $1/人）', v: '$110–160' },
         { k: 'D9 迈阿密往返（Brightline 两人）', v: '$80–120' }
       ],
@@ -821,7 +821,7 @@ window.TRIP_GUIDES = {
   hotelAreas: [
     {
       id: 'wp',
-      name: 'Winter Park（Park Ave / Rollins 一带）',
+      name: 'Winter Park / Maitland 一带',
       price: '$130–170/晚',
       parking: '$0–12/晚（多数含免费停车）',
       best: true,
@@ -841,7 +841,7 @@ window.TRIP_GUIDES = {
         'D2 晚上在市中心吃饭，回酒店要开 20 分钟',
         'D4 去迪士尼比住市区多 5 分钟'
       ],
-      verdict: '不换酒店时的首选。用一天晚上的 20 分钟车程，换 D2 整个早上的从容。'
+      verdict: '不换酒店时的首选。用一天晚上的 20 分钟车程，换 D2 整个早上的从容。你订的 Sheraton Orlando North 就在这一带（Maitland）。'
     },
     {
       id: 'eola',
@@ -899,7 +899,8 @@ window.TRIP_GUIDES = {
       '你的奥兰多行程是四天三个方向：D2 往北（Winter Park 本身）、D3 往北偏西（Blue Spring）、D4 往西南（迪士尼）、D5 往东（KSC）。没有一个位置能照顾全部。',
       '关键是 D2——那天从 8:00 市集排到 19:00 晚餐，是全程最密的一天。住 Winter Park 意味着市集、Rollins、Morse、Park Ave、游船全在步行或 5 分钟车程内，一整天不用挪车。住市区则要 7 点起床开 20 分钟过去。',
       '换酒店的账我算过：如果 11/15 晚上搬到迪士尼附近，D4 早上省 25 分钟，但 D5 去 KSC 反而多 15 分钟，净赚 10 分钟；代价是搬一次行李 + 房价每晚贵 $20–60 + 迪士尼区停车贵。**不划算。**',
-      '所以：11/13–11/17 四晚都住 Winter Park，一天都不搬。D4 早起 35 分钟开车去迪士尼，这是唯一需要妥协的地方，但它只影响一天。'
+      '所以：11/13–11/17 四晚都住同一家，一天都不搬。D4 早起 35 分钟开车去迪士尼，这是唯一需要妥协的地方，但它只影响一天。'
+      ,'你订的这家正好在 Maitland（600 N Lake Destiny Rd），就在 Winter Park 北边 5 英里——到 Park Ave 9 分钟、到 Blue Spring 38 分钟、到 KSC 68 分钟，比住奥兰多市区更顺。这个选择是对的。'
     ],
     split: {
       title: '如果你还是想换一次',
@@ -931,14 +932,17 @@ window.TRIP_GUIDES = {
 
   hotels: [
     {
-      name: '奥兰多酒店（待定）',
-      status: '待定',
+      name: 'Sheraton Orlando North Hotel（奥兰多北喜来登）',
+      status: '已定',
       icon: '🏨',
       checkIn: '2026-11-13',
       checkOut: '2026-11-17',
       nights: 4,
-      area: '奥兰多市中心 / Winter Park 一带',
-      note: '⚠️ 还没订。前两天活动都在 Winter Park 和市区，选这两处附近最省事；自驾的话一定要带停车位。如果走 D1 方案 B（今晚住机场），这里就改成 11/14 入住、3 晚。订好把 status 改成「已定」。'
+      area: '600 N Lake Destiny Rd, Maitland, FL 32751',
+      parking: '¥120/晚（约 $17）',
+      shuttle: '无机场班车，需自驾或打车（MCO 约 25 分钟）',
+      transit: '在 I-4 边上，去 Winter Park 9 分钟、Blue Spring 38 分钟、KSC 68 分钟',
+      note: '4 晚 ¥3,128（¥782/晚，含税，无早餐）。2019 年装修，4.2 分。位置在 Maitland，等于 Winter Park 片区北侧。⚠️ 无早餐，四个早上要自己解决。'
     },
     {
       name: '机场过渡酒店（可选，仅 D1 方案 B）',
