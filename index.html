@@ -333,6 +333,32 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .pl-switch-then { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 2px; }
 .pl-notrec { margin-top: 9px; padding: 8px 10px; border-radius: 8px; background: #fef2f2; color: #b91c1c; font-size: 12px; line-height: 1.6; }
 @media (prefers-color-scheme: dark) { .pl-notrec { background: #2a0f0f; color: #fca5a5; } }
+/* ---------- 方案精简卡 ---------- */
+.pl-mini { padding: 13px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--card); margin-bottom: 10px; cursor: pointer; transition: border-color .15s; }
+.pl-mini:active { border-color: var(--accent); background: var(--card-2); }
+.pl-mini.best { border-color: var(--accent); }
+.pl-mini-top { display: flex; align-items: center; gap: 8px; }
+.pl-mini-name { flex: 1; min-width: 0; font-size: 15px; font-weight: 800; }
+.pl-mini-name .pl-best { margin-left: 7px; }
+.pl-mini-arrow { flex: none; font-size: 20px; color: var(--muted-2); line-height: 1; }
+.pl-mini-tag { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.pl-mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0 6px; }
+.pl-mini-stat { min-width: 0; }
+.pl-mini-k { font-size: 10.5px; color: var(--muted-2); }
+.pl-mini-v { font-size: 13.5px; font-weight: 800; font-variant-numeric: tabular-nums; margin-top: 1px; }
+.pl-mini.best .pl-mini-stat:first-child .pl-mini-v { color: var(--accent); }
+.pl-mini-key { font-size: 11.5px; color: var(--muted-2); }
+
+/* ---------- 方案详情弹层 ---------- */
+.planmodal { position: fixed; inset: 0; z-index: 80; display: none; }
+.planmodal.show { display: block; }
+.pm-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, .55); }
+.pm-panel { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--bg); }
+.pm-head { display: flex; align-items: center; gap: 10px; padding: calc(var(--sat) + 10px) 14px 10px; border-bottom: 1px solid var(--line); }
+.pm-title { flex: 1; min-width: 0; font-size: 15px; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pm-close { flex: none; font-size: 13px; font-weight: 700; color: var(--accent); background: transparent; border: 1px solid var(--accent); border-radius: 999px; padding: 5px 13px; }
+.pm-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px 16px calc(28px + env(safe-area-inset-bottom)); }
+.pm-tag { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
 /* ---------- 门票 / 导航 ---------- */
 .tk-sum { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); margin-bottom: 12px; }
 .tk-sum.warn { border-color: #f59e0b; background: #fffbeb; }
@@ -721,6 +747,18 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 <div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
 <div class="toast" id="toast"></div>
 
+
+<div class="planmodal" id="planModal">
+  <div class="pm-backdrop" id="pmBackdrop"></div>
+  <div class="pm-panel">
+    <div class="pm-head">
+      <div class="pm-title" id="pmTitle"></div>
+      <button class="pm-close" id="pmClose">关闭</button>
+    </div>
+    <div class="pm-body" id="pmBody"></div>
+  </div>
+</div>
+
 <div class="mapmodal" id="mapModal">
   <div class="mm-backdrop" id="mmBackdrop"></div>
   <div class="mm-panel">
@@ -769,7 +807,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const BUILD = '2026-11-01 11:12';   // 部署时由 deploy.ps1 自动改写
+  const BUILD = '2026-11-01 11:19';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -2027,6 +2065,92 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
   /* ---------- 全屏地图（点快照打开，可拖拽缩放） ---------- */
   const mm = { center: { lat: 0, lng: 0 }, zoom: 12, from: null, to: null, geo: null, spot: null, binded: false };
 
+
+  /* ---------- 方案详情弹层 ---------- */
+  function openPlanDetail(p) {
+    const modal = $('#planModal');
+    const body = $('#pmBody');
+    $('#pmTitle').textContent = p.name || '';
+    body.innerHTML = '';
+    body.scrollTop = 0;
+
+    if (p.tagline) body.appendChild(el('div', 'pm-tag', esc(p.tagline)));
+    if (p.summary) body.appendChild(el('div', 'pl-sum', esc(p.summary)));
+
+    const total = el('div', 'pl-total');
+    total.appendChild(el('span', 'pl-total-k', '预算'));
+    total.appendChild(el('span', 'pl-total-v', esc(p.total || '')));
+    if (p.perPerson) total.appendChild(el('span', 'pl-total-p', esc(p.perPerson)));
+    if (p.timeCost) total.appendChild(el('span', 'pl-total-p', '时间代价 ' + esc(p.timeCost)));
+    body.appendChild(total);
+
+    const cols = el('div', 'pl-cols');
+    const mk = (title, arr, cls) => {
+      const col = el('div', 'pl-col');
+      col.appendChild(el('div', 'pl-col-h ' + cls, title));
+      (arr || []).forEach(x => col.appendChild(el('div', 'pl-li ' + cls, '· ' + x)));
+      return col;
+    };
+    cols.appendChild(mk('优点', p.pros, 'pro'));
+    cols.appendChild(mk('缺点', p.cons, 'con'));
+    body.appendChild(cols);
+
+    if (p.cost && p.cost.length) {
+      body.appendChild(el('div', 'gd-sub', '费用明细'));
+      p.cost.forEach(c => {
+        const r = el('div', 'pl-cost');
+        r.appendChild(el('span', 'pl-cost-k', esc(c.k)));
+        r.appendChild(el('span', 'pl-cost-v', esc(c.v)));
+        body.appendChild(r);
+      });
+    }
+
+    if (p.hidden && p.hidden.length) {
+      const hb = el('div', 'pl-hidden');
+      hb.appendChild(el('div', 'pl-hidden-h', '隐性成本（时间和打车费）'));
+      p.hidden.forEach(h => {
+        const row = el('div', 'pl-hidden-row' + (h.k === '合计' ? ' sum' : ''));
+        row.appendChild(el('span', 'pl-hidden-k', esc(h.k)));
+        row.appendChild(el('span', 'pl-hidden-v', esc(h.v)));
+        hb.appendChild(row);
+      });
+      body.appendChild(hb);
+    }
+
+    if (p.detail && p.detail.length) {
+      body.appendChild(el('div', 'gd-sub', '逐日账单'));
+      p.detail.forEach(d => {
+        const g2 = el('div', 'pl-dgroup');
+        g2.appendChild(el('div', 'pl-dhead', d.day + ' · ' + d.date));
+        (d.lines || []).forEach(l => {
+          const row = el('div', 'pl-dline');
+          row.appendChild(el('span', 'pl-dt', esc(l.t || '')));
+          row.appendChild(el('span', 'pl-dw', esc(l.what || '')));
+          row.appendChild(el('span', 'pl-dc', esc(l.cost || '')));
+          g2.appendChild(row);
+        });
+        if (d.sum) {
+          const sr = el('div', 'pl-dsum');
+          sr.appendChild(el('span', 'pl-dsum-k', '当天小计'));
+          sr.appendChild(el('span', 'pl-dsum-v', esc(d.sum)));
+          g2.appendChild(sr);
+        }
+        body.appendChild(g2);
+      });
+    }
+
+    if (p.verdict) body.appendChild(el('div', 'gd-tip', esc(p.verdict)));
+
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    body.scrollTop = 0;
+  }
+
+  function closePlanDetail() {
+    $('#planModal').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
   function openMapModal(g, center, zoom, spot) {
     // 先让弹层显示，否则量不到尺寸
     const el = $('#mapModal');
@@ -2434,94 +2558,39 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
       const plans = GUIDES.plans || [];
       if (!plans.length) { box.appendChild(el('div', 'ml-hint', '还没有方案对比')); return; }
 
-      box.appendChild(el('div', 'gd-tip', '三个方案的差别主要在「租几天车」。下面的钱是按两人分摊、经济型车（丰田卡罗拉一级）估的，实际以订车页面为准。'));
+      box.appendChild(el('div', 'gd-tip', '点任意一张卡看完整明细（费用拆解、隐性成本、逐日账单）。钱按两人分摊、经济型车估的。'));
 
       plans.forEach(p => {
-        const card = el('div', 'gd-card pl-card' + (p.best ? ' best' : ''));
-        if (p.best) card.appendChild(el('div', 'pl-best', '推荐'));
+        const card = el('div', 'pl-mini' + (p.best ? ' best' : ''));
+        card.setAttribute('role', 'button');
+        card.tabIndex = 0;
 
-        const h = el('div', 'gd-head');
-        h.appendChild(el('div', 'gd-ico', p.id === 'p1' ? '🚗' : p.id === 'p2' ? '🚙' : '🚆'));
-        const hw = el('div', 'gd-hw');
-        hw.appendChild(el('div', 'gd-h', esc(p.name || '')));
-        if (p.tagline) hw.appendChild(el('div', 'pl-tag', esc(p.tagline)));
-        h.appendChild(hw);
-        card.appendChild(h);
+        const top = el('div', 'pl-mini-top');
+        const nm = el('div', 'pl-mini-name', esc(p.name || ''));
+        if (p.best) nm.appendChild(el('span', 'pl-best', '推荐'));
+        top.appendChild(nm);
+        top.appendChild(el('span', 'pl-mini-arrow', '›'));
+        card.appendChild(top);
 
-        if (p.summary) card.appendChild(el('div', 'pl-sum', esc(p.summary)));
+        if (p.tagline) card.appendChild(el('div', 'pl-mini-tag', esc(p.tagline)));
 
-        const total = el('div', 'pl-total');
-        total.appendChild(el('span', 'pl-total-k', '预算'));
-        total.appendChild(el('span', 'pl-total-v', esc(p.total || '')));
-        if (p.perPerson) total.appendChild(el('span', 'pl-total-p', esc(p.perPerson)));
-        card.appendChild(total);
-
-        const cols = el('div', 'pl-cols');
-        const mk = (title, arr, cls) => {
-          const col = el('div', 'pl-col');
-          col.appendChild(el('div', 'pl-col-h ' + cls, title));
-          (arr || []).forEach(x => col.appendChild(el('div', 'pl-li ' + cls, '· ' + x)));
-          return col;
+        const stats = el('div', 'pl-mini-stats');
+        const st = (k, v, cls) => {
+          const x = el('div', 'pl-mini-stat' + (cls ? ' ' + cls : ''));
+          x.appendChild(el('div', 'pl-mini-k', k));
+          x.appendChild(el('div', 'pl-mini-v', v));
+          return x;
         };
-        cols.appendChild(mk('优点', p.pros, 'pro'));
-        cols.appendChild(mk('缺点', p.cons, 'con'));
-        card.appendChild(cols);
+        stats.appendChild(st('预算', (p.total || '').replace('$', '')));
+        stats.appendChild(st('时间代价', p.timeCost || '—'));
+        stats.appendChild(st('人均', (p.perPerson || '').replace(/^两人约 /, '')));
+        card.appendChild(stats);
 
-        if (p.cost && p.cost.length) {
-          card.appendChild(el('div', 'gd-sub', '费用明细'));
-          p.cost.forEach(c => {
-            const r = el('div', 'pl-cost');
-            r.appendChild(el('span', 'pl-cost-k', esc(c.k)));
-            r.appendChild(el('span', 'pl-cost-v', esc(c.v)));
-            card.appendChild(r);
-          });
-        }
+        if (p.keyCost) card.appendChild(el('div', 'pl-mini-key', esc(p.keyCost)));
 
-        if (p.hidden && p.hidden.length) {
-          const hb = el('div', 'pl-hidden');
-          hb.appendChild(el('div', 'pl-hidden-h', '隐性成本（时间和打车费）'));
-          p.hidden.forEach(h => {
-            const row = el('div', 'pl-hidden-row');
-            const isSum = h.k === '合计';
-            if (isSum) row.classList.add('sum');
-            row.appendChild(el('span', 'pl-hidden-k', esc(h.k)));
-            row.appendChild(el('span', 'pl-hidden-v', esc(h.v)));
-            hb.appendChild(row);
-          });
-          card.appendChild(hb);
-        }
-
-        if (p.detail && p.detail.length) {
-          const btn = el('button', 'pl-dbtn', '查看逐日明细 ▾');
-          const wrap = el('div', 'pl-detail');
-          wrap.hidden = true;
-          p.detail.forEach(d => {
-            const g2 = el('div', 'pl-dgroup');
-            g2.appendChild(el('div', 'pl-dhead', d.day + ' · ' + d.date));
-            (d.lines || []).forEach(l => {
-              const row = el('div', 'pl-dline');
-              row.appendChild(el('span', 'pl-dt', esc(l.t || '')));
-              row.appendChild(el('span', 'pl-dw', esc(l.what || '')));
-              row.appendChild(el('span', 'pl-dc', esc(l.cost || '')));
-              g2.appendChild(row);
-            });
-            if (d.sum) {
-              const sr = el('div', 'pl-dsum');
-              sr.appendChild(el('span', 'pl-dsum-k', '当天小计'));
-              sr.appendChild(el('span', 'pl-dsum-v', esc(d.sum)));
-              g2.appendChild(sr);
-            }
-            wrap.appendChild(g2);
-          });
-          btn.addEventListener('click', () => {
-            wrap.hidden = !wrap.hidden;
-            btn.textContent = wrap.hidden ? '查看逐日明细 ▾' : '收起明细 ▴';
-          });
-          card.appendChild(btn);
-          card.appendChild(wrap);
-        }
-
-        if (p.verdict) card.appendChild(el('div', 'gd-tip', esc(p.verdict)));
+        const open = () => openPlanDetail(p);
+        card.addEventListener('click', open);
+        card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
         box.appendChild(card);
       });
 
@@ -2547,10 +2616,10 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
           const pk = el('div', 'pl-pick');
           pk.appendChild(el('div', 'pl-pick-h', '推荐：' + esc(ps.pick)));
           if (ps.why) pk.appendChild(el('div', 'pl-pick-w', esc(ps.why)));
-          (ps.switchTo || []).forEach(s => {
+          (ps.switchTo || []).forEach(x => {
             const row = el('div', 'pl-switch');
-            row.appendChild(el('div', 'pl-switch-when', esc(s.when || '')));
-            row.appendChild(el('div', 'pl-switch-then', esc(s.then || '')));
+            row.appendChild(el('div', 'pl-switch-when', esc(x.when || '')));
+            row.appendChild(el('div', 'pl-switch-then', esc(x.then || '')));
             pk.appendChild(row);
           });
           if (ps.notRecommended) pk.appendChild(el('div', 'pl-notrec', esc(ps.notRecommended)));
@@ -2559,19 +2628,33 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
         box.appendChild(sc);
       }
 
-      (GUIDES.planningNotes || []).forEach(block => {
-        const card = el('div', 'gd-card');
-        card.appendChild(el('div', 'gd-h', esc(block.title || '')));
-        (block.items || []).forEach(it => {
-          const row = el('div', 'pn-row');
-          row.appendChild(el('div', 'pn-k', esc(it.k || '')));
-          row.appendChild(el('div', 'pn-v', esc(it.v || '')));
-          card.appendChild(row);
+      const notes = GUIDES.planningNotes || [];
+      if (notes.length) {
+        const btn = el('button', 'pl-dbtn', '展开补充说明（哪些路段不该开车 · 方案三时间账）▾');
+        const wrap = el('div', 'pl-detail');
+        wrap.hidden = true;
+        notes.forEach(block => {
+          const card = el('div', 'gd-card');
+          card.appendChild(el('div', 'gd-h', esc(block.title || '')));
+          (block.items || []).forEach(it => {
+            const row = el('div', 'pn-row');
+            row.appendChild(el('div', 'pn-k', esc(it.k || '')));
+            row.appendChild(el('div', 'pn-v', esc(it.v || '')));
+            card.appendChild(row);
+          });
+          wrap.appendChild(card);
         });
-        box.appendChild(card);
-      });
+        btn.addEventListener('click', () => {
+          wrap.hidden = !wrap.hidden;
+          btn.textContent = wrap.hidden
+            ? '展开补充说明（哪些路段不该开车 · 方案三时间账）▾'
+            : '收起补充说明 ▴';
+        });
+        box.appendChild(btn);
+        box.appendChild(wrap);
+      }
 
-      box.appendChild(el('div', 'foot', '租车价格按 11 月淡季经济型车估算，含税费；旺季和临期会涨。油费按 $3.3/加仑、卡罗拉约 32 mpg 算。'));
+      box.appendChild(el('div', 'foot', '租车价格按 11 月淡季经济型车估算，含税费；油费按 $3.3/加仑、卡罗拉约 32 mpg 算。'));
       box.appendChild(el('div', 'foot', '版本 ' + BUILD));
       return;
     }
@@ -2957,8 +3040,14 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
     backdrop.classList.remove('show');
   }
   backdrop.addEventListener('click', closeSheet);
+  const pmCloseBtn = document.getElementById('pmClose');
+  if (pmCloseBtn) pmCloseBtn.addEventListener('click', closePlanDetail);
+  const pmBd = document.getElementById('pmBackdrop');
+  if (pmBd) pmBd.addEventListener('click', closePlanDetail);
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
+    const pm = document.getElementById('planModal');
+    if (pm && pm.classList.contains('show')) { pm.classList.remove('show'); document.body.style.overflow = ''; return; }
     const m = document.getElementById('mapModal');
     if (m && m.classList.contains('show')) { m.classList.remove('show'); document.body.style.overflow = ''; return; }
     closeSheet();
