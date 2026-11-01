@@ -32,6 +32,50 @@ window.TRIP = {
   subtitle: '上海 → 奥兰多 → 劳德代尔堡，会期 11/18–11/20',
   timezone: 'America/New_York',
   people: 2,
+  decisions: [
+    {
+      id: 'q1',
+      day: 'D1 · 11/13',
+      title: '落地当晚直接开去奥兰多，还是住机场附近？',
+      hint: '这决定 D2 上午能不能赶上周六市集',
+      options: [
+        { key: 'a', label: '直接开去奥兰多（23:00 入住）', desc: '当晚开 3 小时夜车，但 D2 早上 8 点市集就在楼下', tag: '累但高效' },
+        { key: 'b', label: '住机场附近，次日早上北上', desc: '更稳，但 D2 上午变成赶路，市集和博物馆作废', tag: '保守' }
+      ]
+    },
+    {
+      id: 'q2',
+      day: 'D2 · 11/14',
+      title: '下午走市区线，还是跑一趟赖特线？',
+      hint: '赖特线单程 1 小时，要提前预约导览',
+      skipIf: { q: 'q1', opt: 'b' },   // 住机场 → 下午只能走赖特线
+      options: [
+        { key: 'a', label: '市区线：图书馆 + Lake Eola + Church St', desc: '不用再开车，傍晚在市中心吃饭', tag: '省力' },
+        { key: 'b', label: '赖特线：Lakeland 赖特校园', desc: '全美最大单一校区赖特建筑群，13 栋；单程 1 小时', tag: '专程' }
+      ]
+    },
+    {
+      id: 'q3',
+      day: 'D3 · 11/15',
+      title: '上午看海牛，还是去更野的水道划船？',
+      hint: '两个都要早起，二选一',
+      options: [
+        { key: 'a', label: 'Blue Spring 看海牛', desc: '海牛季第一天，泉水清澈可见底；人稍多', tag: '看动物' },
+        { key: 'b', label: 'Kings Landing 划船', desc: 'Rock Springs Run 上游，水更清人更少，但看不到海牛；只能网上预约', tag: '更野' }
+      ]
+    },
+    {
+      id: 'q4',
+      day: 'D9 · 11/21',
+      title: '自由日：劳德代尔堡慢游，还是迈阿密一日？',
+      hint: '迈阿密来回各 1 小时',
+      options: [
+        { key: 'a', label: '劳德代尔堡 A 线', desc: '海滩 + 水上巴士 + Las Olas，最远 15 分钟', tag: '轻松' },
+        { key: 'b', label: '迈阿密 B 线', desc: 'Vizcaya + Wynwood + South Beach，开车 1 小时', tag: '跑一趟' }
+      ]
+    }
+  ],
+
   mapHome: { lat: 27.9, lng: -81.2, zoom: 7 },
   days: [
     /* ------------------------------------------------------------------ */
@@ -75,34 +119,36 @@ window.TRIP = {
         },
         {
           time: '', name: '方案 A · 当晚直接开到奥兰多（23:00 入住）', type: 'divider',
+          br: 'q1:a',
           note: ''
         },
         {
-          time: '19:30', name: '开车去奥兰多', type: 'transport',
+          time: '19:30', name: '开车去奥兰多', br: 'q1:a', type: 'transport',
           lat: 28.5383, lng: -81.3792, stay: 200, transit: 'I-95 北上转 Florida Turnpike，约 3 小时',
           note: '两个人换着开更安全。夜路车少，但服务区也少，出发前加满油。'
         },
         {
-          time: '23:00', name: '奥兰多酒店 check-in', type: 'stay',
+          time: '23:00', name: '奥兰多酒店 check-in', br: 'q1:a', type: 'stay',
           lat: 28.5383, lng: -81.3792, stay: 30, transit: '自驾',
           note: '到了直接睡。选市中心或 Winter Park 附近。'
         },
         {
           time: '', name: '方案 B · 今晚住机场附近，明早再北上（更稳）', type: 'divider',
+          br: 'q1:b',
           note: ''
         },
         {
-          time: '20:00', name: '机场附近酒店 check-in', type: 'stay',
+          time: '20:00', name: '机场附近酒店 check-in', br: 'q1:b', type: 'stay',
           lat: 26.1018, lng: -80.1252, stay: 40, transit: '开车 10 分钟',
           note: '可以直接订 17th Street 那家 Holiday Inn Express（就是后面 WAF 住的那家，离机场 2 英里），熟门熟路。'
         },
         {
-          time: '20:45', name: '17th Street 晚餐', type: 'food',
+          time: '20:45', name: '17th Street 晚餐', br: 'q1:b', type: 'food',
           lat: 26.1030, lng: -80.1240, stay: 80, transit: '步行 5 分钟',
           note: '运河边随便找一家，吃完就睡。'
         },
         {
-          time: '22:00', name: '休息', type: 'stay',
+          time: '22:00', name: '休息', br: 'q1:b', type: 'stay',
           lat: 26.1018, lng: -80.1252, stay: 30, transit: '步行',
           note: '明早 9:00 出发，还有时间吃个正经早餐。'
         }
@@ -119,117 +165,117 @@ window.TRIP = {
       tag: '城市',
       note: '这一天是「城市日」。周六限定：Winter Park 农贸市集只在上午开，所以 8 点就得起。下午四点回市区，图书馆和 Lake Eola 都在步行圈里。',
       items: [
-        { time: '', name: '上午 · 已在奥兰多（昨晚走 D1 方案 A）', type: 'divider', note: '' },
+        { time: '', name: '上午 · 已在奥兰多（昨晚走 D1 方案 A）', type: 'divider', br: 'q1:a', note: '' },
         {
-          time: '08:00', name: 'Winter Park 农贸市集（周六限定）', type: 'food',
+          time: '08:00', name: 'Winter Park 农贸市集（周六限定）', br: 'q1:a', type: 'food',
           lat: 28.5963, lng: -81.3539, stay: 55, transit: '打车 20 分钟到 200 W New England Ave',
           note: '每周六 8:00–13:00，在旧火车站仓库里。手工面包、佛罗里达柑橘、鲜花、蜂蜜摊；早餐就在这儿解决——现做的可颂和咖啡是本地人的标配。'
         },
         {
-          time: '09:05', name: 'Rollins College', type: 'sight',
+          time: '09:05', name: 'Rollins College', br: 'q1:a', type: 'sight',
           lat: 28.5916, lng: -81.3485, stay: 70, transit: '沿 Park Ave 往南走 10 分钟，从 Holt Ave 正门进',
           note: '1000 Holt Ave。红砖 + 西班牙殖民复兴风格，沿主轴线走到 Lake Virginia 湖边。重点看 Knowles Memorial Chapel（1932 年）和 Mills Memorial（钟楼）。校园全天开放，随便走。'
         },
         {
-          time: '10:20', name: 'Morse Museum（蒂芙尼玻璃）', type: 'sight',
+          time: '10:20', name: 'Morse Museum（蒂芙尼玻璃）', br: 'q1:a', type: 'sight',
           lat: 28.6012, lng: -81.3508, stay: 65, transit: '打车 6 分钟 / 步行 15 分钟，445 N Park Ave',
           note: '全美最重要的装饰艺术收藏之一，Louis Comfort Tiffany 的玻璃、灯饰、礼拜堂。门票几美元，馆不大但密度极高。⚠️ 周二–周六开，周日下午才开，别排错日子。'
         },
         {
-          time: '11:32', name: 'Park Avenue 扫街', type: 'shop',
+          time: '11:32', name: 'Park Avenue 扫街', br: 'q1:a', type: 'shop',
           lat: 28.5975, lng: -81.351, stay: 48, transit: '出馆就是 Park Ave',
           note: '从 Morse Blvd 往南沿 Park Ave 走。这一段集中了书店（Borders 旧址改成的小书店）、买手店、老式药妆店和咖啡馆，橱窗 11 月中已经换圣诞主题。慢慢走，看到喜欢的就进去，不用赶。'
         },
         {
-          time: '12:20', name: 'Rifle Paper Co 探店', type: 'shop',
+          time: '12:20', name: 'Rifle Paper Co 探店', br: 'q1:a', type: 'shop',
           lat: 28.5951, lng: -81.3507, stay: 25, transit: 'Park Ave 南段，Morse Blvd 往南两个路口',
           note: '这家插画文具品牌的创始店就在 Winter Park，全世界只有这一家旗舰店。纸品、笔记本、手机壳、日历，都是自家插画，价格不便宜但很适合带回国送人。⚠️ 门牌号以地图为准，搜 "Rifle Paper Co Winter Park"。'
         },
         {
-          time: '12:50', name: '午餐 Prato', type: 'food',
+          time: '12:50', name: '午餐 Prato', br: 'q1:a', type: 'food',
           lat: 28.5962, lng: -81.3513, stay: 58, transit: '步行 4 分钟回 124 N Park Ave',
           note: '手工意面和柴火披萨，Park Ave 上最稳的一家。12 点半后要等位，这个点进去刚好错峰；想换口味就去 The Ravenous Pig（565 W Fairbanks Ave）新美式。'
         },
         {
-          time: '13:50', name: 'Scenic Boat Tour 运河游船', type: 'sight',
+          time: '13:50', name: 'Scenic Boat Tour 运河游船', br: 'q1:a', type: 'sight',
           lat: 28.5973, lng: -81.3472, stay: 70, transit: '步行 6 分钟到 312 E Morse Blvd',
           note: '一小时的平底船，穿过 Winter Park 的运河看湖边豪宅，讲解很逗。整点发船（10:00–16:00），$20 左右，早点去排队。这条路是我觉得全城最值的一个项目。'
         },
         {
-          time: '15:15', name: 'Casa Feliz / Kraft Azalea Garden（选一个）', type: 'sight',
+          time: '15:15', name: 'Casa Feliz / Kraft Azalea Garden（选一个）', br: 'q1:a', type: 'sight',
           lat: 28.6031, lng: -81.3503, stay: 50, transit: '打车 5 分钟',
           note: 'Casa Feliz（656 N Park Ave）是 1933 年的西班牙农庄式老宅，免费参观但开放时段有限（以官网为准）。不想看房子就去 Kraft Azalea Garden（1365 Alabama Dr），湖边小花园，傍晚光线最好。'
         },
         {
-          time: '16:25', name: '打车去市中心', type: 'transport',
+          time: '16:25', name: '打车去市中心', br: 'q1:a', type: 'transport',
           lat: 28.5423, lng: -81.3785, stay: 25, transit: '打车 20 分钟',
           note: ''
         },
-        { time: '', name: '下午到晚上 · 市区线（图书馆 → Lake Eola → 晚餐 → Church St）', type: 'divider', note: '' },
+        { time: '', name: '下午到晚上 · 市区线（图书馆 → Lake Eola → 晚餐 → Church St）', type: 'divider', br: 'q2:a', note: '' },
         {
-          time: '16:55', name: 'Orlando Public Library', type: 'sight',
+          time: '16:55', name: 'Orlando Public Library', br: 'q2:a', type: 'sight',
           lat: 28.5423, lng: -81.3785, stay: 40, transit: '101 E Central Blvd',
           note: '1986 年扩建的玻璃中庭，光很好。1 楼主厅抬头看结构，2–3 楼有本地历史展。旁边就是 Orange County Regional History Center（65 E Central Blvd），想看老法院改造的展馆可以顺路进去。'
         },
         {
-          time: '17:40', name: 'Lake Eola Park', type: 'sight',
+          time: '17:40', name: 'Lake Eola Park', br: 'q2:a', type: 'sight',
           lat: 28.5433, lng: -81.3728, stay: 45, transit: '步行 8 分钟，512 E Washington St',
           note: '环湖 1.2 公里，天鹅船 30 分钟约 $15。傍晚喷泉配天际线是拍照点。周日下午这里还有露天市集（见 D3 备注）。'
         },
         {
-          time: '18:30', name: '市中心晚餐', type: 'food',
+          time: '18:30', name: '市中心晚餐', br: 'q2:a', type: 'food',
           lat: 28.5405, lng: -81.3795, stay: 90, transit: '步行 8 分钟到 Thornton Park',
           note: 'Thornton Park 一带（E Washington St × N Summerlin Ave）餐馆密度最高，Hawkers 亚洲街头小吃就在附近。'
         },
         {
-          time: '20:10', name: 'Church Street Station', type: 'sight',
+          time: '20:10', name: 'Church Street Station', br: 'q2:a', type: 'sight',
           lat: 28.5413, lng: -81.3813, stay: 50, transit: '步行 12 分钟 / 开车 5 分钟，129 W Church St',
           note: '1889 年的老火车站改的街区，红砖月台和铁架天桥还在。白天没什么人，晚上 20 点后酒吧和 live music 才开场——所以放在饭后正好。周六晚上最热闹。'
         },
         {
-          time: '21:10', name: '回酒店', type: 'stay',
+          time: '21:10', name: '回酒店', br: 'q2:a', type: 'stay',
           lat: 26.1455, lng: -80.1055, stay: 30, transit: '开车 20 分钟回 Maitland',
           note: '第二天 7:30 要去 Blue Spring，别逛太晚。'
         },
-        { time: '', name: '上午 · 昨晚住机场（D1 方案 B）', type: 'divider', note: '' },
+        { time: '', name: '上午 · 昨晚住机场（D1 方案 B）', type: 'divider', br: 'q1:b', note: '' },
         {
-          time: '09:05', name: '出发北上奥兰多', type: 'transport',
+          time: '09:05', name: '出发北上奥兰多', br: 'q1:b', type: 'transport',
           lat: 28.5383, lng: -81.3792, stay: 195, transit: 'I-95 转 Turnpike，约 3 小时',
           note: '睡到 7:30 再走，酒店吃完早餐出发。⚠️ 走这条线就赶不上周六市集和上午的博物馆了。'
         },
         {
-          time: '12:20', name: '到奥兰多，午餐', type: 'food',
+          time: '12:20', name: '到奥兰多，午餐', br: 'q1:b', type: 'food',
           lat: 28.5383, lng: -81.3792, stay: 60, transit: '直接开到市区',
           note: '吃完接下面的市区线（图书馆 → Lake Eola → Church St）。'
         },
-        { time: '', name: '下午 · 赖特线（Lakeland，单程 1 小时）', type: 'divider', note: '' },
+        { time: '', name: '下午 · 赖特线（Lakeland，单程 1 小时）', type: 'divider', br: 'q2:b', note: '' },
         {
-          time: '12:40', name: '出发去 Lakeland', type: 'transport',
+          time: '12:40', name: '出发去 Lakeland', br: 'q2:b', type: 'transport',
           lat: 28.0306, lng: -81.9479, stay: 60, transit: '打车单程约 1 小时（I-4 向西）',
           note: '打车往返约 $130–160；回程容易叫不到车，提前和司机约好。13:45 到游客中心正好赶上 14:00 的导览。'
         },
         {
-          time: '13:45', name: 'Florida Southern College', type: 'sight',
+          time: '13:45', name: 'Florida Southern College', br: 'q2:b', type: 'sight',
           lat: 28.0306, lng: -81.9479, stay: 130, transit: '步行到游客中心',
           note: '导览每天只有 10:00 和 14:00 两场（Basic，90 分钟，$45/人），提前 24 小时网上订。全美最大规模的单一校区赖特建筑群，13 栋。'
         },
         {
-          time: '15:55', name: '校园自由逛', type: 'sight',
+          time: '15:55', name: '校园自由逛', br: 'q2:b', type: 'sight',
           lat: 28.033, lng: -81.945, stay: 45, transit: '步行',
           note: '重点看 Annie Pfeiffer Chapel 和 Water Dome 喷泉，连廊（Esplanades）本身也是赖特的作品。'
         },
         {
-          time: '16:45', name: '回奥兰多', type: 'transport',
+          time: '16:45', name: '回奥兰多', br: 'q2:b', type: 'transport',
           lat: 28.5383, lng: -81.3792, stay: 60, transit: '打车 1 小时',
           note: ''
         },
         {
-          time: '18:00', name: '晚餐', type: 'food',
+          time: '18:00', name: '晚餐', br: 'q2:b', type: 'food',
           lat: 28.54, lng: -81.376, stay: 90, transit: '步行',
           note: ''
         },
         {
-          time: '20:30', name: '回酒店', type: 'stay',
+          time: '20:30', name: '回酒店', br: 'q2:b', type: 'stay',
           lat: 28.5383, lng: -81.3792, stay: 30, transit: '打车 15 分钟',
           note: '明天去 Blue Spring 要早起。'
         }
@@ -246,20 +292,20 @@ window.TRIP = {
       tag: '自然',
       note: '11/15 正好是海牛季第一天。下午把路线往北延伸一站：Mount Dora 周日有跳蚤市场和古董中心，比回城逛公园有意思。',
       items: [
-        { time: '', name: '上午 · Blue Spring', type: 'divider', note: '' },
+        { time: '', name: '上午 · Blue Spring', type: 'divider', br: 'q3:a', note: '' },
         {
-          time: '07:30', name: '出发', type: 'transport',
+          time: '07:30', name: '出发', br: 'q3:a', type: 'transport',
           lat: 28.9487, lng: -81.3396, stay: 50, transit: '自驾或打车约 45 分钟（I-4 转 17-92）',
           note: '越早越好：清晨海牛最活跃，人也最少。'
         },
         {
-          time: '08:30', name: 'Blue Spring State Park 皮划艇', type: 'sight',
+          time: '08:30', name: 'Blue Spring State Park 皮划艇', br: 'q3:a', type: 'sight',
           lat: 28.9487, lng: -81.3396, stay: 180, transit: '园内码头（2100 W French Ave）',
           note: '订 2–3 小时的 guided kayak tour（含装备）。海牛季泉眼水道禁船，皮划艇在圣约翰河段下水，照样能看到。带防蚊液和换洗衣服。'
         },
-        { time: '', name: '备选 · 不想看海牛就划 Kings Landing', type: 'divider', note: '' },
+        { time: '', name: '备选 · 不想看海牛就划 Kings Landing', type: 'divider', br: 'q3:b', note: '' },
         {
-          time: '08:30', name: 'Kings Landing 划船', type: 'sight',
+          time: '08:30', name: 'Kings Landing 划船', br: 'q3:b', type: 'sight',
           lat: 28.7637, lng: -81.5148, stay: 210, transit: '自驾 50 分钟（Apopka，Kelly Park 北侧）',
           note: 'Rock Springs Run 上游放船，水清见底、柏树林夹岸，比 Blue Spring 野。只能官网预约，不接受现场；划 2.5–4 小时。代价是看不到海牛，而且不经过 Sanford。'
         },
@@ -646,74 +692,76 @@ window.TRIP = {
       items: [
         {
           time: '', name: '方案 A · 劳德代尔堡慢游', type: 'divider',
+          br: 'q4:a',
           note: ''
         },
         {
-          time: '09:30', name: '劳德代尔堡海滩', type: 'sight',
+          time: '09:30', name: '劳德代尔堡海滩', br: 'q4:a', type: 'sight',
           lat: 26.1198, lng: -80.1046, stay: 120, transit: '打车 10 分钟（A1A）',
           note: 'A1A 沿线，可以租躺椅。11 月水温还在 25℃ 左右，下海没问题。'
         },
         {
-          time: '11:40', name: '运河游船', type: 'sight',
+          time: '11:40', name: '运河游船', br: 'q4:a', type: 'sight',
           lat: 26.1128, lng: -80.1043, stay: 90, transit: '步行到码头',
           note: 'Jungle Queen 或 Water Taxi，看「美国的威尼斯」那些豪宅河道，这条是全城最值的一个项目。'
         },
         {
-          time: '13:30', name: 'Las Olas 午餐', type: 'food',
+          time: '13:30', name: 'Las Olas 午餐', br: 'q4:a', type: 'food',
           lat: 26.1195, lng: -80.1345, stay: 80, transit: '打车 10 分钟',
           note: ''
         },
         {
-          time: '15:00', name: 'Las Olas 逛街 / 回酒店休息', type: 'shop',
+          time: '15:00', name: 'Las Olas 逛街 / 回酒店休息', br: 'q4:a', type: 'shop',
           lat: 26.1180, lng: -80.1330, stay: 120, transit: '步行',
           note: '沿街画廊、买手店；不想逛就回酒店收拾行李。'
         },
         {
-          time: '18:00', name: '回酒店', type: 'stay',
+          time: '18:00', name: '回酒店', br: 'q4:a', type: 'stay',
           lat: 26.1018, lng: -80.1252, stay: 30, transit: '打车 10 分钟',
           note: '明早飞机，今晚把行李收好。'
         },
         {
-          time: '19:30', name: '晚餐', type: 'food',
+          time: '19:30', name: '晚餐', br: 'q4:a', type: 'food',
           lat: 26.1030, lng: -80.1240, stay: 90, transit: '步行',
           note: '最后一晚，找运河边的位置。'
         },
         {
           time: '', name: '方案 B · 迈阿密一日（建筑线）', type: 'divider',
+          br: 'q4:b',
           note: ''
         },
         {
-          time: '09:00', name: '出发去 Miami', type: 'transport',
+          time: '09:00', name: '出发去 Miami', br: 'q4:b', type: 'transport',
           lat: 25.7444, lng: -80.2103, stay: 45, transit: '自驾或打车约 40 分钟（I-95 南）',
           note: '打车单程约 $50。想省钱包车一天更划算。'
         },
         {
-          time: '09:50', name: 'Vizcaya Museum & Gardens', type: 'sight',
+          time: '09:50', name: 'Vizcaya Museum & Gardens', br: 'q4:b', type: 'sight',
           lat: 25.7444, lng: -80.2103, stay: 120, transit: '停车场',
           note: '1916 年意大利文艺复兴式庄园，面朝 Biscayne 湾。必须提前网上订票，现场常售完。'
         },
         {
-          time: '12:20', name: 'Wynwood Walls', type: 'sight',
+          time: '12:20', name: 'Wynwood Walls', br: 'q4:b', type: 'sight',
           lat: 25.8011, lng: -80.1994, stay: 100, transit: '打车 15 分钟',
           note: '涂鸦墙 + 画廊区，周围餐厅多，午餐就在这一带解决。'
         },
         {
-          time: '14:15', name: 'South Beach / Ocean Drive', type: 'sight',
+          time: '14:15', name: 'South Beach / Ocean Drive', br: 'q4:b', type: 'sight',
           lat: 25.7826, lng: -80.1341, stay: 120, transit: '打车 20 分钟',
           note: 'Art Deco 装饰艺术建筑群，沿 Ocean Drive 走一圈比拍照有意思。'
         },
         {
-          time: '16:45', name: '回劳德代尔堡', type: 'transport',
+          time: '16:45', name: '回劳德代尔堡', br: 'q4:b', type: 'transport',
           lat: 26.1018, lng: -80.1252, stay: 55, transit: '自驾 40 分钟',
           note: '晚高峰 I-95 会堵，多留时间。'
         },
         {
-          time: '18:00', name: '回酒店', type: 'stay',
+          time: '18:00', name: '回酒店', br: 'q4:b', type: 'stay',
           lat: 26.1018, lng: -80.1252, stay: 30, transit: '步行 / 打车',
           note: '明早飞机，今晚把行李收好。'
         },
         {
-          time: '19:30', name: '晚餐', type: 'food',
+          time: '19:30', name: '晚餐', br: 'q4:b', type: 'food',
           lat: 26.1030, lng: -80.1240, stay: 90, transit: '步行',
           note: '最后一晚，找运河边的位置。'
         }
