@@ -165,7 +165,7 @@ window.TRIP = {
           lat: 28.5423, lng: -81.3785, stay: 25, transit: '打车 20 分钟',
           note: ''
         },
-        { time: '', name: '下午 · 市区线（图书馆 + Lake Eola + Church St）', type: 'divider', note: '' },
+        { time: '', name: '下午到晚上 · 市区线（图书馆 → Lake Eola → 晚餐 → Church St）', type: 'divider', note: '' },
         {
           time: '16:55', name: 'Orlando Public Library', type: 'sight',
           lat: 28.5423, lng: -81.3785, stay: 40, transit: '101 E Central Blvd',
@@ -177,14 +177,19 @@ window.TRIP = {
           note: '环湖 1.2 公里，天鹅船 30 分钟约 $15。傍晚喷泉配天际线是拍照点。周日下午这里还有露天市集（见 D3 备注）。'
         },
         {
-          time: '18:35', name: 'Church Street Station', type: 'sight',
-          lat: 28.5413, lng: -81.3813, stay: 40, transit: '步行 10 分钟，129 W Church St',
-          note: '1889 年的老火车站改的街区，红砖建筑和旧月台还在。有几家酒吧和 live music，天黑后气氛最好。'
+          time: '18:30', name: '市中心晚餐', type: 'food',
+          lat: 28.5405, lng: -81.3795, stay: 90, transit: '步行 8 分钟到 Thornton Park',
+          note: 'Thornton Park 一带（E Washington St × N Summerlin Ave）餐馆密度最高，Hawkers 亚洲街头小吃就在附近。'
         },
         {
-          time: '19:30', name: '市中心晚餐', type: 'food',
-          lat: 28.5405, lng: -81.3795, stay: 90, transit: '步行',
-          note: 'Thornton Park 一带（E Washington St × N Summerlin Ave）餐馆密度最高，Hawkers 亚洲街头小吃就在附近。'
+          time: '20:10', name: 'Church Street Station', type: 'sight',
+          lat: 28.5413, lng: -81.3813, stay: 50, transit: '步行 12 分钟 / 开车 5 分钟，129 W Church St',
+          note: '1889 年的老火车站改的街区，红砖月台和铁架天桥还在。白天没什么人，晚上 20 点后酒吧和 live music 才开场——所以放在饭后正好。周六晚上最热闹。'
+        },
+        {
+          time: '21:10', name: '回酒店', type: 'stay',
+          lat: 26.1455, lng: -80.1055, stay: 30, transit: '开车 20 分钟回 Maitland',
+          note: '第二天 7:30 要去 Blue Spring，别逛太晚。'
         },
         { time: '', name: '上午 · 昨晚住机场（D1 方案 B）', type: 'divider', note: '' },
         {
