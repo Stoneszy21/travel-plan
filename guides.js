@@ -384,8 +384,115 @@ window.TRIP_GUIDES = {
     }
   ],
 
+  plans: [
+    {
+      id: 'p1',
+      name: '方案一 · 全程租车',
+      tagline: '11/13 FLL 取车 → 11/22 FLL 还车，共 9 天',
+      best: true,
+      pros: [
+        '全程有车，行程零等待，D5 从 KSC 直接开回酒店',
+        'D2 赖特校园线（Lakeland 单程 1 小时）必须开车，这个方案最省事',
+        '行李跟着车走，11/17 换酒店不用拖箱子',
+        '两人以上摊下来最便宜'
+      ],
+      cons: [
+        '劳德代尔堡市区停车贵且难，D6–D8 的 3–5 公里短途开车不划算',
+        'D9 去迈阿密遇早晚高峰会堵',
+        '要多买一份保险（LDW 约 $15/天）'
+      ],
+      cost: [
+        { k: '租车 9 天（经济型卡罗拉）', v: '$400–470' },
+        { k: '保险 LDW（$15/天）', v: '$135' },
+        { k: '油费（约 950 英里）', v: '$95–110' },
+        { k: '过路费 SunPass（含 KSC、迈阿密）', v: '$35–45' },
+        { k: '停车（奥兰多 4 晚 + FLL 5 晚 + 景点）', v: '$230–280' }
+      ],
+      total: '$900–1,040',
+      perPerson: '两人约 $450–520/人',
+      verdict: '最省心，也是最贵。适合不想为交通操心的玩法。'
+    },
+    {
+      id: 'p2',
+      name: '方案二 · 只租前半程',
+      tagline: 'D1 取车，D5 晚上 FLL 还车；D6–D10 打车 + 公共交通',
+      pros: [
+        '省钱：租车只付 5 天，省掉一半租车费和保险',
+        'D6–D8 在劳德代尔堡开会，本来就不需要车，打车 3–5 公里约 $12–18',
+        '还车当天晚上就能把车脱手，之后喝酒也不担心'
+      ],
+      cons: [
+        'D5 从 KSC 回来先还车再回酒店，多花 40 分钟',
+        'D9 去迈阿密只能靠 Brightline 或包车，灵活性差',
+        '两次叫车高峰（Gala 晚上散场）可能等 15 分钟以上'
+      ],
+      cost: [
+        { k: '租车 5 天', v: '$225–260' },
+        { k: '保险 5 天', v: '$75' },
+        { k: '油费（约 620 英里）', v: '$60–70' },
+        { k: '过路费', v: '$25–30' },
+        { k: '停车（奥兰多 4 晚 + 景点）', v: '$120–150' },
+        { k: 'D6–D10 打车（约 10 程）', v: '$140–190' },
+        { k: 'D9 迈阿密往返（Brightline 两人）', v: '$80–120' }
+      ],
+      total: '$725–945',
+      perPerson: '两人约 $365–470/人',
+      verdict: '性价比最好。省下的钱够吃两顿好的，代价是 D9 那天自由度下降。'
+    },
+    {
+      id: 'p3',
+      name: '方案三 · 火车 + 奥兰多租车',
+      tagline: 'D1 住机场，D2 早班火车去奥兰多，当地租车；D5 还车坐火车回',
+      best: false,
+      pros: [
+        '全程租车天数最少（D2–D5 共 4 天），租车费用最低',
+        '不用开 FLL→奥兰多那 3 小时高速，两个人都轻松',
+        'D1 到得晚就直接住机场，没有赶路压力'
+      ],
+      cons: [
+        'D1 要多住一晚机场酒店（$120–160）',
+        'D2 上午基本报废：火车 + 取车吃掉半天，Winter Park 市集和博物馆去不了',
+        'D5 必须卡点：KSC 17:00 闭园 → 还车 → 赶末班火车，错过就只能住奥兰多',
+        '行李要跟着火车搬两次'
+      ],
+      cost: [
+        { k: 'D1 机场酒店 1 晚', v: '$120–160' },
+        { k: 'Brightline FLL→奥兰多（两人）', v: '$80–110' },
+        { k: '奥兰多租车 4 天', v: '$180–210' },
+        { k: '保险 4 天', v: '$60' },
+        { k: '油费 + 过路', v: '$60–75' },
+        { k: '停车（奥兰多 4 晚）', v: '$80–100' },
+        { k: 'Brightline 回 FLL（两人）', v: '$80–110' },
+        { k: 'D6–D10 打车', v: '$140–190' }
+      ],
+      total: '$800–955',
+      perPerson: '两人约 $400–478/人',
+      verdict: '钱没省多少，时间赔进去不少。除非你特别讨厌开长途，否则不推荐。'
+    }
+  ],
+
+  planningNotes: [
+    {
+      title: '哪些路段不该开车',
+      items: [
+        { k: 'D2 · Winter Park 镇内', v: '不要开。Park Ave 一带停车 $5–10/小时，镇上走 10 分钟就到，车反而是负担。把车停在市集停车场（200 W New England Ave，免费 2 小时）然后走路。' },
+        { k: 'D6–D8 · 劳德代尔堡开会期间', v: '不要开。会场、酒店、Las Olas 之间 2–4 公里，打车 $10–15；酒店停车 $22/晚。方案二就是按这个算的。' },
+        { k: 'D9 · 迈阿密', v: '不建议开。Wynwood 和 South Beach 停车 $20–40，还容易堵。方案一可以开，但要预留 40 分钟找车位。' },
+        { k: 'D2 赖特线 · Lakeland', v: '必须开。单程 1 小时、公共交通要 4 小时以上，打车单程 $130–160。' },
+        { k: 'D5 · KSC', v: '必须开。没有公共交通，打车往返 $200+。' }
+      ]
+    },
+    {
+      title: '方案三的时间账（按你的要求逐天算）',
+      items: [
+        { k: 'D2 损失约 4 小时', v: '08:00 酒店→FLL 站 20 分钟 + 候车 20 分钟 + 火车 3 小时 + MCO 取车 40 分钟 = 12:20 才开上车。原本 09:05 出发、12:15 已经在 Winter Park 吃午饭。等于市集（周六限定）、Morse 博物馆、运河游船全部作废。' },
+        { k: 'D5 损失约 2.5–3 小时', v: '17:00 闭园 → 开回奥兰多站 60 分钟 → 还车 25 分钟 → 候车 30 分钟 → 火车 2.5 小时 → FLL 站到酒店 20 分钟 = 约 22:40 到店。方案一是 20:30。而且末班车约 19:00–20:00，还车稍慢就赶不上，风险很高。' },
+        { k: '额外风险', v: 'Brightline 需要提前订票，末班没赶上当晚只能住奥兰多，第二天再南下会打乱 D6 上午的会。' }
+      ]
+    }
+  ],
+
   tickets: [
-    { id: 'birch', name: 'Hugh Taylor Birch 州立公园', sight: 'Hugh Taylor Birch State Park', day: 'D8 · 11/20', status: 'todo', price: '$6/车（步行 $2）', url: 'https://www.floridastateparks.org/parks-and-trails/hugh-taylor-birch-state-park', note: '门口按车收费，不用预约。皮划艇园内现场租。' },
     { id: 'ksc', name: '肯尼迪航天中心 一日票', sight: '肯尼迪航天中心', day: 'D5 · 11/17', status: 'todo', price: '$75 左右', url: 'https://www.kennedyspacecenter.com/', note: '官网买一日票，含园区巴士和土星五号中心。提前一周买，现场排队 30 分钟起。' },
     { id: 'ak', name: '迪士尼 Animal Kingdom 门票', sight: '迪士尼 Animal Kingdom', day: 'D4 · 11/16', status: 'todo', price: '$140–160', url: 'https://disneyworld.disney.go.com/admission/', note: '还要在 My Disney Experience 里预约入园日期（Park Reservation），光买票进不去。' },
     { id: 'blue', name: 'Blue Spring 皮划艇导览', sight: 'Blue Spring State Park', day: 'D3 · 11/15', status: 'todo', price: '$60–80/人', url: 'https://www.floridastateparks.org/parks-and-trails/blue-spring-state-park', note: '公园门票另算（约 $6/车）。皮划艇要找本地运营方订，海牛季名额紧，尽量提前订。' },
@@ -567,7 +674,7 @@ window.TRIP_GUIDES = {
       note: '唯一需要守时的是巴士导览（首班车约 10:00）和 IMAX 场次，进门先看当天时刻牌。玩到 17:00 闭园时间刚好够，不用赶。'
     },
     {
-      ord: 'D8-02',
+      ord: 'D8-01',
       photos: [
         { t: 'img/sights/bonnet-1-t.jpg', m: 'img/sights/bonnet-1-m.jpg', f: 'img/sights/bonnet-1.jpg' },
         { t: 'img/sights/bonnet-2-t.jpg', m: 'img/sights/bonnet-2-m.jpg', f: 'img/sights/bonnet-2.jpg' },
@@ -892,21 +999,6 @@ window.TRIP_GUIDES = {
         '划到 Wekiva River 交汇处折返，全程 2.5–4 小时'
       ],
       note: '在 Apopka 的 Kelly Park 北侧（Rock Springs Run 上游）。和 Blue Spring 二选一：Kings Landing 水质更清、人更少，但没有海牛；Blue Spring 海牛季能看海牛，人稍多。⚠️ 具体门牌和放船时段以官网为准。'
-    },
-    {
-      icon: '🏝',
-      ord: 'D8-01',
-      ticketId: 'birch',
-      name: 'Hugh Taylor Birch State Park',
-      day: 'D8 · 11/20',
-      hours: '8:00 到日落（全年开放）',
-      booking: '门口按车收费，不用预约',
-      plan: [
-        '进门先去 Beach Tunnel，从 A1A 底下穿过去就是沙滩',
-        '沿潟湖走一圈，清晨常能看到海牛和鹈鹕',
-        '想划船就在园内租皮划艇，约 $25/小时',
-      ],
-      note: '3109 E Sunrise Blvd。1920 年代的老庄园改的州立公园，夹在海滩大道和 Intracoastal 之间，因此沙滩人很少。门票按车 $6、步行或骑车 $2。'
     },
   ]
 };
