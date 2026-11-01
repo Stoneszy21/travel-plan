@@ -1297,8 +1297,8 @@ window.TRIP_GUIDES = {
       ],
       name: 'Church Street Station',
       day: 'D2 · 11/14',
-      hours: '街区全天，店铺和酒吧傍晚才热闹',
-      plan: ['129 W Church St', '1889 年老火车站的红砖站房', '天黑后酒吧和 live music 开场']
+      hours: '街区全天；店铺和酒吧 20:00 后才热闹',
+      plan: ['129 W Church St', '1889 年老火车站的红砖站房和铁架天桥', '20:00 后酒吧和 live music 才开场，别太早去']
     },
     {
       icon: '🐕',
