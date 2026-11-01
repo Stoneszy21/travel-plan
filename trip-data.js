@@ -562,47 +562,64 @@ window.TRIP = {
     /* ------------------------------------------------------------------ */
     {
       date: '2026-11-20',
-      title: 'WAF Day 3 · 颁奖典礼',
-      area: 'Fort Lauderdale',
-      summary: 'WAF Day 3：19:00 Gala 颁奖典礼',
-      tag: '汇报',
-      base: { lat: 26.0996, lng: -80.1190 },
-      note: '晚上是 Gala Dinner（19:00），白天不用早起，穿正装的那件记得熨。',
+      title: '海滩片区半日 · 颁奖典礼',
+      area: 'Fort Lauderdale Beach',
+      base: { lat: 26.1455, lng: -80.1055 },
+      summary: 'Birch 州立公园 + Coconuts 午餐 + Bonnet House，三处相距不到 1 公里',
+      tag: '海边',
+      note: '不听 crit 后，上午正好补上海滩这一片。三个点都在 Birch Road 上，走路或开车 3 分钟切换。下午 15:00 就回酒店，熨衣服、补觉都来得及。',
       items: [
+        { time: '', name: '上午 · 海滩片区（Birch Road 一线）', type: 'divider', note: '' },
         {
-          time: '10:00', name: '旁听 crit', type: 'other',
-          lat: 26.0996, lng: -80.1190, stay: 150, transit: '步行 12 分钟',
-          note: '最后一天评审，也是看今年最好的项目的时候。'
+          time: '08:30', name: '酒店早餐', type: 'food',
+          lat: 26.1006, lng: -80.1189, stay: 45, transit: '酒店内',
+          note: '这家 Holiday Inn Express 的早餐到 9:30，别拖。'
         },
         {
-          time: '12:40', name: '午餐', type: 'food',
-          lat: 26.1030, lng: -80.1240, stay: 60, transit: '步行',
-          note: ''
+          time: '09:20', name: '出发去 Birch 州立公园', type: 'transport',
+          lat: 26.1455, lng: -80.1055, stay: 20, transit: '开车 15 分钟（3109 E Sunrise Blvd）',
+          note: '打车约 $14。公园入口在 Sunrise Blvd 上，容易开过头，跟着棕色公园指示牌走。'
         },
         {
-          time: '14:00', name: 'Bonnet House Museum', type: 'sight',
-          lat: 26.1331, lng: -80.1045, stay: 90, transit: '打车 6 分钟',
-          note: '1920 年宅邸 + 花园，离会场 1 英里，1.5 小时逛完。'
+          time: '09:40', name: 'Hugh Taylor Birch State Park', type: 'sight',
+          lat: 26.1455, lng: -80.1055, stay: 100, transit: '园内步行',
+          note: '1920 年代的老庄园改的州立公园，藏在海滩大道和 Intracoastal 之间。走地下通道（Beach Tunnel）穿过 A1A 就是沙滩，人比公共海滩少得多。园内有潟湖，清晨常见海牛和鹈鹕。想划船可以在园内租皮划艇（约 $25/小时）。⚠️ 门票按车收 $6，步行/骑车 $2。'
         },
         {
-          time: '16:00', name: '回酒店换衣服', type: 'stay',
-          lat: 26.1018, lng: -80.1252, stay: 60, transit: '打车 6 分钟',
-          note: 'Gala 有着装要求，一般是正装。'
+          time: '11:25', name: '走到 Coconuts 午餐', type: 'food',
+          lat: 26.128, lng: -80.1078, stay: 80, transit: '开车 6 分钟（429 Seabreeze Blvd）',
+          note: '11:30 开门就进，能占到水边露台位。11 月中午坐户外正好。'
         },
         {
-          time: '17:00', name: '到会场（颁奖典礼）', type: 'other',
-          lat: 26.0996, lng: -80.1190, stay: 120, transit: '步行 12 分钟',
-          note: '提前 2 小时到：先酒会，再入场。'
+          time: '13:00', name: 'Bonnet House Museum & Gardens', type: 'sight',
+          lat: 26.1352, lng: -80.1053, stay: 95, transit: '开车 4 分钟 / 步行 15 分钟（900 N Birch Rd）',
+          note: '就在 Birch 公园旁边——那块地原本就是 Birch 家的。1920 年建的加勒比庄园，主人是画家 Frederic Bartlett，屋里还留着他的画和收藏。周二–周日 11:00–16:00，最后入场 16:00。'
+        },
+        { time: '', name: '下午 · 回酒店准备', type: 'divider', note: '' },
+        {
+          time: '14:45', name: '回酒店', type: 'stay',
+          lat: 26.1006, lng: -80.1189, stay: 120, transit: '开车 12 分钟',
+          note: '比原来早一个半小时。熨正装、补觉、洗个澡，晚上 Gala 要站很久。'
+        },
+        {
+          time: '16:50', name: '去会场', type: 'transport',
+          lat: 26.0995, lng: -80.1155, stay: 15, transit: '开车 8 分钟 / 打车约 $10',
+          note: '17:00 有酒会，提前 10 分钟到。'
+        },
+        {
+          time: '17:00', name: 'WAF 酒会', type: 'other',
+          lat: 26.0995, lng: -80.1155, stay: 120, transit: '会场',
+          note: 'Gala 前的 social，别空着肚子喝。'
         },
         {
           time: '19:00', name: 'Gala Dinner 颁奖典礼', type: 'other',
-          lat: 26.0996, lng: -80.1190, stay: 180, transit: '会场内',
-          note: '年度大奖在这晚揭晓，通常 22:00 前后结束。'
+          lat: 26.0995, lng: -80.1155, stay: 180, transit: '会场',
+          note: '正装。颁奖在晚饭后，坐着的时候不多，鞋子别选太新的。'
         },
         {
           time: '22:30', name: '回酒店', type: 'stay',
-          lat: 26.1018, lng: -80.1252, stay: 15, transit: '步行 12 分钟',
-          note: ''
+          lat: 26.1006, lng: -80.1189, stay: 15, transit: '打车',
+          note: '明天自由日，可以睡懒觉。'
         }
       ]
     },
