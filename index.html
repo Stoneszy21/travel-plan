@@ -312,6 +312,27 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .pl-dsum-k { font-weight: 700; }
 .pl-dsum-v { font-variant-numeric: tabular-nums; }
 .pl-dsum { display: flex; justify-content: space-between; gap: 8px; margin-top: 4px; padding-top: 4px; border-top: 1px dashed var(--line-2); font-size: 12px; font-weight: 700; color: var(--accent); }
+.pl-sum { font-size: 12.5px; line-height: 1.7; color: var(--muted); margin: 8px 0 2px; padding: 9px 11px; border-left: 3px solid var(--accent); background: var(--card-2); border-radius: 0 8px 8px 0; }
+.pl-summary { margin: 18px 0 10px; padding: 14px; border-radius: 14px; border: 1px solid var(--accent); background: var(--card); }
+.pl-summary-h { font-size: 14.5px; font-weight: 800; margin-bottom: 10px; }
+.pl-summary-p { font-size: 12.5px; line-height: 1.75; color: var(--muted); margin-bottom: 8px; }
+.pl-table { margin: 10px 0 4px; }
+.pl-trow { display: grid; grid-template-columns: 1.35fr 0.95fr 0.85fr; gap: 6px; padding: 5px 0; border-bottom: 1px dashed var(--line-2); align-items: baseline; }
+.pl-trow.head { border-bottom: 1px solid var(--line); }
+.pl-tcell { font-size: 11.5px; font-variant-numeric: tabular-nums; }
+.pl-trow.head .pl-tcell { font-weight: 800; color: var(--muted-2); }
+.pl-tcell.c1 { font-weight: 700; }
+.pl-tcell.c2 { font-weight: 700; }
+.pl-tcell.c3 { color: var(--muted); }
+.pl-tkey { font-size: 11px; color: var(--muted-2); padding: 0 0 6px; margin-top: -2px; }
+.pl-pick { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+.pl-pick-h { font-size: 14px; font-weight: 800; color: var(--accent); margin-bottom: 5px; }
+.pl-pick-w { font-size: 12.5px; line-height: 1.7; color: var(--muted); margin-bottom: 9px; }
+.pl-switch { padding: 7px 0; border-top: 1px dashed var(--line-2); }
+.pl-switch-when { font-size: 12px; font-weight: 700; }
+.pl-switch-then { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 2px; }
+.pl-notrec { margin-top: 9px; padding: 8px 10px; border-radius: 8px; background: #fef2f2; color: #b91c1c; font-size: 12px; line-height: 1.6; }
+@media (prefers-color-scheme: dark) { .pl-notrec { background: #2a0f0f; color: #fca5a5; } }
 /* ---------- 门票 / 导航 ---------- */
 .tk-sum { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); margin-bottom: 12px; }
 .tk-sum.warn { border-color: #f59e0b; background: #fffbeb; }
@@ -748,7 +769,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const BUILD = '2026-11-01 11:05';   // 部署时由 deploy.ps1 自动改写
+  const BUILD = '2026-11-01 11:12';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -2427,6 +2448,8 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
         h.appendChild(hw);
         card.appendChild(h);
 
+        if (p.summary) card.appendChild(el('div', 'pl-sum', esc(p.summary)));
+
         const total = el('div', 'pl-total');
         total.appendChild(el('span', 'pl-total-k', '预算'));
         total.appendChild(el('span', 'pl-total-v', esc(p.total || '')));
@@ -2501,6 +2524,40 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
         if (p.verdict) card.appendChild(el('div', 'gd-tip', esc(p.verdict)));
         box.appendChild(card);
       });
+
+      const ps = GUIDES.plansSummary;
+      if (ps) {
+        const sc = el('div', 'pl-summary');
+        sc.appendChild(el('div', 'pl-summary-h', esc(ps.title || '')));
+        (ps.paras || []).forEach(t => sc.appendChild(el('div', 'pl-summary-p', esc(t))));
+
+        if (ps.table && ps.table.length) {
+          const tb = el('div', 'pl-table');
+          ps.table.forEach((row, i) => {
+            const tr = el('div', 'pl-trow' + (i === 0 ? ' head' : ''));
+            tr.appendChild(el('span', 'pl-tcell c1', esc(row.plan || '')));
+            tr.appendChild(el('span', 'pl-tcell c2', esc(row.cost || '')));
+            tr.appendChild(el('span', 'pl-tcell c3', esc(row.time || '')));
+            sc.appendChild(tr);
+            if (row.key) sc.appendChild(el('div', 'pl-tkey', esc(row.key)));
+          });
+        }
+
+        if (ps.pick) {
+          const pk = el('div', 'pl-pick');
+          pk.appendChild(el('div', 'pl-pick-h', '推荐：' + esc(ps.pick)));
+          if (ps.why) pk.appendChild(el('div', 'pl-pick-w', esc(ps.why)));
+          (ps.switchTo || []).forEach(s => {
+            const row = el('div', 'pl-switch');
+            row.appendChild(el('div', 'pl-switch-when', esc(s.when || '')));
+            row.appendChild(el('div', 'pl-switch-then', esc(s.then || '')));
+            pk.appendChild(row);
+          });
+          if (ps.notRecommended) pk.appendChild(el('div', 'pl-notrec', esc(ps.notRecommended)));
+          sc.appendChild(pk);
+        }
+        box.appendChild(sc);
+      }
 
       (GUIDES.planningNotes || []).forEach(block => {
         const card = el('div', 'gd-card');
