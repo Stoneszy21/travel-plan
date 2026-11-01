@@ -933,7 +933,7 @@ window.TRIP_GUIDES = {
     { id: 'ak', name: '迪士尼 Animal Kingdom 门票', sight: '迪士尼 Animal Kingdom', day: 'D4 · 11/16', status: 'todo', price: '$140–160', url: 'https://disneyworld.disney.go.com/admission/', note: '还要在 My Disney Experience 里预约入园日期（Park Reservation），光买票进不去。' },
     { id: 'blue', name: 'Blue Spring 皮划艇导览', sight: 'Blue Spring State Park', day: 'D3 · 11/15', status: 'todo', price: '$60–80/人', url: 'https://www.floridastateparks.org/parks-and-trails/blue-spring-state-park', note: '公园门票另算（约 $6/车）。皮划艇要找本地运营方订，海牛季名额紧，尽量提前订。' },
     { id: 'kings', name: 'Kings Landing 划船（备选）', sight: 'Kings Landing', day: 'D3 · 11/15', status: 'todo', price: '$35–45/人', url: 'https://kingslandingfl.com/', note: 'Rock Springs Run 上游，只能提前网上预约，不接受现场。和 Blue Spring 二选一。' },
-    { id: 'morse', name: 'Morse Museum 门票', sight: 'Morse Museum of American Art', day: 'D2 · 11/14', status: 'todo', price: '$6 左右', url: 'https://morsemuseum.org/', note: '现场买就行。周五傍晚常有免费时段，以官网公告为准。' },
+    { id: 'morse', name: 'Morse Museum 门票', sight: 'Morse Museum of American Art', day: 'D2 · 11/14', status: 'todo', price: '$8', url: 'https://morsemuseum.org/', note: '现场买就行。周五傍晚常有免费时段，以官网公告为准。' },
     { id: 'boattour', name: 'Scenic Boat Tour 船票', sight: 'Winter Park Scenic Boat Tour', day: 'D2 · 11/14', status: 'todo', price: '$20 左右', url: 'https://www.scenicboattours.com/', note: '现场买票，整点发船。旺季提前 15 分钟到码头排队。' },
     { id: 'fsc', name: 'Florida Southern College 导览', sight: 'Florida Southern College（赖特校园）', day: 'D2 · 11/14（方案 B）', status: 'todo', price: 'Basic $45 / In-depth $70', url: 'https://www.flsouthern.edu/visit', note: '只在游客中心订，必须提前 24 小时。每天 10:00 和 14:00 两场 Basic，13:00 一场 In-depth。' },
     { id: 'bonnet', name: 'Bonnet House 门票', sight: 'Bonnet House Museum & Gardens', day: 'D8 · 11/20', status: 'todo', price: '$30', url: 'https://www.bonnethouse.org/', note: '周二–周日 11:00–16:00，周一闭馆。最后入场 16:00。' },
@@ -1227,7 +1227,7 @@ window.TRIP_GUIDES = {
       ],
       name: 'Casa Feliz Historic Home',
       day: 'D2 · 11/14（和 Kraft Azalea 二选一）',
-      hours: '开放时段有限，去之前查官网',
+      hours: '周二–周四 10:00–14:00；周五、周六、周日闭馆（2026-10 官网口径）',
       plan: ['656 N Park Ave', '1933 年的西班牙农庄式宅子', '院子比室内更好看'],
       note: '免费参观，但常常只开上午或只开周末，别扑空。'
     },
