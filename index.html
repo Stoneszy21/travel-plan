@@ -398,6 +398,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .ha-split { margin-top: 10px; padding: 10px; border-radius: 10px; background: var(--card-2); }
 .ha-split-h { font-size: 12.5px; font-weight: 800; margin-bottom: 4px; }
 .ha-split-t { font-size: 12px; line-height: 1.65; color: var(--muted); }
+.gd-leg .seat { flex: none; font-size: 11px; font-weight: 700; color: var(--accent); background: var(--accent-weak); border-radius: 5px; padding: 1px 6px; white-space: nowrap; }
 /* ---------- 门票 / 导航 ---------- */
 .tk-sum { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); margin-bottom: 12px; }
 .tk-sum.warn { border-color: #f59e0b; background: #fffbeb; }
@@ -846,7 +847,7 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const BUILD = '2026-11-01 15:03';   // 部署时由 deploy.ps1 自动改写
+  const BUILD = '2026-11-01 15:13';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -2405,6 +2406,10 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
           row.appendChild(el('div', 'times', esc(g.dep || '') + ' → ' + esc(g.arr || '')));
           row.appendChild(el('div', 'route', esc(g.from || '') + ' → ' + esc(g.to || '')));
           row.appendChild(el('div', 'dur', esc(g.dur || '')));
+          if (g.seat) {
+            const s = el('div', 'seat', esc(g.seat));
+            row.appendChild(s);
+          }
           card.appendChild(row);
         });
         if (f.details && f.details.length) {
