@@ -9,7 +9,7 @@
  *      OSM 瓦片是 no-cache，不缓存的话每次看地图都要重新验证几十张。
  *      只缓存「用户实际看过的」瓦片，不做预下载（符合 OSM 的 tile usage policy）。
  */
-const CACHE = 'trip-v10';
+const CACHE = 'trip-v11';
 const TILE_CACHE = 'tiles-v1';
 const TILE_MAX = 500;
 
