@@ -841,7 +841,7 @@ window.TRIP_GUIDES = {
         'D2 晚上在市中心吃饭，回酒店要开 20 分钟',
         'D4 去迪士尼比住市区多 5 分钟'
       ],
-      verdict: '不换酒店时的首选。用一天晚上的 20 分钟车程，换 D2 整个早上的从容。你订的 Sheraton Orlando North 就在这一带（Maitland）。'
+      verdict: '不换酒店时的首选。用一天晚上的 20 分钟车程，换 D2 整个早上的从容。你选的 Sheraton Orlando North 就在这一带（Maitland）。'
     },
     {
       id: 'eola',
@@ -900,7 +900,7 @@ window.TRIP_GUIDES = {
       '关键是 D2——那天从 8:00 市集排到 19:00 晚餐，是全程最密的一天。住 Winter Park 意味着市集、Rollins、Morse、Park Ave、游船全在步行或 5 分钟车程内，一整天不用挪车。住市区则要 7 点起床开 20 分钟过去。',
       '换酒店的账我算过：如果 11/15 晚上搬到迪士尼附近，D4 早上省 25 分钟，但 D5 去 KSC 反而多 15 分钟，净赚 10 分钟；代价是搬一次行李 + 房价每晚贵 $20–60 + 迪士尼区停车贵。**不划算。**',
       '所以：11/13–11/17 四晚都住同一家，一天都不搬。D4 早起 35 分钟开车去迪士尼，这是唯一需要妥协的地方，但它只影响一天。'
-      ,'你订的这家正好在 Maitland（600 N Lake Destiny Rd），就在 Winter Park 北边 5 英里——到 Park Ave 9 分钟、到 Blue Spring 38 分钟、到 KSC 68 分钟，比住奥兰多市区更顺。这个选择是对的。'
+      ,'你选的这家正好在 Maitland（600 N Lake Destiny Rd），就在 Winter Park 北边 5 英里——到 Park Ave 9 分钟、到 Blue Spring 38 分钟、到 KSC 68 分钟，比住奥兰多市区更顺。这个选择是对的。'
     ],
     split: {
       title: '如果你还是想换一次',
@@ -933,7 +933,7 @@ window.TRIP_GUIDES = {
   hotels: [
     {
       name: 'Sheraton Orlando North Hotel（奥兰多北喜来登）',
-      status: '已定',
+      status: '暂定',
       icon: '🏨',
       checkIn: '2026-11-13',
       checkOut: '2026-11-17',
@@ -959,7 +959,7 @@ window.TRIP_GUIDES = {
             parking: '过夜自助停车 $10/晚（含进出权限，室外，102 个车位）',
             shuttle: '免费 FLL 机场班车，05:00–23:45，每天运行',
             transit: '门口就是 Sun Trolley，$1/人，环线经过海滩、Galleria、Las Olas',
-      status: '已定',
+      status: '暂定',
       icon: '🏨',
       checkIn: '2026-11-17',
       checkOut: '2026-11-22',
