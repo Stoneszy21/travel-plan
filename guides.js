@@ -18,8 +18,8 @@ window.TRIP_GUIDES = {
     {
       label: '去程 · 11/13 上海 → 劳德代尔堡',
       legs: [
-        { no: 'DL280', from: '上海浦东 T1', to: '底特律 McNamara', dep: '10:00', arr: '11:31', dur: '13 小时 31 分' },
-        { no: 'DL · 待核对', from: '底特律 McNamara', to: '劳德代尔堡 T2', dep: '15:35', arr: '18:35', dur: '2 小时 50 分' }
+        { no: 'DL388', from: '上海浦东 T1', to: '底特律 McNamara', dep: '10:00', arr: '11:31', dur: '13 小时 31 分' },
+        { no: 'DL1037', from: '底特律 McNamara', to: '劳德代尔堡 T2', dep: '15:35', arr: '18:35', dur: '2 小时 50 分' }
       ],
       points: [
         '浦东 T1 达美柜台，07:00 前到（国际航班提前 3 小时）',
@@ -33,8 +33,8 @@ window.TRIP_GUIDES = {
     {
       label: '回程 · 11/22 劳德代尔堡 → 上海',
       legs: [
-        { no: 'DL · 待核对', from: '劳德代尔堡 T2', to: '底特律 McNamara', dep: '早上（约 09:20）', arr: '待核对', dur: '约 3 小时' },
-        { no: 'DL · 待核对', from: '底特律 McNamara', to: '上海浦东 T1', dep: '待核对', arr: '次日', dur: '约 13 小时' }
+        { no: 'DL356', from: '劳德代尔堡 T2', to: '底特律 McNamara', dep: '早上（约 09:20）', arr: '待核对', dur: '约 3 小时' },
+        { no: 'DL281', from: '底特律 McNamara', to: '上海浦东 T1', dep: '待核对', arr: '次日', dur: '约 13 小时' }
       ],
       points: [
         '07:20 到 FLL 值机（国际航班提前 3 小时），还车留 25 分钟',
