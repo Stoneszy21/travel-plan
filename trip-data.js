@@ -202,9 +202,9 @@ window.TRIP = {
           note: '一小时的平底船，穿过 Winter Park 的运河看湖边豪宅，讲解很逗。整点发船（10:00–16:00），$20 左右，早点去排队。这条路是我觉得全城最值的一个项目。'
         },
         {
-          time: '15:15', name: 'Casa Feliz / Kraft Azalea Garden（选一个）', br: 'q1:a', type: 'sight',
-          lat: 28.6031, lng: -81.3503, stay: 50, transit: '打车 5 分钟',
-          note: 'Casa Feliz（656 N Park Ave）是 1933 年的西班牙农庄式老宅，免费参观但开放时段有限（以官网为准）。不想看房子就去 Kraft Azalea Garden（1365 Alabama Dr），湖边小花园，傍晚光线最好。'
+          time: '15:15', name: 'Kraft Azalea Garden（Casa Feliz 周六闭馆）', br: 'q1:a', type: 'sight',
+          lat: 28.5918, lng: -81.3487, stay: 50, transit: '打车 5 分钟（1365 Alabama Dr）',
+          note: '原本想去的 Casa Feliz（656 N Park Ave）只在周二–周四 10:00–14:00 开放，周六闭馆，所以这天改去 Kraft Azalea Garden（1365 Alabama Dr）——湖边小花园，免费，日出到日落，傍晚光线最好。想看 Casa Feliz 只能换到别的日子，但你行程里没有合适的半天。'
         },
         {
           time: '16:25', name: '打车去市中心', br: 'q1:a', type: 'transport',
