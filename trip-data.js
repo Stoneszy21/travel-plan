@@ -59,17 +59,17 @@ window.TRIP = {
           note: '当地时间同日 11:31 落地。机上有两顿正餐，落地前把外套拿出来。'
         },
         {
-          time: '11:31', name: '底特律中转 4 小时', type: 'transport',
+          time: '10:31', name: '底特律中转 4 小时 18 分', type: 'transport',
           lat: 42.2124, lng: -83.3534, stay: 240, transit: 'McNamara 航站楼',
           note: '入境、取行李、海关、重新托运再安检，正常 1 小时内能办完，剩下时间在航站楼吃饭。'
         },
         {
-          time: '15:35', name: 'DTW → 劳德代尔堡 FLL（DL1037）', type: 'transport',
+          time: '14:49', name: 'DTW → 劳德代尔堡 FLL（DL1037）', type: 'transport',
           lat: 26.0742, lng: -80.1506, stay: 170, transit: '约 2 小时 50 分',
-          note: '15:35 起飞、18:35 落地（已出票）。中转 4 小时够吃一顿。'
+          note: '10:31 落地、14:49 起飞，中转 4 小时 18 分，够吃一顿。'
         },
         {
-          time: '18:40', name: 'FLL 取租车', type: 'transport',
+          time: '18:10', name: 'FLL 取租车', type: 'transport',
           lat: 26.0742, lng: -80.1506, stay: 45, transit: '到达层跟随 Rental Car 指示牌',
           note: '建议就在机场租车：奥兰多、肯尼迪航天中心、回劳德代尔堡都用得上。'
         },
@@ -718,49 +718,54 @@ window.TRIP = {
     /* ------------------------------------------------------------------ */
     {
       date: '2026-11-22',
-      title: '劳德代尔堡 → 上海',
-      area: 'Fort Lauderdale / 底特律',
+      title: '劳德代尔堡 → 西雅图 → 上海',
+      area: 'Fort Lauderdale / 西雅图',
       base: { lat: 26.0742, lng: -80.1506 },
-      summary: '05:30 退房，05:50 还车，06:10 值机，09:20 起飞',
+      summary: '08:21 起飞，04:30 就得起床。经西雅图转机，次日 19:55 到上海',
       tag: '返程',
-      note: '国际航班提前 3 小时到，09:20 起飞就是 06:20 值机。酒店早餐 06:00 才开，让前台前一晚打包。',
+      note: 'DL356 08:21 起飞，国际航班要提前 3 小时，等于 05:20 前到机场——这是一次半夜出发。前一晚把行李收好、打包早餐。',
       items: [
         {
-          time: '05:30', name: '退房', type: 'stay',
+          time: '04:30', name: '退房', type: 'stay',
           lat: 26.1006, lng: -80.1189, stay: 15, transit: '1500 SE 17th St',
-          note: '前一晚跟前台说好 05:30 走，请他们准备两份打包早餐（面包、水果、咖啡）。房卡直接还即可。'
+          note: '酒店早餐 06:00 才开，别指望。前一晚让前台准备两份打包早餐，或者自己买好放在房间。'
         },
         {
-          time: '05:45', name: '开车去 FLL', type: 'transport',
-          lat: 26.0742, lng: -80.1506, stay: 15, transit: 'SE 17th St → I-595 → 机场，约 10 分钟',
-          note: '这个点不堵，路上几乎没车。'
+          time: '04:45', name: '开车去 FLL', type: 'transport',
+          lat: 26.0742, lng: -80.1506, stay: 15, transit: 'SE 17th St → I-595，约 10 分钟',
+          note: '凌晨路上没车。'
         },
         {
-          time: '06:00', name: '还车（Budget）', type: 'transport',
+          time: '05:00', name: '还车（Budget）', type: 'transport',
           lat: 26.0742, lng: -80.1506, stay: 20, transit: '租车中心 → 航站楼步行',
-          note: '还车前加满油（机场附近加油站）。Budget 柜台在航站楼内，还完车走几分钟就到值机区。⚠️ 携程单子写的还车时间是 05:00，实际 06:00 还——把订单时间改成 06:00 或 06:30，仍在 9 天内不加钱，避免超时争议。'
+          note: '05:00 还车正好对上携程单子的还车时间，不用改。前一晚加满油。'
         },
         {
-          time: '06:20', name: '值机 + 安检 + 出境', type: 'transport',
-          lat: 26.0742, lng: -80.1506, stay: 120, transit: 'Delta 国际航班柜台',
-          note: '国际航班建议提前 3 小时。FLL 早上安检排队 20–40 分钟，出境柜台另算。办完进候机区吃打包的早餐。'
+          time: '05:20', name: '值机 + 安检 + 出境', type: 'transport',
+          lat: 26.0742, lng: -80.1506, stay: 175, transit: '达美柜台 T2',
+          note: '距起飞 3 小时。凌晨 FLL 安检人少，但国际出境柜台可能只开一两个窗口，别赌。'
         },
         {
-          time: '09:20', name: 'DL356 · FLL → 底特律', type: 'transport',
-          lat: 42.2124, lng: -83.3534, stay: 190, transit: '约 3 小时',
-          note: '托运行李直挂上海。'
+          time: '08:21', name: 'DL356 · FLL → 西雅图', type: 'transport',
+          lat: 47.4502, lng: -122.3088, stay: 399, transit: '约 6 小时 39 分',
+          note: '横跨三个时区，落地是当地时间 12:00。行李直挂上海。'
         },
         {
-          time: '12:30', name: '底特律转机', type: 'transport',
-          lat: 42.2124, lng: -83.3534, stay: 150, transit: 'McNamara 航站楼',
-          note: '同一航站楼转机，不需要取行李。时间够的话吃一顿正经的，下一程 13 小时。'
+          time: '12:00', name: '西雅图转机 2 小时 40 分', type: 'transport',
+          lat: 47.4502, lng: -122.3088, stay: 160, transit: 'SEA 同一航站楼',
+          note: '时间不算宽裕：下机后要走一段，再过边检。别逛免税店，先看下一班登机口。'
         },
         {
-          time: '15:00', name: 'DL281 · 底特律 → 上海浦东', type: 'transport',
-          lat: 31.1443, lng: 121.8083, stay: 900, transit: '约 13 小时',
-          note: '落地下次，注意调整时差。'
+          time: '14:40', name: 'DL281 · 西雅图 → 上海浦东', type: 'transport',
+          lat: 31.1443, lng: 121.8083, stay: 795, transit: '约 13 小时 15 分',
+          note: '当地 11/22 14:40 起飞，11/23 19:55 到浦东。'
+        },
+        {
+          time: '19:55', name: '到达上海浦东（11/23）', type: 'transport',
+          lat: 31.1443, lng: 121.8083, stay: 60, transit: '次日',
+          note: '落地后取行李、出关，回家。'
         }
       ]
-    },
+    }
   ]
 };
