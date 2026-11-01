@@ -385,6 +385,7 @@ window.TRIP_GUIDES = {
   ],
 
   tickets: [
+    { id: 'birch', name: 'Hugh Taylor Birch 州立公园', sight: 'Hugh Taylor Birch State Park', day: 'D8 · 11/20', status: 'todo', price: '$6/车（步行 $2）', url: 'https://www.floridastateparks.org/parks-and-trails/hugh-taylor-birch-state-park', note: '门口按车收费，不用预约。皮划艇园内现场租。' },
     { id: 'ksc', name: '肯尼迪航天中心 一日票', sight: '肯尼迪航天中心', day: 'D5 · 11/17', status: 'todo', price: '$75 左右', url: 'https://www.kennedyspacecenter.com/', note: '官网买一日票，含园区巴士和土星五号中心。提前一周买，现场排队 30 分钟起。' },
     { id: 'ak', name: '迪士尼 Animal Kingdom 门票', sight: '迪士尼 Animal Kingdom', day: 'D4 · 11/16', status: 'todo', price: '$140–160', url: 'https://disneyworld.disney.go.com/admission/', note: '还要在 My Disney Experience 里预约入园日期（Park Reservation），光买票进不去。' },
     { id: 'blue', name: 'Blue Spring 皮划艇导览', sight: 'Blue Spring State Park', day: 'D3 · 11/15', status: 'todo', price: '$60–80/人', url: 'https://www.floridastateparks.org/parks-and-trails/blue-spring-state-park', note: '公园门票另算（约 $6/车）。皮划艇要找本地运营方订，海牛季名额紧，尽量提前订。' },
@@ -566,7 +567,7 @@ window.TRIP_GUIDES = {
       note: '唯一需要守时的是巴士导览（首班车约 10:00）和 IMAX 场次，进门先看当天时刻牌。玩到 17:00 闭园时间刚好够，不用赶。'
     },
     {
-      ord: 'D8-01',
+      ord: 'D8-02',
       photos: [
         { t: 'img/sights/bonnet-1-t.jpg', m: 'img/sights/bonnet-1-m.jpg', f: 'img/sights/bonnet-1.jpg' },
         { t: 'img/sights/bonnet-2-t.jpg', m: 'img/sights/bonnet-2-m.jpg', f: 'img/sights/bonnet-2.jpg' },
@@ -891,6 +892,21 @@ window.TRIP_GUIDES = {
         '划到 Wekiva River 交汇处折返，全程 2.5–4 小时'
       ],
       note: '在 Apopka 的 Kelly Park 北侧（Rock Springs Run 上游）。和 Blue Spring 二选一：Kings Landing 水质更清、人更少，但没有海牛；Blue Spring 海牛季能看海牛，人稍多。⚠️ 具体门牌和放船时段以官网为准。'
+    },
+    {
+      icon: '🏝',
+      ord: 'D8-01',
+      ticketId: 'birch',
+      name: 'Hugh Taylor Birch State Park',
+      day: 'D8 · 11/20',
+      hours: '8:00 到日落（全年开放）',
+      booking: '门口按车收费，不用预约',
+      plan: [
+        '进门先去 Beach Tunnel，从 A1A 底下穿过去就是沙滩',
+        '沿潟湖走一圈，清晨常能看到海牛和鹈鹕',
+        '想划船就在园内租皮划艇，约 $25/小时',
+      ],
+      note: '3109 E Sunrise Blvd。1920 年代的老庄园改的州立公园，夹在海滩大道和 Intracoastal 之间，因此沙滩人很少。门票按车 $6、步行或骑车 $2。'
     },
   ]
 };
