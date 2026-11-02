@@ -456,6 +456,25 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
 .fd-row { overflow: hidden; }
 .fd-thumb { max-width: 100%; box-sizing: border-box; }
 .ha-row, .pr-row, .dec-tree { overflow-wrap: anywhere; }
+/* ---------- 每日用车计划 ---------- */
+.dr-card { margin-bottom: 12px; padding: 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--card); }
+.dr-head { display: flex; gap: 10px; align-items: flex-start; }
+.dr-day { flex: none; font-size: 13px; font-weight: 800; color: #fff; background: var(--accent); border-radius: 8px; padding: 3px 8px; }
+.dr-hw { flex: 1; min-width: 0; }
+.dr-route { font-size: 14px; font-weight: 800; line-height: 1.35; }
+.dr-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 5px; }
+.dr-tag { font-size: 10.5px; color: var(--muted); background: var(--card-2); border-radius: 5px; padding: 2px 7px; }
+.dr-tag.best { color: var(--accent); background: var(--accent-weak); font-weight: 700; }
+.dr-sub { font-size: 11.5px; font-weight: 800; color: var(--muted-2); margin: 10px 0 5px; }
+.dr-row { display: flex; gap: 8px; padding: 3px 0; font-size: 12px; line-height: 1.5; }
+.dr-k { flex: none; width: 40%; color: var(--muted-2); }
+.dr-v { flex: 1; min-width: 0; }
+.dr-park { margin: 6px 0; padding: 8px 10px; border-radius: 9px; background: var(--card-2); }
+.dr-park-h { display: flex; gap: 8px; align-items: baseline; }
+.dr-park-n { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 700; }
+.dr-park-p { flex: none; font-size: 12px; font-weight: 800; color: var(--accent); white-space: nowrap; }
+.dr-park-note { font-size: 11.5px; color: var(--muted); line-height: 1.5; margin-top: 3px; }
+
 /* ---------- 门票 / 导航 ---------- */
 .tk-sum { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--line); margin-bottom: 12px; }
 .tk-sum.warn { border-color: #f59e0b; background: #fffbeb; }
@@ -920,8 +939,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const APP_VERSION = 'V3.3';
-const BUILD = '2026-11-02 20:38';   // 部署时由 deploy.ps1 自动改写
+  const APP_VERSION = 'V4.0';
+const BUILD = '2026-11-02 22:21';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -2996,126 +3015,79 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
     }
 
     if (guideTab === 'plans') {
-      const plans = GUIDES.plans || [];
-      if (!plans.length) { box.appendChild(el('div', 'ml-hint', '还没有方案对比')); return; }
+      const dd = GUIDES.drivingDays || [];
+      if (!dd.length) { box.appendChild(el('div', 'ml-hint', '还没有用车计划')); return; }
 
-      box.appendChild(el('div', 'gd-tip', '点任意一张卡看完整明细（费用拆解、隐性成本、逐日账单）。钱按两人分摊、经济型车估的。'));
+      box.appendChild(el('div', 'gd-tip', '已订 9 天 Avis 租车（£334.83 全包）。下面是每天怎么用：哪段开、哪段走、车停哪、停车多少钱。'));
 
-      plans.forEach(p => {
-        const card = el('div', 'pl-mini' + (p.best ? ' best' : ''));
-        card.setAttribute('role', 'button');
-        card.tabIndex = 0;
+      dd.forEach(d => {
+        const card = el('div', 'dr-card');
+        const head = el('div', 'dr-head');
+        const dh = el('div', 'dr-day', d.day);
+        head.appendChild(dh);
+        const hw = el('div', 'dr-hw');
+        hw.appendChild(el('div', 'dr-route', d.route || ''));
+        const meta = el('div', 'dr-meta');
+        if (d.load) meta.appendChild(el('span', 'dr-tag', d.load));
+        if (d.best) meta.appendChild(el('span', 'dr-tag best', d.best));
+        hw.appendChild(meta);
+        head.appendChild(hw);
+        card.appendChild(head);
 
-        const top = el('div', 'pl-mini-top');
-        const nm = el('div', 'pl-mini-name', esc(p.name || ''));
-        if (p.best) nm.appendChild(el('span', 'pl-best', '推荐'));
-        top.appendChild(nm);
-        top.appendChild(el('span', 'pl-mini-arrow', '›'));
-        card.appendChild(top);
+        if (d.legs && d.legs.length) {
+          card.appendChild(el('div', 'dr-sub', '怎么走'));
+          d.legs.forEach(l => {
+            const row = el('div', 'dr-row');
+            row.appendChild(el('span', 'dr-k', l.k));
+            row.appendChild(el('span', 'dr-v', l.v));
+            card.appendChild(row);
+          });
+        }
 
-        if (p.tagline) card.appendChild(el('div', 'pl-mini-tag', esc(p.tagline)));
+        if (d.park && d.park.length) {
+          card.appendChild(el('div', 'dr-sub', '停车（' + d.park.length + ' 个选项）'));
+          d.park.forEach(p => {
+            const pk = el('div', 'dr-park');
+            const ph = el('div', 'dr-park-h');
+            ph.appendChild(el('span', 'dr-park-n', p.name));
+            ph.appendChild(el('span', 'dr-park-p', p.price || ''));
+            pk.appendChild(ph);
+            if (p.note) pk.appendChild(el('div', 'dr-park-note', p.note));
+            card.appendChild(pk);
+          });
+        }
 
-        const stats = el('div', 'pl-mini-stats');
-        const st = (k, v, cls) => {
-          const x = el('div', 'pl-mini-stat' + (cls ? ' ' + cls : ''));
-          x.appendChild(el('div', 'pl-mini-k', k));
-          x.appendChild(el('div', 'pl-mini-v', v));
-          return x;
-        };
-        stats.appendChild(st('预算', (p.total || '').replace('$', '')));
-        stats.appendChild(st('时间代价', p.timeCost || '—'));
-        stats.appendChild(st('人均', (p.perPerson || '').replace(/^两人约 /, '')));
-        card.appendChild(stats);
-
-        if (p.keyCost) card.appendChild(el('div', 'pl-mini-key', esc(p.keyCost)));
-
-        const open = () => openPlanDetail(p);
-        card.addEventListener('click', open);
-        card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+        if (d.tip) card.appendChild(el('div', 'gd-tip', d.tip));
         box.appendChild(card);
       });
 
-      const pr = GUIDES.priceRange;
-      if (pr) {
-        const pc = el('div', 'pr-card');
-        pc.appendChild(el('div', 'pr-h', esc(pr.title || '')));
-        if (pr.note) pc.appendChild(el('div', 'pr-note', esc(pr.note)));
-        (pr.rows || []).forEach(r => {
-          const row = el('div', 'pr-row');
-          const head = el('div', 'pr-row-h');
-          head.appendChild(el('span', 'pr-plan', esc(r.plan || '')));
-          head.appendChild(el('span', 'pr-total', esc(r.total || '')));
-          row.appendChild(head);
-          if (r.real) row.appendChild(el('div', 'pr-line', '实价：' + esc(r.real)));
-          if (r.est) row.appendChild(el('div', 'pr-line', '估算：' + esc(r.est)));
-          if (r.risk) row.appendChild(el('div', 'pr-risk', esc(r.risk)));
-          pc.appendChild(row);
-        });
-        if (pr.conclusion) pc.appendChild(el('div', 'pr-concl', esc(pr.conclusion)));
-        box.appendChild(pc);
-      }
-
-      const ps = GUIDES.plansSummary;
-      if (ps) {
-        const sc = el('div', 'pl-summary');
-        sc.appendChild(el('div', 'pl-summary-h', esc(ps.title || '')));
-        (ps.paras || []).forEach(t => sc.appendChild(el('div', 'pl-summary-p', esc(t))));
-
-        if (ps.table && ps.table.length) {
-          const tb = el('div', 'pl-table');
-          ps.table.forEach((row, i) => {
-            const tr = el('div', 'pl-trow' + (i === 0 ? ' head' : ''));
-            tr.appendChild(el('span', 'pl-tcell c1', esc(row.plan || '')));
-            tr.appendChild(el('span', 'pl-tcell c2', esc(row.cost || '')));
-            tr.appendChild(el('span', 'pl-tcell c3', esc(row.time || '')));
-            sc.appendChild(tr);
-            if (row.key) sc.appendChild(el('div', 'pl-tkey', esc(row.key)));
-          });
-        }
-
-        if (ps.pick) {
-          const pk = el('div', 'pl-pick');
-          pk.appendChild(el('div', 'pl-pick-h', '推荐：' + esc(ps.pick)));
-          if (ps.why) pk.appendChild(el('div', 'pl-pick-w', esc(ps.why)));
-          (ps.switchTo || []).forEach(x => {
-            const row = el('div', 'pl-switch');
-            row.appendChild(el('div', 'pl-switch-when', esc(x.when || '')));
-            row.appendChild(el('div', 'pl-switch-then', esc(x.then || '')));
-            pk.appendChild(row);
-          });
-          if (ps.notRecommended) pk.appendChild(el('div', 'pl-notrec', esc(ps.notRecommended)));
-          sc.appendChild(pk);
-        }
-        box.appendChild(sc);
-      }
-
       const notes = GUIDES.planningNotes || [];
       if (notes.length) {
-        const btn = el('button', 'pl-dbtn', '展开补充说明（哪些路段不该开车 · 方案三时间账）▾');
+        const btn = el('button', 'pl-dbtn', '展开补充说明（租车保险 · 费率 · 哪些路段不该开车）▾');
         const wrap = el('div', 'pl-detail');
         wrap.hidden = true;
         notes.forEach(block => {
-          const card = el('div', 'gd-card');
-          card.appendChild(el('div', 'gd-h', esc(block.title || '')));
+          const c2 = el('div', 'gd-card');
+          c2.appendChild(el('div', 'gd-h', esc(block.title || '')));
           (block.items || []).forEach(it => {
             const row = el('div', 'pn-row');
             row.appendChild(el('div', 'pn-k', esc(it.k || '')));
             row.appendChild(el('div', 'pn-v', esc(it.v || '')));
-            card.appendChild(row);
+            c2.appendChild(row);
           });
-          wrap.appendChild(card);
+          wrap.appendChild(c2);
         });
         btn.addEventListener('click', () => {
           wrap.hidden = !wrap.hidden;
           btn.textContent = wrap.hidden
-            ? '展开补充说明（哪些路段不该开车 · 方案三时间账）▾'
+            ? '展开补充说明（租车保险 · 费率 · 哪些路段不该开车）▾'
             : '收起补充说明 ▴';
         });
         box.appendChild(btn);
         box.appendChild(wrap);
       }
 
-      box.appendChild(el('div', 'foot', '租车价格按 11 月淡季经济型车估算，含税费；油费按 $3.3/加仑、卡罗拉约 32 mpg 算。'));
+      box.appendChild(el('div', 'foot', '停车费为公开价，现场可能浮动。油费按 $3.3/加仑、32 mpg 估。'));
       box.appendChild(el('div', 'foot', APP_VERSION + ' · 版本 ' + BUILD));
       return;
     }
