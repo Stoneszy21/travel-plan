@@ -947,42 +947,48 @@ window.TRIP_GUIDES = {
   hotels: [
     {
       name: 'Sheraton Orlando North Hotel（奥兰多北喜来登）',
-      status: '暂定',
+      status: '已订',
       icon: '🏨',
       checkIn: '2026-11-13',
-      checkOut: '2026-11-17',
-      nights: 4,
+      checkOut: '2026-11-15',
+      nights: 2,
       area: '600 N Lake Destiny Rd, Maitland, FL 32751',
-      parking: '¥120/晚（约 $17）',
-      shuttle: '无机场班车，需自驾或打车（MCO 约 25 分钟）',
-      transit: '在 I-4 边上，去 Winter Park 9 分钟、Blue Spring 38 分钟、KSC 68 分钟',
-      note: '4 晚 ¥3,128（¥782/晚，含税，无早餐）。2019 年装修，4.2 分。位置在 Maitland，等于 Winter Park 片区北侧。⚠️ 无早餐，四个早上要自己解决（超市买或市集吃，约 ¥680/两人 4 天）。已对比 Holiday Inn Winter Park：那家 4 晚 ¥5,245 含早含停车，折算下来仍比本店贵约 ¥950，且是 1976 年老楼——维持本店。'
+      parking: '酒店停车，现场付（约 $17/晚）',
+      shuttle: '无机场班车；MCO 约 25 分钟，FLL 约 3 小时',
+      transit: 'I-4 边上：Winter Park 9 分钟、Blue Spring 38 分钟、KSC 68 分钟',
+      confirm: '确认号 235-13404928 · 去哪儿订单 454630777716',
+      note: '11/13–11/15 共 2 晚，在线已付 ¥1,536.04（含税/费）。传统客房 1 张特大床 33㎡。⚠️ 无早餐（加早 $21/人/天）。15:00 后入住，11:00–12:00 离店。北京时间 11/11 13:00 前可免费取消。你 11/13 约 23:00 到店，需提前告知前台晚到。'
     },
     {
-      name: '机场过渡酒店（可选，仅 D1 方案 B）',
-      status: '待定',
-      icon: '🛬',
-      checkIn: '2026-11-13',
-      checkOut: '2026-11-14',
-      nights: 1,
-      area: 'FLL 机场 / 17th Street 一带',
-      note: '只有走 D1 方案 B（当晚不开去奥兰多）才需要。可以直接订 17th Street 那家 Holiday Inn Express，跟后面 WAF 住的是同一家，熟门熟路。走方案 A 就不需要这条。'
+      name: 'Embassy Suites by Hilton Orlando Sunset Walk（迪士尼旁）',
+      status: '已订',
+      icon: '🏰',
+      checkIn: '2026-11-15',
+      checkOut: '2026-11-17',
+      nights: 2,
+      area: '3151 Sunset Walk Drive, Kissimmee（福科纳斯）',
+      parking: '有停车位，费用现场确认',
+      shuttle: '无机场班车',
+      transit: 'Animal Kingdom 约 12–15 分钟；KSC 约 80 分钟；Winter Park 约 40 分钟',
+      confirm: '确认号 96874892 · 去哪儿订单 454630842971',
+      note: '11/15–11/17 共 2 晚，在线已付 ¥1,702.66；到店另付 ¥664.09（USD 99.88：度假村费 $88 + 其他税 $11.88）。一室套房带厨房和沙发床，可住 2 人。含 11/16、11/17 两份早餐（11/15 无餐）。16:00 后入住，11:00 前离店。⚠️ 订单确认后不可取消。'
     },
     {
       name: 'Holiday Inn Express Ft. Lauderdale Cruise-Airport',
-            parking: '过夜自助停车 $10/晚（含进出权限，室外，102 个车位）',
-            shuttle: '免费 FLL 机场班车，05:00–23:45，每天运行',
-            transit: '门口就是 Sun Trolley，$1/人，环线经过海滩、Galleria、Las Olas',
-      status: '暂定',
+      status: '已订',
       icon: '🏨',
       checkIn: '2026-11-17',
       checkOut: '2026-11-22',
       nights: 5,
       area: '1500 SE 17th St Causeway, Fort Lauderdale, FL 33316',
-      note: '离会展中心 0.5 英里（走路 12 分钟），离 FLL 机场 2 英里。停车费入住时确认一下；车可以一直停在酒店，会场走路去。11/22 早上退房去机场。'
+      parking: '过夜自助停车 $10/晚（含进出权限）',
+      shuttle: '免费 FLL 机场班车，05:00–23:45',
+      transit: '门口就是 Sun Trolley，$1/人；会场步行 12 分钟；FLL 2 英里',
+      confirm: '携程订单 1128152089566176',
+      note: '11/17–11/22 共 5 晚，两张双人床房。¥8,747.88（含税/费）为「离店后付」，会从招商银行尾号 6606 扣款，注意留足额度。16:00 后入住，11:00 前离店。24 小时前台（你 11/17 约 21:40 到店没问题）。⚠️ 订单成立后不可取消或修改。'
     }
   ],
-  /* ------------------------------- 景点 -------------------------------- */
+
   sights: [
     {
       ord: 'D2-02',
