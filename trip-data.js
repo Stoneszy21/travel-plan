@@ -88,11 +88,7 @@ window.TRIP = {
       base: { lat: 28.5383, lng: -81.3792 },
       note: '落地 18:40 已是疲劳极限，两条路：A 硬开 3 小时今晚到奥兰多（23:00 入住，第二天能睡到自然醒）；B 今晚就住机场附近，明早 9 点出发。B 更稳，代价是第二天上午变成车程。',
       items: [
-        {
-          time: '待办', name: '订奥兰多酒店（11/14–11/17）', type: 'other',
-          note: '⚠️ 还没订，尽快订。走 A 方案就从 11/13 开始订，走 B 方案从 11/14 开始。选市中心或 Winter Park 附近，前两天活动都在这两处；自驾要带停车位。订好把右边这个勾打上。'
-        },
-        {
+                {
           time: '07:30', name: '上海浦东 T1 · 达美柜台', type: 'transport',
           lat: 31.1443, lng: 121.8083, stay: 150, transit: '打车或地铁 2 号线到浦东',
           note: '国际航班建议提前 3 小时。值机时确认行李直挂到 FLL，问清底特律要不要重新托运。'
@@ -128,7 +124,7 @@ window.TRIP = {
           note: '两个人换着开更安全。夜路车少，但服务区也少，出发前加满油。'
         },
         {
-          time: '23:00', name: '奥兰多酒店 check-in', br: 'q1:a', type: 'stay',
+          time: '23:00', name: 'Sheraton Orlando North 入住', br: 'q1:a', type: 'stay',
           lat: 28.5383, lng: -81.3792, stay: 30, transit: '自驾',
           note: '到了直接睡。选市中心或 Winter Park 附近。'
         },
@@ -342,7 +338,7 @@ window.TRIP = {
           note: '明天去迪士尼要早起，今晚别太晚。'
         },
         {
-          time: '20:15', name: '回酒店', type: 'stay',
+          time: '20:15', name: '换酒店：Embassy Suites Sunset Walk', type: 'stay',
           lat: 28.5383, lng: -81.3792, stay: 30, transit: '打车',
           note: ''
         }
@@ -360,7 +356,7 @@ window.TRIP = {
       note: '这是全程走路最多的一天。提前买好指定日期的票并绑定 App，开门前 30 分钟到闸口。',
       items: [
         {
-          time: '07:40', name: '出发', type: 'transport',
+          time: '08:00', name: '出发（Sunset Walk → Animal Kingdom）', type: 'transport',
           lat: 28.3553, lng: -81.5901, stay: 30, transit: '自驾或打车约 25 分钟',
           note: '停车费 $30 左右；打车可以直接到闸口。'
         },
@@ -424,7 +420,7 @@ window.TRIP = {
       items: [
         { time: '', name: '上午 · 开园即进', type: 'divider', note: '' },
         {
-          time: '07:30', name: '退房出发', type: 'transport',
+          time: '07:10', name: '退房出发（Kissimmee → KSC 约 80 分钟）', type: 'transport',
           lat: 28.5729, lng: -80.6490, stay: 70, transit: '自驾 FL-528 向东，约 1 小时 10 分',
           note: '早点走，路上买杯咖啡。园区 9:00 开门，8:50 到停车场刚好。'
         },
@@ -492,7 +488,7 @@ window.TRIP = {
           note: '全程 340 公里。18:30 左右在 Fort Pierce 服务区停一次，加油 + 上厕所。'
         },
         {
-          time: '20:30', name: '入住 Holiday Inn Express', type: 'stay',
+          time: '20:30', name: 'Holiday Inn Express 入住', type: 'stay',
           lat: 26.1006, lng: -80.1189, stay: 30, transit: '1500 SE 17th St Causeway',
           note: '放下行李就走，餐厅在步行范围。'
         },
@@ -502,7 +498,7 @@ window.TRIP = {
           note: '运河边，厨房到 22:00。到店先问还能不能点；想吃更好的海鲜就改天再去 15th Street Fisheries（也在附近，厨房关得早）。'
         },
         {
-          time: '22:30', name: '回酒店', type: 'stay',
+          time: '22:30', name: '回酒店休息', type: 'stay',
           lat: 26.1006, lng: -80.1189, stay: 15, transit: '步行',
           note: '明天 WAF 第一天，早点睡。'
         }
