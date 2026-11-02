@@ -939,8 +939,8 @@ main { max-width: 720px; margin: 0 auto; padding: 12px 14px 0; }
   const pad2 = n => (n < 10 ? '0' + n : '' + n);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-  const APP_VERSION = 'V4.1';
-const BUILD = '2026-11-02 22:26';   // 部署时由 deploy.ps1 自动改写
+  const APP_VERSION = 'V4.2';
+const BUILD = '2026-11-02 22:43';   // 部署时由 deploy.ps1 自动改写
 const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2777', '#4d7c0f', '#0891b2', '#a16207', '#7c3aed'];
   const TYPE_LABEL = { transport: '交通', sight: '景点', food: '吃', stay: '住宿', shop: '购物', other: '其他' };
 
@@ -1666,14 +1666,16 @@ const DAY_COLORS = ['#0f766e', '#e07a1f', '#6d5bd0', '#c2410c', '#2563eb', '#db2
           !navSkip.test(it.name || '') && !navSkip.test(it.transit || '');
         if (showNav) {
           const o = (typeof navLat === 'number') ? (navLat + ',' + navLng) : '';
+          const destLat = Array.isArray(it.navTo) ? it.navTo[0] : it.lat;
+          const destLng = Array.isArray(it.navTo) ? it.navTo[1] : it.lng;
           const a = document.createElement('a');
           a.className = 'it-nav';
           a.href = 'https://www.google.com/maps/dir/?api=1' +
             (o ? '&origin=' + o : '') +
-            '&destination=' + it.lat + ',' + it.lng + '&travelmode=driving';
+            '&destination=' + destLat + ',' + destLng + '&travelmode=driving';
           a.target = '_blank';
           a.rel = 'noopener';
-          a.textContent = '🧭 Google 导航';
+          a.textContent = it.navLabel ? ('🧭 导航到 ' + it.navLabel) : '🧭 Google 导航';
           a.addEventListener('click', ev => ev.stopPropagation());
           body.appendChild(a);
         }
