@@ -441,7 +441,7 @@ window.TRIP = {
         },
         { time: '', name: '上午到下午 · 巴士导览 + 土星五号', type: 'divider', note: '' },
         {
-          time: '10:25', name: '巴士导览出发', type: 'transport',
+          time: '09:30', name: '巴士导览出发（含阿波罗/土星五号中心，2 小时）', type: 'transport',
           lat: 28.5233, lng: -80.6819, stay: 30, transit: '园区巴士站（首班车约 10:00，以现场牌为准）',
           note: '这是全园最费时的项目：车程 30 分钟穿过 NASA 厂区，路过总装大楼（VAB）和发射台。'
         },
