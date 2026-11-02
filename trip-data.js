@@ -119,7 +119,7 @@ window.TRIP = {
           note: ''
         },
         {
-          time: '19:30', name: '开车去奥兰多', br: 'q1:a', type: 'transport',
+          time: '19:30', name: '开车去奥兰多', navTo: [28.6296, -81.3863], navLabel: 'Sheraton Orlando North', br: 'q1:a', type: 'transport',
           lat: 28.5383, lng: -81.3792, stay: 200, transit: 'I-95 北上转 Florida Turnpike，约 3 小时',
           note: '两个人换着开更安全。夜路车少，但服务区也少，出发前加满油。'
         },
@@ -203,7 +203,7 @@ window.TRIP = {
           note: '原本想去的 Casa Feliz（656 N Park Ave）只在周二–周四 10:00–14:00 开放，周六闭馆，所以这天改去 Kraft Azalea Garden（1365 Alabama Dr）——湖边小花园，免费，日出到日落，傍晚光线最好。想看 Casa Feliz 只能换到别的日子，但你行程里没有合适的半天。'
         },
         {
-          time: '16:25', name: '打车去市中心', br: 'q1:a', type: 'transport',
+          time: '16:25', name: '打车去市中心', navTo: [28.5417, -81.3779], navLabel: '图书馆停车库', br: 'q1:a', type: 'transport',
           lat: 28.5423, lng: -81.3785, stay: 25, transit: '打车 20 分钟',
           note: ''
         },
@@ -235,7 +235,7 @@ window.TRIP = {
         },
         { time: '', name: '上午 · 昨晚住机场（D1 方案 B）', type: 'divider', br: 'q1:b', note: '' },
         {
-          time: '09:05', name: '出发北上奥兰多', br: 'q1:b', type: 'transport',
+          time: '09:05', name: '出发北上奥兰多', navTo: [28.598, -81.3495], navLabel: 'Winter Park 停车库', br: 'q1:b', type: 'transport',
           lat: 28.5383, lng: -81.3792, stay: 195, transit: 'I-95 转 Turnpike，约 3 小时',
           note: '睡到 7:30 再走，酒店吃完早餐出发。⚠️ 走这条线就赶不上周六市集和上午的博物馆了。'
         },
@@ -246,7 +246,7 @@ window.TRIP = {
         },
         { time: '', name: '下午 · 赖特线（Lakeland，单程 1 小时）', type: 'divider', br: 'q2:b', note: '' },
         {
-          time: '12:40', name: '出发去 Lakeland', br: 'q2:b', type: 'transport',
+          time: '12:40', name: '出发去 Lakeland', navTo: [28.03, -81.948], navLabel: 'Florida Southern College', br: 'q2:b', type: 'transport',
           lat: 28.0306, lng: -81.9479, stay: 60, transit: '打车单程约 1 小时（I-4 向西）',
           note: '打车往返约 $130–160；回程容易叫不到车，提前和司机约好。13:45 到游客中心正好赶上 14:00 的导览。'
         },
@@ -261,7 +261,7 @@ window.TRIP = {
           note: '重点看 Annie Pfeiffer Chapel 和 Water Dome 喷泉，连廊（Esplanades）本身也是赖特的作品。'
         },
         {
-          time: '16:45', name: '回奥兰多', br: 'q2:b', type: 'transport',
+          time: '16:45', name: '回奥兰多', navTo: [28.6296, -81.3863], navLabel: 'Sheraton Orlando North', br: 'q2:b', type: 'transport',
           lat: 28.5383, lng: -81.3792, stay: 60, transit: '打车 1 小时',
           note: ''
         },
@@ -290,7 +290,7 @@ window.TRIP = {
       items: [
         { time: '', name: '上午 · Blue Spring', type: 'divider', br: 'q3:a', note: '' },
         {
-          time: '07:30', name: '出发', br: 'q3:a', type: 'transport',
+          time: '07:30', name: '出发', navTo: [28.947, -81.34], navLabel: 'Blue Spring State Park', br: 'q3:a', type: 'transport',
           lat: 28.9487, lng: -81.3396, stay: 50, transit: '自驾或打车约 45 分钟（I-4 转 17-92）',
           note: '越早越好：清晨海牛最活跃，人也最少。'
         },
@@ -322,7 +322,7 @@ window.TRIP = {
           note: 'Donnelly St 是主街，古董店、书店、咖啡馆一路排开。走到湖滨看 Mount Dora 灯塔（1 Lighthouse Cir），傍晚风很舒服。'
         },
         {
-          time: '16:40', name: '回奥兰多', type: 'transport',
+          time: '16:40', name: '回奥兰多', navTo: [28.352, -81.59], navLabel: 'Embassy Suites Sunset Walk', type: 'transport',
           lat: 28.5383, lng: -81.3792, stay: 60, transit: '开车 50 分钟（FL-429 / Turnpike）',
           note: ''
         },
@@ -356,7 +356,7 @@ window.TRIP = {
       note: '这是全程走路最多的一天。提前买好指定日期的票并绑定 App，开门前 30 分钟到闸口。',
       items: [
         {
-          time: '08:00', name: '出发（Sunset Walk → Animal Kingdom）', type: 'transport',
+          time: '08:00', name: '出发（Sunset Walk → Animal Kingdom）', navTo: [28.356, -81.591], navLabel: 'Animal Kingdom 停车场', type: 'transport',
           lat: 28.3553, lng: -81.5901, stay: 30, transit: '自驾或打车约 25 分钟',
           note: '停车费 $30 左右；打车可以直接到闸口。'
         },
@@ -420,7 +420,7 @@ window.TRIP = {
       items: [
         { time: '', name: '上午 · 开园即进', type: 'divider', note: '' },
         {
-          time: '07:10', name: '退房出发（Kissimmee → KSC 约 80 分钟）', type: 'transport',
+          time: '07:10', name: '退房出发（Kissimmee → KSC 约 80 分钟）', navTo: [28.5232, -80.6819], navLabel: 'KSC 游客中心停车场', type: 'transport',
           lat: 28.5729, lng: -80.6490, stay: 70, transit: '自驾 FL-528 向东，约 1 小时 10 分',
           note: '早点走，路上买杯咖啡。园区 9:00 开门，8:50 到停车场刚好。'
         },
@@ -483,7 +483,7 @@ window.TRIP = {
         },
         { time: '', name: '晚上 · 南下劳德代尔堡', type: 'divider', note: '' },
         {
-          time: '17:15', name: '出发南下', type: 'transport',
+          time: '17:15', name: '出发南下', navTo: [26.0735, -80.145], navLabel: 'FLL 租车中心', type: 'transport',
           lat: 26.0745, lng: -80.1504, stay: 195, transit: 'FL-528 转 I-95 南下，约 3 小时 15 分',
           note: '全程 340 公里。18:30 左右在 Fort Pierce 服务区停一次，加油 + 上厕所。'
         },
@@ -623,7 +623,7 @@ window.TRIP = {
           note: '这家 Holiday Inn Express 的早餐到 9:30，别拖。'
         },
         {
-          time: '09:20', name: '出发去海滩', type: 'transport',
+          time: '09:20', name: '出发去海滩', navTo: [26.119, -80.105], navLabel: '海滩公共停车场', type: 'transport',
           lat: 26.1455, lng: -80.1055, stay: 20, transit: '开车 15 分钟（3109 E Sunrise Blvd）',
           note: '打车约 $14。沿 Las Olas Blvd 一直往东到海边，再往北就是 A1A 海滩段。'
         },
@@ -654,7 +654,7 @@ window.TRIP = {
           note: '比原来早一个半小时。熨正装、补觉、洗个澡，晚上 Gala 要站很久。'
         },
         {
-          time: '16:50', name: '去会场', type: 'transport',
+          time: '16:50', name: '去会场', navTo: [26.0987, -80.121], navLabel: 'Broward 会展中心', type: 'transport',
           lat: 26.0995, lng: -80.1155, stay: 15, transit: '开车 8 分钟 / 打车约 $10',
           note: '17:00 有酒会，提前 10 分钟到。'
         },
@@ -727,7 +727,7 @@ window.TRIP = {
           note: ''
         },
         {
-          time: '09:00', name: '出发去 Miami', br: 'q4:b', type: 'transport',
+          time: '09:00', name: '出发去 Miami', navTo: [25.744, -80.21], navLabel: 'Vizcaya 停车场', br: 'q4:b', type: 'transport',
           lat: 25.7444, lng: -80.2103, stay: 45, transit: '自驾或打车约 40 分钟（I-95 南）',
           note: '打车单程约 $50。想省钱包车一天更划算。'
         },
@@ -747,7 +747,7 @@ window.TRIP = {
           note: 'Art Deco 装饰艺术建筑群，沿 Ocean Drive 走一圈比拍照有意思。'
         },
         {
-          time: '16:45', name: '回劳德代尔堡', br: 'q4:b', type: 'transport',
+          time: '16:45', name: '回劳德代尔堡', navTo: [26.1006, -80.1189], navLabel: 'Holiday Inn Express', br: 'q4:b', type: 'transport',
           lat: 26.1018, lng: -80.1252, stay: 55, transit: '自驾 40 分钟',
           note: '晚高峰 I-95 会堵，多留时间。'
         },
@@ -780,7 +780,7 @@ window.TRIP = {
           note: '酒店早餐 06:00 才开，别指望。前一晚让前台准备两份打包早餐，或者自己买好放在房间。'
         },
         {
-          time: '04:45', name: '开车去 FLL', type: 'transport',
+          time: '04:45', name: '开车去 FLL', navTo: [26.0735, -80.145], navLabel: 'FLL 租车中心（3 楼）', type: 'transport',
           lat: 26.0742, lng: -80.1506, stay: 15, transit: 'SE 17th St → I-595，约 10 分钟',
           note: '凌晨路上没车。'
         },
