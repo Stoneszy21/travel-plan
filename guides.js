@@ -766,7 +766,147 @@ window.TRIP_GUIDES = {
     }
   ],
 
-    priceRange: {
+    drivingDays: [
+    {
+      day: 'D1', date: '11/13 周五', route: 'FLL 机场 → 奥兰多 Maitland',
+      load: '约 210 英里 · 3 小时 10 分', best: '开车（没得选）',
+      legs: [
+        { k: '18:30 取车 → 19:30 出发', v: 'I-95 北 → Florida Turnpike → I-4 西。夜路，两个服务区（Fort Pierce、Canterbury）' }
+      ],
+      park: [
+        { name: 'Sheraton Orlando North 住客停车', price: '约 $17/晚', note: '室外，前台结算，含进出' }
+      ],
+      tip: '落地 17:51、18:30 取车，中间只有 40 分钟。行李延误就直接改约 19:30 取车，别硬赶。'
+    },
+    {
+      day: 'D2', date: '11/14 周六', route: 'Winter Park → 奥兰多市区',
+      load: '约 30 英里 · 累计开车 50 分钟', best: '上午开车 + 步行，下午开车进市区',
+      legs: [
+        { k: '酒店 → Winter Park 市集', v: '开车 9 分钟。停一次车，之后 Rollins / Morse / Park Ave / 游船全步行' },
+        { k: 'Winter Park → 市区图书馆', v: '开车 20 分钟（I-4 南下）' },
+        { k: '市区内（图书馆 → Lake Eola → 晚餐 → Church St）', v: '全部步行 8–12 分钟，不用动车' }
+      ],
+      park: [
+        { name: 'Winter Park 公共停车库（Lyman Ave）', price: '免费', note: '靠近 Morse Museum，步行到 Park Ave 3 分钟。周六市集期间 9 点后容易满' },
+        { name: 'Park Avenue 沿街计时车位', price: '约 $1–2/小时', note: '周末车位紧张，建议还是进停车库' },
+        { name: 'Orlando 市区 · 图书馆停车库（101 E Central Blvd）', price: '约 $2–4/小时', note: '直接停图书馆楼下，后面全程步行，晚上再回来取车' }
+      ],
+      tip: '这天最省事的做法：早上把车停进 Lyman Ave 车库，一整天不动；下午开到图书馆车库后，市区那段全靠走。'
+    },
+    {
+      day: 'D3', date: '11/15 周日', route: 'Blue Spring → Sanford → Mount Dora → 换酒店',
+      load: '约 95 英里 · 累计开车 2 小时 40 分', best: '开车（没得选）',
+      legs: [
+        { k: '酒店 → Blue Spring', v: '开车 38 分钟。7:30 出发，8:10 到' },
+        { k: 'Blue Spring → Sanford 老城', v: '开车 20 分钟' },
+        { k: 'Sanford → Renningers → Mount Dora', v: '开车 15 + 10 分钟' },
+        { k: 'Mount Dora → Embassy Suites（换酒店）', v: '开车 45 分钟，17:50 到' }
+      ],
+      park: [
+        { name: 'Blue Spring State Park 园内停车场', price: '含在门票', note: '免费但车位有限，海牛季 8 点后基本满——这是为什么必须 7:30 出发' },
+        { name: 'Sanford 老城街边', price: '免费（限时）', note: 'First Street 一带，周末多数免费' },
+        { name: 'Renningers Mount Dora 停车场', price: '免费', note: '超大停车场，周日古董集市人多但好停' },
+        { name: 'Mount Dora 老城公共停车', price: '免费', note: 'Donnelly St 周边有免费停车场，逛街 2 小时内够' }
+      ],
+      tip: '这天是全程开车最多的一天，但每一段都不超过 45 分钟。真正要担心的是 Blue Spring 的停车位——晚到就只能停路边走进去。'
+    },
+    {
+      day: 'D4', date: '11/16 周一', route: 'Sunset Walk → Animal Kingdom',
+      load: '约 22 英里 · 单程 15 分钟', best: '开车（园区停车贵但必需）',
+      legs: [
+        { k: '酒店 → Animal Kingdom 停车场', v: '开车 12–15 分钟，08:00 出发' },
+        { k: '停车场 → 园区大门', v: '有轨电车或步行，留 20–30 分钟' }
+      ],
+      park: [
+        { name: 'Animal Kingdom 标准停车', price: '**$35/天**', note: '含税费，含接驳电车。当天可凭小票再停其他迪士尼园区' },
+        { name: 'Preferred 优选停车', price: '$50–60/天', note: '离入口近，少走 10 分钟。性价比一般' }
+      ],
+      tip: '停车费 $35 是固定支出。停在标准区就行，电车直接到门口。记好停车排号，晚上回来找车用。'
+    },
+    {
+      day: 'D5', date: '11/17 周二', route: 'Kissimmee → 肯尼迪航天中心 → FLL',
+      load: '约 275 英里 · 累计开车 4 小时 30 分', best: '开车（没得选）',
+      legs: [
+        { k: '酒店 → KSC 游客中心', v: '开车 80 分钟（I-4 → 528 东 → 405），07:10 出发，8:30 到' },
+        { k: 'KSC → FLL 机场', v: '开车 3 小时（I-95 南），17:15 出发，20:15 到' }
+      ],
+      park: [
+        { name: 'KSC 游客中心停车场', price: '约 $10/天', note: '超大停车场，含在园区外，走到大门 5 分钟。以现场为准' }
+      ],
+      tip: '这天开车最长，两个人换着开。KSC 出来别急着走，先在园区吃点东西再上路——回程 3 小时。'
+    },
+    {
+      day: 'D6', date: '11/18 周三', route: 'WAF 会场日',
+      load: '基本不开车', best: '走路 + Sun Trolley',
+      legs: [
+        { k: '酒店 → 会展中心', v: '步行 12 分钟，或 Sun Trolley $1/人' },
+        { k: '晚上吃饭', v: '17th Street 一带步行可达' }
+      ],
+      park: [
+        { name: '酒店停车场', price: '**$10/晚**', note: '车停酒店不动，这是最省钱的选择' },
+        { name: 'Broward County 会展中心停车库', price: '约 $15–20/天', note: '就在会场楼下，除非行李多否则没必要' }
+      ],
+      tip: '开会这三天车基本不用动。酒店 $10/晚已经是这片区最便宜的。'
+    },
+    {
+      day: 'D7', date: '11/19 周四', route: 'WAF + NSU 美术馆',
+      load: '约 6 英里', best: '开车去美术馆，其余走路',
+      legs: [
+        { k: '酒店 → NSU Art Museum', v: '开车 10 分钟（或打车 $10–12）' },
+        { k: '美术馆 → 酒店', v: '开车 10 分钟' }
+      ],
+      park: [
+        { name: 'NSU Art Museum 周边街边', price: '约 $2/小时（咪表）', note: 'Las Olas 北侧，周四晚上有延时开放' },
+        { name: '酒店停车场', price: '$10/晚', note: '开出去一次，晚上回来继续停' }
+      ],
+      tip: '这段其实打车更省心——$10 来回，省下找车位的 10 分钟。开车也行，咪表 2 小时够。'
+    },
+    {
+      day: 'D8', date: '11/20 周五', route: '海滩 → Las Olas → Bonnet House → Gala',
+      load: '约 15 英里', best: '混合：海滩开车，Las Olas 走路',
+      legs: [
+        { k: '酒店 → Fort Lauderdale 海滩', v: '开车 10 分钟，09:40 到' },
+        { k: '海滩 → Las Olas（Coconuts）', v: '开车 8 分钟' },
+        { k: 'Las Olas → Bonnet House', v: '开车 6 分钟' },
+        { k: 'Bonnet House → 酒店', v: '开车 10 分钟，14:45 到' }
+      ],
+      park: [
+        { name: 'Fort Lauderdale 海滩 · Las Olas 停车场（A1A 旁）', price: '约 $4/小时 · $20/天', note: '周末涨价，早点到' },
+        { name: 'Las Olas 大道公共停车库', price: '约 $2/小时 · $15/天', note: 'Las Olas 与 SE 2nd Ave 一带，逛街吃饭停这儿' },
+        { name: 'Bonnet House 专用停车场', price: '免费', note: '凭门票停，在园区入口旁' }
+      ],
+      tip: '这天要换 4 个地方，但每段都在 10 分钟内。下午回酒店别超 15:00，17:00 要参加酒会。'
+    },
+    {
+      day: 'D9', date: '11/21 周六', route: '自由日（A 线劳德代尔堡 / B 线迈阿密）',
+      load: 'A 线约 10 英里 · B 线约 60 英里', best: 'A 线基本不用车；B 线必须开车',
+      legs: [
+        { k: 'A 线：酒店 → 海滩', v: '开车 8 分钟，之后水上巴士 + 步行' },
+        { k: 'B 线：酒店 → Miami Vizcaya', v: '开车 50 分钟（I-95 南）' },
+        { k: 'B 线：Vizcaya → Wynwood → South Beach', v: '开车 20 + 25 分钟' }
+      ],
+      park: [
+        { name: 'Vizcaya 专用停车场', price: '免费', note: '园区内，车位充足' },
+        { name: 'Wynwood 公共停车库（NW 2nd Ave 一带）', price: '约 $10–20/次', note: '街边咪表也行，但周末难找' },
+        { name: 'South Beach 市政停车库', price: '约 $20–40/天', note: 'Ocean Drive 附近，贵但安全' }
+      ],
+      tip: 'B 线三站停车加起来可能 $40–70，要算进预算。A 线全程几乎不用车，更省心。'
+    },
+    {
+      day: 'D10', date: '11/22 周日', route: '酒店 → FLL 还车 → 浦东',
+      load: '约 4 英里', best: '开车（还车）',
+      legs: [
+        { k: '酒店 → FLL 租车中心', v: '开车 10 分钟，04:45 出发，05:00 还车' },
+        { k: '租车中心 → 航站楼', v: '接驳车 10 分钟' }
+      ],
+      park: [
+        { name: 'Avis 还车（600 Terminal Drive 3 楼）', price: '已含在租车费', note: '24 小时有人，05:00 还车不加钱' }
+      ],
+      tip: '前一晚加满油。还车点 3 楼，跟着 Rental Car Return 指示走。'
+    }
+  ],
+
+  priceRange: {
       title: '价格区间：哪些是实价，哪些还是估算',
       note: '租车费已经换成你的携程报价（实价），其余（油费、过路、停车、打车、火车）仍是估算。所以每个方案的总额 = 实价 + 估算区间。',
       rows: [
