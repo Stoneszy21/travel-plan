@@ -435,49 +435,49 @@ window.TRIP = {
           note: '室内馆，趁早上凉快先看。水星/双子星/阿波罗三代航天员的故事，有真飞船。'
         },
         {
-          time: '10:00', name: '火箭花园', type: 'sight',
+          time: '09:55', name: '火箭花园', type: 'sight',
           lat: 28.5233, lng: -80.6819, stay: 20, transit: '园区中央',
           note: '室外，八支真火箭立着。拍照 15 分钟够，正午太晒，趁现在。'
         },
         { time: '', name: '上午到下午 · 巴士导览 + 土星五号', type: 'divider', note: '' },
         {
-          time: '09:30', name: '巴士导览出发（含阿波罗/土星五号中心，2 小时）', type: 'transport',
+          time: '10:20', name: '巴士导览出发（含阿波罗/土星五号中心，2 小时）', type: 'transport',
           lat: 28.5233, lng: -80.6819, stay: 30, transit: '园区巴士站（首班车约 10:00，以现场牌为准）',
           note: '这是全园最费时的项目：车程 30 分钟穿过 NASA 厂区，路过总装大楼（VAB）和发射台。'
         },
         {
-          time: '10:55', name: 'Apollo / Saturn V Center', type: 'sight',
+          time: '11:05', name: 'Apollo / Saturn V Center', type: 'sight',
           lat: 28.6084, lng: -80.6043, stay: 110, transit: '巴士直接送到',
           note: '躺着的土星五号整支火箭，从这头走到那头要 100 米。还有阿波罗 14 号返回舱、月岩可以摸。⭐ 这是整个 KSC 最值的一站，别赶。'
         },
         {
-          time: '12:45', name: 'Moon Rock Cafe 午餐', type: 'food',
-          lat: 28.6084, lng: -80.6043, stay: 45, transit: '土星五号中心内',
-          note: '就在馆里吃，省一趟往返。不想吃快餐可以回主园区再吃，但会挤掉后面的时间。'
-        },
-        {
-          time: '13:30', name: '巴士返回主园区', type: 'transport',
+          time: '12:40', name: '巴士返回主园区', type: 'transport',
           lat: 28.5233, lng: -80.6819, stay: 30, transit: '同站台',
           note: '班次密，不用赶。'
         },
+        {
+          time: '12:50', name: 'Moon Rock Cafe 午餐', type: 'food',
+          lat: 28.6084, lng: -80.6043, stay: 45, transit: '土星五号中心内',
+          note: '就在馆里吃，省一趟往返。不想吃快餐可以回主园区再吃，但会挤掉后面的时间。'
+        },
         { time: '', name: '下午 · Atlantis 与未来', type: 'divider', note: '' },
         {
-          time: '14:00', name: 'Space Shuttle Atlantis 展馆', type: 'sight',
+          time: '13:30', name: 'Space Shuttle Atlantis 展馆', type: 'sight',
           lat: 28.5233, lng: -80.6819, stay: 90, transit: '主园区西侧',
           note: '真机 Atlantis 挂在 90 度倾斜的位置，机舱门开着。先看 8 分钟的入场影片再进展厅，顺序别反。附带 Shuttle Launch Experience 模拟发射（排队 15–30 分钟）。'
         },
         {
-          time: '15:30', name: 'Gateway: The Deep Space Launch', type: 'sight',
+          time: '14:50', name: 'Gateway: The Deep Space Launch', type: 'sight',
           lat: 28.5233, lng: -80.6819, stay: 45, transit: 'Atlantis 隔壁',
           note: '2022 年新开，四层楼的深空探索展 + 两个 4D 飞行影院。人少的时候可以直接连刷。'
         },
         {
-          time: '16:15', name: 'IMAX 电影', type: 'sight',
+          time: '16:05', name: 'IMAX 电影（场次不合就改 Astronaut Encounter）', type: 'sight',
           lat: 28.5233, lng: -80.6819, stay: 40, transit: '园区东侧影院',
           note: '看当天场次，赶不上就跳过。片长 40 分钟左右，讲太空站或登月。'
         },
         {
-          time: '16:55', name: '商店买纪念品', type: 'shop',
+          time: '16:45', name: '商店买纪念品', type: 'shop',
           lat: 28.5233, lng: -80.6819, stay: 20, transit: '出口旁的主商店',
           note: '17:00 闭园，商店最后关。NASA 标志的帽子和任务徽章值得买。'
         },
